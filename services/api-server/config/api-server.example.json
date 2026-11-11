@@ -1,0 +1,13 @@
+{
+  "listen": "127.0.0.1:8443",
+  "database": "../data/api-server.db",
+  "game_config_dir": "",
+  "tls_cert": "",
+  "tls_key": "",
+  "auto_authorize": false,
+  "recreate_missing_account": false,
+  "room_host": "127.0.0.1",
+  "room_port": 25565,
+  "current_season": 0,
+  "default_currency": {"wax": 3}
+}

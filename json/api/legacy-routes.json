@@ -370,7 +370,7 @@
     "handler": "get_achievements",
     "source": "business/account/__init__.py",
     "line": 184,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -492,7 +492,7 @@
     "handler": "get_collectibles",
     "source": "business/account/__init__.py",
     "line": 195,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -855,7 +855,7 @@
     "handler": "get_app_badge_number",
     "source": "business/account/__init__.py",
     "line": 228,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -976,7 +976,7 @@
     "handler": "get_achievement_defs",
     "source": "business/account/__init__.py",
     "line": 240,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1043,7 +1043,7 @@
     "handler": "get_map_defs",
     "source": "business/account/__init__.py",
     "line": 246,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {

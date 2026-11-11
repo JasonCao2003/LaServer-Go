@@ -23,4 +23,4 @@ lines += ['var checkpointOrders = map[string]int64{'] + [json.dumps(k) + ':' + s
 tree = ast.parse((source / 'get_vars/get_vars.py').read_text(encoding='utf-8-sig'))
 variables = next(ast.literal_eval(n.value) for n in ast.walk(tree) if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='response_body' for t in n.targets))
 lines += ['const variablesJSON = ' + json.dumps(json.dumps(variables, ensure_ascii=False)), '']
-(root / 'internal/gameapi/legacy_contracts.go').write_text('\n'.join(lines), encoding='utf-8')
+(root / 'services/api-server/internal/gameapi/legacy_contracts.go').write_text('\n'.join(lines), encoding='utf-8')

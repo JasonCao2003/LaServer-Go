@@ -1,11 +1,52 @@
+# Runtime state and local artifacts
 /data/
 /logs/
 /dist/
 /pic/
-/config/game-api.json
+/tmp/
+/coverage/
+/services/*/data/
+/services/*/logs/
+/services/*/dist/
+/services/*/tmp/
+/services/*/coverage/
+**/packets/
+*.log
 *.db
 *.db-shm
 *.db-wal
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite3-shm
+*.sqlite3-wal
+
+# Local configuration; retain distributable examples
+/config/*.json
+/services/*/config/*.json
+!/config/*.example.json
+!/services/*/config/*.example.json
+.env
+.env.*
+!.env.example
 *.pem
 *.key
+*.p12
+*.pfx
+
+# Build outputs and tool caches
+*.exe
+*.test
+*.out
 __pycache__/
+*.py[cod]
+.venv/
+node_modules/
+
+# Local editor and operating system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

@@ -5,7 +5,7 @@
 
 **Goal:** 分阶段将 LaServer 迁移为可独立启动、业务边界明确且兼容既有客户端的两个 Go 服务。
 
-**Architecture:** 同一 Go module 下分别构建 game-api 和 realtime-server。业务 API 集中管理业务规则与 SQLite，实时服务维护 ENet 与房间状态；分别管理配置和生命周期，先 API 与管理端、后实时服务。
+**Architecture:** 同一仓库下两个独立 Go module 分别构建 api-server 和 room-server。业务 API 集中管理业务规则与 SQLite，实时服务维护 ENet 与房间状态；分别管理配置和生命周期，先 API 与管理端、后实时服务。
 
 **Tech Stack:** Go、net/http、database/sql、SQLite、slog、Go 模板与 embed；SQLite 驱动和 ENet 库经技术验证后锁定。
 
@@ -33,9 +33,11 @@
 
 ## 文件与模块边界
 
+目录约束已更新：以下 API 内部路径均相对于 services/api-server/，实时服务路径相对于 services/room-server/；两者各自维护 go.mod，不共享根 module。API 入口为 cmd/server/main.go。目标分层与当前过渡包状态以根 AGENTS.md 为准。
+
 ```text
-cmd/game-api/main.go             业务 API 入口
-cmd/realtime-server/main.go      实时服务入口
+cmd/server/main.go             业务 API 入口
+cmd/room-server/main.go      实时服务入口
 internal/app/                   API 配置、依赖组装、生命周期
 internal/realtimeapp/            实时端配置、依赖组装、生命周期
 internal/account/               身份与会话
@@ -48,7 +50,7 @@ internal/transport/enet/        ENet 封装
 internal/admin/                管理鉴权、API 与页面
 internal/storage/              SQLite 连接和版本检查
 migrations/                    版本化 SQL
-config/game-api.example.json   API 无凭据配置示例
+config/api-server.example.json   API 无凭据配置示例
 config/realtime.example.json   实时端无凭据配置示例
 tests/compat/                  脱敏兼容用例
 scripts/verify/                 环境与发布检查
@@ -72,20 +74,20 @@ scripts/verify/                 环境与发布检查
 
 ## M1：可诊断的业务 API 启动入口
 
-**文件:** go.mod、cmd/game-api/main.go、internal/app/{config,runtime}.go、internal/app/runtime_test.go、config/game-api.example.json。
+**文件:** go.mod、cmd/server/main.go、internal/app/{config,runtime}.go、internal/app/runtime_test.go、config/api-server.example.json。
 **接口:** `LoadConfig(path string) (Config, error)`；`Run(ctx context.Context, cfg Config) error`。Config 包含 HTTPAddr、AdminAddr、DatabasePath、TLSCertPath、TLSKeyPath；配置不得携带真实凭据。
 
 - [ ] 检查并复用 WSL/Go 工具链，记录版本并锁定 go.mod，不覆盖系统环境。
 - [ ] 编写 TestLoadConfigInvalid、TestRunPortConflict、TestRunCancellation：错误可定位、返回错误、取消后监听器可重新绑定。
 - [ ] 经用户同意运行 `go test ./internal/app -run 'TestLoadConfigInvalid|TestRunPortConflict|TestRunCancellation'`，确认实现前失败。
-- [ ] 实现参数入口 `game-api --config <path>`、配置校验、/healthz、slog、信号退出与启动回滚。
+- [ ] 实现参数入口 `api-server --config <path>`、配置校验、/healthz、slog、信号退出与启动回滚。
 - [ ] 运行同组测试，预期通过；执行 gofmt、go vet ./...；记录真实结果。
 - [ ] 更新启动文档，检查 diff 后建议提交 `feat(api): add independent server startup`，授权后提交。
 
 ## M2：SQLite 与存档迁移基础
 
 **文件:** internal/storage/{sqlite,migrate}.go、internal/storage/migrate_test.go、migrations/、scripts/migrate/、docs/data-migration.md。
-**接口:** `Open(ctx context.Context, path string) (*sql.DB, error)`；`CheckVersion(ctx context.Context, db *sql.DB) error`；独立 `game-api migrate --source <copy> --target <new-path>`。
+**接口:** `Open(ctx context.Context, path string) (*sql.DB, error)`；`CheckVersion(ctx context.Context, db *sql.DB) error`；独立 `api-server migrate --source <copy> --target <new-path>`。
 
 - [ ] 以 M0 映射确定第一批账号表和外键，验证 SQLite 驱动的目标平台构建能力并锁版本。
 - [ ] 写 TestMigrationPreservesAccounts、TestMigrationMixedTimestamps、TestMigrationRefusesExistingTarget；断言 ID、余额和时间归一化正确，拒绝覆盖已有文件。
@@ -121,7 +123,7 @@ scripts/verify/                 环境与发布检查
 **文件:** internal/transport/enet/、internal/protocol/、internal/room/、tests/compat/enet/、docs/enet-decision.md。
 **前置:** 单独批准兼容验证后再做实验；迁移期保留旧 Node.js 服务和明确端口配置。
 
-- [ ] 新增 cmd/realtime-server/main.go、internal/realtimeapp/{config,runtime}.go 和 config/realtime.example.json，实现 `realtime-server --config <path>`；配置含 ENet 地址、本机管理 HTTP 地址，启动不依赖 API 在线。
+- [ ] 新增 cmd/room-server/main.go、internal/realtimeapp/{config,runtime}.go 和 config/realtime.example.json，实现 `room-server --config <path>`；配置含 ENet 地址、本机管理 HTTP 地址，启动不依赖 API 在线。
 - [ ] 对 Go ENet 候选验证许可证、维护状态、目标平台、CGO 和动态库要求，记录决定，不能只以 API 类似判定兼容。
 - [ ] 定义封装接口：`Start(ctx context.Context) error`、`Events() <-chan Event`、`Send(peerID uint64, channel uint8, payload []byte, reliable bool) error`、`Close() error`；Event 包含 Kind、PeerID、Channel、Payload，业务不得依赖候选库类型。
 - [ ] 基于脱敏协议证据补充逐包断言，覆盖校验和、可靠/不可靠通道、分片、重复包、断线和重连；先确认候选与真实客户端建立连接。
@@ -135,7 +137,7 @@ scripts/verify/                 环境与发布检查
 
 - [ ] HTTP 与管理端纳入 API 生命周期，ENet 与实时管理 HTTP 纳入实时服务生命周期。分别写 TestPartialStartupCleanup；实时端写 TestShutdownWithActiveRoom；跨进程验收 TestAPIStartsWithoutRealtime、TestRealtimeStartsWithoutAPI 和 TestStoppingOneServiceKeepsOtherRunning。独立启动不代表所有运行时操作均不依赖另一服务；认证依赖异常须明确报错。
 - [ ] 获授权后运行对应测试；在 Windows amd64、Linux amd64 构建，真实核验 CGO/动态库依赖，记录启动前提。
-- [ ] 检查 dist/<版本>/ 目标是否存在，拒绝覆盖；分别发布 game-api、realtime-server 二进制及各自示例配置，并附迁移说明和校验和，不打包数据或证书。
+- [ ] 检查 dist/<版本>/ 目标是否存在，拒绝覆盖；分别发布 api-server、room-server 二进制及各自示例配置，并附迁移说明和校验和，不打包数据或证书。
 - [ ] 用隔离目录执行干净启动、端口冲突、异常配置、停机和重启验收，日志与报告按类型归档。
 - [ ] 切换前取得生产数据操作授权；停止旧端写入、备份、迁移核验、切换。保留旧服务及其数据；若新端已产生写入，先保存新数据并明确回迁方案，禁止直接切回丢弃数据。
 - [ ] 发布前检查 git status、相关 diff 与敏感文件；授权后才 commit/push 或创建 Release。

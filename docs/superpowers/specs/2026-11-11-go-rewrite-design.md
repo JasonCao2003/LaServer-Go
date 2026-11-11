@@ -12,7 +12,7 @@
 
 ## 架构提案
 
-- 同一仓库、一个 Go module、两个独立服务入口：`game-api --config config/game-api.json` 与 `realtime-server --config config/realtime.json`。业务 API 内部按业务模块组织并承载管理接口，实时服务负责 ENet 与房间状态。两者分别构建、启动、停止和部署，不要求同时启动或同进程运行；迁移期实时端仍可使用旧 Node.js 实现。
+- 同一仓库、两个独立服务目录和 Go module、两个独立服务入口：`api-server --config config/api-server.json` 与 `room-server --config config/realtime.json`。业务 API 内部按业务模块组织并承载管理接口，实时服务负责 ENet 与房间状态。两者分别构建、启动、停止和部署，不要求同时启动或同进程运行；迁移期实时端仍可使用旧 Node.js 实现。
 - API 下发配置的实时服务可达地址；自身启动不依赖实时服务已在线。管理端独立展示实时端在线、离线或不可达状态；查询实时状态使用有超时的管理 HTTP，不跨进程调用内存对象。实时端启动同样不等待 API 在线；具体会话认证和运行时依赖依据 M0 协议证据确定，依赖不可达时明确失败，不绕过校验。
 - HTTP 使用 net/http；业务包按 account、social、inventory、quest、room 划分。handler 负责协议转换，service 负责规则与事务，repository 负责 SQL。模块不得绕过其他模块 service 写其数据。
 - 数据访问采用 database/sql，最终数据库明确使用 SQLite，不引入 Redis 或 MySQL，也不规划数据库换型；驱动经平台和构建验证再锁定。迁移采用有版本的 SQL，显式执行，启动只检查版本，不静默修改真实数据库。实时房间状态保存在实时服务内存中，由该服务管理生命周期；持久化业务数据由业务 API 负责。
