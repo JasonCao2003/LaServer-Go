@@ -1,4 +1,4 @@
-package gameapi
+package handler
 
 import (
 	"context"
@@ -28,6 +28,53 @@ func TestUpgradeV1PreservesAccounts(t *testing.T) {
 	}
 	if err = checkSchema(db); err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestMigrationFailureRollsBackNewTables(t *testing.T) {
+	db, err := Open(filepath.Join(t.TempDir(), "collision.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	if _, err = db.Exec(schema); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = db.Exec("CREATE TABLE app_badge(id INTEGER PRIMARY KEY)"); err != nil {
+		t.Fatal(err)
+	}
+	if err = Migrate(context.Background(), db); err == nil {
+		t.Fatal("expected migration collision")
+	}
+	var version, count int
+	if err = db.QueryRow("SELECT version FROM laserver_schema WHERE id=1").Scan(&version); err != nil {
+		t.Fatal(err)
+	}
+	if err = db.QueryRow("SELECT count(*) FROM sqlite_master WHERE name='achievement_def'").Scan(&count); err != nil {
+		t.Fatal(err)
+	}
+	if version != 1 || count != 0 {
+		t.Fatalf("partial migration: version=%d created=%d", version, count)
+	}
+}
+
+func TestMigrationRejectsFutureVersion(t *testing.T) {
+	db, err := Open(filepath.Join(t.TempDir(), "future.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	if _, err = db.Exec(schema); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = db.Exec("UPDATE laserver_schema SET version=99"); err != nil {
+		t.Fatal(err)
+	}
+	if err = Migrate(context.Background(), db); err == nil {
+		t.Fatal("future version accepted")
+	}
+	if err = checkSchema(db); err == nil {
+		t.Fatal("future version started")
 	}
 }
 

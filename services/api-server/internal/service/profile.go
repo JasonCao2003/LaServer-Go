@@ -1,18 +1,19 @@
-package gameapi
+package service
 
 import (
 	"database/sql"
 	"encoding/json"
-	"net/http"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
+
 	"os"
 	"path/filepath"
 )
 
-func (a *API) achievementDefinitions(r *http.Request, m object) (object, error) {
+func (a *Service) AchievementDefinitions(r Request, m object) (object, error) {
 	if _, err := a.authenticated(r, m); err != nil {
 		return nil, err
 	}
-	rows, err := a.db.QueryContext(r.Context(), `SELECT achievement_id,name,description,icon_url,category,points,is_secret FROM achievement_def WHERE is_active=1 ORDER BY id`)
+	rows, err := a.store.QueryContext(r.Context, repository.ReadAchievementDefinitions)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +50,7 @@ func nullableBool(v sql.NullBool) any {
 	return nil
 }
 
-func (a *API) mapDefinitions(r *http.Request, m object) (object, error) {
+func (a *Service) MapDefinitions(r Request, m object) (object, error) {
 	if a.cfg.GameConfigDir == "" {
 		return nil, fail(503, "Game configuration unavailable")
 	}
@@ -64,12 +65,12 @@ func (a *API) mapDefinitions(r *http.Request, m object) (object, error) {
 	return result, nil
 }
 
-func (a *API) achievements(r *http.Request, m object) (object, error) {
+func (a *Service) Achievements(r Request, m object) (object, error) {
 	u, err := a.authenticated(r, m)
 	if err != nil {
 		return nil, err
 	}
-	rows, err := a.db.QueryContext(r.Context(), `SELECT achievement_id,achievement_name,achievement_description,unlocked_at,COALESCE(progress,0),COALESCE(completed,0) FROM achievement WHERE user_id=? ORDER BY unlocked_at DESC,id`, u.ID)
+	rows, err := a.store.QueryContext(r.Context, repository.ReadAchievements, u.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -92,20 +93,20 @@ func (a *API) achievements(r *http.Request, m object) (object, error) {
 	return object{"achievements": out}, rows.Err()
 }
 
-func (a *API) badge(r *http.Request, m object) (object, error) {
+func (a *Service) Badge(r Request, m object) (object, error) {
 	u, err := a.authenticated(r, m)
 	if err != nil {
 		return nil, err
 	}
-	if _, err = a.db.ExecContext(r.Context(), "INSERT INTO app_badge(user_id,badge_type) VALUES(?,'general') ON CONFLICT(user_id,badge_type) DO NOTHING", u.ID); err != nil {
+	if _, err = a.store.ExecContext(r.Context, repository.EnsureBadge, u.ID); err != nil {
 		return nil, err
 	}
 	var n int64
-	err = a.db.QueryRowContext(r.Context(), "SELECT COALESCE(badge_number,0) FROM app_badge WHERE user_id=? AND badge_type='general'", u.ID).Scan(&n)
+	err = a.store.QueryRowContext(r.Context, repository.ReadBadge, u.ID).Scan(&n)
 	return object{"set_app_badge_number": n}, err
 }
 
-func (a *API) collectibles(r *http.Request, m object) (object, error) {
+func (a *Service) Collectibles(r Request, m object) (object, error) {
 	if text(m, "user") == "" {
 		m["user"] = text(m, "user_id")
 	}
@@ -149,7 +150,27 @@ func (a *API) collectibles(r *http.Request, m object) (object, error) {
 	if err != nil {
 		return nil, err
 	}
-	rows, err := a.db.QueryContext(r.Context(), "SELECT id,COALESCE(used,0),COALESCE(candle_space,0),COALESCE(carrying,0),COALESCE(level,1),COALESCE(permanent_level,0) FROM collectible WHERE user_id=? ORDER BY row_id", u.ID)
+	full, err := a.policy("auto_full_unlock.json", integer(u.CreatedAt), false)
+	if err != nil {
+		return nil, err
+	}
+	if full {
+		all := a.optionalFullCollectibles()
+		combined := []object{}
+		positions = map[string]int{}
+		for _, item := range append(all, out...) {
+			id := text(item, "id")
+			if id == "" {
+				continue
+			}
+			if _, ok := positions[id]; !ok {
+				positions[id] = len(combined)
+				combined = append(combined, item)
+			}
+		}
+		out = combined
+	}
+	rows, err := a.store.QueryContext(r.Context, repository.ReadCollectibles, u.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -170,4 +191,25 @@ func (a *API) collectibles(r *http.Request, m object) (object, error) {
 		}
 	}
 	return object{"collectibles": out}, rows.Err()
+}
+
+// Full actions are optional; preserve base and owned items if the auxiliary file is unavailable.
+func (a *Service) optionalFullCollectibles() []object {
+	raw, err := os.ReadFile(filepath.Join(a.cfg.GameConfigDir, "quandongzuo.json"))
+	if err != nil {
+		return nil
+	}
+	var all []object
+	var envelope object
+	if json.Unmarshal(raw, &all) == nil {
+		return all
+	}
+	if json.Unmarshal(raw, &envelope) != nil {
+		return nil
+	}
+	encoded, err := json.Marshal(envelope["collectibles"])
+	if err != nil || json.Unmarshal(encoded, &all) != nil {
+		return nil
+	}
+	return all
 }

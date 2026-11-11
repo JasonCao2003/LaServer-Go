@@ -1,4 +1,4 @@
-package gameapi
+package service
 
 import (
 	"crypto/sha256"
@@ -7,7 +7,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"net/http"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
+
 	"strconv"
 	"strings"
 	"time"
@@ -25,7 +26,7 @@ func currencyField(k string) bool {
 	return false
 }
 
-func (a *API) currency(r *http.Request, m object) (object, error) {
+func (a *Service) Currency(r Request, m object) (object, error) {
 	u, err := a.authenticated(r, m)
 	if err != nil {
 		return nil, err
@@ -33,7 +34,7 @@ func (a *API) currency(r *http.Request, m object) (object, error) {
 	if err = a.dailyBonus(r, u.ID); err != nil {
 		return nil, err
 	}
-	rows, err := a.db.QueryContext(r.Context(), `SELECT candles,heart,heart_wax,prestige,prestige_vip,prestige_wax,season_candle,season_wax,season_wax_14,season_heart,season_pass_token,vip,wax FROM user_currency WHERE user_id=?`, u.ID)
+	rows, err := a.store.QueryContext(r.Context, repository.ReadCurrency, u.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -65,18 +66,18 @@ func (a *API) currency(r *http.Request, m object) (object, error) {
 }
 
 // dailyBonus commits the grant and its marker together, including concurrent requests.
-func (a *API) dailyBonus(r *http.Request, userID string) error {
+func (a *Service) dailyBonus(r Request, userID string) error {
 	zone, err := time.LoadLocation("America/Los_Angeles")
 	if err != nil {
 		return err
 	}
 	day := time.Now().In(zone).Format("2006-01-02")
-	tx, err := a.db.BeginTx(r.Context(), nil)
+	tx, err := a.store.BeginTx(r.Context, nil)
 	if err != nil {
 		return err
 	}
 	defer tx.Rollback()
-	result, err := tx.ExecContext(r.Context(), `INSERT INTO season_pass_daily(user_id,day) SELECT user_id,? FROM user_currency WHERE user_id=? AND vip>0 ON CONFLICT(user_id,day) DO NOTHING`, day, userID)
+	result, err := tx.ExecContext(r.Context, repository.MarkDailyBonus, day, userID)
 	if err != nil {
 		return err
 	}
@@ -85,14 +86,14 @@ func (a *API) dailyBonus(r *http.Request, userID string) error {
 		return err
 	}
 	if count > 0 {
-		if _, err = tx.ExecContext(r.Context(), "UPDATE user_currency SET season_candle=COALESCE(season_candle,0)+1,updated_at=CURRENT_TIMESTAMP WHERE user_id=?", userID); err != nil {
+		if _, err = tx.ExecContext(r.Context, repository.GrantDailyBonus, userID); err != nil {
 			return err
 		}
 	}
 	return tx.Commit()
 }
 
-func (a *API) userdata(r *http.Request, m object) (object, error) {
+func (a *Service) Userdata(r Request, m object) (object, error) {
 	u, err := a.authenticated(r, m)
 	if err != nil {
 		return nil, err
@@ -103,14 +104,14 @@ func (a *API) userdata(r *http.Request, m object) (object, error) {
 		}
 	}
 	if data := text(m, "data"); data != "" {
-		_, err = a.db.ExecContext(r.Context(), `INSERT INTO user_data(user_id,data,data_time,data_version,updated_at) VALUES(?,?,?,?,?) ON CONFLICT(user_id) DO UPDATE SET data=excluded.data,data_time=excluded.data_time,data_version=excluded.data_version,updated_at=excluded.updated_at`, u.ID, data, number(m, "time", 0), number(m, "version", 3), now())
+		_, err = a.store.ExecContext(r.Context, repository.SaveUserdata, u.ID, data, number(m, "time", 0), number(m, "version", 3), now())
 		if err != nil {
 			return nil, err
 		}
 	}
 	var data string
 	var stamp, version sql.NullInt64
-	err = a.db.QueryRowContext(r.Context(), "SELECT data,data_time,data_version FROM user_data WHERE user_id=?", u.ID).Scan(&data, &stamp, &version)
+	err = a.store.QueryRowContext(r.Context, repository.ReadUserdata, u.ID).Scan(&data, &stamp, &version)
 	if err != nil && !errors.Is(err, sql.ErrNoRows) {
 		return nil, err
 	}
@@ -127,21 +128,21 @@ func (a *API) userdata(r *http.Request, m object) (object, error) {
 	return object{"userdata": object{"time": t, "version": v, "data": data}}, nil
 }
 
-func (a *API) rank(r *http.Request, m object) (object, error) {
+func (a *Service) Rank(r Request, m object) (object, error) {
 	u, err := a.authenticated(r, m)
 	if err != nil {
 		return nil, err
 	}
-	if _, err = a.db.ExecContext(r.Context(), "INSERT INTO user_rank(user_id) VALUES(?) ON CONFLICT(user_id) DO NOTHING", u.ID); err != nil {
+	if _, err = a.store.ExecContext(r.Context, repository.EnsureRank, u.ID); err != nil {
 		return nil, err
 	}
 	var social float64
 	var shepherd, beginner bool
-	err = a.db.QueryRowContext(r.Context(), "SELECT COALESCE(social_rank,0),COALESCE(is_shepherd,0),COALESCE(is_beginner,0) FROM user_rank WHERE user_id=?", u.ID).Scan(&social, &shepherd, &beginner)
+	err = a.store.QueryRowContext(r.Context, repository.ReadRank, u.ID).Scan(&social, &shepherd, &beginner)
 	return object{"set_rank": object{"social": social, "is_shepherd": shepherd, "is_beginner": beginner}}, err
 }
 
-func (a *API) discover(r *http.Request, m object) (object, error) {
+func (a *Service) Discover(r Request, m object) (object, error) {
 	if _, err := a.authenticated(r, m); err != nil {
 		return nil, err
 	}
@@ -153,12 +154,12 @@ func (a *API) discover(r *http.Request, m object) (object, error) {
 	return object{"uri": uri, "move_ts": now(), "signature": sig("signature"), "sig": sig("sig"), "ps_only": false, "platform_filter": 0}, nil
 }
 
-func (a *API) checkpoints(r *http.Request, m object) (object, error) {
+func (a *Service) Checkpoints(r Request, m object) (object, error) {
 	u, err := a.authenticated(r, m)
 	if err != nil {
 		return nil, err
 	}
-	write := r.URL.Path == "/account/set_checkpoint"
+	write := r.Path == "/account/set_checkpoint"
 	if write {
 		if err = require(m, "level_id", "level_hash", "bst_id", "states"); err != nil {
 			return nil, err
@@ -167,13 +168,13 @@ func (a *API) checkpoints(r *http.Request, m object) (object, error) {
 			return nil, fail(400, "Invalid level_id")
 		}
 	}
-	tx, err := a.db.BeginTx(r.Context(), nil)
+	tx, err := a.store.BeginTx(r.Context, nil)
 	if err != nil {
 		return nil, err
 	}
 	defer tx.Rollback()
 	var raw string
-	err = tx.QueryRowContext(r.Context(), "SELECT checkpoints FROM user_checkpoint WHERE user_id=?", u.ID).Scan(&raw)
+	err = tx.QueryRowContext(r.Context, repository.ReadCheckpoints, u.ID).Scan(&raw)
 	if err != nil && !errors.Is(err, sql.ErrNoRows) {
 		return nil, err
 	}
@@ -224,7 +225,7 @@ func (a *API) checkpoints(r *http.Request, m object) (object, error) {
 	if err != nil {
 		return nil, err
 	}
-	if _, err = tx.ExecContext(r.Context(), "INSERT INTO user_checkpoint(user_id,checkpoints) VALUES(?,?) ON CONFLICT(user_id) DO UPDATE SET checkpoints=excluded.checkpoints", u.ID, string(encoded)); err != nil {
+	if _, err = tx.ExecContext(r.Context, repository.SaveCheckpoints, u.ID, string(encoded)); err != nil {
 		return nil, err
 	}
 	if err = tx.Commit(); err != nil {

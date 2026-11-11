@@ -1,4 +1,4 @@
-package gameapi
+package service
 
 import (
 	"context"
@@ -8,7 +8,8 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"net/http"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
+
 	"regexp"
 	"strconv"
 	"strings"
@@ -43,17 +44,17 @@ func legacyVersion(ua string) bool {
 	return major == 0 && minor < 5
 }
 
-func (a *API) findUser(ctx context.Context, key, value string) (entity.User, error) {
+func (a *Service) findUser(ctx context.Context, key, value string) (entity.User, error) {
 	var u entity.User
 	// key is chosen by the caller from this allowlist, never from request input.
 	if key != "id" && key != "device_identifier" {
 		return u, errors.New("invalid lookup")
 	}
-	err := a.db.QueryRowContext(ctx, "SELECT id,device_identifier,session,recovery_token,is_authorized,is_banned,ban_end_time,platform FROM user WHERE "+key+"=?", value).Scan(&u.ID, &u.DeviceIdentifier, &u.Session, &u.RecoveryToken, &u.IsAuthorized, &u.IsBanned, &u.BanEndTime, &u.Platform)
+	err := a.store.QueryRowContext(ctx, repository.UserLookup(key), value).Scan(&u.ID, &u.DeviceIdentifier, &u.Session, &u.RecoveryToken, &u.IsAuthorized, &u.IsBanned, &u.BanEndTime, &u.Platform, &u.CreatedAt)
 	return u, err
 }
 
-func (a *API) createUser(r *http.Request, name, id string, authCreate bool) (entity.User, error) {
+func (a *Service) createUser(r Request, name, id string, authCreate bool) (entity.User, error) {
 	var u entity.User
 	var err error
 	if id == "" {
@@ -74,47 +75,52 @@ func (a *API) createUser(r *http.Request, name, id string, authCreate bool) (ent
 	if err != nil {
 		return u, err
 	}
+	stamp := now()
+	autoAuthorize, err := a.policy("auto_auth.json", stamp, a.cfg.AutoAuthorize)
+	if err != nil {
+		return u, err
+	}
 	if authCreate {
 		device, err = uuid()
 		if err != nil {
 			return u, err
 		}
-		if !a.cfg.AutoAuthorize {
+		if !autoAuthorize {
 			session = "UNAUTH_" + session
 		}
 	}
 	authorized := 0
-	if a.cfg.AutoAuthorize {
+	if autoAuthorize {
 		authorized = 1
 	}
-	tx, err := a.db.BeginTx(r.Context(), nil)
+	tx, err := a.store.BeginTx(r.Context, nil)
 	if err != nil {
 		return u, err
 	}
 	defer tx.Rollback()
-	_, err = tx.ExecContext(r.Context(), `INSERT INTO user(id,device,device_identifier,session,recovery_token,is_authorized,ip_address,created_at,device_name,user_agent) VALUES(?,?,?,?,?,?,?,?,?,?)`, id, name, device, session, recovery, authorized, remoteIP(r), now(), name, r.UserAgent())
+	_, err = tx.ExecContext(r.Context, repository.CreateUser, id, name, device, session, recovery, authorized, remoteIP(r), stamp, name, r.UserAgent)
 	if err != nil {
 		return u, err
 	}
-	if _, err = tx.ExecContext(r.Context(), "INSERT INTO user_currency(user_id) VALUES(?)", id); err != nil {
+	if _, err = tx.ExecContext(r.Context, repository.CreateCurrency, id); err != nil {
 		return u, err
 	}
 	for k, v := range a.cfg.DefaultCurrency {
 		if !currencyField(k) {
 			return u, fmt.Errorf("unknown default currency %q", k)
 		}
-		if _, err = tx.ExecContext(r.Context(), "UPDATE user_currency SET "+k+"=? WHERE user_id=?", v, id); err != nil {
+		if _, err = tx.ExecContext(r.Context, repository.CurrencyUpdate(k), v, id); err != nil {
 			return u, err
 		}
 	}
 	if err = tx.Commit(); err != nil {
 		return u, err
 	}
-	return a.findUser(r.Context(), "id", id)
+	return a.findUser(r.Context, "id", id)
 }
 
-func (a *API) create(r *http.Request, m object) (object, error) {
-	auth := r.URL.Path == "/account/auth/create"
+func (a *Service) Create(r Request, m object) (object, error) {
+	auth := r.Path == "/account/auth/create"
 	name, ok := m["device_name"].(string)
 	if !ok {
 		return nil, fail(400, "Invalid device_name")
@@ -125,7 +131,7 @@ func (a *API) create(r *http.Request, m object) (object, error) {
 		}
 	} else {
 		looksLegacy := name != "" && text(m, "sig") == "" && text(m, "device_key") == "" && m["hashes"] == nil
-		if !legacyUA(r) && !looksLegacy {
+		if !a.legacyUA(r) && !looksLegacy {
 			if err := require(m, "device_name", "language", "tos_version", "link_external", "device_key", "sig_ts", "sig", "hashes"); err != nil {
 				return nil, err
 			}
@@ -147,10 +153,10 @@ func (a *API) create(r *http.Request, m object) (object, error) {
 		}
 	}
 	if auth {
-		return object{"authinfo": object{"user": u.ID, "device": stringValue(u.DeviceIdentifier), "key": key, "recovery_token": stringValue(u.RecoveryToken)}, "session": stringValue(u.Session), "resource_list": authCreateResources, "authorization_required": !a.cfg.AutoAuthorize, "message": "账号已创建"}, nil
+		return object{"authinfo": object{"user": u.ID, "device": stringValue(u.DeviceIdentifier), "key": key, "recovery_token": stringValue(u.RecoveryToken)}, "session": stringValue(u.Session), "resource_list": authCreateResources, "authorization_required": integer(u.IsAuthorized) == 0, "message": "账号已创建"}, nil
 	}
 	result := object{"user": u.ID, "device": stringValue(u.DeviceIdentifier), "key": key, "session": stringValue(u.Session), "resource_list": createResources}
-	if legacyUA(r) {
+	if a.legacyUA(r) {
 		augmentLegacy(result, u)
 	}
 	return result, nil
@@ -163,39 +169,39 @@ func banError(u entity.User, status int) error {
 		info["remaining_seconds"] = remaining
 		info["remaining_days"] = remaining / 86400
 	}
-	return &apiError{status, object{"error": "Account banned", "baninfo": info}}
+	return &Error{status, object{"error": "Account banned", "baninfo": info}}
 }
-func (a *API) checkAllowed(ctx context.Context, u *entity.User, status int) error {
+func (a *Service) checkAllowed(ctx context.Context, u *entity.User, status int) error {
 	if integer(u.IsBanned) == 1 {
 		if integer(u.BanEndTime) == 0 || integer(u.BanEndTime) > now() {
 			return banError(*u, status)
 		}
-		if _, err := a.db.ExecContext(ctx, "UPDATE user SET is_banned=0,ban_duration=0,ban_start_time=0,ban_end_time=0 WHERE id=?", u.ID); err != nil {
+		if _, err := a.store.ExecContext(ctx, repository.ClearExpiredBan, u.ID); err != nil {
 			return err
 		}
 	}
 	if integer(u.IsAuthorized) == 0 {
-		return &apiError{status, object{"error": "Account not authorized", "baninfo": object{"user_id": u.ID, "end_date": 0, "type": "unauthorized", "message": "账号尚未授权，请联系管理员"}}}
+		return &Error{status, object{"error": "Account not authorized", "baninfo": object{"user_id": u.ID, "end_date": 0, "type": "unauthorized", "message": "账号尚未授权，请联系管理员"}}}
 	}
 	return nil
 }
 
-func (a *API) login(r *http.Request, m object) (object, error) {
+func (a *Service) Login(r Request, m object) (object, error) {
 	id := strings.TrimSpace(text(m, "user"))
 	var u entity.User
 	var err error
 	if _, hasUser := m["user"]; !hasUser && text(m, "device") != "" {
-		u, err = a.findUser(r.Context(), "device_identifier", text(m, "device"))
+		u, err = a.findUser(r.Context, "device_identifier", text(m, "device"))
 	} else {
 		if id == "" {
 			return nil, fail(400, "Missing required field: user")
 		}
-		u, err = a.findUser(r.Context(), "id", id)
+		u, err = a.findUser(r.Context, "id", id)
 		if errors.Is(err, sql.ErrNoRows) && a.cfg.RecreateMissingAccount {
 			u, err = a.createUser(r, text(m, "device_name"), id, false)
 		}
 	}
-	auth := r.URL.Path == "/account/auth/login"
+	auth := r.Path == "/account/auth/login"
 	if errors.Is(err, sql.ErrNoRows) {
 		if auth {
 			return object{"result": "not_found", "message": "用户不存在", "user_id": id}, nil
@@ -205,7 +211,17 @@ func (a *API) login(r *http.Request, m object) (object, error) {
 	if err != nil {
 		return nil, err
 	}
-	if err = a.checkAllowed(r.Context(), &u, 406); err != nil {
+	if err = a.checkAllowed(r.Context, &u, 406); err != nil {
+		if auth {
+			if e, ok := err.(*Error); ok {
+				info, _ := e.Body["baninfo"].(object)
+				message := "账号已被封禁"
+				if info["type"] == "unauthorized" {
+					message = "账号未授权"
+				}
+				return nil, &Error{e.Status, object{"baninfo": info, "user": u.ID, "end_date": integer(u.BanEndTime), "message": message}}
+			}
+		}
 		return nil, err
 	}
 	session, err := token(16)
@@ -223,7 +239,7 @@ func (a *API) login(r *http.Request, m object) (object, error) {
 	if d := text(m, "device"); d != "" {
 		device = d
 	}
-	if _, err = a.db.ExecContext(r.Context(), "UPDATE user SET session=?,recovery_token=?,device_identifier=?,ip_address=?,user_agent=? WHERE id=?", session, recovery, device, remoteIP(r), r.UserAgent(), u.ID); err != nil {
+	if _, err = a.store.ExecContext(r.Context, repository.RotateSession, session, recovery, device, remoteIP(r), r.UserAgent, u.ID); err != nil {
 		return nil, err
 	}
 	u.DeviceIdentifier = &device
@@ -233,13 +249,13 @@ func (a *API) login(r *http.Request, m object) (object, error) {
 			return nil, err
 		}
 		scheme := "ws"
-		if r.TLS != nil {
+		if r.Secure {
 			scheme = "wss"
 		}
 		return object{"authinfo": object{"user": u.ID, "device": device, "key": key, "recovery_token": recovery}, "session": session, "resource_list": authLoginResources, "external_links": []string{}, "websocket_url": scheme + "://" + r.Host + "/account/ws", "websocket_auth": "Basic " + base64.StdEncoding.EncodeToString([]byte(u.ID+":"+session))}, nil
 	}
 	result := object{"user": u.ID, "device": nil, "key": strings.Repeat("0", 64), "session": session, "resource_list": loginResources}
-	if legacyUA(r) {
+	if a.legacyUA(r) {
 		augmentLegacy(result, u)
 	}
 	return result, nil
@@ -259,12 +275,12 @@ func augmentLegacy(result object, u entity.User) {
 	result["motd_season_end"] = 0
 }
 
-func (a *API) authenticated(r *http.Request, m object) (entity.User, error) {
+func (a *Service) authenticated(r Request, m object) (entity.User, error) {
 	var u entity.User
 	if text(m, "user") == "" || text(m, "session") == "" {
 		return u, fail(400, "Invalid request body")
 	}
-	u, err := a.findUser(r.Context(), "id", text(m, "user"))
+	u, err := a.findUser(r.Context, "id", text(m, "user"))
 	if errors.Is(err, sql.ErrNoRows) {
 		return u, fail(401, "Invalid session or user not found")
 	}
@@ -274,5 +290,5 @@ func (a *API) authenticated(r *http.Request, m object) (entity.User, error) {
 	if stringValue(u.Session) != text(m, "session") {
 		return u, fail(401, "Invalid session or user not found")
 	}
-	return u, a.checkAllowed(r.Context(), &u, 406)
+	return u, a.checkAllowed(r.Context, &u, 406)
 }

@@ -1,4 +1,4 @@
-package gameapi
+package config
 
 import (
 	"encoding/json"
@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 )
 
-func LoadConfig(path string) (Config, error) {
+func Load(path string) (Config, error) {
 	var cfg Config
 	f, err := os.Open(path)
 	if err != nil {
@@ -58,4 +58,37 @@ func LoadConfig(path string) (Config, error) {
 		return cfg, errors.New("current_season cannot be negative")
 	}
 	return cfg, nil
+}
+
+type Config struct {
+	Listen                 string           `json:"listen"`
+	Database               string           `json:"database"`
+	TLSCert                string           `json:"tls_cert"`
+	TLSKey                 string           `json:"tls_key"`
+	AutoAuthorize          bool             `json:"auto_authorize"`
+	RecreateMissingAccount bool             `json:"recreate_missing_account"`
+	RoomHost               string           `json:"room_host"`
+	RoomPort               int              `json:"room_port"`
+	CurrentSeason          int              `json:"current_season"`
+	DefaultCurrency        map[string]int64 `json:"default_currency"`
+	GameConfigDir          string           `json:"game_config_dir"`
+}
+
+var currencyFields = []string{"candles", "heart", "heart_wax", "prestige", "prestige_vip", "prestige_wax", "season_candle", "season_wax", "season_wax_14", "season_heart", "season_pass_token", "vip", "wax"}
+
+func currencyField(k string) bool {
+	for _, f := range currencyFields {
+		if f == k {
+			return true
+		}
+	}
+	return false
+}
+
+func ValidateRuntime(cfg Config) error {
+	ip := net.ParseIP(cfg.RoomHost)
+	if ip == nil || ip.To4() == nil || cfg.RoomPort < 1 || cfg.RoomPort > 65535 {
+		return errors.New("room_host must be IPv4 and room_port must be 1..65535")
+	}
+	return nil
 }

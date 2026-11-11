@@ -17,7 +17,7 @@ for path in sorted((source / 'business').rglob('*.py')):
         kw = {k.arg: k.value for k in node.keywords}
         routes.append({'path': node.args[0].value, 'methods': ast.literal_eval(kw['methods']) if 'methods' in kw else ['GET'], 'handler': ast.unparse(node.args[2]) if len(node.args) > 2 else ast.unparse(kw.get('view_func')), 'source': str(path.relative_to(source)).replace('\\', '/'), 'line': node.lineno, 'status': 'pending'})
 out = root / 'json/api/legacy-routes.json'
-implemented = set(re.findall(r'a\.routes\["([^"]+)"\]', (root / 'services/api-server/internal/gameapi/api.go').read_text(encoding='utf-8'))) if (root / 'services/api-server/internal/gameapi/api.go').exists() else set()
+implemented = set(re.findall(r'a\.routes\["([^"]+)"\]', (root / 'services/api-server/internal/handler/api.go').read_text(encoding='utf-8'))) if (root / 'services/api-server/internal/handler/api.go').exists() else set()
 for route in routes:
     route['status'] = 'implemented_local_only' if route['path'] in implemented else 'pending'
     route['client_verified'] = False

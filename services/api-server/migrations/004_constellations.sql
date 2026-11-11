@@ -1,0 +1,1 @@
+CREATE TABLE constellation_friend_page(id INTEGER PRIMARY KEY,user_id TEXT NOT NULL REFERENCES user(id),page_index INTEGER NOT NULL,friend_id TEXT NOT NULL REFERENCES user(id),constellation_node_index INTEGER NOT NULL,created_at INTEGER,updated_at INTEGER,UNIQUE(user_id,page_index,friend_id));

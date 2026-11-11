@@ -150,7 +150,7 @@
     "handler": "get_achievement_stats_tracking",
     "source": "business/account/__init__.py",
     "line": 162,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -161,7 +161,7 @@
     "handler": "get_event_currency_defs",
     "source": "business/account/__init__.py",
     "line": 163,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -205,7 +205,7 @@
     "handler": "get_questionnaires",
     "source": "business/account/__init__.py",
     "line": 169,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -359,7 +359,7 @@
     "handler": "get_forge_rates",
     "source": "business/account/__init__.py",
     "line": 183,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -381,7 +381,7 @@
     "handler": "get_achievement_stats",
     "source": "business/account/__init__.py",
     "line": 185,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -392,7 +392,7 @@
     "handler": "get_relationship_abilities",
     "source": "business/account/__init__.py",
     "line": 186,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -436,7 +436,7 @@
     "handler": "iap_list",
     "source": "business/account/__init__.py",
     "line": 190,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -514,7 +514,7 @@
     "handler": "get_questionnaire_groups",
     "source": "business/account/__init__.py",
     "line": 197,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -943,7 +943,7 @@
     "handler": "get_invites",
     "source": "business/account/__init__.py",
     "line": 237,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -954,7 +954,7 @@
     "handler": "get_online_friends",
     "source": "business/account/__init__.py",
     "line": 238,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -988,7 +988,7 @@
     "handler": "get_friend_statues",
     "source": "business/account/__init__.py",
     "line": 241,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -999,7 +999,7 @@
     "handler": "get_friends",
     "source": "business/account/__init__.py",
     "line": 242,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1076,7 +1076,7 @@
     "handler": "get_outfit",
     "source": "business/account/__init__.py",
     "line": 249,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1120,7 +1120,7 @@
     "handler": "get_quest_defs",
     "source": "business/account/__init__.py",
     "line": 253,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1318,7 +1318,7 @@
     "handler": "create_invite",
     "source": "business/account/__init__.py",
     "line": 271,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1340,7 +1340,7 @@
     "handler": "check_invite",
     "source": "business/account/__init__.py",
     "line": 273,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1351,7 +1351,7 @@
     "handler": "accept_invite",
     "source": "business/account/__init__.py",
     "line": 274,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1362,7 +1362,7 @@
     "handler": "delete_invite",
     "source": "business/account/__init__.py",
     "line": 275,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {

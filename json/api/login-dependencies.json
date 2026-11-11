@@ -1,0 +1,705 @@
+[
+  {
+    "resource": "device_capabilities",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/device_capabilities/lookup",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "userdata",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/userdata",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "set_friends",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_friends",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "set_friend_statues",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_friend_statues",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "online_friends",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_online_friends",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "set_rank",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_rank",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "currency",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_currency",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "forge_rates",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_forge_rates",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "motd",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_motd",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "outfit_defs",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_outfit",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "achievements",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_achievements",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "achievement_stats",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_achievement_stats",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "relationship_defs",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_relationship_abilities",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "questionnaires",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_questionnaires",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "event_schedule",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_event_schedule",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "set_world_quests",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_account_world_quests",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "iap_list",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/iaplist",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "invite_list",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_invites",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "unlocks",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_unlocks",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "get_shop",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_shop",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "spirit_shops",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_spirit_shops",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "collectibles",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_collectibles",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "wing_buffs",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/wing_buffs/get",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "gift_messages",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_pending_messages",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "set_app_badge_number",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_app_badge_number",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "get_consumable_defs",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/consumable/get_consumable_defs",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "get_consumables",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/consumable/get_consumables",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "get_buff_defs",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/buff/get_buff_defs",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "get_buffs",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/buff/get_buffs",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "get_lootboxes",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/lootboxes/get",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "checkpoints",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_checkpoints",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "generic_shop_defs",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_generic_shops",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "external_account_friends",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_external_friends",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "serendipity_matches",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/serendipity/get",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "get_star_tag_defs",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/star/get",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "status_unlocks",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/service/status/api/v1/get_unlocks",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "free_gifts",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/service/relationship/api/v1/free_gifts/get_pending",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "get_map_defs",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_map_defs",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "achievement_defs",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_achievement_defs",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "achievement_stats_tracking",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_achievement_stats_tracking",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "event_currency_defs",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/account/get_event_currency_defs",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "implemented_local_only",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "infractions",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/service/infraction/api/v1/get_infractions_status_decorated",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "messages",
+    "advertised_by": [
+      "create/create.py",
+      "login/login.py",
+      "auth_create/auth_create.py",
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": "/service/message/api/v2/get_all",
+    "mapping_evidence": "legacy server handler/response naming; client request trace pending",
+    "implementation": "pending",
+    "requested_result": 501,
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "set_friend_status",
+    "advertised_by": [
+      "auth_create/auth_create.py"
+    ],
+    "candidate_path": null,
+    "mapping_evidence": "unresolved",
+    "implementation": "unresolved",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "set_random",
+    "advertised_by": [
+      "auth_create/auth_create.py"
+    ],
+    "candidate_path": null,
+    "mapping_evidence": "unresolved",
+    "implementation": "unresolved",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "external_links",
+    "advertised_by": [
+      "auth_create/auth_create.py"
+    ],
+    "candidate_path": null,
+    "mapping_evidence": "unresolved",
+    "implementation": "unresolved",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "get_user_profile",
+    "advertised_by": [
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": null,
+    "mapping_evidence": "unresolved",
+    "implementation": "unresolved",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  },
+  {
+    "resource": "emote_sequences",
+    "advertised_by": [
+      "auth_login/auth_login.py"
+    ],
+    "candidate_path": null,
+    "mapping_evidence": "unresolved",
+    "implementation": "unresolved",
+    "requested_result": "requires_runtime_check",
+    "blocks_entire_login": "unverified",
+    "client_verified": false
+  }
+]

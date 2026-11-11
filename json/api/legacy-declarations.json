@@ -1,0 +1,4363 @@
+{
+  "scope": "Python AST declarations; not runtime route discovery",
+  "records": [
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/auth/create",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 149,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/create",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 150,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_motd",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 151,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/auth/login",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 152,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/login",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 153,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_currency",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 154,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_rank",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 155,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/userdata",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 156,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/sync_user_data",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 157,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/device_capabilities/lookup",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 158,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_latest_build_version",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 159,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_vars",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 160,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/support/has_reply",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 161,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_achievement_stats_tracking",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 162,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_event_currency_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 163,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_blocked_friends",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 164,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/set_friend_name",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 165,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/set_friend_block",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 168,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_questionnaires",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 169,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/set_achievement_stats",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 170,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_surveys",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 171,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_shop",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 172,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/lootboxes/get",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 173,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/lootboxes/redeem_box",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 174,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_external_friends",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 175,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/serendipity/get",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 176,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/star/get",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 177,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_pending_messages",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 178,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_generic_shops",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 179,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/consumable/get_consumable_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 180,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/consumable/get_consumables",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 181,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/consumable/consume_item1",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 182,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_forge_rates",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 183,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_achievements",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 184,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_achievement_stats",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 185,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_relationship_abilities",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 186,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/redeem_reward",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 187,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_unlocks",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 188,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_event_schedule",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 189,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/iaplist",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 190,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/commerce/receipt",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 191,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/commerce/fulfill",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 192,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/commerce/update",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 193,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/commerce/product_info",
+      "dynamic_argument": false,
+      "methods": [
+        "POST",
+        "GET"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 194,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_collectibles",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 195,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_spirit_shops",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 196,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_questionnaire_groups",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 197,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/purchase_spirit_shop_item",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 198,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_user_geonotes",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 199,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/geonote/get_user_geonotes",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 200,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/geonote/request_geonotes_for_n_friends",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 201,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/geonote/create_geonote2",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 202,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/create_geonote2",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 203,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/geonote/create_bug_report_geonote",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 204,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/create_bug_report_geonote",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 205,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/geonote/social_geonote2",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 206,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/social_geonote2",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 207,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/geonote/delete_geonote",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 208,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/delete_geonote",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 209,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/geonote/delete_bug_report_geonote",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 210,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/delete_bug_report_geonote",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 211,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/geonote/edit_message_geonote",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 212,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/edit_message_geonote",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 213,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/geonote/request_n_bug_report_geonotes",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 214,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/request_n_bug_report_geonotes",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 215,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_daily_quests",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 216,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_weekly_quests",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 217,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_season_quests_v2",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 218,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_season_pass_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 219,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_currency_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 220,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_event_currency",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 221,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/wing_buffs/get",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 222,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/wing_buffs/collect",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 223,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/collect_collectible",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 224,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/wing_buffs/drop",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 225,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/wing_buffs/deposit",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 226,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/wing_buffs/convert",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 227,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_app_badge_number",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 228,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/buff/get_buffs1",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 229,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/buff/get_buffs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 230,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/buff/remove_buff1",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 232,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/buff/remove_buff",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 233,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/purchase_event_buff",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 234,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/purchase_generic_shop_item",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 235,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_checkpoints",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 236,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_invites",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 237,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_online_friends",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 238,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/purchase_unlock",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 239,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_achievement_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 240,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_friend_statues",
+      "dynamic_argument": false,
+      "methods": [
+        "POST",
+        "OPTIONS"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 241,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_friends",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 242,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/join_friend_game",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 243,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/consumable/get_consumables1",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 244,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/trust/get_trust_tier_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 245,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_map_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 246,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_video_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 247,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_radiance_spawn_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 248,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_outfit",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 249,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_level_pickups",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 250,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/find_previous_or_empty",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 251,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/ack_forge_rate_reset",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 252,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/quest/get_quest_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 253,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/trust/get_trust_group_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 254,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/season_finalize",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 255,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/season_start",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 256,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/activate_season_quest",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 257,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/claim_season_quest_reward",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 258,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/ack_collectible",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 259,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/remote_config/upload",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 260,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_season_quests",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 261,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/trust/get_trust_activity_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 262,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/buff/get_buff_defs",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 263,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_account_world_quests",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 264,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/claim_quest_reward",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 265,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/set_outfit",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 266,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/set_joinable",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 267,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/set_checkpoint",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 268,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/collect_pickup_batch",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 269,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/buy_candle_wax",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 270,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/create_invite",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 271,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/code/verify",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 272,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/check_invite",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 273,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/accept_invite",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 274,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/delete_invite",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 275,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/social_feed/create",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 276,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/social_feed/get_user_feeds",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 277,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/social_feed/get_curated_feeds",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 278,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/social_feed/get_reactions",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 279,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/social_feed/like",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 280,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/social_feed/delete",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 281,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/ack_unlock",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 282,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/chat/send",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 283,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/send",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 287,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/send_message",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 288,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/translate",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 289,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/set_device_token",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 290,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_remote_outfit",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 292,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/give_candle",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 293,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/claim_message_gift",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 296,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/claim_message_gifts",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 297,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/remove_relationship_hint",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 299,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/get_generic_shop_item_tracking_info",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 300,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/account/purchase_dye",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/account/__init__.py",
+      "line": 301,
+      "enclosing": [
+        {
+          "function": "register_account_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/admin/api/friends_list",
+      "dynamic_argument": false,
+      "methods": [
+        "POST",
+        "GET"
+      ],
+      "source": "business/admin/__init__.py",
+      "line": 165,
+      "enclosing": [
+        {
+          "function": "register_admin_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/admin/api/friends_set",
+      "dynamic_argument": false,
+      "methods": [
+        "POST",
+        "GET"
+      ],
+      "source": "business/admin/__init__.py",
+      "line": 167,
+      "enclosing": [
+        {
+          "function": "register_admin_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/admin/api/friends_clear",
+      "dynamic_argument": false,
+      "methods": [
+        "POST",
+        "GET"
+      ],
+      "source": "business/admin/__init__.py",
+      "line": 169,
+      "enclosing": [
+        {
+          "function": "register_admin_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/auth/api/v1/token",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 86,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/infraction/api/v1/get_infractions_status_decorated",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 87,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/message/api/v2/get_all",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 88,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/message/api/v1/get_all",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 89,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/message/api/v1/get",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 90,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/message/api/v1/mark_received",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 91,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/message/api/v1/mark_seen",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 92,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/quest/api/v1/check_for_previous_completion",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 93,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/quest/api/v1/get_player_quests",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 94,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/quest/api/v1/get_player_quests_by_name",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 95,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/quest/api/v1/get_quest_schedule",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 96,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/quest/api/v1/create",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 97,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/quest/api/v1/update_quest",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 98,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/relationship/api/v1/get_all_friend_gist",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 99,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/relationship/api/v1/get_follower_count",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 100,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/relationship/api/v1/update_friend_constellation_pages",
+      "dynamic_argument": false,
+      "methods": [
+        "POST",
+        "OPTIONS"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 106,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/relationship/api/v1/free_gifts/get_pending",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 112,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/relationship/api/v1/free_gifts/send",
+      "dynamic_argument": false,
+      "methods": [
+        "POST",
+        "OPTIONS"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 113,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/relationship/api/v1/free_gifts/claim",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 114,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/reservation/api/v1/reserve",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 115,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/recording/api/v1/create",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 116,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/recording/api/v1/get",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 117,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/recording/api/v2/create",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 119,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/recording/api/v2/update",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 120,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/recording/api/v2/get",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 121,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/ugc/<path:subpath>",
+      "dynamic_argument": false,
+      "methods": [
+        "GET"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 122,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v2/get_curated_feeds",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 123,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v1/get_user_feeds",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 124,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v1/get_by_ids",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 125,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/stage/api/v1/get",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 126,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/stage/api/v1/set",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 128,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/stage/api/v1/friends_in_apartments",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 129,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/stage/api/v1/leave_apartment",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 130,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/stage/api/v1/update_apartment_status",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 131,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/status/api/v1/add_unlock",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 132,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/status/api/v1/delete_unlock",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 133,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/status/api/v1/get_unlocks",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 134,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/trust/api/v1/get_capped",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 135,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/trust/api/v1/get",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 137,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v1/create",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 139,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v1/hide",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 140,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v1/like",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 141,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v1/super_like",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 142,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v1/delete",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 143,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v1/edit",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 144,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/relationship/api/v1/add_follow",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 145,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/relationship/api/v1/set_follow_name",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 146,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/relationship/api/v1/delete_follow",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 147,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/inventory/api/v1/unlocks/remove_dye",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 148,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v1/get_reactions",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 150,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v2/comments",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 151,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v1/report",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 152,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v2/get_penpals",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 153,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/service/social-feed/api/v2/get_penpal_by_id",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/service/__init__.py",
+      "line": 154,
+      "enclosing": [
+        {
+          "function": "register_service_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/starwatch/auth/api/v1/auth",
+      "dynamic_argument": false,
+      "methods": [
+        "POST"
+      ],
+      "source": "business/starwatch/__init__.py",
+      "line": 17,
+      "enclosing": [
+        {
+          "function": "register_starwatch_routes"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "route",
+      "receiver": "app",
+      "path_or_event": "/",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "index.py",
+      "line": 212,
+      "enclosing": [
+        {
+          "function": "_landing_page"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "route",
+      "receiver": "app",
+      "path_or_event": "/favicon.ico",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "index.py",
+      "line": 218,
+      "enclosing": [
+        {
+          "function": "_favicon_landing"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "add_url_rule",
+      "receiver": "app",
+      "path_or_event": "/admin/api/hot_reload",
+      "dynamic_argument": false,
+      "methods": [
+        "POST",
+        "GET"
+      ],
+      "source": "infrastructure/runtime/hot_reload.py",
+      "line": 237,
+      "enclosing": [
+        {
+          "function": "register_hot_reload"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "connect",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 328,
+      "enclosing": [
+        {
+          "function": "handle_chat_websocket_connect"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "disconnect",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 423,
+      "enclosing": [
+        {
+          "function": "handle_chat_websocket_disconnect"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "ping",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 436,
+      "enclosing": [
+        {
+          "function": "handle_ping"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "pong",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 450,
+      "enclosing": [
+        {
+          "function": "handle_pong"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "join_channel",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 460,
+      "enclosing": [
+        {
+          "function": "handle_join_channel"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "leave_channel",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 491,
+      "enclosing": [
+        {
+          "function": "handle_leave_channel"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "message",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 523,
+      "enclosing": [
+        {
+          "function": "handle_websocket_message"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "chat",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 595,
+      "enclosing": [
+        {
+          "function": "handle_chat_event"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "chat_message",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 605,
+      "enclosing": [
+        {
+          "function": "handle_chat_message_event"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "connect",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 615,
+      "enclosing": [
+        {
+          "function": "handle_mqtt_websocket_connect"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "disconnect",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 621,
+      "enclosing": [
+        {
+          "function": "handle_mqtt_websocket_disconnect"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "on",
+      "receiver": "socketio",
+      "path_or_event": "message",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 628,
+      "enclosing": [
+        {
+          "function": "handle_mqtt_message"
+        },
+        {
+          "function": "register_socketio_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    },
+    {
+      "kind": "route",
+      "receiver": "sock",
+      "path_or_event": "/account/ws",
+      "dynamic_argument": false,
+      "methods": null,
+      "source": "infrastructure/transport/websocket_handler.py",
+      "line": 825,
+      "enclosing": [
+        {
+          "function": "native_chat_websocket"
+        },
+        {
+          "function": "register_sock_handlers"
+        }
+      ],
+      "runtime_enabled": "unverified",
+      "authentication": "requires_handler_and_hook_review",
+      "writes": "requires_handler_and_helper_review",
+      "version_range": "requires_dispatch_review"
+    }
+  ],
+  "parse_failures": []
+}

@@ -1,4 +1,4 @@
-package gameapi
+package handler
 
 import (
 	"bytes"

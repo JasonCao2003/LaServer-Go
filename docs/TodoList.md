@@ -1,5 +1,7 @@
 # 开发与修复记录
 
+当前未完成事项与逐接口清单见 [复刻 TODO](TODO.md)。本文件保留历史状态，不用旧记录中的数量代表当前进度。
+
 ## 2026-11-11：继续迁移账号资源
 
 - 新增 get_collectibles、get_achievements、get_app_badge_number、get_achievement_defs、get_map_defs，累计 21 个已实现路径，扫描清单其余 180 个待迁移。
