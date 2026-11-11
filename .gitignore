@@ -1,0 +1,11 @@
+/data/
+/logs/
+/dist/
+/pic/
+/config/game-api.json
+*.db
+*.db-shm
+*.db-wal
+*.pem
+*.key
+__pycache__/

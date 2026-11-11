@@ -1,0 +1,2220 @@
+[
+  {
+    "path": "/account/auth/create",
+    "methods": [
+      "POST"
+    ],
+    "handler": "create_account",
+    "source": "business/account/__init__.py",
+    "line": 149,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/create",
+    "methods": [
+      "POST"
+    ],
+    "handler": "account_create",
+    "source": "business/account/__init__.py",
+    "line": 150,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_motd",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_motd",
+    "source": "business/account/__init__.py",
+    "line": 151,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/auth/login",
+    "methods": [
+      "POST"
+    ],
+    "handler": "logini",
+    "source": "business/account/__init__.py",
+    "line": 152,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/login",
+    "methods": [
+      "POST"
+    ],
+    "handler": "account_login",
+    "source": "business/account/__init__.py",
+    "line": 153,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_currency",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_currency",
+    "source": "business/account/__init__.py",
+    "line": 154,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_rank",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_rank",
+    "source": "business/account/__init__.py",
+    "line": 155,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/userdata",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_userdata",
+    "source": "business/account/__init__.py",
+    "line": 156,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/sync_user_data",
+    "methods": [
+      "POST"
+    ],
+    "handler": "sync_user_data",
+    "source": "business/account/__init__.py",
+    "line": 157,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/device_capabilities/lookup",
+    "methods": [
+      "POST"
+    ],
+    "handler": "lookup",
+    "source": "business/account/__init__.py",
+    "line": 158,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_latest_build_version",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_latest_build_version",
+    "source": "business/account/__init__.py",
+    "line": 159,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_vars",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_vars",
+    "source": "business/account/__init__.py",
+    "line": 160,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/support/has_reply",
+    "methods": [
+      "POST"
+    ],
+    "handler": "has_reply",
+    "source": "business/account/__init__.py",
+    "line": 161,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_achievement_stats_tracking",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_achievement_stats_tracking",
+    "source": "business/account/__init__.py",
+    "line": 162,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_event_currency_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_event_currency_defs",
+    "source": "business/account/__init__.py",
+    "line": 163,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_blocked_friends",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_blocked_friends",
+    "source": "business/account/__init__.py",
+    "line": 164,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/set_friend_name",
+    "methods": [
+      "POST"
+    ],
+    "handler": "set_friend_name",
+    "source": "business/account/__init__.py",
+    "line": 165,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/set_friend_block",
+    "methods": [
+      "POST"
+    ],
+    "handler": "set_friend_block",
+    "source": "business/account/__init__.py",
+    "line": 168,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_questionnaires",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_questionnaires",
+    "source": "business/account/__init__.py",
+    "line": 169,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/set_achievement_stats",
+    "methods": [
+      "POST"
+    ],
+    "handler": "set_achievement_stats",
+    "source": "business/account/__init__.py",
+    "line": 170,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_surveys",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_surveys",
+    "source": "business/account/__init__.py",
+    "line": 171,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_shop",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_shop",
+    "source": "business/account/__init__.py",
+    "line": 172,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/lootboxes/get",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_lootboxes",
+    "source": "business/account/__init__.py",
+    "line": 173,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/lootboxes/redeem_box",
+    "methods": [
+      "POST"
+    ],
+    "handler": "redeem_box",
+    "source": "business/account/__init__.py",
+    "line": 174,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_external_friends",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_external_friends",
+    "source": "business/account/__init__.py",
+    "line": 175,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/serendipity/get",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_serendipity",
+    "source": "business/account/__init__.py",
+    "line": 176,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/star/get",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_star_tags",
+    "source": "business/account/__init__.py",
+    "line": 177,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_pending_messages",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_pending_messages",
+    "source": "business/account/__init__.py",
+    "line": 178,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_generic_shops",
+    "methods": [
+      "POST"
+    ],
+    "handler": "generic_shop_defs",
+    "source": "business/account/__init__.py",
+    "line": 179,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/consumable/get_consumable_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_consumable_defs",
+    "source": "business/account/__init__.py",
+    "line": 180,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/consumable/get_consumables",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_consumables",
+    "source": "business/account/__init__.py",
+    "line": 181,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/consumable/consume_item1",
+    "methods": [
+      "POST"
+    ],
+    "handler": "consume_item1",
+    "source": "business/account/__init__.py",
+    "line": 182,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_forge_rates",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_forge_rates",
+    "source": "business/account/__init__.py",
+    "line": 183,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_achievements",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_achievements",
+    "source": "business/account/__init__.py",
+    "line": 184,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_achievement_stats",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_achievement_stats",
+    "source": "business/account/__init__.py",
+    "line": 185,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_relationship_abilities",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_relationship_abilities",
+    "source": "business/account/__init__.py",
+    "line": 186,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/redeem_reward",
+    "methods": [
+      "POST"
+    ],
+    "handler": "redeem_reward",
+    "source": "business/account/__init__.py",
+    "line": 187,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_unlocks",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_unlocks",
+    "source": "business/account/__init__.py",
+    "line": 188,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_event_schedule",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_event_schedule",
+    "source": "business/account/__init__.py",
+    "line": 189,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/iaplist",
+    "methods": [
+      "POST"
+    ],
+    "handler": "iap_list",
+    "source": "business/account/__init__.py",
+    "line": 190,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/commerce/receipt",
+    "methods": [
+      "POST"
+    ],
+    "handler": "commerce_receipt",
+    "source": "business/account/__init__.py",
+    "line": 191,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/commerce/fulfill",
+    "methods": [
+      "POST"
+    ],
+    "handler": "commerce_fulfill",
+    "source": "business/account/__init__.py",
+    "line": 192,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/commerce/update",
+    "methods": [
+      "POST"
+    ],
+    "handler": "commerce_update",
+    "source": "business/account/__init__.py",
+    "line": 193,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/commerce/product_info",
+    "methods": [
+      "POST",
+      "GET"
+    ],
+    "handler": "commerce_product_info",
+    "source": "business/account/__init__.py",
+    "line": 194,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_collectibles",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_collectibles",
+    "source": "business/account/__init__.py",
+    "line": 195,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_spirit_shops",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_spirit_shops",
+    "source": "business/account/__init__.py",
+    "line": 196,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_questionnaire_groups",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_questionnaire_groups",
+    "source": "business/account/__init__.py",
+    "line": 197,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/purchase_spirit_shop_item",
+    "methods": [
+      "POST"
+    ],
+    "handler": "purchase_spirit_shop_item",
+    "source": "business/account/__init__.py",
+    "line": 198,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_user_geonotes",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_user_geonotes",
+    "source": "business/account/__init__.py",
+    "line": 199,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/geonote/get_user_geonotes",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_user_geonotes2",
+    "source": "business/account/__init__.py",
+    "line": 200,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/geonote/request_geonotes_for_n_friends",
+    "methods": [
+      "POST"
+    ],
+    "handler": "request_geonotes_for_n_friends",
+    "source": "business/account/__init__.py",
+    "line": 201,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/geonote/create_geonote2",
+    "methods": [
+      "POST"
+    ],
+    "handler": "create_geonote2",
+    "source": "business/account/__init__.py",
+    "line": 202,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/create_geonote2",
+    "methods": [
+      "POST"
+    ],
+    "handler": "create_geonote2",
+    "source": "business/account/__init__.py",
+    "line": 203,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/geonote/create_bug_report_geonote",
+    "methods": [
+      "POST"
+    ],
+    "handler": "create_bug_report_geonote",
+    "source": "business/account/__init__.py",
+    "line": 204,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/create_bug_report_geonote",
+    "methods": [
+      "POST"
+    ],
+    "handler": "create_bug_report_geonote",
+    "source": "business/account/__init__.py",
+    "line": 205,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/geonote/social_geonote2",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_geonote2",
+    "source": "business/account/__init__.py",
+    "line": 206,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/social_geonote2",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_geonote2",
+    "source": "business/account/__init__.py",
+    "line": 207,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/geonote/delete_geonote",
+    "methods": [
+      "POST"
+    ],
+    "handler": "delete_geonote",
+    "source": "business/account/__init__.py",
+    "line": 208,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/delete_geonote",
+    "methods": [
+      "POST"
+    ],
+    "handler": "delete_geonote",
+    "source": "business/account/__init__.py",
+    "line": 209,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/geonote/delete_bug_report_geonote",
+    "methods": [
+      "POST"
+    ],
+    "handler": "delete_bug_report_geonote",
+    "source": "business/account/__init__.py",
+    "line": 210,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/delete_bug_report_geonote",
+    "methods": [
+      "POST"
+    ],
+    "handler": "delete_bug_report_geonote",
+    "source": "business/account/__init__.py",
+    "line": 211,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/geonote/edit_message_geonote",
+    "methods": [
+      "POST"
+    ],
+    "handler": "edit_message_geonote",
+    "source": "business/account/__init__.py",
+    "line": 212,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/edit_message_geonote",
+    "methods": [
+      "POST"
+    ],
+    "handler": "edit_message_geonote",
+    "source": "business/account/__init__.py",
+    "line": 213,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/geonote/request_n_bug_report_geonotes",
+    "methods": [
+      "POST"
+    ],
+    "handler": "request_n_bug_report_geonotes",
+    "source": "business/account/__init__.py",
+    "line": 214,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/request_n_bug_report_geonotes",
+    "methods": [
+      "POST"
+    ],
+    "handler": "request_n_bug_report_geonotes",
+    "source": "business/account/__init__.py",
+    "line": 215,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_daily_quests",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_daily_quests",
+    "source": "business/account/__init__.py",
+    "line": 216,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_weekly_quests",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_weekly_quests",
+    "source": "business/account/__init__.py",
+    "line": 217,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_season_quests_v2",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_season_quests_v2",
+    "source": "business/account/__init__.py",
+    "line": 218,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_season_pass_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_season_pass_defs",
+    "source": "business/account/__init__.py",
+    "line": 219,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_currency_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_currency_defs",
+    "source": "business/account/__init__.py",
+    "line": 220,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_event_currency",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_event_currency",
+    "source": "business/account/__init__.py",
+    "line": 221,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/wing_buffs/get",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_wing_buffs",
+    "source": "business/account/__init__.py",
+    "line": 222,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/wing_buffs/collect",
+    "methods": [
+      "POST"
+    ],
+    "handler": "wing_buffs_collect",
+    "source": "business/account/__init__.py",
+    "line": 223,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/collect_collectible",
+    "methods": [
+      "POST"
+    ],
+    "handler": "collect_collectible",
+    "source": "business/account/__init__.py",
+    "line": 224,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/wing_buffs/drop",
+    "methods": [
+      "POST"
+    ],
+    "handler": "wing_buffs_drop",
+    "source": "business/account/__init__.py",
+    "line": 225,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/wing_buffs/deposit",
+    "methods": [
+      "POST"
+    ],
+    "handler": "wing_buffs_deposit",
+    "source": "business/account/__init__.py",
+    "line": 226,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/wing_buffs/convert",
+    "methods": [
+      "POST"
+    ],
+    "handler": "wing_buffs_convert",
+    "source": "business/account/__init__.py",
+    "line": 227,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_app_badge_number",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_app_badge_number",
+    "source": "business/account/__init__.py",
+    "line": 228,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/buff/get_buffs1",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_buffs1",
+    "source": "business/account/__init__.py",
+    "line": 229,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/buff/get_buffs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_buffs",
+    "source": "business/account/__init__.py",
+    "line": 230,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/buff/remove_buff1",
+    "methods": [
+      "POST"
+    ],
+    "handler": "remove_buff1",
+    "source": "business/account/__init__.py",
+    "line": 232,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/buff/remove_buff",
+    "methods": [
+      "POST"
+    ],
+    "handler": "remove_buff1",
+    "source": "business/account/__init__.py",
+    "line": 233,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/purchase_event_buff",
+    "methods": [
+      "POST"
+    ],
+    "handler": "purchase_event_buff",
+    "source": "business/account/__init__.py",
+    "line": 234,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/purchase_generic_shop_item",
+    "methods": [
+      "POST"
+    ],
+    "handler": "purchase_generic_shop_item",
+    "source": "business/account/__init__.py",
+    "line": 235,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_checkpoints",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_checkpoints",
+    "source": "business/account/__init__.py",
+    "line": 236,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_invites",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_invites",
+    "source": "business/account/__init__.py",
+    "line": 237,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_online_friends",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_online_friends",
+    "source": "business/account/__init__.py",
+    "line": 238,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/purchase_unlock",
+    "methods": [
+      "POST"
+    ],
+    "handler": "purchase_unlock",
+    "source": "business/account/__init__.py",
+    "line": 239,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_achievement_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_achievement_defs",
+    "source": "business/account/__init__.py",
+    "line": 240,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_friend_statues",
+    "methods": [
+      "POST",
+      "OPTIONS"
+    ],
+    "handler": "get_friend_statues",
+    "source": "business/account/__init__.py",
+    "line": 241,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_friends",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_friends",
+    "source": "business/account/__init__.py",
+    "line": 242,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/join_friend_game",
+    "methods": [
+      "POST"
+    ],
+    "handler": "join_friend_game",
+    "source": "business/account/__init__.py",
+    "line": 243,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/consumable/get_consumables1",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_consumables1",
+    "source": "business/account/__init__.py",
+    "line": 244,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/trust/get_trust_tier_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_trust_tier_defs",
+    "source": "business/account/__init__.py",
+    "line": 245,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_map_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_map_defs",
+    "source": "business/account/__init__.py",
+    "line": 246,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_video_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_video_defs",
+    "source": "business/account/__init__.py",
+    "line": 247,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_radiance_spawn_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_radiance_spawn_defs",
+    "source": "business/account/__init__.py",
+    "line": 248,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_outfit",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_outfit",
+    "source": "business/account/__init__.py",
+    "line": 249,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_level_pickups",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_level_pickups",
+    "source": "business/account/__init__.py",
+    "line": 250,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/find_previous_or_empty",
+    "methods": [
+      "POST"
+    ],
+    "handler": "find_previous_or_empty",
+    "source": "business/account/__init__.py",
+    "line": 251,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/ack_forge_rate_reset",
+    "methods": [
+      "POST"
+    ],
+    "handler": "ack_forge_rate_reset",
+    "source": "business/account/__init__.py",
+    "line": 252,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/quest/get_quest_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_quest_defs",
+    "source": "business/account/__init__.py",
+    "line": 253,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/trust/get_trust_group_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_trust_group_defs",
+    "source": "business/account/__init__.py",
+    "line": 254,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/season_finalize",
+    "methods": [
+      "POST"
+    ],
+    "handler": "season_finalize",
+    "source": "business/account/__init__.py",
+    "line": 255,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/season_start",
+    "methods": [
+      "POST"
+    ],
+    "handler": "season_start",
+    "source": "business/account/__init__.py",
+    "line": 256,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/activate_season_quest",
+    "methods": [
+      "POST"
+    ],
+    "handler": "activate_season_quest",
+    "source": "business/account/__init__.py",
+    "line": 257,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/claim_season_quest_reward",
+    "methods": [
+      "POST"
+    ],
+    "handler": "claim_season_quest_reward",
+    "source": "business/account/__init__.py",
+    "line": 258,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/ack_collectible",
+    "methods": [
+      "POST"
+    ],
+    "handler": "ack_collectible",
+    "source": "business/account/__init__.py",
+    "line": 259,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/remote_config/upload",
+    "methods": [
+      "POST"
+    ],
+    "handler": "upload_remote_config",
+    "source": "business/account/__init__.py",
+    "line": 260,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_season_quests",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_season_quests",
+    "source": "business/account/__init__.py",
+    "line": 261,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/trust/get_trust_activity_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_trust_activity_defs",
+    "source": "business/account/__init__.py",
+    "line": 262,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/buff/get_buff_defs",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_buff_defs",
+    "source": "business/account/__init__.py",
+    "line": 263,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_account_world_quests",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_account_world_quests",
+    "source": "business/account/__init__.py",
+    "line": 264,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/claim_quest_reward",
+    "methods": [
+      "POST"
+    ],
+    "handler": "claim_quest_reward",
+    "source": "business/account/__init__.py",
+    "line": 265,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/set_outfit",
+    "methods": [
+      "POST"
+    ],
+    "handler": "set_outfit",
+    "source": "business/account/__init__.py",
+    "line": 266,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/set_joinable",
+    "methods": [
+      "POST"
+    ],
+    "handler": "set_joinable",
+    "source": "business/account/__init__.py",
+    "line": 267,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/set_checkpoint",
+    "methods": [
+      "POST"
+    ],
+    "handler": "set_checkpoint",
+    "source": "business/account/__init__.py",
+    "line": 268,
+    "status": "implemented_local_only",
+    "client_verified": false
+  },
+  {
+    "path": "/account/collect_pickup_batch",
+    "methods": [
+      "POST"
+    ],
+    "handler": "collect_pickup_batch",
+    "source": "business/account/__init__.py",
+    "line": 269,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/buy_candle_wax",
+    "methods": [
+      "POST"
+    ],
+    "handler": "buy_candle_wax",
+    "source": "business/account/__init__.py",
+    "line": 270,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/create_invite",
+    "methods": [
+      "POST"
+    ],
+    "handler": "create_invite",
+    "source": "business/account/__init__.py",
+    "line": 271,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/code/verify",
+    "methods": [
+      "POST"
+    ],
+    "handler": "verify_invite_code",
+    "source": "business/account/__init__.py",
+    "line": 272,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/check_invite",
+    "methods": [
+      "POST"
+    ],
+    "handler": "check_invite",
+    "source": "business/account/__init__.py",
+    "line": 273,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/accept_invite",
+    "methods": [
+      "POST"
+    ],
+    "handler": "accept_invite",
+    "source": "business/account/__init__.py",
+    "line": 274,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/delete_invite",
+    "methods": [
+      "POST"
+    ],
+    "handler": "delete_invite",
+    "source": "business/account/__init__.py",
+    "line": 275,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/social_feed/create",
+    "methods": [
+      "POST"
+    ],
+    "handler": "create_social_feed",
+    "source": "business/account/__init__.py",
+    "line": 276,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/social_feed/get_user_feeds",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_user_feeds",
+    "source": "business/account/__init__.py",
+    "line": 277,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/social_feed/get_curated_feeds",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_curated_feeds",
+    "source": "business/account/__init__.py",
+    "line": 278,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/social_feed/get_reactions",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_social_feed_reactions",
+    "source": "business/account/__init__.py",
+    "line": 279,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/social_feed/like",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_feed_like",
+    "source": "business/account/__init__.py",
+    "line": 280,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/social_feed/delete",
+    "methods": [
+      "POST"
+    ],
+    "handler": "delete_social_feed",
+    "source": "business/account/__init__.py",
+    "line": 281,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/ack_unlock",
+    "methods": [
+      "POST"
+    ],
+    "handler": "ack_unlock",
+    "source": "business/account/__init__.py",
+    "line": 282,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/chat/send",
+    "methods": [
+      "POST"
+    ],
+    "handler": "handle_chat_message",
+    "source": "business/account/__init__.py",
+    "line": 283,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/send",
+    "methods": [
+      "POST"
+    ],
+    "handler": "handle_send_message",
+    "source": "business/account/__init__.py",
+    "line": 287,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/send_message",
+    "methods": [
+      "POST"
+    ],
+    "handler": "handle_send_message",
+    "source": "business/account/__init__.py",
+    "line": 288,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/translate",
+    "methods": [
+      "POST"
+    ],
+    "handler": "handle_translate",
+    "source": "business/account/__init__.py",
+    "line": 289,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/set_device_token",
+    "methods": [
+      "POST"
+    ],
+    "handler": "set_device_token",
+    "source": "business/account/__init__.py",
+    "line": 290,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_remote_outfit",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_remote_outfit",
+    "source": "business/account/__init__.py",
+    "line": 292,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/give_candle",
+    "methods": [
+      "POST"
+    ],
+    "handler": "give_candle",
+    "source": "business/account/__init__.py",
+    "line": 293,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/claim_message_gift",
+    "methods": [
+      "POST"
+    ],
+    "handler": "claim_message_gift",
+    "source": "business/account/__init__.py",
+    "line": 296,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/claim_message_gifts",
+    "methods": [
+      "POST"
+    ],
+    "handler": "claim_message_gift",
+    "source": "business/account/__init__.py",
+    "line": 297,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/remove_relationship_hint",
+    "methods": [
+      "POST"
+    ],
+    "handler": "remove_relationship_hint",
+    "source": "business/account/__init__.py",
+    "line": 299,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/get_generic_shop_item_tracking_info",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_generic_shop_item_tracking_info",
+    "source": "business/account/__init__.py",
+    "line": 300,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/account/purchase_dye",
+    "methods": [
+      "POST"
+    ],
+    "handler": "purchase_dye",
+    "source": "business/account/__init__.py",
+    "line": 301,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/admin/api/friends_list",
+    "methods": [
+      "POST",
+      "GET"
+    ],
+    "handler": "_endpoint_friends_list",
+    "source": "business/admin/__init__.py",
+    "line": 165,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/admin/api/friends_set",
+    "methods": [
+      "POST",
+      "GET"
+    ],
+    "handler": "_endpoint_friends_set",
+    "source": "business/admin/__init__.py",
+    "line": 167,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/admin/api/friends_clear",
+    "methods": [
+      "POST",
+      "GET"
+    ],
+    "handler": "_endpoint_friends_clear",
+    "source": "business/admin/__init__.py",
+    "line": 169,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/auth/api/v1/token",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_auth_token",
+    "source": "business/service/__init__.py",
+    "line": 86,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/infraction/api/v1/get_infractions_status_decorated",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_infractions_status_decorated",
+    "source": "business/service/__init__.py",
+    "line": 87,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/message/api/v2/get_all",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_all_messages_v2",
+    "source": "business/service/__init__.py",
+    "line": 88,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/message/api/v1/get_all",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_all_messages_v1",
+    "source": "business/service/__init__.py",
+    "line": 89,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/message/api/v1/get",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_message",
+    "source": "business/service/__init__.py",
+    "line": 90,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/message/api/v1/mark_received",
+    "methods": [
+      "POST"
+    ],
+    "handler": "mark_received",
+    "source": "business/service/__init__.py",
+    "line": 91,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/message/api/v1/mark_seen",
+    "methods": [
+      "POST"
+    ],
+    "handler": "mark_seen",
+    "source": "business/service/__init__.py",
+    "line": 92,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/quest/api/v1/check_for_previous_completion",
+    "methods": [
+      "POST"
+    ],
+    "handler": "check_for_previous_completion",
+    "source": "business/service/__init__.py",
+    "line": 93,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/quest/api/v1/get_player_quests",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_player_quests",
+    "source": "business/service/__init__.py",
+    "line": 94,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/quest/api/v1/get_player_quests_by_name",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_player_quests_by_name",
+    "source": "business/service/__init__.py",
+    "line": 95,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/quest/api/v1/get_quest_schedule",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_quest_schedule",
+    "source": "business/service/__init__.py",
+    "line": 96,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/quest/api/v1/create",
+    "methods": [
+      "POST"
+    ],
+    "handler": "quest_create",
+    "source": "business/service/__init__.py",
+    "line": 97,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/quest/api/v1/update_quest",
+    "methods": [
+      "POST"
+    ],
+    "handler": "quest_update",
+    "source": "business/service/__init__.py",
+    "line": 98,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/relationship/api/v1/get_all_friend_gist",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_all_friend_gist",
+    "source": "business/service/__init__.py",
+    "line": 99,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/relationship/api/v1/get_follower_count",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_follower_count",
+    "source": "business/service/__init__.py",
+    "line": 100,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/relationship/api/v1/update_friend_constellation_pages",
+    "methods": [
+      "POST",
+      "OPTIONS"
+    ],
+    "handler": "update_friend_constellation_pages_entry",
+    "source": "business/service/__init__.py",
+    "line": 106,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/relationship/api/v1/free_gifts/get_pending",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_pending_free_gifts",
+    "source": "business/service/__init__.py",
+    "line": 112,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/relationship/api/v1/free_gifts/send",
+    "methods": [
+      "POST",
+      "OPTIONS"
+    ],
+    "handler": "send_free_gift_options",
+    "source": "business/service/__init__.py",
+    "line": 113,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/relationship/api/v1/free_gifts/claim",
+    "methods": [
+      "POST"
+    ],
+    "handler": "claim_free_gift",
+    "source": "business/service/__init__.py",
+    "line": 114,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/reservation/api/v1/reserve",
+    "methods": [
+      "POST"
+    ],
+    "handler": "reserve",
+    "source": "business/service/__init__.py",
+    "line": 115,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/recording/api/v1/create",
+    "methods": [
+      "POST"
+    ],
+    "handler": "recording_create",
+    "source": "business/service/__init__.py",
+    "line": 116,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/recording/api/v1/get",
+    "methods": [
+      "POST"
+    ],
+    "handler": "recording_get",
+    "source": "business/service/__init__.py",
+    "line": 117,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/recording/api/v2/create",
+    "methods": [
+      "POST"
+    ],
+    "handler": "recording_v2_create",
+    "source": "business/service/__init__.py",
+    "line": 119,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/recording/api/v2/update",
+    "methods": [
+      "POST"
+    ],
+    "handler": "recording_v2_update",
+    "source": "business/service/__init__.py",
+    "line": 120,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/recording/api/v2/get",
+    "methods": [
+      "POST"
+    ],
+    "handler": "recording_v2_get",
+    "source": "business/service/__init__.py",
+    "line": 121,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/ugc/<path:subpath>",
+    "methods": [
+      "GET"
+    ],
+    "handler": "serve_recording_ugc",
+    "source": "business/service/__init__.py",
+    "line": 122,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v2/get_curated_feeds",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_curated_feed",
+    "source": "business/service/__init__.py",
+    "line": 123,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v1/get_user_feeds",
+    "methods": [
+      "POST"
+    ],
+    "handler": "v1get_user_feeds",
+    "source": "business/service/__init__.py",
+    "line": 124,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v1/get_by_ids",
+    "methods": [
+      "POST"
+    ],
+    "handler": "v1_get_by_ids",
+    "source": "business/service/__init__.py",
+    "line": 125,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/stage/api/v1/get",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_stage",
+    "source": "business/service/__init__.py",
+    "line": 126,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/stage/api/v1/set",
+    "methods": [
+      "POST"
+    ],
+    "handler": "set_stage",
+    "source": "business/service/__init__.py",
+    "line": 128,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/stage/api/v1/friends_in_apartments",
+    "methods": [
+      "POST"
+    ],
+    "handler": "friends_in_apartments",
+    "source": "business/service/__init__.py",
+    "line": 129,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/stage/api/v1/leave_apartment",
+    "methods": [
+      "POST"
+    ],
+    "handler": "leave_apartment",
+    "source": "business/service/__init__.py",
+    "line": 130,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/stage/api/v1/update_apartment_status",
+    "methods": [
+      "POST"
+    ],
+    "handler": "update_apartment_status",
+    "source": "business/service/__init__.py",
+    "line": 131,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/status/api/v1/add_unlock",
+    "methods": [
+      "POST"
+    ],
+    "handler": "add_unlock",
+    "source": "business/service/__init__.py",
+    "line": 132,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/status/api/v1/delete_unlock",
+    "methods": [
+      "POST"
+    ],
+    "handler": "delete_unlock",
+    "source": "business/service/__init__.py",
+    "line": 133,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/status/api/v1/get_unlocks",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_unlocks_status",
+    "source": "business/service/__init__.py",
+    "line": 134,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/trust/api/v1/get_capped",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_capped",
+    "source": "business/service/__init__.py",
+    "line": 135,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/trust/api/v1/get",
+    "methods": [
+      "POST"
+    ],
+    "handler": "get_trust",
+    "source": "business/service/__init__.py",
+    "line": 137,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v1/create",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_feed_create",
+    "source": "business/service/__init__.py",
+    "line": 139,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v1/hide",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_feed_hide",
+    "source": "business/service/__init__.py",
+    "line": 140,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v1/like",
+    "methods": [
+      "POST"
+    ],
+    "handler": "svc_social_feed_like",
+    "source": "business/service/__init__.py",
+    "line": 141,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v1/super_like",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_feed_super_like",
+    "source": "business/service/__init__.py",
+    "line": 142,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v1/delete",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_feed_delete",
+    "source": "business/service/__init__.py",
+    "line": 143,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v1/edit",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_feed_edit",
+    "source": "business/service/__init__.py",
+    "line": 144,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/relationship/api/v1/add_follow",
+    "methods": [
+      "POST"
+    ],
+    "handler": "relationship_add_follow",
+    "source": "business/service/__init__.py",
+    "line": 145,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/relationship/api/v1/set_follow_name",
+    "methods": [
+      "POST"
+    ],
+    "handler": "relationship_set_follow_name",
+    "source": "business/service/__init__.py",
+    "line": 146,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/relationship/api/v1/delete_follow",
+    "methods": [
+      "POST"
+    ],
+    "handler": "relationship_delete_follow",
+    "source": "business/service/__init__.py",
+    "line": 147,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/inventory/api/v1/unlocks/remove_dye",
+    "methods": [
+      "POST"
+    ],
+    "handler": "inventory_remove_dye",
+    "source": "business/service/__init__.py",
+    "line": 148,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v1/get_reactions",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_feed_get_reactions",
+    "source": "business/service/__init__.py",
+    "line": 150,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v2/comments",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_feed_comments",
+    "source": "business/service/__init__.py",
+    "line": 151,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v1/report",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_feed_report",
+    "source": "business/service/__init__.py",
+    "line": 152,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v2/get_penpals",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_feed_get_penpals",
+    "source": "business/service/__init__.py",
+    "line": 153,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/service/social-feed/api/v2/get_penpal_by_id",
+    "methods": [
+      "POST"
+    ],
+    "handler": "social_feed_get_penpal_by_id",
+    "source": "business/service/__init__.py",
+    "line": 154,
+    "status": "pending",
+    "client_verified": false
+  },
+  {
+    "path": "/starwatch/auth/api/v1/auth",
+    "methods": [
+      "POST"
+    ],
+    "handler": "auth",
+    "source": "business/starwatch/__init__.py",
+    "line": 17,
+    "status": "pending",
+    "client_verified": false
+  }
+]

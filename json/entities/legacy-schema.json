@@ -1,0 +1,6179 @@
+[
+  {
+    "entity": "User",
+    "table": "user",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 73,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))",
+        "line": 76
+      },
+      {
+        "column": "device",
+        "go_field": "Device",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=True, default='')",
+        "line": 77
+      },
+      {
+        "column": "device_identifier",
+        "go_field": "DeviceIdentifier",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), default=lambda: str(uuid.uuid4()))",
+        "line": 78
+      },
+      {
+        "column": "session",
+        "go_field": "Session",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(32), unique=True, default=lambda: uuid.uuid4().hex)",
+        "line": 79
+      },
+      {
+        "column": "recovery_token",
+        "go_field": "RecoveryToken",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(64), default=lambda: uuid.uuid4().hex)",
+        "line": 80
+      },
+      {
+        "column": "version",
+        "go_field": "Version",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer)",
+        "line": 81
+      },
+      {
+        "column": "platform",
+        "go_field": "Platform",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=True, default='')",
+        "line": 82
+      },
+      {
+        "column": "is_banned",
+        "go_field": "IsBanned",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 84
+      },
+      {
+        "column": "ban_duration",
+        "go_field": "BanDuration",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 85
+      },
+      {
+        "column": "ban_start_time",
+        "go_field": "BanStartTime",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 86
+      },
+      {
+        "column": "ban_end_time",
+        "go_field": "BanEndTime",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 87
+      },
+      {
+        "column": "is_authorized",
+        "go_field": "IsAuthorized",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 89
+      },
+      {
+        "column": "ip_address",
+        "go_field": "IPAddress",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), default='0.0.0.0')",
+        "line": 90
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=lambda: int(time.time()))",
+        "line": 91
+      },
+      {
+        "column": "remark",
+        "go_field": "Remark",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, nullable=True, default='')",
+        "line": 92
+      },
+      {
+        "column": "device_name",
+        "go_field": "DeviceName",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=True, default='')",
+        "line": 94
+      },
+      {
+        "column": "device_type",
+        "go_field": "DeviceType",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=True, default='')",
+        "line": 95
+      },
+      {
+        "column": "device_model",
+        "go_field": "DeviceModel",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=True, default='')",
+        "line": 96
+      },
+      {
+        "column": "device_os",
+        "go_field": "DeviceOS",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=True, default='')",
+        "line": 97
+      },
+      {
+        "column": "user_agent",
+        "go_field": "UserAgent",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, nullable=True, default='')",
+        "line": 98
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "Version",
+    "table": "version",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 122,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 123
+      },
+      {
+        "column": "version",
+        "go_field": "Version",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer)",
+        "line": 124
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "UserOnlineStatus",
+    "table": "user_online_status",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 131,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 132
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 133
+      },
+      {
+        "column": "friend_id",
+        "go_field": "FriendID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 134
+      },
+      {
+        "column": "is_online",
+        "go_field": "IsOnline",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 135
+      },
+      {
+        "column": "last_seen",
+        "go_field": "LastSeen",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 136
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 137
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "Invite",
+    "table": "invite",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 143,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 144
+      },
+      {
+        "column": "inviter_user_id",
+        "go_field": "InviterUserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 145
+      },
+      {
+        "column": "token_id",
+        "go_field": "TokenID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), nullable=False, default=lambda: str(uuid.uuid4()))",
+        "line": 146
+      },
+      {
+        "column": "formatted_code",
+        "go_field": "FormattedCode",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(14), nullable=True)",
+        "line": 147
+      },
+      {
+        "column": "nickname",
+        "go_field": "Nickname",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 148
+      },
+      {
+        "column": "friend_id",
+        "go_field": "FriendID",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=True)",
+        "line": 149
+      },
+      {
+        "column": "created",
+        "go_field": "Created",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False, default=lambda: int(time.time()))",
+        "line": 150
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 151
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('token_id', name='unique_token_id'),)"
+    ]
+  },
+  {
+    "entity": "StatusUnlock",
+    "table": "status_unlock",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 159,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 160
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 161
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 162
+      },
+      {
+        "column": "unlock_type",
+        "go_field": "UnlockType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False, default='level')",
+        "line": 163
+      },
+      {
+        "column": "ack",
+        "go_field": "Ack",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 164
+      },
+      {
+        "column": "unlocked_at",
+        "go_field": "UnlockedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 165
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 166
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'name', name='unique_user_unlock'),)"
+    ]
+  },
+  {
+    "entity": "DefaultUnlockConfig",
+    "table": "default_unlock_config",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 171,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 172
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False, unique=True)",
+        "line": 173
+      },
+      {
+        "column": "unlock_type",
+        "go_field": "UnlockType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False, default='level')",
+        "line": 174
+      },
+      {
+        "column": "default_ack",
+        "go_field": "DefaultAck",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 175
+      },
+      {
+        "column": "default_unlocked_at",
+        "go_field": "DefaultUnlockedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 176
+      },
+      {
+        "column": "description",
+        "go_field": "Description",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255))",
+        "line": 177
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 178
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "AchievementDef",
+    "table": "achievement_def",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 180,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 181
+      },
+      {
+        "column": "achievement_id",
+        "go_field": "AchievementID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), unique=True, nullable=False)",
+        "line": 182
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=False)",
+        "line": 183
+      },
+      {
+        "column": "description",
+        "go_field": "Description",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 184
+      },
+      {
+        "column": "icon_url",
+        "go_field": "IconURL",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(500))",
+        "line": 185
+      },
+      {
+        "column": "category",
+        "go_field": "Category",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100))",
+        "line": 186
+      },
+      {
+        "column": "points",
+        "go_field": "Points",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 187
+      },
+      {
+        "column": "is_secret",
+        "go_field": "IsSecret",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 188
+      },
+      {
+        "column": "is_active",
+        "go_field": "IsActive",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=True)",
+        "line": 189
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 190
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 191
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "FriendStatus",
+    "table": "friend_status",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 193,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 194
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 195
+      },
+      {
+        "column": "friend_id",
+        "go_field": "FriendID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 196
+      },
+      {
+        "column": "given",
+        "go_field": "Given",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 197
+      },
+      {
+        "column": "recvd",
+        "go_field": "Recvd",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 198
+      },
+      {
+        "column": "nickname",
+        "go_field": "Nickname",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 199
+      },
+      {
+        "column": "when_created",
+        "go_field": "WhenCreated",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 200
+      },
+      {
+        "column": "level",
+        "go_field": "Level",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=1)",
+        "line": 201
+      },
+      {
+        "column": "abilities",
+        "go_field": "Abilities",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 202
+      },
+      {
+        "column": "hints",
+        "go_field": "Hints",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 203
+      },
+      {
+        "column": "outfit",
+        "go_field": "Outfit",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 204
+      },
+      {
+        "column": "player_badge_type",
+        "go_field": "PlayerBadgeType",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 205
+      },
+      {
+        "column": "local_soft_deleted",
+        "go_field": "LocalSoftDeleted",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 206
+      },
+      {
+        "column": "attitude",
+        "go_field": "Attitude",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(10), default='0')",
+        "line": 207
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 208
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 209
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'friend_id', name='unique_friend_status'),)"
+    ]
+  },
+  {
+    "entity": "ConstellationFriendPage",
+    "table": "constellation_friend_page",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 219,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 220
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 221
+      },
+      {
+        "column": "page_index",
+        "go_field": "PageIndex",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 222
+      },
+      {
+        "column": "friend_id",
+        "go_field": "FriendID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 223
+      },
+      {
+        "column": "constellation_node_index",
+        "go_field": "ConstellationNodeIndex",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 224
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=lambda: int(time.time()))",
+        "line": 225
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=lambda: int(time.time()), onupdate=lambda: int(time.time()))",
+        "line": 226
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'page_index', 'friend_id', name='unique_constellation_friend'),)"
+    ]
+  },
+  {
+    "entity": "Friendship",
+    "table": "friendship",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 239,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 240
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 241
+      },
+      {
+        "column": "friend_id",
+        "go_field": "FriendID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 242
+      },
+      {
+        "column": "status",
+        "go_field": "Status",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(20), default='active')",
+        "line": 243
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 244
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 245
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'friend_id', name='unique_friendship'),)"
+    ]
+  },
+  {
+    "entity": "AchievementStats",
+    "table": "achievement_stats",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 253,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 254
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 255
+      },
+      {
+        "column": "stat_type",
+        "go_field": "StatType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 256
+      },
+      {
+        "column": "value",
+        "go_field": "Value",
+        "go_type": "float64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Float, nullable=False)",
+        "line": 257
+      },
+      {
+        "column": "update_time",
+        "go_field": "UpdateTime",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 258
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 259
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'stat_type', name='unique_user_stat_type_track'),)"
+    ]
+  },
+  {
+    "entity": "EventCurrencyDef",
+    "table": "event_currency_def",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 266,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 267
+      },
+      {
+        "column": "currency_id",
+        "go_field": "CurrencyID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False, unique=True)",
+        "line": 268
+      },
+      {
+        "column": "event_name",
+        "go_field": "EventName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 269
+      },
+      {
+        "column": "name_string_key",
+        "go_field": "NameStringKey",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 270
+      },
+      {
+        "column": "hud_icon",
+        "go_field": "HudIcon",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 271
+      },
+      {
+        "column": "client_currency",
+        "go_field": "ClientCurrency",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 272
+      },
+      {
+        "column": "forge_cost",
+        "go_field": "ForgeCost",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=True)",
+        "line": 273
+      },
+      {
+        "column": "forge_rate_reset_event",
+        "go_field": "ForgeRateResetEvent",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False, default='')",
+        "line": 274
+      },
+      {
+        "column": "purchasable",
+        "go_field": "Purchasable",
+        "go_type": "bool",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, nullable=False, default=False)",
+        "line": 275
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 276
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 277
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "Infraction",
+    "table": "infraction",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 279,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 280
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 281
+      },
+      {
+        "column": "infraction_type",
+        "go_field": "InfractionType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 282
+      },
+      {
+        "column": "reason",
+        "go_field": "Reason",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 283
+      },
+      {
+        "column": "severity",
+        "go_field": "Severity",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(20), default='low')",
+        "line": 284
+      },
+      {
+        "column": "status",
+        "go_field": "Status",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(20), default='active')",
+        "line": 285
+      },
+      {
+        "column": "start_time",
+        "go_field": "StartTime",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 286
+      },
+      {
+        "column": "end_time",
+        "go_field": "EndTime",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime)",
+        "line": 287
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 288
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "AchievementStat",
+    "table": "achievement_stat",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 293,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 294
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 295
+      },
+      {
+        "column": "stat_type",
+        "go_field": "StatType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 296
+      },
+      {
+        "column": "value",
+        "go_field": "Value",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, nullable=False)",
+        "line": 297
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 298
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 299
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'stat_type', name='unique_user_stat_type_stat'),)"
+    ]
+  },
+  {
+    "entity": "Survey",
+    "table": "survey",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 306,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 307
+      },
+      {
+        "column": "title",
+        "go_field": "Title",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(200), nullable=False)",
+        "line": 308
+      },
+      {
+        "column": "description",
+        "go_field": "Description",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 309
+      },
+      {
+        "column": "survey_type",
+        "go_field": "SurveyType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 310
+      },
+      {
+        "column": "start_date",
+        "go_field": "StartDate",
+        "go_type": "time.Time",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, nullable=False)",
+        "line": 311
+      },
+      {
+        "column": "end_date",
+        "go_field": "EndDate",
+        "go_type": "time.Time",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, nullable=False)",
+        "line": 312
+      },
+      {
+        "column": "is_active",
+        "go_field": "IsActive",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=True)",
+        "line": 313
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 314
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "UserSurvey",
+    "table": "user_survey",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 316,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 317
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 318
+      },
+      {
+        "column": "survey_id",
+        "go_field": "SurveyID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, db.ForeignKey('survey.id'), nullable=False)",
+        "line": 319
+      },
+      {
+        "column": "completed",
+        "go_field": "Completed",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 320
+      },
+      {
+        "column": "completed_at",
+        "go_field": "CompletedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime)",
+        "line": 321
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 322
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'survey_id', name='unique_user_survey'),)"
+    ]
+  },
+  {
+    "entity": "ShopItem",
+    "table": "shop_item",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 330,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 331
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 332
+      },
+      {
+        "column": "unlockid",
+        "go_field": "Unlockid",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, nullable=False)",
+        "line": 333
+      },
+      {
+        "column": "unlock_cost",
+        "go_field": "UnlockCost",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 334
+      },
+      {
+        "column": "currency_type",
+        "go_field": "CurrencyType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 335
+      },
+      {
+        "column": "listed",
+        "go_field": "Listed",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=True)",
+        "line": 336
+      },
+      {
+        "column": "unlock_dep",
+        "go_field": "UnlockDep",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 337
+      },
+      {
+        "column": "visual_dep",
+        "go_field": "VisualDep",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 338
+      },
+      {
+        "column": "x",
+        "go_field": "X",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 339
+      },
+      {
+        "column": "y",
+        "go_field": "Y",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 340
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 341
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('unlockid', name='unique_unlockid'),)"
+    ]
+  },
+  {
+    "entity": "ConsumableDef",
+    "table": "consumable_def",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 346,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 347
+      },
+      {
+        "column": "consumable_id",
+        "go_field": "ConsumableID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, nullable=False, unique=True)",
+        "line": 348
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 349
+      },
+      {
+        "column": "buff_id",
+        "go_field": "BuffID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=0)",
+        "line": 350
+      },
+      {
+        "column": "cooldown",
+        "go_field": "Cooldown",
+        "go_type": "*float64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Float, default=0.0)",
+        "line": 351
+      },
+      {
+        "column": "icon",
+        "go_field": "Icon",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 352
+      },
+      {
+        "column": "event",
+        "go_field": "Event",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), default='none')",
+        "line": 353
+      },
+      {
+        "column": "is_toy",
+        "go_field": "IsToy",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 354
+      },
+      {
+        "column": "type",
+        "go_field": "Type",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), default='')",
+        "line": 355
+      },
+      {
+        "column": "param",
+        "go_field": "Param",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), default='')",
+        "line": 356
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 357
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('consumable_id', name='unique_consumable_id'),)"
+    ]
+  },
+  {
+    "entity": "UserConsumable",
+    "table": "user_consumable",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 361,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 362
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 363
+      },
+      {
+        "column": "consumable_id",
+        "go_field": "ConsumableID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, nullable=False)",
+        "line": 364
+      },
+      {
+        "column": "cooldown_until",
+        "go_field": "CooldownUntil",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=0)",
+        "line": 365
+      },
+      {
+        "column": "quantity",
+        "go_field": "Quantity",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 366
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 367
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 368
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'consumable_id', name='unique_user_consumable'),)"
+    ]
+  },
+  {
+    "entity": "Lootbox",
+    "table": "lootbox",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 375,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 376
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 377
+      },
+      {
+        "column": "lootbox_id",
+        "go_field": "LootboxID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 378
+      },
+      {
+        "column": "lootbox_type",
+        "go_field": "LootboxType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 379
+      },
+      {
+        "column": "quantity",
+        "go_field": "Quantity",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=1)",
+        "line": 380
+      },
+      {
+        "column": "acquired_at",
+        "go_field": "AcquiredAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 381
+      },
+      {
+        "column": "expires_at",
+        "go_field": "ExpiresAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=True)",
+        "line": 382
+      },
+      {
+        "column": "opened",
+        "go_field": "Opened",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 383
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 384
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "GenericShopDef",
+    "table": "generic_shop_def",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 389,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.BigInteger, primary_key=True)",
+        "line": 390
+      },
+      {
+        "column": "shop_name",
+        "go_field": "ShopName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 391
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 392
+      },
+      {
+        "column": "icon",
+        "go_field": "Icon",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), default='')",
+        "line": 393
+      },
+      {
+        "column": "localized_name",
+        "go_field": "LocalizedName",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), default='')",
+        "line": 394
+      },
+      {
+        "column": "order_index",
+        "go_field": "OrderIndex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=-1)",
+        "line": 395
+      },
+      {
+        "column": "cost",
+        "go_field": "Cost",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 396
+      },
+      {
+        "column": "currency_type",
+        "go_field": "CurrencyType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 397
+      },
+      {
+        "column": "event_name",
+        "go_field": "EventName",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), default='')",
+        "line": 398
+      },
+      {
+        "column": "max_per_cycle",
+        "go_field": "MaxPerCycle",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=1)",
+        "line": 399
+      },
+      {
+        "column": "reset_event",
+        "go_field": "ResetEvent",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), default='')",
+        "line": 400
+      },
+      {
+        "column": "item_type",
+        "go_field": "ItemType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 401
+      },
+      {
+        "column": "item_name",
+        "go_field": "ItemName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 402
+      },
+      {
+        "column": "item_count",
+        "go_field": "ItemCount",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=1)",
+        "line": 403
+      },
+      {
+        "column": "is_active",
+        "go_field": "IsActive",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=True)",
+        "line": 404
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 405
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "ShopCostCurrency",
+    "table": "shop_cost_currency",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 407,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 408
+      },
+      {
+        "column": "shop_id",
+        "go_field": "ShopID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, db.ForeignKey('generic_shop_def.id'), nullable=False)",
+        "line": 409
+      },
+      {
+        "column": "cost",
+        "go_field": "Cost",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 410
+      },
+      {
+        "column": "currency_type",
+        "go_field": "CurrencyType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 411
+      },
+      {
+        "column": "index",
+        "go_field": "Index",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 412
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "ShopUnlockRequirement",
+    "table": "shop_unlock_requirement",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 417,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 418
+      },
+      {
+        "column": "shop_id",
+        "go_field": "ShopID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, db.ForeignKey('generic_shop_def.id'), nullable=False)",
+        "line": 419
+      },
+      {
+        "column": "requirement",
+        "go_field": "Requirement",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 420
+      },
+      {
+        "column": "index",
+        "go_field": "Index",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 421
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "ExternalAccountFriend",
+    "table": "external_account_friend",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 426,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 427
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 428
+      },
+      {
+        "column": "external_account_id",
+        "go_field": "ExternalAccountID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 429
+      },
+      {
+        "column": "external_platform",
+        "go_field": "ExternalPlatform",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 430
+      },
+      {
+        "column": "friend_user_id",
+        "go_field": "FriendUserID",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=True)",
+        "line": 431
+      },
+      {
+        "column": "friend_nickname",
+        "go_field": "FriendNickname",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 432
+      },
+      {
+        "column": "friend_avatar",
+        "go_field": "FriendAvatar",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=True)",
+        "line": 433
+      },
+      {
+        "column": "is_connected",
+        "go_field": "IsConnected",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 434
+      },
+      {
+        "column": "connected_at",
+        "go_field": "ConnectedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=True)",
+        "line": 435
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 436
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "SerendipityMatch",
+    "table": "serendipity_match",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 442,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 443
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 444
+      },
+      {
+        "column": "matched_user_id",
+        "go_field": "MatchedUserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 445
+      },
+      {
+        "column": "match_type",
+        "go_field": "MatchType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 446
+      },
+      {
+        "column": "match_score",
+        "go_field": "MatchScore",
+        "go_type": "*float64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Float, default=0.0)",
+        "line": 447
+      },
+      {
+        "column": "matched_at",
+        "go_field": "MatchedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 448
+      },
+      {
+        "column": "expires_at",
+        "go_field": "ExpiresAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=True)",
+        "line": 449
+      },
+      {
+        "column": "status",
+        "go_field": "Status",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(20), default='active')",
+        "line": 450
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 451
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "StarTagDef",
+    "table": "star_tag_def",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 457,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 458
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False, unique=True)",
+        "line": 459
+      },
+      {
+        "column": "sku",
+        "go_field": "Sku",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 460
+      },
+      {
+        "column": "part",
+        "go_field": "Part",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), default='')",
+        "line": 461
+      },
+      {
+        "column": "consumable_name",
+        "go_field": "ConsumableName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 462
+      },
+      {
+        "column": "group_name",
+        "go_field": "GroupName",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), default='')",
+        "line": 463
+      },
+      {
+        "column": "batches",
+        "go_field": "Batches",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(500), default='')",
+        "line": 464
+      },
+      {
+        "column": "can_link_with",
+        "go_field": "CanLinkWith",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), default='')",
+        "line": 465
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 466
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "StarTagLink",
+    "table": "star_tag_link",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 468,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 469
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 470
+      },
+      {
+        "column": "tag_name",
+        "go_field": "TagName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 471
+      },
+      {
+        "column": "linked_item",
+        "go_field": "LinkedItem",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 472
+      },
+      {
+        "column": "linked_at",
+        "go_field": "LinkedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 473
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 474
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "FreeGift",
+    "table": "free_gift",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 479,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 480
+      },
+      {
+        "column": "sender_id",
+        "go_field": "SenderID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 481
+      },
+      {
+        "column": "receiver_id",
+        "go_field": "ReceiverID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 482
+      },
+      {
+        "column": "gift_type",
+        "go_field": "GiftType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 483
+      },
+      {
+        "column": "gift_id",
+        "go_field": "GiftID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 484
+      },
+      {
+        "column": "sent_at",
+        "go_field": "SentAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 485
+      },
+      {
+        "column": "received",
+        "go_field": "Received",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 486
+      },
+      {
+        "column": "received_at",
+        "go_field": "ReceivedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=True)",
+        "line": 487
+      },
+      {
+        "column": "expires_at",
+        "go_field": "ExpiresAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=True)",
+        "line": 488
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 489
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "MapDefinition",
+    "table": "map_definition",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 495,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 496
+      },
+      {
+        "column": "def_type",
+        "go_field": "DefType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 497
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 498
+      },
+      {
+        "column": "level",
+        "go_field": "Level",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 499
+      },
+      {
+        "column": "landmark",
+        "go_field": "Landmark",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=True)",
+        "line": 500
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 501
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('def_type', 'name', 'level', name='unique_map_definition'),)"
+    ]
+  },
+  {
+    "entity": "VideoDefinition",
+    "table": "video_definition",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 505,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 506
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False, unique=True)",
+        "line": 507
+      },
+      {
+        "column": "duration",
+        "go_field": "Duration",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 508
+      },
+      {
+        "column": "location",
+        "go_field": "Location",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, nullable=False)",
+        "line": 509
+      },
+      {
+        "column": "subtitle_base",
+        "go_field": "SubtitleBase",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, default='')",
+        "line": 510
+      },
+      {
+        "column": "has_translations",
+        "go_field": "HasTranslations",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 511
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 512
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 513
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "VideoSchedule",
+    "table": "video_schedule",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 515,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 516
+      },
+      {
+        "column": "channel",
+        "go_field": "Channel",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 517
+      },
+      {
+        "column": "event",
+        "go_field": "Event",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 518
+      },
+      {
+        "column": "preshow_seconds",
+        "go_field": "PreshowSeconds",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 519
+      },
+      {
+        "column": "playlist",
+        "go_field": "Playlist",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, nullable=False)",
+        "line": 520
+      },
+      {
+        "column": "loop",
+        "go_field": "Loop",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 521
+      },
+      {
+        "column": "gap_seconds",
+        "go_field": "GapSeconds",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 522
+      },
+      {
+        "column": "postshow_seconds",
+        "go_field": "PostshowSeconds",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 523
+      },
+      {
+        "column": "silence_please",
+        "go_field": "SilencePlease",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 524
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 525
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 526
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "UserOutfit",
+    "table": "user_outfit",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 528,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 529
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False, unique=True)",
+        "line": 530
+      },
+      {
+        "column": "wing_tex",
+        "go_field": "WingTex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 531
+      },
+      {
+        "column": "wing_pat",
+        "go_field": "WingPat",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 532
+      },
+      {
+        "column": "wing_mask",
+        "go_field": "WingMask",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 533
+      },
+      {
+        "column": "wing_id",
+        "go_field": "WingID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=2245279351)",
+        "line": 534
+      },
+      {
+        "column": "voice",
+        "go_field": "Voice",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=9)",
+        "line": 535
+      },
+      {
+        "column": "seed",
+        "go_field": "Seed",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=16515)",
+        "line": 536
+      },
+      {
+        "column": "scale",
+        "go_field": "Scale",
+        "go_type": "*float64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Float, default=-0.007529020463710151)",
+        "line": 537
+      },
+      {
+        "column": "refreshversion",
+        "go_field": "Refreshversion",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 538
+      },
+      {
+        "column": "prop_tex",
+        "go_field": "PropTex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 539
+      },
+      {
+        "column": "prop_pat",
+        "go_field": "PropPat",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 540
+      },
+      {
+        "column": "prop_mask",
+        "go_field": "PropMask",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 541
+      },
+      {
+        "column": "prop_id",
+        "go_field": "PropID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=2035109393)",
+        "line": 542
+      },
+      {
+        "column": "neck_tex",
+        "go_field": "NeckTex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 543
+      },
+      {
+        "column": "neck_pat",
+        "go_field": "NeckPat",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 544
+      },
+      {
+        "column": "neck_mask",
+        "go_field": "NeckMask",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 545
+      },
+      {
+        "column": "neck_id",
+        "go_field": "NeckID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=3800884691)",
+        "line": 546
+      },
+      {
+        "column": "mask_tex",
+        "go_field": "MaskTex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 547
+      },
+      {
+        "column": "mask_pat",
+        "go_field": "MaskPat",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 548
+      },
+      {
+        "column": "mask_mask",
+        "go_field": "MaskMask",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 549
+      },
+      {
+        "column": "mask_id",
+        "go_field": "MaskID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=3663390882)",
+        "line": 550
+      },
+      {
+        "column": "horn_tex",
+        "go_field": "HornTex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 551
+      },
+      {
+        "column": "horn_pat",
+        "go_field": "HornPat",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 552
+      },
+      {
+        "column": "horn_mask",
+        "go_field": "HornMask",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 553
+      },
+      {
+        "column": "horn_id",
+        "go_field": "HornID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=3680499229)",
+        "line": 554
+      },
+      {
+        "column": "height",
+        "go_field": "Height",
+        "go_type": "*float64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Float, default=1.9818411339409865)",
+        "line": 555
+      },
+      {
+        "column": "hat_tex",
+        "go_field": "HatTex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 556
+      },
+      {
+        "column": "hat_pat",
+        "go_field": "HatPat",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 557
+      },
+      {
+        "column": "hat_mask",
+        "go_field": "HatMask",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 558
+      },
+      {
+        "column": "hat_id",
+        "go_field": "HatID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=1470462579)",
+        "line": 559
+      },
+      {
+        "column": "hair_tex",
+        "go_field": "HairTex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 560
+      },
+      {
+        "column": "hair_pat",
+        "go_field": "HairPat",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 561
+      },
+      {
+        "column": "hair_mask",
+        "go_field": "HairMask",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 562
+      },
+      {
+        "column": "hair_id",
+        "go_field": "HairID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=1229053584)",
+        "line": 563
+      },
+      {
+        "column": "feet_tex",
+        "go_field": "FeetTex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 564
+      },
+      {
+        "column": "feet_pat",
+        "go_field": "FeetPat",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 565
+      },
+      {
+        "column": "feet_mask",
+        "go_field": "FeetMask",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 566
+      },
+      {
+        "column": "feet_id",
+        "go_field": "FeetID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=1532093990)",
+        "line": 567
+      },
+      {
+        "column": "face_tex",
+        "go_field": "FaceTex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 568
+      },
+      {
+        "column": "face_pat",
+        "go_field": "FacePat",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 569
+      },
+      {
+        "column": "face_mask",
+        "go_field": "FaceMask",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 570
+      },
+      {
+        "column": "face_id",
+        "go_field": "FaceID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=4267756678)",
+        "line": 571
+      },
+      {
+        "column": "body_tex",
+        "go_field": "BodyTex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 572
+      },
+      {
+        "column": "body_pat",
+        "go_field": "BodyPat",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 573
+      },
+      {
+        "column": "body_mask",
+        "go_field": "BodyMask",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 574
+      },
+      {
+        "column": "body_id",
+        "go_field": "BodyID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=3691343236)",
+        "line": 575
+      },
+      {
+        "column": "attitude",
+        "go_field": "Attitude",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(10), default='0')",
+        "line": 576
+      },
+      {
+        "column": "arms_id",
+        "go_field": "ArmsID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 577
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 578
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "LevelPickup",
+    "table": "level_pickup",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 583,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 584
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 585
+      },
+      {
+        "column": "level",
+        "go_field": "Level",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, nullable=False)",
+        "line": 586
+      },
+      {
+        "column": "emitter_name",
+        "go_field": "EmitterName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 587
+      },
+      {
+        "column": "event_name",
+        "go_field": "EventName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 588
+      },
+      {
+        "column": "preactive_duration",
+        "go_field": "PreactiveDuration",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 589
+      },
+      {
+        "column": "pool_name",
+        "go_field": "PoolName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 590
+      },
+      {
+        "column": "pool_amount",
+        "go_field": "PoolAmount",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 591
+      },
+      {
+        "column": "last_chunk_seq",
+        "go_field": "LastChunkSeq",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=-1)",
+        "line": 592
+      },
+      {
+        "column": "emit_interval",
+        "go_field": "EmitInterval",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 593
+      },
+      {
+        "column": "currency_type",
+        "go_field": "CurrencyType",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), default='wax')",
+        "line": 594
+      },
+      {
+        "column": "collected",
+        "go_field": "Collected",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 595
+      },
+      {
+        "column": "chunks_per_emit",
+        "go_field": "ChunksPerEmit",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=1)",
+        "line": 596
+      },
+      {
+        "column": "chunk_size_likelihood",
+        "go_field": "ChunkSizeLikelihood",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 597
+      },
+      {
+        "column": "chunk_size_amount",
+        "go_field": "ChunkSizeAmount",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 598
+      },
+      {
+        "column": "active_duration",
+        "go_field": "ActiveDuration",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 599
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 600
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'level', 'emitter_name', 'event_name', name='unique_user_level_pickup'),)"
+    ]
+  },
+  {
+    "entity": "ServerAssignment",
+    "table": "server_assignment",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 607,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 608
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 609
+      },
+      {
+        "column": "server_uri",
+        "go_field": "ServerUri",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=False)",
+        "line": 610
+      },
+      {
+        "column": "move_ts",
+        "go_field": "MoveTs",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 611
+      },
+      {
+        "column": "signature",
+        "go_field": "Signature",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(64), nullable=False)",
+        "line": 612
+      },
+      {
+        "column": "sig",
+        "go_field": "Sig",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(64), nullable=False)",
+        "line": 613
+      },
+      {
+        "column": "ps_only",
+        "go_field": "PsOnly",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 614
+      },
+      {
+        "column": "platform_filter",
+        "go_field": "PlatformFilter",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 615
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 616
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 617
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "GameServer",
+    "table": "game_server",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 622,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 623
+      },
+      {
+        "column": "server_uri",
+        "go_field": "ServerUri",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=False, unique=True)",
+        "line": 624
+      },
+      {
+        "column": "region",
+        "go_field": "Region",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 625
+      },
+      {
+        "column": "capacity",
+        "go_field": "Capacity",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=100)",
+        "line": 626
+      },
+      {
+        "column": "current_players",
+        "go_field": "CurrentPlayers",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 627
+      },
+      {
+        "column": "is_active",
+        "go_field": "IsActive",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=True)",
+        "line": 628
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 629
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "ForgeRate",
+    "table": "forge_rate",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 632,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 633
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 634
+      },
+      {
+        "column": "source_type",
+        "go_field": "SourceType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 635
+      },
+      {
+        "column": "current_tier",
+        "go_field": "CurrentTier",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=1)",
+        "line": 636
+      },
+      {
+        "column": "current_level",
+        "go_field": "CurrentLevel",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=1)",
+        "line": 637
+      },
+      {
+        "column": "tier_completion",
+        "go_field": "TierCompletion",
+        "go_type": "*float64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Float, default=0.0)",
+        "line": 638
+      },
+      {
+        "column": "level_completion",
+        "go_field": "LevelCompletion",
+        "go_type": "*float64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Float, default=0.0)",
+        "line": 639
+      },
+      {
+        "column": "level_tier_index",
+        "go_field": "LevelTierIndex",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 640
+      },
+      {
+        "column": "level_tier_count",
+        "go_field": "LevelTierCount",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=5)",
+        "line": 641
+      },
+      {
+        "column": "reset_acknowledged",
+        "go_field": "ResetAcknowledged",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 642
+      },
+      {
+        "column": "enabled",
+        "go_field": "Enabled",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=True)",
+        "line": 643
+      },
+      {
+        "column": "last_updated",
+        "go_field": "LastUpdated",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 644
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'source_type', name='unique_user_currency'),)"
+    ]
+  },
+  {
+    "entity": "TrustGroupDef",
+    "table": "trust_group_def",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 651,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 652
+      },
+      {
+        "column": "group_id",
+        "go_field": "GroupID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False, unique=True)",
+        "line": 653
+      },
+      {
+        "column": "group_name",
+        "go_field": "GroupName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=False)",
+        "line": 654
+      },
+      {
+        "column": "description",
+        "go_field": "Description",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, nullable=True)",
+        "line": 655
+      },
+      {
+        "column": "min_trust_level",
+        "go_field": "MinTrustLevel",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 656
+      },
+      {
+        "column": "max_members",
+        "go_field": "MaxMembers",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=50)",
+        "line": 657
+      },
+      {
+        "column": "is_active",
+        "go_field": "IsActive",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=True)",
+        "line": 658
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 659
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 660
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "UserTrustGroup",
+    "table": "user_trust_group",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 662,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 663
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 664
+      },
+      {
+        "column": "group_id",
+        "go_field": "GroupID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), db.ForeignKey('trust_group_def.group_id'), nullable=False)",
+        "line": 665
+      },
+      {
+        "column": "trust_level",
+        "go_field": "TrustLevel",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=1)",
+        "line": 666
+      },
+      {
+        "column": "joined_at",
+        "go_field": "JoinedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 667
+      },
+      {
+        "column": "is_active",
+        "go_field": "IsActive",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=True)",
+        "line": 668
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'group_id', name='unique_user_trust_group'),)"
+    ]
+  },
+  {
+    "entity": "UserCurrency",
+    "table": "user_currency",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 676,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 677
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 678
+      },
+      {
+        "column": "candles",
+        "go_field": "Candles",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 679
+      },
+      {
+        "column": "heart",
+        "go_field": "Heart",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 680
+      },
+      {
+        "column": "heart_wax",
+        "go_field": "HeartWax",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 681
+      },
+      {
+        "column": "prestige",
+        "go_field": "Prestige",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 682
+      },
+      {
+        "column": "prestige_vip",
+        "go_field": "PrestigeVip",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 683
+      },
+      {
+        "column": "prestige_wax",
+        "go_field": "PrestigeWax",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 684
+      },
+      {
+        "column": "season_candle",
+        "go_field": "SeasonCandle",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 685
+      },
+      {
+        "column": "season_wax",
+        "go_field": "SeasonWax",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 686
+      },
+      {
+        "column": "season_wax_14",
+        "go_field": "SeasonWax14",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 687
+      },
+      {
+        "column": "season_heart",
+        "go_field": "SeasonHeart",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 688
+      },
+      {
+        "column": "season_pass_token",
+        "go_field": "SeasonPassToken",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 691
+      },
+      {
+        "column": "vip",
+        "go_field": "Vip",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 692
+      },
+      {
+        "column": "wax",
+        "go_field": "Wax",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=3)",
+        "line": 693
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 694
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "SeasonUnlock",
+    "table": "season_unlock",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 699,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 700
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 701
+      },
+      {
+        "column": "unlock_type",
+        "go_field": "UnlockType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 702
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 703
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 704
+      },
+      {
+        "column": "ack",
+        "go_field": "Ack",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 705
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 706
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'name', name='unique_user_season_unlock'),)"
+    ]
+  },
+  {
+    "entity": "FollowRelationship",
+    "table": "follow_relationship",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 713,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 714
+      },
+      {
+        "column": "follower_id",
+        "go_field": "FollowerID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 715
+      },
+      {
+        "column": "following_id",
+        "go_field": "FollowingID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 716
+      },
+      {
+        "column": "status",
+        "go_field": "Status",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(20), default='active')",
+        "line": 717
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 718
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('follower_id', 'following_id', name='unique_follow_relationship'),)"
+    ]
+  },
+  {
+    "entity": "Stage",
+    "table": "stage",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 726,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 727
+      },
+      {
+        "column": "stage_id",
+        "go_field": "StageID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 728
+      },
+      {
+        "column": "level_id",
+        "go_field": "LevelID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 729
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(200))",
+        "line": 730
+      },
+      {
+        "column": "description",
+        "go_field": "Description",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 731
+      },
+      {
+        "column": "status",
+        "go_field": "Status",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), default='active')",
+        "line": 732
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 733
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 734
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('stage_id', 'level_id', name='unique_stage_level'),)"
+    ]
+  },
+  {
+    "entity": "SeasonQuest",
+    "table": "season_quest",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 739,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 740
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 741
+      },
+      {
+        "column": "date",
+        "go_field": "Date",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(10), nullable=False)",
+        "line": 742
+      },
+      {
+        "column": "daily_quest_def_id",
+        "go_field": "DailyQuestDefID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 743
+      },
+      {
+        "column": "stat_type",
+        "go_field": "StatType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 744
+      },
+      {
+        "column": "start_value",
+        "go_field": "StartValue",
+        "go_type": "*float64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Float, default=-1.0)",
+        "line": 745
+      },
+      {
+        "column": "activated",
+        "go_field": "Activated",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 746
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 747
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'date', 'daily_quest_def_id', name='unique_user_daily_quest'),)"
+    ]
+  },
+  {
+    "entity": "SeasonQuestReward",
+    "table": "season_quest_reward",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 754,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 755
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 756
+      },
+      {
+        "column": "date",
+        "go_field": "Date",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(10), nullable=False)",
+        "line": 757
+      },
+      {
+        "column": "daily_quest_def_id",
+        "go_field": "DailyQuestDefID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 758
+      },
+      {
+        "column": "rewarded",
+        "go_field": "Rewarded",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 759
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 760
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'date', 'daily_quest_def_id', name='unique_user_daily_quest_reward'),)"
+    ]
+  },
+  {
+    "entity": "TrustActivityDef",
+    "table": "trust_activity_def",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 767,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 768
+      },
+      {
+        "column": "activity_id",
+        "go_field": "ActivityID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), unique=True, nullable=False)",
+        "line": 769
+      },
+      {
+        "column": "activity_name",
+        "go_field": "ActivityName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(200), nullable=False)",
+        "line": 770
+      },
+      {
+        "column": "description",
+        "go_field": "Description",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 771
+      },
+      {
+        "column": "activity_type",
+        "go_field": "ActivityType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 772
+      },
+      {
+        "column": "required_level",
+        "go_field": "RequiredLevel",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=1)",
+        "line": 773
+      },
+      {
+        "column": "reward_points",
+        "go_field": "RewardPoints",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 774
+      },
+      {
+        "column": "is_active",
+        "go_field": "IsActive",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=True)",
+        "line": 775
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 776
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 777
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "PlayerQuest",
+    "table": "player_quest",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 779,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 780
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 781
+      },
+      {
+        "column": "quest_name",
+        "go_field": "QuestName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 782
+      },
+      {
+        "column": "quest_id",
+        "go_field": "QuestID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), nullable=False, unique=True)",
+        "line": 783
+      },
+      {
+        "column": "quest_status",
+        "go_field": "QuestStatus",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(20), nullable=False)",
+        "line": 784
+      },
+      {
+        "column": "start_time",
+        "go_field": "StartTime",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 785
+      },
+      {
+        "column": "expiry_time",
+        "go_field": "ExpiryTime",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 786
+      },
+      {
+        "column": "status",
+        "go_field": "Status",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), default='')",
+        "line": 787
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 788
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "QuestStat",
+    "table": "quest_stat",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 793,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 794
+      },
+      {
+        "column": "quest_id",
+        "go_field": "QuestID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('player_quest.quest_id'), nullable=False)",
+        "line": 795
+      },
+      {
+        "column": "stat_type",
+        "go_field": "StatType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 796
+      },
+      {
+        "column": "stat_category",
+        "go_field": "StatCategory",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 797
+      },
+      {
+        "column": "value",
+        "go_field": "Value",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, nullable=False)",
+        "line": 798
+      },
+      {
+        "column": "updated",
+        "go_field": "Updated",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=True)",
+        "line": 799
+      },
+      {
+        "column": "updated_epoch",
+        "go_field": "UpdatedEpoch",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, nullable=True)",
+        "line": 800
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "ResourceToken",
+    "table": "resource_token",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 805,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 806
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 807
+      },
+      {
+        "column": "token",
+        "go_field": "Token",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, nullable=False)",
+        "line": 808
+      },
+      {
+        "column": "host",
+        "go_field": "Host",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=False, default='sky.resources.cdn.thatgamecompany.com')",
+        "line": 809
+      },
+      {
+        "column": "prefix",
+        "go_field": "Prefix",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), default='')",
+        "line": 810
+      },
+      {
+        "column": "status",
+        "go_field": "Status",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), default='OK')",
+        "line": 811
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 812
+      },
+      {
+        "column": "expires_at",
+        "go_field": "ExpiresAt",
+        "go_type": "time.Time",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, nullable=False)",
+        "line": 813
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "UserRank",
+    "table": "user_rank",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 818,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 819
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False, unique=True)",
+        "line": 820
+      },
+      {
+        "column": "social_rank",
+        "go_field": "SocialRank",
+        "go_type": "*float64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Float, default=0.0)",
+        "line": 821
+      },
+      {
+        "column": "is_shepherd",
+        "go_field": "IsShepherd",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 822
+      },
+      {
+        "column": "is_beginner",
+        "go_field": "IsBeginner",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 823
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 824
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 825
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "Achievement",
+    "table": "achievement",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 830,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 831
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 832
+      },
+      {
+        "column": "achievement_id",
+        "go_field": "AchievementID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 833
+      },
+      {
+        "column": "achievement_name",
+        "go_field": "AchievementName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=False)",
+        "line": 834
+      },
+      {
+        "column": "achievement_description",
+        "go_field": "AchievementDescription",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 835
+      },
+      {
+        "column": "unlocked_at",
+        "go_field": "UnlockedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 836
+      },
+      {
+        "column": "progress",
+        "go_field": "Progress",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 837
+      },
+      {
+        "column": "completed",
+        "go_field": "Completed",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 838
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 839
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'achievement_id', name='unique_user_achievement'),)"
+    ]
+  },
+  {
+    "entity": "EventSchedule",
+    "table": "event_schedule",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 846,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 847
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=False)",
+        "line": 848
+      },
+      {
+        "column": "duration",
+        "go_field": "Duration",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 849
+      },
+      {
+        "column": "when",
+        "go_field": "When",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, nullable=False)",
+        "line": 850
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 851
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 852
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('name', name='unique_event_name'),)"
+    ]
+  },
+  {
+    "entity": "IAPProduct",
+    "table": "iap_product",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 857,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.String(50), primary_key=True)",
+        "line": 858
+      },
+      {
+        "column": "product_type",
+        "go_field": "ProductType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 859
+      },
+      {
+        "column": "tier",
+        "go_field": "Tier",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 860
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=False)",
+        "line": 861
+      },
+      {
+        "column": "description",
+        "go_field": "Description",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 862
+      },
+      {
+        "column": "icon",
+        "go_field": "Icon",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255))",
+        "line": 863
+      },
+      {
+        "column": "sound_id",
+        "go_field": "SoundID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer)",
+        "line": 864
+      },
+      {
+        "column": "currency_type",
+        "go_field": "CurrencyType",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50))",
+        "line": 865
+      },
+      {
+        "column": "currency_count",
+        "go_field": "CurrencyCount",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer)",
+        "line": 866
+      },
+      {
+        "column": "currency_type2",
+        "go_field": "CurrencyType2",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50))",
+        "line": 867
+      },
+      {
+        "column": "currency_count2",
+        "go_field": "CurrencyCount2",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer)",
+        "line": 868
+      },
+      {
+        "column": "unlocks",
+        "go_field": "Unlocks",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text)",
+        "line": 869
+      },
+      {
+        "column": "platforms",
+        "go_field": "Platforms",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255))",
+        "line": 870
+      },
+      {
+        "column": "giftable",
+        "go_field": "Giftable",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 871
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 872
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "UnlockItem",
+    "table": "unlock_item",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 874,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 875
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 876
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 877
+      },
+      {
+        "column": "unlock_type",
+        "go_field": "UnlockType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 878
+      },
+      {
+        "column": "ack",
+        "go_field": "Ack",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 879
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False)",
+        "line": 880
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'name', name='unique_user_unlock_item'),)"
+    ]
+  },
+  {
+    "entity": "Collectible",
+    "table": "collectible",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 887,
+    "columns": [
+      {
+        "column": "row_id",
+        "go_field": "RowID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True, autoincrement=True)",
+        "line": 891
+      },
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 892
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 893
+      },
+      {
+        "column": "used",
+        "go_field": "Used",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 894
+      },
+      {
+        "column": "candle_space",
+        "go_field": "CandleSpace",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 895
+      },
+      {
+        "column": "carrying",
+        "go_field": "Carrying",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 896
+      },
+      {
+        "column": "level",
+        "go_field": "Level",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=1)",
+        "line": 897
+      },
+      {
+        "column": "permanent_level",
+        "go_field": "PermanentLevel",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 898
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(FlexibleDateTime, default=datetime.utcnow)",
+        "line": 902
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(FlexibleDateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 903
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'id', name='unique_user_collectible'),)"
+    ]
+  },
+  {
+    "entity": "AppBadge",
+    "table": "app_badge",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 912,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 913
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 914
+      },
+      {
+        "column": "badge_number",
+        "go_field": "BadgeNumber",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 915
+      },
+      {
+        "column": "badge_type",
+        "go_field": "BadgeType",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), default='general')",
+        "line": 916
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)",
+        "line": 917
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 918
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'badge_type', name='unique_user_badge_type'),)"
+    ]
+  },
+  {
+    "entity": "UserBuff",
+    "table": "user_buff",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 926,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True)",
+        "line": 927
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 928
+      },
+      {
+        "column": "buff_id",
+        "go_field": "BuffID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 929
+      },
+      {
+        "column": "buff_type",
+        "go_field": "BuffType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 930
+      },
+      {
+        "column": "value",
+        "go_field": "Value",
+        "go_type": "*float64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Float, default=0.0)",
+        "line": 931
+      },
+      {
+        "column": "duration",
+        "go_field": "Duration",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 932
+      },
+      {
+        "column": "expires_at",
+        "go_field": "ExpiresAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, nullable=True)",
+        "line": 933
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*time.Time",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.DateTime, default=datetime.utcnow)",
+        "line": 934
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'buff_id', name='unique_user_buff'),)"
+    ]
+  },
+  {
+    "entity": "UserCheckpoint",
+    "table": "user_checkpoint",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 942,
+    "columns": [
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), primary_key=True)",
+        "line": 943
+      },
+      {
+        "column": "checkpoints",
+        "go_field": "Checkpoints",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, default='[]')",
+        "line": 944
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "UserPickup",
+    "table": "user_pickup",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 949,
+    "columns": [
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), primary_key=True)",
+        "line": 950
+      },
+      {
+        "column": "pickups",
+        "go_field": "Pickups",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, default='[]')",
+        "line": 951
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "UserUnlocks",
+    "table": "user_unlocks",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 956,
+    "columns": [
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), primary_key=True)",
+        "line": 957
+      },
+      {
+        "column": "unlocks",
+        "go_field": "Unlocks",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, default='[]')",
+        "line": 958
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "UserWingBuff",
+    "table": "user_wing_buff",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 964,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True, autoincrement=True)",
+        "line": 965
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False, index=True)",
+        "line": 966
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(255), nullable=False)",
+        "line": 967
+      },
+      {
+        "column": "collected",
+        "go_field": "Collected",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 968
+      },
+      {
+        "column": "deposited",
+        "go_field": "Deposited",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 969
+      },
+      {
+        "column": "last_conversion",
+        "go_field": "LastConversion",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=0)",
+        "line": 970
+      },
+      {
+        "column": "deposit_id",
+        "go_field": "DepositID",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.BigInteger, default=0)",
+        "line": 971
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=lambda: int(time.time()))",
+        "line": 972
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=lambda: int(time.time()), onupdate=lambda: int(time.time()))",
+        "line": 973
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'name', name='uq_user_wing_buff'),)"
+    ]
+  },
+  {
+    "entity": "UserInitialization",
+    "table": "user_initialization",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 979,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True, autoincrement=True)",
+        "line": 980
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False, unique=True, index=True)",
+        "line": 981
+      },
+      {
+        "column": "is_initialized",
+        "go_field": "IsInitialized",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 982
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=lambda: int(time.time()))",
+        "line": 983
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=lambda: int(time.time()), onupdate=lambda: int(time.time()))",
+        "line": 984
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "Message",
+    "table": "message",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 989,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.String(255), primary_key=True)",
+        "line": 992
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), primary_key=True)",
+        "line": 993
+      },
+      {
+        "column": "received_at",
+        "go_field": "ReceivedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=True)",
+        "line": 994
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=lambda: int(time.time()))",
+        "line": 996
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=lambda: int(time.time()))",
+        "line": 997
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "SocialFeedPost",
+    "table": "social_feed_post",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 1002,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True, autoincrement=True)",
+        "line": 1005
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 1006
+      },
+      {
+        "column": "social_feed_id",
+        "go_field": "SocialFeedID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), nullable=False, unique=True, default=lambda: str(uuid.uuid4()))",
+        "line": 1008
+      },
+      {
+        "column": "pool_type",
+        "go_field": "PoolType",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(50), nullable=False)",
+        "line": 1009
+      },
+      {
+        "column": "pool_name",
+        "go_field": "PoolName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(100), nullable=False)",
+        "line": 1010
+      },
+      {
+        "column": "message",
+        "go_field": "Message",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, nullable=False)",
+        "line": 1011
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False, default=lambda: int(time.time()))",
+        "line": 1012
+      },
+      {
+        "column": "expire_at",
+        "go_field": "ExpireAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False, default=lambda: int(time.time()) + 1209600)",
+        "line": 1013
+      },
+      {
+        "column": "likes_count",
+        "go_field": "LikesCount",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 1016
+      },
+      {
+        "column": "comments_count",
+        "go_field": "CommentsCount",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 1017
+      },
+      {
+        "column": "report_count",
+        "go_field": "ReportCount",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 1018
+      },
+      {
+        "column": "hide_count",
+        "go_field": "HideCount",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 1019
+      },
+      {
+        "column": "attempt_count",
+        "go_field": "AttemptCount",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 1020
+      },
+      {
+        "column": "succeed_count",
+        "go_field": "SucceedCount",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 1021
+      },
+      {
+        "column": "is_poisoned",
+        "go_field": "IsPoisoned",
+        "go_type": "*bool",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Boolean, default=False)",
+        "line": 1022
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "SocialFeedLike",
+    "table": "social_feed_like",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 1029,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.Integer, primary_key=True, autoincrement=True)",
+        "line": 1032
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)",
+        "line": 1033
+      },
+      {
+        "column": "social_feed_id",
+        "go_field": "SocialFeedID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('social_feed_post.social_feed_id'), nullable=False)",
+        "line": 1034
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, nullable=False, default=lambda: int(time.time()))",
+        "line": 1035
+      }
+    ],
+    "constraints": [
+      "(db.UniqueConstraint('user_id', 'social_feed_id', name='unique_user_feed_like'),)"
+    ]
+  },
+  {
+    "entity": "UserData",
+    "table": "user_data",
+    "source": "services/game-api/infrastructure/database/models.py",
+    "line": 1047,
+    "columns": [
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "declaration": "db.Column(db.String(36), db.ForeignKey('user.id'), primary_key=True)",
+        "line": 1061
+      },
+      {
+        "column": "data",
+        "go_field": "Data",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "declaration": "db.Column(db.Text, nullable=False, default='')",
+        "line": 1062
+      },
+      {
+        "column": "data_time",
+        "go_field": "DataTime",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=0)",
+        "line": 1063
+      },
+      {
+        "column": "data_version",
+        "go_field": "DataVersion",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=3)",
+        "line": 1064
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "declaration": "db.Column(db.Integer, default=lambda: int(time.time()), onupdate=lambda: int(time.time()))",
+        "line": 1065
+      }
+    ],
+    "constraints": []
+  },
+  {
+    "entity": "ColorDyeCurrency",
+    "table": "color_dye_currency",
+    "source": "services/game-api/business/account/purchase_dye/purchase_dye.py",
+    "line": 92,
+    "columns": [
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "default": null
+      },
+      {
+        "column": "color_name",
+        "go_field": "ColorName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "default": null
+      },
+      {
+        "column": "value",
+        "go_field": "Value",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "default": "0"
+      }
+    ],
+    "constraints": [
+      "CREATE TABLE IF NOT EXISTS color_dye_currency (\n                        user_id TEXT NOT NULL,\n                        color_name TEXT NOT NULL,\n                        value INTEGER NOT NULL DEFAULT 0,\n                        PRIMARY KEY (user_id, color_name)\n                    )"
+    ]
+  },
+  {
+    "entity": "ItemDye",
+    "table": "item_dye",
+    "source": "services/game-api/business/helpers/dye_helper.py",
+    "line": 21,
+    "columns": [
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "default": null
+      },
+      {
+        "column": "unlock_name",
+        "go_field": "UnlockName",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "default": null
+      },
+      {
+        "column": "upgrade_dye",
+        "go_field": "UpgradeDye",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "default": "''"
+      },
+      {
+        "column": "created_at",
+        "go_field": "CreatedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "default": "0"
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "default": "0"
+      }
+    ],
+    "constraints": [
+      "CREATE TABLE IF NOT EXISTS item_dye (\n                user_id TEXT NOT NULL,\n                unlock_name TEXT NOT NULL,\n                upgrade_dye TEXT NOT NULL DEFAULT '',\n                created_at INTEGER NOT NULL DEFAULT 0,\n                updated_at INTEGER NOT NULL DEFAULT 0,\n                PRIMARY KEY (user_id, unlock_name)\n            )"
+    ]
+  },
+  {
+    "entity": "BoatFollow",
+    "table": "boat_follow",
+    "source": "services/game-api/business/helpers/follow_helper.py",
+    "line": 18,
+    "columns": [
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "default": null
+      },
+      {
+        "column": "creator",
+        "go_field": "Creator",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": true,
+        "default": null
+      },
+      {
+        "column": "nickname",
+        "go_field": "Nickname",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "default": "''"
+      },
+      {
+        "column": "last_modified",
+        "go_field": "LastModified",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "default": "''"
+      }
+    ],
+    "constraints": [
+      "CREATE TABLE IF NOT EXISTS boat_follow (\n                    user_id TEXT NOT NULL,\n                    creator TEXT NOT NULL,\n                    nickname TEXT NOT NULL DEFAULT '',\n                    last_modified TEXT NOT NULL DEFAULT '',\n                    PRIMARY KEY (user_id, creator)\n                )"
+    ]
+  },
+  {
+    "entity": "ResponseOverride",
+    "table": "response_override",
+    "source": "services/game-api/business/helpers/response_override.py",
+    "line": 41,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "default": null
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "default": "''"
+      },
+      {
+        "column": "path",
+        "go_field": "Path",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "default": null
+      },
+      {
+        "column": "body",
+        "go_field": "Body",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "default": "''"
+      },
+      {
+        "column": "enabled",
+        "go_field": "Enabled",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "default": "1"
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "default": null
+      }
+    ],
+    "constraints": [
+      "CREATE TABLE IF NOT EXISTS response_override (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    user_id TEXT NOT NULL DEFAULT '',\n                    path TEXT NOT NULL,\n                    body TEXT NOT NULL DEFAULT '',\n                    enabled INTEGER NOT NULL DEFAULT 1,\n                    updated_at TEXT,\n                    UNIQUE(user_id, path)\n                )"
+    ]
+  },
+  {
+    "entity": "RequestLog",
+    "table": "request_log",
+    "source": "services/game-api/business/helpers/response_override.py",
+    "line": 179,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "default": null
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "default": "''"
+      },
+      {
+        "column": "path",
+        "go_field": "Path",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "default": null
+      },
+      {
+        "column": "method",
+        "go_field": "Method",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "default": null
+      },
+      {
+        "column": "status_code",
+        "go_field": "StatusCode",
+        "go_type": "*int64",
+        "nullable": true,
+        "primary_key": false,
+        "default": null
+      },
+      {
+        "column": "body_resp",
+        "go_field": "BodyResp",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "go_field": "UpdatedAt",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": false,
+        "default": null
+      }
+    ],
+    "constraints": [
+      "CREATE TABLE IF NOT EXISTS request_log (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    user_id TEXT NOT NULL DEFAULT '',\n                    path TEXT NOT NULL,\n                    method TEXT,\n                    status_code INTEGER,\n                    body_resp TEXT,\n                    updated_at TEXT,\n                    UNIQUE(user_id, path)\n                )"
+    ]
+  },
+  {
+    "entity": "UserActivity",
+    "table": "user_activity",
+    "source": "services/game-api/business/helpers/response_override.py",
+    "line": 193,
+    "columns": [
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "*string",
+        "nullable": true,
+        "primary_key": true,
+        "default": null
+      },
+      {
+        "column": "last_seen",
+        "go_field": "LastSeen",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "default": "0"
+      }
+    ],
+    "constraints": [
+      "CREATE TABLE IF NOT EXISTS user_activity (\n                    user_id TEXT PRIMARY KEY,\n                    last_seen INTEGER NOT NULL DEFAULT 0\n                )"
+    ]
+  },
+  {
+    "entity": "StatusUnlockDeleted",
+    "table": "status_unlock_deleted",
+    "source": "services/game-api/business/helpers/status_unlock_tombstone.py",
+    "line": 25,
+    "columns": [
+      {
+        "column": "id",
+        "go_field": "ID",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": true,
+        "default": null
+      },
+      {
+        "column": "user_id",
+        "go_field": "UserID",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "default": null
+      },
+      {
+        "column": "name",
+        "go_field": "Name",
+        "go_type": "string",
+        "nullable": false,
+        "primary_key": false,
+        "default": null
+      },
+      {
+        "column": "deleted_at",
+        "go_field": "DeletedAt",
+        "go_type": "int64",
+        "nullable": false,
+        "primary_key": false,
+        "default": null
+      }
+    ],
+    "constraints": [
+      "CREATE TABLE IF NOT EXISTS status_unlock_deleted (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            user_id VARCHAR(36) NOT NULL,\n            name VARCHAR(100) NOT NULL,\n            deleted_at INTEGER NOT NULL,\n            UNIQUE(user_id, name)\n        )"
+    ]
+  }
+]
