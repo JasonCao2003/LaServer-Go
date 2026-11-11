@@ -63,10 +63,10 @@ func Migrate(ctx context.Context, db *sql.DB) error {
 			return errors.New("unrecognized database; refusing migration")
 		}
 	}
-	if version < 1 || version > 7 {
+	if version < 1 || version > 8 {
 		return fmt.Errorf("no migration from schema %d", version)
 	}
-	if version == 7 {
+	if version == 8 {
 		return tx.Commit()
 	}
 	if version == 1 {
@@ -117,6 +117,14 @@ func Migrate(ctx context.Context, db *sql.DB) error {
 			return err
 		}
 	}
+	if version <= 7 {
+		if _, err = tx.ExecContext(ctx, migrations.Resources); err != nil {
+			return fmt.Errorf("migrate resource schema: %w", err)
+		}
+		if _, err = tx.ExecContext(ctx, "UPDATE laserver_schema SET version=8 WHERE id=1"); err != nil {
+			return err
+		}
+	}
 	return tx.Commit()
 }
 
@@ -125,7 +133,7 @@ func CheckSchema(db *sql.DB) error {
 	if err := db.QueryRow("SELECT version FROM laserver_schema WHERE id=1").Scan(&version); err != nil {
 		return errors.New("database not initialized; run api-server migrate on a new database")
 	}
-	if version != 7 {
+	if version != 8 {
 		return fmt.Errorf("unsupported schema version %d", version)
 	}
 	return nil

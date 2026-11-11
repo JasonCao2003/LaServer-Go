@@ -72,6 +72,9 @@ type Config struct {
 	CurrentSeason          int              `json:"current_season"`
 	DefaultCurrency        map[string]int64 `json:"default_currency"`
 	GameConfigDir          string           `json:"game_config_dir"`
+	ResourceAuthToken      string           `json:"resource_auth_token"`
+	StarwatchJWTSecret     string           `json:"starwatch_jwt_secret"`
+	StarwatchBrokerURL     string           `json:"starwatch_broker_url"`
 }
 
 var currencyFields = []string{"candles", "heart", "heart_wax", "prestige", "prestige_vip", "prestige_wax", "season_candle", "season_wax", "season_wax_14", "season_heart", "season_pass_token", "vip", "wax"}

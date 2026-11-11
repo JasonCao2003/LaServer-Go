@@ -18,13 +18,13 @@
 | `achievement_stats` | `/account/get_achievement_stats` | implemented_local_only |
 | `relationship_defs` | `/account/get_relationship_abilities` | implemented_local_only |
 | `questionnaires` | `/account/get_questionnaires` | implemented_local_only |
-| `event_schedule` | `/account/get_event_schedule` | pending |
+| `event_schedule` | `/account/get_event_schedule` | implemented_local_only |
 | `set_world_quests` | `/account/get_account_world_quests` | pending |
 | `iap_list` | `/account/iaplist` | implemented_local_only |
 | `invite_list` | `/account/get_invites` | implemented_local_only |
-| `unlocks` | `/account/get_unlocks` | pending |
+| `unlocks` | `/account/get_unlocks` | implemented_local_only |
 | `get_shop` | `/account/get_shop` | pending |
-| `spirit_shops` | `/account/get_spirit_shops` | pending |
+| `spirit_shops` | `/account/get_spirit_shops` | implemented_local_only |
 | `collectibles` | `/account/get_collectibles` | implemented_local_only |
 | `wing_buffs` | `/account/wing_buffs/get` | pending |
 | `gift_messages` | `/account/get_pending_messages` | pending |
@@ -35,7 +35,7 @@
 | `get_buffs` | `/account/buff/get_buffs` | pending |
 | `get_lootboxes` | `/account/lootboxes/get` | pending |
 | `checkpoints` | `/account/get_checkpoints` | implemented_local_only |
-| `generic_shop_defs` | `/account/get_generic_shops` | pending |
+| `generic_shop_defs` | `/account/get_generic_shops` | implemented_local_only |
 | `external_account_friends` | `/account/get_external_friends` | pending |
 | `serendipity_matches` | `/account/serendipity/get` | pending |
 | `get_star_tag_defs` | `/account/star/get` | pending |
@@ -45,7 +45,7 @@
 | `achievement_defs` | `/account/get_achievement_defs` | implemented_local_only |
 | `achievement_stats_tracking` | `/account/get_achievement_stats_tracking` | implemented_local_only |
 | `event_currency_defs` | `/account/get_event_currency_defs` | implemented_local_only |
-| `infractions` | `/service/infraction/api/v1/get_infractions_status_decorated` | pending |
+| `infractions` | `/service/infraction/api/v1/get_infractions_status_decorated` | implemented_local_only |
 | `messages` | `/service/message/api/v2/get_all` | pending |
 | `set_friend_status` | 待定位 | unresolved |
 | `set_random` | 待定位 | unresolved |

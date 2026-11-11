@@ -26,3 +26,6 @@ var Invites string
 
 //go:embed 007_unlocks.sql
 var Unlocks string
+
+//go:embed 008_resources.sql
+var Resources string

@@ -227,7 +227,7 @@
     "handler": "get_surveys",
     "source": "business/account/__init__.py",
     "line": 171,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -315,7 +315,7 @@
     "handler": "generic_shop_defs",
     "source": "business/account/__init__.py",
     "line": 179,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -414,7 +414,7 @@
     "handler": "get_unlocks",
     "source": "business/account/__init__.py",
     "line": 188,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -425,7 +425,7 @@
     "handler": "get_event_schedule",
     "source": "business/account/__init__.py",
     "line": 189,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -503,7 +503,7 @@
     "handler": "get_spirit_shops",
     "source": "business/account/__init__.py",
     "line": 196,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -767,7 +767,7 @@
     "handler": "get_currency_defs",
     "source": "business/account/__init__.py",
     "line": 220,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1032,7 +1032,7 @@
     "handler": "get_trust_tier_defs",
     "source": "business/account/__init__.py",
     "line": 245,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1054,7 +1054,7 @@
     "handler": "get_video_defs",
     "source": "business/account/__init__.py",
     "line": 247,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1065,7 +1065,7 @@
     "handler": "get_radiance_spawn_defs",
     "source": "business/account/__init__.py",
     "line": 248,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1087,7 +1087,7 @@
     "handler": "get_level_pickups",
     "source": "business/account/__init__.py",
     "line": 250,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1131,7 +1131,7 @@
     "handler": "get_trust_group_defs",
     "source": "business/account/__init__.py",
     "line": 254,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1197,7 +1197,7 @@
     "handler": "upload_remote_config",
     "source": "business/account/__init__.py",
     "line": 260,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1219,7 +1219,7 @@
     "handler": "get_trust_activity_defs",
     "source": "business/account/__init__.py",
     "line": 262,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1439,7 +1439,7 @@
     "handler": "ack_unlock",
     "source": "business/account/__init__.py",
     "line": 282,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1560,7 +1560,7 @@
     "handler": "get_generic_shop_item_tracking_info",
     "source": "business/account/__init__.py",
     "line": 300,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1618,7 +1618,7 @@
     "handler": "get_auth_token",
     "source": "business/service/__init__.py",
     "line": 86,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1629,7 +1629,7 @@
     "handler": "get_infractions_status_decorated",
     "source": "business/service/__init__.py",
     "line": 87,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2214,7 +2214,7 @@
     "handler": "auth",
     "source": "business/starwatch/__init__.py",
     "line": 17,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   }
 ]
