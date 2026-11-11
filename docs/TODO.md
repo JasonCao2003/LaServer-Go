@@ -4,7 +4,7 @@
 
 ## 当前状态与勾选规则
 
-- 静态清单包含 201 条路由：39 条已有 Go handler、162 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
+- 静态清单包含 201 条路由：42 条已有 Go handler、159 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
 - api-server 已能独立运行；room-server 只有独立 module，无实现或运行入口。
 - 已有实体、HTTP handler 或本地测试通过，不等于真实账号数据迁移、完整客户端登录或联机通过。
 - 勾选接口前需核对旧请求/响应、副作用和版本条件，完成实现与相关本地测试，更新路由报告。真实客户端验收单独记录，不随代码项自动勾选。
@@ -16,10 +16,10 @@
 - [ ] 建立按实际 APK 的兼容矩阵：优先 0.1.8、0.3.11；同时记录实际版本与上报的 0.13.4.170388，不能仅按上报构建判断。
 - [ ] 以登录 resource_list 建立资源依赖表，逐一对应请求路径，明确哪些 501 会阻断登录；优先补齐装扮、解锁、好友、任务和魔法定义。
 - [ ] 根据 AGENTS.md 按完整业务单元拆分 internal/gameapi 到 handler/service/repository/middleware/config/app；model 不直接作为 API DTO，禁止 HTTP 层直写库，已有行为不变。
-- [ ] 将 SQL 提取到 api-server/migrations/，核对 schema v1–v6 的版本、唯一约束与事务语义；添加失败回滚和未知版本拒绝用例，不重写已发布迁移。
+- [ ] 将 SQL 提取到 api-server/migrations/，核对 schema v1–v7 的版本、唯一约束与事务语义；添加失败回滚和未知版本拒绝用例，不重写已发布迁移。
 - [ ] 明确静态定义资源的来源、敏感性和可分发性，只读配置可外置，缺失时明确报错，不把真实账号快照作为通用响应。
 
-### 已接入 39 个接口仍待对齐的行为
+### 已接入接口仍待对齐的行为
 
 - [ ] 对齐 auth/create、auth/login 与 legacy create/login 的错误响应分支、表单/BOM 等兼容、恢复令牌及设备信息更新；记录允许与拒绝的请求证据。
 - [ ] 研究真实客户端可提供的设备/签名/恢复凭据，再确定登录身份校验；当前仅凭 user ID 签发会话不能视为安全认证。保持隔离开发部署直到方案验证。
@@ -74,7 +74,7 @@
 
 ## 待迁移路由逐项清单
 
-以下 162 项来自 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
+以下 159 项来自 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
 
 ### 游戏账号与资源接口（122 条）
 
@@ -90,12 +90,12 @@
 - [ ] `POST /account/serendipity/get` — `get_serendipity`；旧来源 `business/account/__init__.py:176`
 - [ ] `POST /account/star/get` — `get_star_tags`；旧来源 `business/account/__init__.py:177`
 - [ ] `POST /account/get_pending_messages` — `get_pending_messages`；旧来源 `business/account/__init__.py:178`
-- [ ] `POST /account/get_generic_shops` — `generic_shop_defs`；旧来源 `business/account/__init__.py:179`
+- [x] `POST /account/get_generic_shops` — `generic_shop_defs`；旧来源 `business/account/__init__.py:179`；返回旧版空定义列表，待客户端验收
 - [ ] `POST /account/consumable/get_consumable_defs` — `get_consumable_defs`；旧来源 `business/account/__init__.py:180`
 - [ ] `POST /account/consumable/get_consumables` — `get_consumables`；旧来源 `business/account/__init__.py:181`
 - [ ] `POST /account/consumable/consume_item1` — `consume_item1`；旧来源 `business/account/__init__.py:182`
 - [ ] `POST /account/redeem_reward` — `redeem_reward`；旧来源 `business/account/__init__.py:187`
-- [ ] `POST /account/get_unlocks` — `get_unlocks`；旧来源 `business/account/__init__.py:188`
+- [x] `POST /account/get_unlocks` — `get_unlocks`；旧来源 `business/account/__init__.py:188`；基础读取已接入，版本化全量自动解锁、状态覆盖联动及客户端验收待完成
 - [ ] `POST /account/get_event_schedule` — `get_event_schedule`；旧来源 `business/account/__init__.py:189`
 - [ ] `POST /account/commerce/receipt` — `commerce_receipt`；旧来源 `business/account/__init__.py:191`
 - [ ] `POST /account/commerce/fulfill` — `commerce_fulfill`；旧来源 `business/account/__init__.py:192`
@@ -169,7 +169,7 @@
 - [ ] `POST /account/social_feed/get_reactions` — `get_social_feed_reactions`；旧来源 `business/account/__init__.py:279`
 - [ ] `POST /account/social_feed/like` — `social_feed_like`；旧来源 `business/account/__init__.py:280`
 - [ ] `POST /account/social_feed/delete` — `delete_social_feed`；旧来源 `business/account/__init__.py:281`
-- [ ] `POST /account/ack_unlock` — `ack_unlock`；旧来源 `business/account/__init__.py:282`
+- [x] `POST /account/ack_unlock` — `ack_unlock`；旧来源 `business/account/__init__.py:282`；已迁移，待客户端验证
 - [ ] `POST /account/chat/send` — `handle_chat_message`；旧来源 `business/account/__init__.py:283`
 - [ ] `POST /account/send` — `handle_send_message`；旧来源 `business/account/__init__.py:287`
 - [ ] `POST /account/send_message` — `handle_send_message`；旧来源 `business/account/__init__.py:288`

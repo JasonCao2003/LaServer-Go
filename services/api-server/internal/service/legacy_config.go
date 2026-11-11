@@ -38,6 +38,10 @@ func (a *Service) QuestionnaireGroups(_ Request, _ Object) (Object, error) {
 	return Object{"get_questionnaire_groups": []any{}}, nil
 }
 
+func (a *Service) GenericShops(_ Request, _ Object) (Object, error) {
+	return Object{"generic_shop_defs": []any{}}, nil
+}
+
 func (a *Service) Invites(r Request, m Object) (Object, error) {
 	userID, session := text(m, "user"), text(m, "session")
 	if userID == "" || session == "" {

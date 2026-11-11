@@ -32,6 +32,8 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/account/userdata"] = s.Userdata
 	a.routes["/account/sync_user_data"] = s.Userdata
 	a.routes["/account/get_currency"] = s.Currency
+	a.routes["/account/get_unlocks"] = s.Unlocks
+	a.routes["/account/ack_unlock"] = s.AckUnlock
 	a.routes["/account/get_rank"] = s.Rank
 	a.routes["/account/find_previous_or_empty"] = s.Discover
 	a.routes["/account/get_checkpoints"] = s.Checkpoints
@@ -58,6 +60,7 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/account/get_relationship_abilities"] = s.RelationshipDefinitions
 	a.routes["/account/get_invites"] = s.Invites
 	a.routes["/account/get_questionnaire_groups"] = s.QuestionnaireGroups
+	a.routes["/account/get_generic_shops"] = s.GenericShops
 	a.routes["/account/quest/get_quest_defs"] = s.QuestDefinitions
 	a.routes["/account/iaplist"] = s.IAPList
 	a.routes["/account/check_invite"] = s.CheckInvite

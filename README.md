@@ -2,7 +2,7 @@
 
 LaServer 的 Go 重构项目，逐步迁移旧客户端游戏接口与 ENet/UDP 联机逻辑，理清业务边界并简化部署。
 
-> 当前处于开发阶段，尚不能完整替代旧 LaServer。已接入扫描清单中的 39/201 条路由，其余 162 条尚未迁移；本轮新增接口仅完成静态构建检查，测试与真实客户端验收尚未完成。
+> 当前处于开发阶段，尚不能完整替代旧 LaServer。已接入扫描清单中的 42/201 条路由，其余 159 条尚未迁移；本轮新增接口尚未完成静态构建检查，测试与真实客户端验收尚未完成。
 
 ## 服务与技术栈
 
@@ -33,7 +33,7 @@ LaServer-Go/
 │   │   │   ├── middleware/      请求体与访问日志
 │   │   │   ├── config/          配置加载
 │   │   │   └── app/             启动与生命周期
-│   │   ├── migrations/          SQLite schema v1–v6
+│   │   ├── migrations/          SQLite schema v1–v7
 │   │   ├── config/             无凭据配置示例
 │   │   ├── go.mod
 │   │   └── go.sum
@@ -76,7 +76,7 @@ Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-s
 
 在当前与旧 LaServer 并列的工作区中，`game_config_dir` 可设为 `../../../../LaServer/services/game-api/config`；其他部署需自行提供经过确认的配置文件。本仓库不自动复制旧客户端资源或真实账号数据，缺少必需资源的对应接口返回 503。
 
-`migrate` 支持初始化空数据库并逐版升级本项目 schema v1–v6，拒绝无法识别的非空数据库；正常启动要求 schema v6，不自动改表。已是 v6 时重跑 migrate 不会重复建表。不要将旧 Python 实例数据库直接复制到新服务路径，迁移前应备份并单独验证。
+`migrate` 支持初始化空数据库并逐版升级本项目 schema v1–v7，拒绝无法识别的非空数据库；正常启动要求 schema v7，不自动改表。已是 v7 时重跑 migrate 不会重复建表。不要将旧 Python 实例数据库直接复制到新服务路径，迁移前应备份并单独验证。
 
 ## 接口进度与边界
 

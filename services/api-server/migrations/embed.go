@@ -23,3 +23,6 @@ var PlayerState string
 
 //go:embed 006_invites.sql
 var Invites string
+
+//go:embed 007_unlocks.sql
+var Unlocks string
