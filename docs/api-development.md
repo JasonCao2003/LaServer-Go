@@ -95,14 +95,18 @@ schema v1–v7 开发库升级前保留备份，然后显式执行 migrate 命�
 - 旧 geonote 返回体同时包含新、旧两套字段（`geonote_id`/`id`、`created_at`/`created_time`、`pos_x` 与 `pos` 等），Go 保留这一双写形状以便各版本客户端读取。
 - 社交动态存在三套不同的 `reactions` 形状：服务读取为 8 键、账号 `get_reactions` 为 9 键、账号列表条目为 11 键；Go 按路由分别保留，未统一。
 - `get_by_ids` 的 NIL 哨兵 id 回退（按最近搜索提示取本用户动态）尚未实现；未知 id 直接返回空列表。`feed_extra` 的 `private` 字段只写不读，旧服务也没有可见性过滤。
-- 留影接口按旧实现不校验会话：任意调用者可创建、覆盖或读取任意 recording id；`/ugc` 只取路径最后一段并限制在 recordings 目录内，不校验 URL 中的用户段。
-- 舞台接口同样不校验会话，调用者可用任意 `user`/`user_id` 读写对应 owner 的摆放；`friends_in_apartments` 不查询房间或在线状态，始终返回空好友表。
-- `stage/set` 在无法识别 props 时不改写已有摆放；旧服务会额外保存 `last_request` 诊断字段，Go 未保留该字段。
-- 预约接口不再返回写死的 `127.0.0.1:8443`，改用 `room_host/room_port`；`hmac` 仍为 64 个零，event id 固定。
+- 留影创建和分块更新现要求有效会话，并校验请求作者与存储作者一致；这是针对旧实现宽松校验的安全收紧。留影读取与 `/ugc` 仍未验证读取权限，`/ugc` 只取路径最后一段并限制在 recordings 目录内，不校验 URL 中的用户段。
+- `stage/set` 现要求有效会话，且只允许写调用者自己的摆放；缺少可识别 props、stage_id 或存储失败会返回错误。`stage/get` 的跨账号读取仍保留旧语义。旧服务会额外保存 `last_request` 诊断字段，Go 未保留该字段。
+- `friends_in_apartments`、`leave_apartment`、`update_apartment_status` 与预约接口在旧服务中均为占位响应；Go 保留响应形状，但不提供真实公寓在线状态或座位预约。预约使用 `room_host/room_port`，`hmac` 仍为 64 个零，event id 固定，不能作为联机握手凭据。
+- 服务动态编辑和删除现要求有效会话及作者身份；超级点赞的数据库读取和扣费在单个事务中完成，重复请求不再次扣费。
 - 管理好友接口没有实现旧服务“整段 /admin 由隧道中间件拦截”的部署逻辑，改为进程内回环或 `admin_token` 校验；跨机管理必须配置 token。
 - 管理接口的 `pushed` 始终为 false，尚未接入 WebSocket `friends_updated`；在线客户端要等下一次好友列表轮询才能看到变化。
 
 ## 验证
+
+2026-11-12 A 批测试进度：原有基础 42 条、第 1 批 15 条、第 2 批 20 条共 77 条路径均有直接测试调用；入口、关键字段及部分状态闭环通过。`go test -json ./...` 45 个顶层测试和 51 个子测试通过，0 失败；日志见 `logs/api-server-batch-a-final2-20261112.jsonl`。库存不足消耗用例先失败并定位到扣减条件，修复后通过；版本过滤用例的一次错误预期也已更正，失败记录保留在 `logs/`。逐分支合同、配置完整时的资源内容和真机验收尚未完成；逐条证据与缺口见 [路由验证台账](api-route-verification.md)。
+
+2026-11-12 安全修复后：新增 3 项越权回归用例通过；`go test -json ./...` 共 34 项通过、0 项失败；本地冒烟 51 项通过、0 项失败。复用本地开发配置与开发数据库，测试服务完成后已停止。日志为 `logs/api-server-security-20261112.jsonl`、`logs/api-server-regression-20261112.jsonl` 和 `logs/api-server-security-smoke-20261112.log`。这些结果不构成 201 路由逐条合同或真实客户端验收；后续验证按 [测试覆盖计划](superpowers/plans/2026-11-12-api-test-coverage.md) 执行。
 
 2026-11-12 跨批次验收结果：`scripts/verify/inventory_routes.py` 重新扫描旧服务 201 条注册、201 个唯一路径，Go 侧 `pending=0`；`/ugc/<path:subpath>` 由 `/ugc/` 前缀路由处理。`go test -json ./...` 31 个测试全部通过，`go vet ./...`、Linux 构建和 Windows amd64 交叉构建通过；日志见 `logs/api-server-tests.jsonl`、`logs/api-server-vet.log`、`logs/api-server-build-linux.log`、`logs/api-server-build-windows.log`。测试使用临时数据库，不接触旧实例。
 

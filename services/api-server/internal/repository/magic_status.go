@@ -2,7 +2,7 @@ package repository
 
 const (
 	ReadConsumables      Statement = `SELECT consumable_id,cooldown_until,quantity FROM user_consumable WHERE user_id=? ORDER BY id`
-	ConsumeItem          Statement = `UPDATE user_consumable SET quantity=MAX(quantity-?,0),cooldown_until=? WHERE user_id=? AND consumable_id=? AND quantity>0`
+	ConsumeItem          Statement = `UPDATE user_consumable SET quantity=quantity-?,cooldown_until=? WHERE user_id=? AND consumable_id=? AND quantity>=?`
 	ConsumeUGCItem       Statement = `UPDATE user_consumable SET quantity=MAX(MAX(quantity,99)-?,0),cooldown_until=? WHERE user_id=? AND consumable_id=?`
 	ReadBuffs            Statement = `SELECT buff_id,active_until,cooldown_until,giver_user_id FROM user_buff WHERE user_id=? ORDER BY id`
 	UpsertBuff           Statement = `INSERT INTO user_buff(user_id,buff_id,active_until,cooldown_until,giver_user_id) VALUES(?,?,?,?,?) ON CONFLICT(user_id,buff_id) DO UPDATE SET active_until=excluded.active_until,cooldown_until=excluded.cooldown_until,giver_user_id=excluded.giver_user_id`

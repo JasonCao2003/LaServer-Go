@@ -295,16 +295,9 @@ func (a *Service) AccountDeleteFeed(r Request, m Object) (Object, error) {
 }
 
 func (a *Service) ServiceFeedEdit(r Request, m Object) (Object, error) {
-	uid := text(m, "user")
-	if uid == "" {
-		uid = text(m, "user_id")
-	}
-	if uid != "" && text(m, "session") != "" {
-		if u, err := a.findUser(r.Context, "id", uid); err != nil || stringValue(u.Session) != text(m, "session") {
-			uid = ""
-		}
-	} else {
-		uid = ""
+	uid, err := a.feedAuth(r, m)
+	if err != nil {
+		return nil, &Error{Status: 401, Body: Object{"result": "error"}}
 	}
 	rawID := text(m, "social_feed_id")
 	if rawID == "" {
@@ -317,9 +310,14 @@ func (a *Service) ServiceFeedEdit(r Request, m Object) (Object, error) {
 	post, found := a.feedByAnyID(r, rawID)
 	stamp := now()
 	if found {
+		if post.UserID != uid {
+			return nil, &Error{Status: 403, Body: Object{"result": "error", "message": "Permission denied"}}
+		}
 		message := text(m, "message")
 		poolType, poolName := text(m, "pool_type"), text(m, "pool_name")
-		_ = a.store.UpdateFeed(r.Context, post.SocialFeedID, message, poolType, poolName, stamp+feedTTLSeconds)
+		if err := a.store.UpdateFeed(r.Context, post.SocialFeedID, message, poolType, poolName, stamp+feedTTLSeconds); err != nil {
+			return nil, err
+		}
 		if message != "" {
 			post.Message = message
 		}
@@ -413,7 +411,13 @@ func (a *Service) ServiceFeedSuperLike(r Request, m Object) (Object, error) {
 		return nil, &Error{Status: 401, Body: Object{"result": "error"}}
 	}
 	bare := feedBareID(text(m, "social_feed_id"))
-	p, found, _ := a.store.FeedByID(r.Context, bare)
+	p, found, err := a.store.FeedByID(r.Context, bare)
+	if err != nil {
+		return nil, err
+	}
+	if !found {
+		return Object{"result": "error", "error": "not_found"}, nil
+	}
 	tx, err := a.store.BeginTx(r.Context, nil)
 	if err != nil {
 		return Object{"result": "error", "error": "internal_error"}, nil
@@ -427,19 +431,26 @@ func (a *Service) ServiceFeedSuperLike(r Request, m Object) (Object, error) {
 		return Object{"result": "error", "error": "internal_error"}, nil
 	}
 	if boolValue(m["super_liked"]) {
-		newBalance := balance - 3
-		if newBalance < 0 {
-			newBalance = 0
+		inserted, err := tx.ExecContext(r.Context, repository.Statement(`INSERT INTO social_feed_like(user_id,social_feed_id,created_at) VALUES(?,?,?) ON CONFLICT(user_id,social_feed_id) DO NOTHING`), uid, bare, now())
+		if err != nil {
+			return nil, err
 		}
-		if err = tx.SetCurrency(r.Context, uid, "candles", newBalance); err != nil {
-			return Object{"result": "error", "error": "internal_error"}, nil
+		count, err := inserted.RowsAffected()
+		if err != nil {
+			return nil, err
 		}
-		balance = newBalance
-		if exists, _ := a.store.FeedLikeExists(r.Context, uid, bare); !exists {
-			_, _ = tx.ExecContext(r.Context, repository.Statement(`INSERT INTO social_feed_like(user_id,social_feed_id,created_at) VALUES(?,?,?) ON CONFLICT(user_id,social_feed_id) DO NOTHING`), uid, bare, now())
-		}
-		if found {
-			_, _ = tx.ExecContext(r.Context, repository.Statement(`UPDATE social_feed_post SET likes_count=COALESCE(likes_count,0)+1 WHERE social_feed_id=?`), p.SocialFeedID)
+		if count > 0 {
+			ok, err := tx.SpendCurrency(r.Context, uid, "candles", 3)
+			if err != nil {
+				return nil, err
+			}
+			if !ok {
+				return Object{"result": "error", "error": "not_enough_currency"}, nil
+			}
+			balance -= 3
+			if _, err = tx.ExecContext(r.Context, repository.Statement(`UPDATE social_feed_post SET likes_count=COALESCE(likes_count,0)+1 WHERE social_feed_id=?`), p.SocialFeedID); err != nil {
+				return nil, err
+			}
 		}
 	}
 	if err = tx.Commit(); err != nil {
@@ -449,11 +460,17 @@ func (a *Service) ServiceFeedSuperLike(r Request, m Object) (Object, error) {
 }
 
 func (a *Service) ServiceFeedDelete(r Request, m Object) (Object, error) {
-	if _, err := a.feedAuth(r, m); err != nil {
+	uid, err := a.feedAuth(r, m)
+	if err != nil {
 		return nil, &Error{Status: 401, Body: Object{"result": "error"}}
 	}
 	if p, found := a.feedByAnyID(r, text(m, "social_feed_id")); found {
-		_, _ = a.store.DeleteFeed(r.Context, p.SocialFeedID)
+		if p.UserID != uid {
+			return nil, &Error{Status: 403, Body: Object{"result": "error", "message": "Permission denied"}}
+		}
+		if _, err := a.store.DeleteFeed(r.Context, p.SocialFeedID); err != nil {
+			return nil, err
+		}
 	}
 	return Object{"result": "ok"}, nil
 }

@@ -178,6 +178,13 @@ func (a *Service) recordingOKPayload(r Request, rid string, meta map[string]any)
 }
 
 func (a *Service) RecordingCreateV1(r Request, m Object) (Object, error) {
+	uid, err := a.questUser(r, m)
+	if err != nil {
+		return nil, err
+	}
+	if author := recordingAuthor(m); author != uid {
+		return nil, fail(403, "Recording author mismatch")
+	}
 	a.recordingMu.Lock()
 	defer a.recordingMu.Unlock()
 	rid := text(m, "recording_id")
@@ -256,6 +263,13 @@ func (a *Service) RecordingGetV1(r Request, m Object) (Object, error) {
 }
 
 func (a *Service) RecordingCreateV2(r Request, m Object) (Object, error) {
+	uid, err := a.questUser(r, m)
+	if err != nil {
+		return nil, err
+	}
+	if author := recordingAuthor(m); author != uid {
+		return nil, fail(403, "Recording author mismatch")
+	}
 	a.recordingMu.Lock()
 	defer a.recordingMu.Unlock()
 	rid := text(m, "recording_id")
@@ -301,6 +315,13 @@ func (a *Service) RecordingCreateV2(r Request, m Object) (Object, error) {
 }
 
 func (a *Service) RecordingUpdateV2(r Request, m Object) (Object, error) {
+	uid, err := a.questUser(r, m)
+	if err != nil {
+		return nil, err
+	}
+	if author := recordingAuthor(m); author != uid {
+		return nil, fail(403, "Recording author mismatch")
+	}
 	a.recordingMu.Lock()
 	defer a.recordingMu.Unlock()
 	rid := strings.TrimSpace(text(m, "recording_id"))
@@ -315,9 +336,8 @@ func (a *Service) RecordingUpdateV2(r Request, m Object) (Object, error) {
 	if !found {
 		return nil, &Error{Status: 404, Body: Object{"status": "ERROR", "error": "RECORDING_NOT_FOUND", "recording_id": rid}}
 	}
-	author := recordingAuthor(m)
 	storedAuthor, _ := meta["user_id"].(string)
-	if storedAuthor != "" && storedAuthor != author && text(m, "user_id") != "" {
+	if storedAuthor != "" && storedAuthor != uid {
 		return nil, &Error{Status: 403, Body: Object{"status": "ERROR", "error": "RECORDING_FORBIDDEN", "recording_id": rid}}
 	}
 	table := map[string]any{}

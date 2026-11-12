@@ -156,23 +156,29 @@ func (a *Service) StageGet(r Request, m Object) (Object, error) {
 
 func (a *Service) StageSet(r Request, m Object) (Object, error) {
 	stageID, levelID := stageIDFor(m)
-	owner := text(m, "user")
-	if owner == "" {
-		owner = text(m, "user_id")
-		if strings.HasPrefix(owner, nilUserID) {
-			owner = ""
-		}
+	owner, err := a.questUser(r, m)
+	if err != nil {
+		return nil, err
+	}
+	if claimed := text(m, "user_id"); claimed != "" && claimed != nilUserID && claimed != owner {
+		return nil, fail(403, "Stage owner mismatch")
 	}
 	propsList, ok := stagePropsFromRequest(m)
 	if !ok {
-		return Object{"status": "OK"}, nil
+		return nil, fail(400, "Missing stage props")
 	}
 	if stageID == "" {
-		return Object{"status": "OK"}, nil
+		return nil, fail(400, "Missing stage_id")
 	}
 	props := normalizeStageProps(propsList)
-	encoded, _ := json.Marshal(props)
-	old, found, _ := a.store.StageState(r.Context, stageID, owner)
+	encoded, err := json.Marshal(props)
+	if err != nil {
+		return nil, err
+	}
+	old, found, err := a.store.StageState(r.Context, stageID, owner)
+	if err != nil {
+		return nil, err
+	}
 	sequence := number(m, "sequence", 0)
 	if sequence <= 0 {
 		sequence = 1
@@ -189,7 +195,9 @@ func (a *Service) StageSet(r Request, m Object) (Object, error) {
 		storedUser = old.UserID
 	}
 	state := repository.StageState{StageID: stageID, OwnerID: owner, Props: string(encoded), Sequence: sequence, LevelID: storedLevel, UserID: storedUser, UpdatedAt: now()}
-	_ = a.store.SaveStageState(r.Context, state)
+	if err = a.store.SaveStageState(r.Context, state); err != nil {
+		return nil, err
+	}
 	return Object{"status": "OK"}, nil
 }
 

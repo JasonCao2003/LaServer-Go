@@ -402,7 +402,11 @@ func (a *Service) ConsumeItem(r Request, m Object) (Object, error) {
 		if isUGCMagic(definition) {
 			query = repository.ConsumeUGCItem
 		}
-		res, e := tx.ExecContext(r.Context, query, count, now()+defSeconds(definition["cooldown"]), uid, id)
+		args := []any{count, now() + defSeconds(definition["cooldown"]), uid, id}
+		if query == repository.ConsumeItem {
+			args = append(args, count)
+		}
+		res, e := tx.ExecContext(r.Context, query, args...)
 		if e != nil {
 			return nil, e
 		}
