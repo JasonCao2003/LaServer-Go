@@ -403,7 +403,7 @@
     "handler": "redeem_reward",
     "source": "business/account/__init__.py",
     "line": 187,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -469,7 +469,7 @@
     "handler": "commerce_update",
     "source": "business/account/__init__.py",
     "line": 193,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -481,7 +481,7 @@
     "handler": "commerce_product_info",
     "source": "business/account/__init__.py",
     "line": 194,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1109,7 +1109,7 @@
     "handler": "ack_forge_rate_reset",
     "source": "business/account/__init__.py",
     "line": 252,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {

@@ -102,6 +102,10 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/service/status/api/v1/add_unlock"] = s.AddStatusUnlock
 	a.routes["/service/status/api/v1/delete_unlock"] = s.DeleteStatusUnlock
 	a.routes["/service/inventory/api/v1/unlocks/remove_dye"] = s.RemoveDye
+	a.routes["/account/redeem_reward"] = s.RedeemReward
+	a.routes["/account/ack_forge_rate_reset"] = s.AckForgeRateReset
+	a.routes["/account/commerce/update"] = s.CommerceUpdate
+	a.routes["/account/commerce/product_info"] = s.CommerceProductInfo
 	return a
 }
 func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -124,15 +128,24 @@ func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		write(w, status, object{"error": http.StatusText(status)})
 		return
 	}
-	if r.Method != "POST" {
-		w.Header().Set("Allow", "POST")
+	productInfoGet := r.URL.Path == "/account/commerce/product_info" && r.Method == "GET"
+	if r.Method != "POST" && !productInfoGet {
+		if r.URL.Path == "/account/commerce/product_info" {
+			w.Header().Set("Allow", "GET, POST")
+		} else {
+			w.Header().Set("Allow", "POST")
+		}
 		write(w, 405, object{"error": "Method not allowed"})
 		return
 	}
-	data, bodyErr := middleware.ReadObject(w, r)
-	if bodyErr != nil {
-		write(w, bodyErr.Status, object{"error": bodyErr.Message})
-		return
+	data := object{}
+	if !productInfoGet {
+		var bodyErr *middleware.BodyError
+		data, bodyErr = middleware.ReadObject(w, r)
+		if bodyErr != nil {
+			write(w, bodyErr.Status, object{"error": bodyErr.Message})
+			return
+		}
 	}
 	result, err := handler(service.Request{Context: r.Context(), Path: r.URL.Path, UserAgent: r.UserAgent(), RemoteIP: remoteIP(r), Host: r.Host, Secure: r.TLS != nil}, data)
 	if err != nil {

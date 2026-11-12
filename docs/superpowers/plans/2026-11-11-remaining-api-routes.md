@@ -102,6 +102,8 @@
 
 先建立商品、库存和货币规则，再实现扣费与发放的单事务和幂等。Commerce 和兑换码依旧版真实能力处理外部依赖，不能虚构到账。
 
+进度：4 条无需交易扣款的入口已接入（`redeem_reward`、`ack_forge_rate_reset`、`commerce/update`、`commerce/product_info`），12 条仍待迁移。旧 `commerce/receipt` 对凭据未做商店验证且会直接发货；Go 迁移不得把未验证的真实支付凭据当作成功。
+
 - [ ] 核对并迁移以下入口：
 
   - `POST /account/get_shop`
