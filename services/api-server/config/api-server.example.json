@@ -9,6 +9,7 @@
   "tls_key": "",
   "auto_authorize": false,
   "recreate_missing_account": false,
+  "allow_fake_commerce": false,
   "room_host": "127.0.0.1",
   "room_port": 25565,
   "current_season": 0,

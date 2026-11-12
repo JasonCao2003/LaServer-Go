@@ -35,11 +35,11 @@ go run ./cmd/server migrate --config config/api-server.json
 go run ./cmd/server --config config/api-server.json
 ```
 
-相对数据库和证书路径相对于配置文件目录解析。migrate 显式创建开发数据库目录，可初始化空数据库或将本项目 schema v1–v7 升级到 v8，拒绝无法识别的旧实例数据库。升级在事务中创建新增表并保留账号，不自动导入旧项目数据。正常启动要求 schema v8，不自动建表；已是 v8 时重跑 migrate 不会重复建表。当前 schema 只覆盖已迁移功能所需表，不能直接导入、复制或替换旧实例数据；旧 instance 和 legacy 数据必须分别迁移并验收。
+相对数据库和证书路径相对于配置文件目录解析。migrate 显式创建开发数据库目录，可初始化空数据库或将本项目 schema v1–v9 升级到 v10，拒绝无法识别的旧实例数据库。升级在事务中创建新增表并保留账号，不自动导入旧项目数据。正常启动要求 schema v10，不自动建表；已是 v10 时重跑 migrate 不会重复建表。当前 schema 只覆盖已迁移功能所需表，不能直接导入、复制或替换旧实例数据；旧 instance 和 legacy 数据必须分别迁移并验收。
 
 示例仅监听 127.0.0.1，默认不自动授权、不自动补建丢失账号，未授权登录返回 406。在隔离开发实例中可将 auto_authorize 设为 true 创建可登录测试账号；已有账号不会因此被批量授权。TLS 证书和私钥必须成对配置；旧客户端 TLS 互通尚未验证。API 独立启动，不检查实时服务是否在线，room_host/room_port 只是下发配置，不代表 ENet 已实现或可达。
 
-## 资源配置与 schema v8
+## 资源配置与 schema v10
 
 `game_config_dir` 是只读旧游戏配置目录，路径相对于本服务配置文件解析。例如当前并列工作区可设置为 `../../../../LaServer/services/game-api/config`，复用既有配置，不复制数据库或静态响应资源。收藏品需要 collectibles.json，地图定义需要 map.json，任务定义需要 quest.json，IAP 清单需要 iaplist.json；未配置、文件缺失或格式错误返回 503。第一批的兑换树优先读取配置目录同级 `resources/static_responses/account__get_spirit_shops.json`，缺失时读 `spirit_shops.json`；活动日程按客户端版本读 `event_schedule_low.json` 或 `event_schedule_high.json`。成就、成就定义和角标从 Go 开发库读取，不会自动导入旧数据库记录。
 

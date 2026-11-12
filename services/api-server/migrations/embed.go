@@ -32,3 +32,6 @@ var Resources string
 
 //go:embed 009_magic_status.sql
 var MagicStatus string
+
+//go:embed 010_commerce.sql
+var Commerce string

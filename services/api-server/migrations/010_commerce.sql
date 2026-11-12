@@ -1,0 +1,6 @@
+CREATE TABLE shop_item(id INTEGER PRIMARY KEY,name TEXT NOT NULL,unlockid INTEGER NOT NULL UNIQUE,unlock_cost INTEGER NOT NULL DEFAULT 0,currency_type TEXT NOT NULL DEFAULT 'heart',listed INTEGER NOT NULL DEFAULT 1,unlock_dep INTEGER NOT NULL DEFAULT 0,visual_dep INTEGER NOT NULL DEFAULT 0,x INTEGER NOT NULL DEFAULT 0,y INTEGER NOT NULL DEFAULT 0,created_at DATETIME DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE lootbox(id INTEGER PRIMARY KEY,user_id TEXT NOT NULL REFERENCES user(id),lootbox_id TEXT NOT NULL,lootbox_type TEXT NOT NULL DEFAULT 'lootbox',quantity INTEGER NOT NULL DEFAULT 0,acquired_at INTEGER NOT NULL DEFAULT 0,expires_at INTEGER,opened INTEGER NOT NULL DEFAULT 0,created_at DATETIME DEFAULT CURRENT_TIMESTAMP);
+CREATE INDEX lootbox_open_user ON lootbox(user_id,opened,lootbox_id);
+CREATE UNIQUE INDEX lootbox_one_open_per_kind ON lootbox(user_id,lootbox_id) WHERE opened=0;
+CREATE TABLE commerce_order(id INTEGER PRIMARY KEY,user_id TEXT NOT NULL REFERENCES user(id),product_id TEXT NOT NULL,transaction_id TEXT NOT NULL UNIQUE,status TEXT NOT NULL,created_at INTEGER NOT NULL);
+CREATE TABLE color_dye_currency(user_id TEXT NOT NULL REFERENCES user(id),color_name TEXT NOT NULL,value INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(user_id,color_name));

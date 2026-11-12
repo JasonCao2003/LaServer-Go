@@ -106,6 +106,18 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/account/ack_forge_rate_reset"] = s.AckForgeRateReset
 	a.routes["/account/commerce/update"] = s.CommerceUpdate
 	a.routes["/account/commerce/product_info"] = s.CommerceProductInfo
+	a.routes["/account/get_shop"] = s.GetShop
+	a.routes["/account/lootboxes/get"] = s.GetLootboxes
+	a.routes["/account/code/verify"] = s.VerifyCode
+	a.routes["/account/purchase_event_buff"] = s.PurchaseEventBuff
+	a.routes["/account/purchase_dye"] = s.PurchaseDye
+	a.routes["/account/purchase_generic_shop_item"] = s.PurchaseGenericShopItem
+	a.routes["/account/purchase_spirit_shop_item"] = s.PurchaseSpiritShopItem
+	a.routes["/account/lootboxes/redeem_box"] = s.RedeemBox
+	a.routes["/account/buy_candle_wax"] = s.BuyCandleWax
+	a.routes["/account/purchase_unlock"] = s.PurchaseUnlock
+	a.routes["/account/commerce/receipt"] = s.CommerceReceipt
+	a.routes["/account/commerce/fulfill"] = s.CommerceFulfill
 	return a
 }
 func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {

@@ -67,6 +67,7 @@ type Config struct {
 	TLSKey                 string           `json:"tls_key"`
 	AutoAuthorize          bool             `json:"auto_authorize"`
 	RecreateMissingAccount bool             `json:"recreate_missing_account"`
+	AllowFakeCommerce      bool             `json:"allow_fake_commerce"`
 	RoomHost               string           `json:"room_host"`
 	RoomPort               int              `json:"room_port"`
 	CurrentSeason          int              `json:"current_season"`
