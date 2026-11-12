@@ -41,3 +41,6 @@ var Quests string
 
 //go:embed 012_relationships.sql
 var Relationships string
+
+//go:embed 013_messages.sql
+var Messages string

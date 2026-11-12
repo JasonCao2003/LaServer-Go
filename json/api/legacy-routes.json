@@ -304,7 +304,7 @@
     "handler": "get_pending_messages",
     "source": "business/account/__init__.py",
     "line": 178,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1450,7 +1450,7 @@
     "handler": "handle_chat_message",
     "source": "business/account/__init__.py",
     "line": 283,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1461,7 +1461,7 @@
     "handler": "handle_send_message",
     "source": "business/account/__init__.py",
     "line": 287,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1472,7 +1472,7 @@
     "handler": "handle_send_message",
     "source": "business/account/__init__.py",
     "line": 288,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1483,7 +1483,7 @@
     "handler": "handle_translate",
     "source": "business/account/__init__.py",
     "line": 289,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1494,7 +1494,7 @@
     "handler": "set_device_token",
     "source": "business/account/__init__.py",
     "line": 290,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1516,7 +1516,7 @@
     "handler": "give_candle",
     "source": "business/account/__init__.py",
     "line": 293,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1527,7 +1527,7 @@
     "handler": "claim_message_gift",
     "source": "business/account/__init__.py",
     "line": 296,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1538,7 +1538,7 @@
     "handler": "claim_message_gift",
     "source": "business/account/__init__.py",
     "line": 297,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1640,7 +1640,7 @@
     "handler": "get_all_messages_v2",
     "source": "business/service/__init__.py",
     "line": 88,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1651,7 +1651,7 @@
     "handler": "get_all_messages_v1",
     "source": "business/service/__init__.py",
     "line": 89,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1662,7 +1662,7 @@
     "handler": "get_message",
     "source": "business/service/__init__.py",
     "line": 90,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1673,7 +1673,7 @@
     "handler": "mark_received",
     "source": "business/service/__init__.py",
     "line": 91,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1684,7 +1684,7 @@
     "handler": "mark_seen",
     "source": "business/service/__init__.py",
     "line": 92,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1795,7 +1795,7 @@
     "handler": "get_pending_free_gifts",
     "source": "business/service/__init__.py",
     "line": 112,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1807,7 +1807,7 @@
     "handler": "send_free_gift_options",
     "source": "business/service/__init__.py",
     "line": 113,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1818,7 +1818,7 @@
     "handler": "claim_free_gift",
     "source": "business/service/__init__.py",
     "line": 114,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {

@@ -157,6 +157,23 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/service/relationship/api/v1/add_follow"] = s.AddFollow
 	a.routes["/service/relationship/api/v1/set_follow_name"] = s.SetFollowName
 	a.routes["/service/relationship/api/v1/delete_follow"] = s.DeleteFollow
+	a.routes["/account/get_pending_messages"] = s.GetPendingMessages
+	a.routes["/account/chat/send"] = s.ChatSend
+	a.routes["/account/send"] = s.AccountSend
+	a.routes["/account/send_message"] = s.AccountSend
+	a.routes["/account/translate"] = s.Translate
+	a.routes["/account/set_device_token"] = s.SetDeviceToken
+	a.routes["/account/give_candle"] = s.GiveCandle
+	a.routes["/account/claim_message_gift"] = s.ClaimMessageGift
+	a.routes["/account/claim_message_gifts"] = s.ClaimMessageGift
+	a.routes["/service/message/api/v2/get_all"] = s.MessageGetAllV2
+	a.routes["/service/message/api/v1/get_all"] = s.MessageGetAllV1
+	a.routes["/service/message/api/v1/get"] = s.MessageGet
+	a.routes["/service/message/api/v1/mark_received"] = s.MarkMessagesReceived
+	a.routes["/service/message/api/v1/mark_seen"] = s.MarkMessagesSeen
+	a.routes["/service/relationship/api/v1/free_gifts/get_pending"] = s.FreeGiftsGetPending
+	a.routes["/service/relationship/api/v1/free_gifts/send"] = s.FreeGiftsSend
+	a.routes["/service/relationship/api/v1/free_gifts/claim"] = s.FreeGiftsClaim
 	return a
 }
 func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -179,11 +196,18 @@ func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		write(w, status, object{"error": http.StatusText(status)})
 		return
 	}
-	if r.URL.Path == "/service/relationship/api/v1/update_friend_constellation_pages" && r.Method == "OPTIONS" {
+	constellationOptions := r.URL.Path == "/service/relationship/api/v1/update_friend_constellation_pages"
+	freeGiftOptions := r.URL.Path == "/service/relationship/api/v1/free_gifts/send"
+	if r.Method == "OPTIONS" && (constellationOptions || freeGiftOptions) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization,User-Agent,X-Requested-With")
+		if freeGiftOptions {
+			w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With")
+			w.Header().Set("Access-Control-Max-Age", "3600")
+		} else {
+			w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization,User-Agent,X-Requested-With")
+			w.Header().Set("Access-Control-Max-Age", "86400")
+		}
 		w.Header().Set("Access-Control-Allow-Methods", "POST,OPTIONS")
-		w.Header().Set("Access-Control-Max-Age", "86400")
 		w.WriteHeader(200)
 		return
 	}
@@ -191,7 +215,7 @@ func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" && !productInfoGet {
 		if r.URL.Path == "/account/commerce/product_info" {
 			w.Header().Set("Allow", "GET, POST")
-		} else if r.URL.Path == "/service/relationship/api/v1/update_friend_constellation_pages" {
+		} else if constellationOptions || freeGiftOptions {
 			w.Header().Set("Allow", "POST, OPTIONS")
 		} else {
 			w.Header().Set("Allow", "POST")

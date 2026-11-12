@@ -21,10 +21,11 @@ type Request struct {
 type Service struct {
 	store *repository.Store
 	cfg   *config.Config
+	bus   *messageBus
 }
 
 func New(store *repository.Store, cfg *config.Config) *Service {
-	return &Service{store: store, cfg: cfg}
+	return &Service{store: store, cfg: cfg, bus: newMessageBus()}
 }
 
 type Error struct {
