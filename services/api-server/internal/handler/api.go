@@ -218,6 +218,15 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/service/social-feed/api/v1/report"] = s.SocialFeedReport
 	a.routes["/service/social-feed/api/v2/get_penpals"] = s.ServiceGetPenpals
 	a.routes["/service/social-feed/api/v2/get_penpal_by_id"] = s.ServiceGetPenpalByID
+	a.routes["/service/reservation/api/v1/reserve"] = s.Reserve
+	a.routes["/service/stage/api/v1/get"] = s.StageGet
+	a.routes["/service/stage/api/v1/set"] = s.StageSet
+	a.routes["/service/stage/api/v1/friends_in_apartments"] = s.FriendsInApartments
+	a.routes["/service/stage/api/v1/leave_apartment"] = s.LeaveApartment
+	a.routes["/service/stage/api/v1/update_apartment_status"] = s.UpdateApartmentStatus
+	a.routes["/admin/api/friends_list"] = s.AdminFriendsList
+	a.routes["/admin/api/friends_set"] = s.AdminFriendsSet
+	a.routes["/admin/api/friends_clear"] = s.AdminFriendsClear
 	return a
 }
 func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -270,8 +279,9 @@ func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	productInfoGet := r.URL.Path == "/account/commerce/product_info" && r.Method == "GET"
-	if r.Method != "POST" && !productInfoGet {
-		if r.URL.Path == "/account/commerce/product_info" {
+	adminGet := r.Method == "GET" && strings.HasPrefix(r.URL.Path, "/admin/api/")
+	if r.Method != "POST" && !productInfoGet && !adminGet {
+		if r.URL.Path == "/account/commerce/product_info" || strings.HasPrefix(r.URL.Path, "/admin/api/") {
 			w.Header().Set("Allow", "GET, POST")
 		} else if constellationOptions || freeGiftOptions {
 			w.Header().Set("Allow", "POST, OPTIONS")
@@ -282,7 +292,13 @@ func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := object{}
-	if !productInfoGet {
+	if adminGet {
+		for key, values := range r.URL.Query() {
+			if len(values) == 1 {
+				data[key] = values[0]
+			}
+		}
+	} else if !productInfoGet {
 		var bodyErr *middleware.BodyError
 		data, bodyErr = middleware.ReadObject(w, r)
 		if bodyErr != nil {

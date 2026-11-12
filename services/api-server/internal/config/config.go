@@ -78,6 +78,7 @@ type Config struct {
 	DefaultCurrency        map[string]int64 `json:"default_currency"`
 	GameConfigDir          string           `json:"game_config_dir"`
 	InstanceDir            string           `json:"instance_dir"`
+	AdminToken             string           `json:"admin_token"`
 	ResourceAuthToken      string           `json:"resource_auth_token"`
 	StarwatchJWTSecret     string           `json:"starwatch_jwt_secret"`
 	StarwatchBrokerURL     string           `json:"starwatch_broker_url"`

@@ -50,3 +50,9 @@ var Geonotes string
 
 //go:embed 015_social_feed.sql
 var SocialFeed string
+
+//go:embed 016_stage.sql
+var Stage string
+
+//go:embed 017_admin_audit.sql
+var AdminAudit string

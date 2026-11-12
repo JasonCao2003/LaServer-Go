@@ -129,7 +129,10 @@ func TestMalformedAndUnavailableRoutes(t *testing.T) {
 			t.Fatalf("body %q status %d: %s", body, w.Code, w.Body.String())
 		}
 	}
-	call(t, api, "/account/purchase_spirit_shop_item", map[string]any{}, 501)
+	migrated := call(t, api, "/account/purchase_spirit_shop_item", map[string]any{}, 200)
+	if migrated["result"] != "error" {
+		t.Fatalf("migrated route did not reject missing session: %v", migrated)
+	}
 	call(t, api, "/not-a-route", map[string]any{}, 404)
 }
 
