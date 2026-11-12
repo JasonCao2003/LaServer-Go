@@ -326,7 +326,7 @@
     "handler": "get_consumable_defs",
     "source": "business/account/__init__.py",
     "line": 180,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -337,7 +337,7 @@
     "handler": "get_consumables",
     "source": "business/account/__init__.py",
     "line": 181,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -348,7 +348,7 @@
     "handler": "consume_item1",
     "source": "business/account/__init__.py",
     "line": 182,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -789,7 +789,7 @@
     "handler": "get_wing_buffs",
     "source": "business/account/__init__.py",
     "line": 222,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -800,7 +800,7 @@
     "handler": "wing_buffs_collect",
     "source": "business/account/__init__.py",
     "line": 223,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -811,7 +811,7 @@
     "handler": "collect_collectible",
     "source": "business/account/__init__.py",
     "line": 224,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -822,7 +822,7 @@
     "handler": "wing_buffs_drop",
     "source": "business/account/__init__.py",
     "line": 225,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -833,7 +833,7 @@
     "handler": "wing_buffs_deposit",
     "source": "business/account/__init__.py",
     "line": 226,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -844,7 +844,7 @@
     "handler": "wing_buffs_convert",
     "source": "business/account/__init__.py",
     "line": 227,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -866,7 +866,7 @@
     "handler": "get_buffs1",
     "source": "business/account/__init__.py",
     "line": 229,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -877,7 +877,7 @@
     "handler": "get_buffs",
     "source": "business/account/__init__.py",
     "line": 230,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -888,7 +888,7 @@
     "handler": "remove_buff1",
     "source": "business/account/__init__.py",
     "line": 232,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -899,7 +899,7 @@
     "handler": "remove_buff1",
     "source": "business/account/__init__.py",
     "line": 233,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1021,7 +1021,7 @@
     "handler": "get_consumables1",
     "source": "business/account/__init__.py",
     "line": 244,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1186,7 +1186,7 @@
     "handler": "ack_collectible",
     "source": "business/account/__init__.py",
     "line": 259,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1230,7 +1230,7 @@
     "handler": "get_buff_defs",
     "source": "business/account/__init__.py",
     "line": 263,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1994,7 +1994,7 @@
     "handler": "add_unlock",
     "source": "business/service/__init__.py",
     "line": 132,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2005,7 +2005,7 @@
     "handler": "delete_unlock",
     "source": "business/service/__init__.py",
     "line": 133,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2016,7 +2016,7 @@
     "handler": "get_unlocks_status",
     "source": "business/service/__init__.py",
     "line": 134,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2148,7 +2148,7 @@
     "handler": "inventory_remove_dye",
     "source": "business/service/__init__.py",
     "line": 148,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {

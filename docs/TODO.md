@@ -6,7 +6,7 @@
 
 ## 当前状态与勾选规则
 
-- 静态清单包含 201 条路由：57 条已有 Go handler、144 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
+- 静态清单包含 201 条路由：77 条已有 Go handler、124 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
 - api-server 已能独立运行；room-server 只有独立 module，无实现或运行入口。
 - 已有实体、HTTP handler 或本地测试通过，不等于真实账号数据迁移、完整客户端登录或联机通过。
 - 勾选路由表示已核对旧协议并接入 Go handler；静态构建、相关本地测试和真实客户端验收分别记录，不能以勾选代替测试通过。
@@ -76,7 +76,7 @@
 
 ## 待迁移路由逐项清单
 
-以下保留原 159 项批次清单，其中 15 项第一批代码已接入、144 项尚待迁移；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
+以下保留原 159 项批次清单，其中 前两批共 35 项代码已接入、124 项尚待迁移；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
 
 ### 游戏账号与资源接口（122 条）
 
@@ -93,11 +93,11 @@
 - [ ] `POST /account/star/get` — `get_star_tags`；旧来源 `business/account/__init__.py:177`
 - [ ] `POST /account/get_pending_messages` — `get_pending_messages`；旧来源 `business/account/__init__.py:178`
 - [x] `POST /account/get_generic_shops` — `generic_shop_defs`；旧来源 `business/account/__init__.py:179`；返回旧版空定义列表，待客户端验收
-- [ ] `POST /account/consumable/get_consumable_defs` — `get_consumable_defs`；旧来源 `business/account/__init__.py:180`
-- [ ] `POST /account/consumable/get_consumables` — `get_consumables`；旧来源 `business/account/__init__.py:181`
-- [ ] `POST /account/consumable/consume_item1` — `consume_item1`；旧来源 `business/account/__init__.py:182`
+- [x] `POST /account/consumable/get_consumable_defs` — `get_consumable_defs`；旧来源 `business/account/__init__.py:180`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/consumable/get_consumables` — `get_consumables`；旧来源 `business/account/__init__.py:181`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/consumable/consume_item1` — `consume_item1`；旧来源 `business/account/__init__.py:182`；Go handler 已接入，测试与客户端验收未执行
 - [ ] `POST /account/redeem_reward` — `redeem_reward`；旧来源 `business/account/__init__.py:187`
-- [x] `POST /account/get_unlocks` — `get_unlocks`；旧来源 `business/account/__init__.py:188`；基础读取已接入，版本化全量自动解锁、状态覆盖联动及客户端验收待完成
+- [x] `POST /account/get_unlocks` — `get_unlocks`；旧来源 `business/account/__init__.py:188`；基础读取和版本化全量自动解锁已接入，管理员响应覆盖及客户端验收待完成
 - [x] `POST /account/get_event_schedule` — `get_event_schedule`；旧来源 `business/account/__init__.py:189`；Go handler 已接入，测试与客户端验收未执行
 - [ ] `POST /account/commerce/receipt` — `commerce_receipt`；旧来源 `business/account/__init__.py:191`
 - [ ] `POST /account/commerce/fulfill` — `commerce_fulfill`；旧来源 `business/account/__init__.py:192`
@@ -128,21 +128,21 @@
 - [ ] `POST /account/get_season_pass_defs` — `get_season_pass_defs`；旧来源 `business/account/__init__.py:219`
 - [x] `POST /account/get_currency_defs` — `get_currency_defs`；旧来源 `business/account/__init__.py:220`；Go handler 已接入，测试与客户端验收未执行
 - [ ] `POST /account/get_event_currency` — `get_event_currency`；旧来源 `business/account/__init__.py:221`
-- [ ] `POST /account/wing_buffs/get` — `get_wing_buffs`；旧来源 `business/account/__init__.py:222`
-- [ ] `POST /account/wing_buffs/collect` — `wing_buffs_collect`；旧来源 `business/account/__init__.py:223`
-- [ ] `POST /account/collect_collectible` — `collect_collectible`；旧来源 `business/account/__init__.py:224`
-- [ ] `POST /account/wing_buffs/drop` — `wing_buffs_drop`；旧来源 `business/account/__init__.py:225`
-- [ ] `POST /account/wing_buffs/deposit` — `wing_buffs_deposit`；旧来源 `business/account/__init__.py:226`
-- [ ] `POST /account/wing_buffs/convert` — `wing_buffs_convert`；旧来源 `business/account/__init__.py:227`
-- [ ] `POST /account/buff/get_buffs1` — `get_buffs1`；旧来源 `business/account/__init__.py:229`
-- [ ] `POST /account/buff/get_buffs` — `get_buffs`；旧来源 `business/account/__init__.py:230`
-- [ ] `POST /account/buff/remove_buff1` — `remove_buff1`；旧来源 `business/account/__init__.py:232`
-- [ ] `POST /account/buff/remove_buff` — `remove_buff1`；旧来源 `business/account/__init__.py:233`
+- [x] `POST /account/wing_buffs/get` — `get_wing_buffs`；旧来源 `business/account/__init__.py:222`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/wing_buffs/collect` — `wing_buffs_collect`；旧来源 `business/account/__init__.py:223`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/collect_collectible` — `collect_collectible`；旧来源 `business/account/__init__.py:224`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/wing_buffs/drop` — `wing_buffs_drop`；旧来源 `business/account/__init__.py:225`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/wing_buffs/deposit` — `wing_buffs_deposit`；旧来源 `business/account/__init__.py:226`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/wing_buffs/convert` — `wing_buffs_convert`；旧来源 `business/account/__init__.py:227`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/buff/get_buffs1` — `get_buffs1`；旧来源 `business/account/__init__.py:229`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/buff/get_buffs` — `get_buffs`；旧来源 `business/account/__init__.py:230`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/buff/remove_buff1` — `remove_buff1`；旧来源 `business/account/__init__.py:232`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/buff/remove_buff` — `remove_buff1`；旧来源 `business/account/__init__.py:233`；Go handler 已接入，测试与客户端验收未执行
 - [ ] `POST /account/purchase_event_buff` — `purchase_event_buff`；旧来源 `business/account/__init__.py:234`
 - [ ] `POST /account/purchase_generic_shop_item` — `purchase_generic_shop_item`；旧来源 `business/account/__init__.py:235`
 - [ ] `POST /account/purchase_unlock` — `purchase_unlock`；旧来源 `business/account/__init__.py:239`
 - [ ] `POST /account/join_friend_game` — `join_friend_game`；旧来源 `business/account/__init__.py:243`
-- [ ] `POST /account/consumable/get_consumables1` — `get_consumables1`；旧来源 `business/account/__init__.py:244`
+- [x] `POST /account/consumable/get_consumables1` — `get_consumables1`；旧来源 `business/account/__init__.py:244`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/trust/get_trust_tier_defs` — `get_trust_tier_defs`；旧来源 `business/account/__init__.py:245`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/get_video_defs` — `get_video_defs`；旧来源 `business/account/__init__.py:247`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/get_radiance_spawn_defs` — `get_radiance_spawn_defs`；旧来源 `business/account/__init__.py:248`；Go handler 已接入，测试与客户端验收未执行
@@ -153,11 +153,11 @@
 - [ ] `POST /account/season_start` — `season_start`；旧来源 `business/account/__init__.py:256`
 - [ ] `POST /account/activate_season_quest` — `activate_season_quest`；旧来源 `business/account/__init__.py:257`
 - [ ] `POST /account/claim_season_quest_reward` — `claim_season_quest_reward`；旧来源 `business/account/__init__.py:258`
-- [ ] `POST /account/ack_collectible` — `ack_collectible`；旧来源 `business/account/__init__.py:259`
+- [x] `POST /account/ack_collectible` — `ack_collectible`；旧来源 `business/account/__init__.py:259`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/remote_config/upload` — `upload_remote_config`；旧来源 `business/account/__init__.py:260`；Go handler 已接入，测试与客户端验收未执行
 - [ ] `POST /account/get_season_quests` — `get_season_quests`；旧来源 `business/account/__init__.py:261`
 - [x] `POST /account/trust/get_trust_activity_defs` — `get_trust_activity_defs`；旧来源 `business/account/__init__.py:262`；Go handler 已接入，测试与客户端验收未执行
-- [ ] `POST /account/buff/get_buff_defs` — `get_buff_defs`；旧来源 `business/account/__init__.py:263`
+- [x] `POST /account/buff/get_buff_defs` — `get_buff_defs`；旧来源 `business/account/__init__.py:263`；Go handler 已接入，测试与客户端验收未执行
 - [ ] `POST /account/get_account_world_quests` — `get_account_world_quests`；旧来源 `business/account/__init__.py:264`
 - [ ] `POST /account/claim_quest_reward` — `claim_quest_reward`；旧来源 `business/account/__init__.py:265`
 - [ ] `POST /account/set_outfit` — `set_outfit`；旧来源 `business/account/__init__.py:266`
@@ -221,9 +221,9 @@
 - [ ] `POST /service/stage/api/v1/friends_in_apartments` — `friends_in_apartments`；旧来源 `business/service/__init__.py:129`
 - [ ] `POST /service/stage/api/v1/leave_apartment` — `leave_apartment`；旧来源 `business/service/__init__.py:130`
 - [ ] `POST /service/stage/api/v1/update_apartment_status` — `update_apartment_status`；旧来源 `business/service/__init__.py:131`
-- [ ] `POST /service/status/api/v1/add_unlock` — `add_unlock`；旧来源 `business/service/__init__.py:132`
-- [ ] `POST /service/status/api/v1/delete_unlock` — `delete_unlock`；旧来源 `business/service/__init__.py:133`
-- [ ] `POST /service/status/api/v1/get_unlocks` — `get_unlocks_status`；旧来源 `business/service/__init__.py:134`
+- [x] `POST /service/status/api/v1/add_unlock` — `add_unlock`；旧来源 `business/service/__init__.py:132`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /service/status/api/v1/delete_unlock` — `delete_unlock`；旧来源 `business/service/__init__.py:133`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /service/status/api/v1/get_unlocks` — `get_unlocks_status`；旧来源 `business/service/__init__.py:134`；Go handler 已接入，测试与客户端验收未执行
 - [ ] `POST /service/trust/api/v1/get_capped` — `get_capped`；旧来源 `business/service/__init__.py:135`
 - [ ] `POST /service/trust/api/v1/get` — `get_trust`；旧来源 `business/service/__init__.py:137`
 - [ ] `POST /service/social-feed/api/v1/create` — `social_feed_create`；旧来源 `business/service/__init__.py:139`
@@ -235,7 +235,7 @@
 - [ ] `POST /service/relationship/api/v1/add_follow` — `relationship_add_follow`；旧来源 `business/service/__init__.py:145`
 - [ ] `POST /service/relationship/api/v1/set_follow_name` — `relationship_set_follow_name`；旧来源 `business/service/__init__.py:146`
 - [ ] `POST /service/relationship/api/v1/delete_follow` — `relationship_delete_follow`；旧来源 `business/service/__init__.py:147`
-- [ ] `POST /service/inventory/api/v1/unlocks/remove_dye` — `inventory_remove_dye`；旧来源 `business/service/__init__.py:148`
+- [x] `POST /service/inventory/api/v1/unlocks/remove_dye` — `inventory_remove_dye`；旧来源 `business/service/__init__.py:148`；Go handler 已接入，测试与客户端验收未执行
 - [ ] `POST /service/social-feed/api/v1/get_reactions` — `social_feed_get_reactions`；旧来源 `business/service/__init__.py:150`
 - [ ] `POST /service/social-feed/api/v2/comments` — `social_feed_comments`；旧来源 `business/service/__init__.py:151`
 - [ ] `POST /service/social-feed/api/v1/report` — `social_feed_report`；旧来源 `business/service/__init__.py:152`

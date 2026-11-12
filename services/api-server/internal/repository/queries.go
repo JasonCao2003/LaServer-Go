@@ -34,6 +34,9 @@ func (t *Tx) ExecContext(c context.Context, q Statement, args ...any) (sql.Resul
 func (t *Tx) QueryRowContext(c context.Context, q Statement, args ...any) *sql.Row {
 	return t.tx.QueryRowContext(c, string(q), args...)
 }
+func (t *Tx) QueryContext(c context.Context, q Statement, args ...any) (*sql.Rows, error) {
+	return t.tx.QueryContext(c, string(q), args...)
+}
 func (t *Tx) Commit() error   { return t.tx.Commit() }
 func (t *Tx) Rollback() error { return t.tx.Rollback() }
 func UserLookup(key string) Statement {

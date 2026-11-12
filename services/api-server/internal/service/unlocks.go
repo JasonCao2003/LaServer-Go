@@ -222,6 +222,13 @@ func (a *Service) Unlocks(r Request, m Object) (Object, error) {
 	if err != nil {
 		return nil, err
 	}
+	full, err := a.policy("auto_full_unlock.json", integer(u.CreatedAt), false)
+	if err != nil {
+		return nil, err
+	}
+	if full {
+		items = a.mergeFullUnlocks(items, r.UserAgent)
+	}
 	total := len(items)
 	sort.SliceStable(items, func(i, j int) bool {
 		pi, pj := unlockPriority(items[i]), unlockPriority(items[j])
@@ -252,6 +259,87 @@ func (a *Service) Unlocks(r Request, m Object) (Object, error) {
 		total = len(items)
 	}
 	return Object{"unlocks": unlockPayload(items), "unlocks_total_count": total}, nil
+}
+
+// Full unlocks are response-only so disabling the policy never deletes owned items.
+func (a *Service) mergeFullUnlocks(owned []repository.Unlock, ua string) []repository.Unlock {
+	base := a.statusConfig("full_unlocks_template.json", "unlocks")
+	major, minor, patch, known := clientVersion(ua)
+	if known && a.cfg.GameConfigDir != "" {
+		raw, err := os.ReadFile(filepath.Join(a.cfg.GameConfigDir, "outfit_version_map.json"))
+		if err == nil {
+			var versions []struct {
+				Major int      `json:"major"`
+				Minor int      `json:"minor"`
+				Patch int      `json:"patch"`
+				Chars []string `json:"chars"`
+			}
+			if json.Unmarshal(raw, &versions) == nil {
+				var selected []string
+				target := major*1000000 + minor*1000 + patch
+				best := -1
+				for _, entry := range versions {
+					v := entry.Major*1000000 + entry.Minor*1000 + entry.Patch
+					if v <= target && v > best {
+						best = v
+						selected = entry.Chars
+					}
+				}
+				if best >= 0 {
+					filtered := []Object{}
+					for _, name := range selected {
+						filtered = append(filtered, Object{"name": name, "type": "spiritshop", "ack": true, "created_at": defaultUnlockTime})
+					}
+					for _, entry := range base {
+						if !strings.HasPrefix(text(entry, "name"), "Char") {
+							filtered = append(filtered, entry)
+						}
+					}
+					base = filtered
+				} else {
+					filtered := []Object{}
+					for _, entry := range base {
+						if !strings.HasPrefix(text(entry, "name"), "Char") {
+							filtered = append(filtered, entry)
+						}
+					}
+					base = filtered
+				}
+			}
+		}
+	}
+	seen := map[string]bool{}
+	out := make([]repository.Unlock, 0, len(base)+len(owned))
+	for _, entry := range base {
+		name := text(entry, "name")
+		if name == "" || seen[name] {
+			continue
+		}
+		seen[name] = true
+		ack := true
+		if v, ok := entry["ack"].(bool); ok {
+			ack = v
+		}
+		kind := text(entry, "type")
+		if kind == "" {
+			kind = "spiritshop"
+		}
+		out = append(out, repository.Unlock{Name: name, Type: kind, Ack: &ack, CreatedAt: defInt(entry["created_at"])})
+	}
+	for _, item := range owned {
+		if !seen[item.Name] {
+			out = append(out, item)
+			seen[item.Name] = true
+		} else {
+			for i := range out {
+				if out[i].Name == item.Name {
+					out[i] = item
+					break
+				}
+			}
+		}
+	}
+	return out
 }
 
 func (a *Service) AckUnlock(r Request, m Object) (Object, error) {

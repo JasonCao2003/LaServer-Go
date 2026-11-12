@@ -82,6 +82,26 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/account/delete_invite"] = s.DeleteInvite
 	a.routes["/account/create_invite"] = s.CreateInvite
 	a.routes["/account/accept_invite"] = s.AcceptInvite
+	a.routes["/account/consumable/get_consumable_defs"] = s.ConsumableDefinitions
+	a.routes["/account/consumable/get_consumables"] = s.GetConsumables
+	a.routes["/account/consumable/get_consumables1"] = s.GetConsumables1
+	a.routes["/account/consumable/consume_item1"] = s.ConsumeItem
+	a.routes["/account/buff/get_buff_defs"] = s.BuffDefinitions
+	a.routes["/account/buff/get_buffs"] = s.GetBuffs
+	a.routes["/account/buff/get_buffs1"] = s.GetBuffs1
+	a.routes["/account/buff/remove_buff"] = s.RemoveBuff
+	a.routes["/account/buff/remove_buff1"] = s.RemoveBuff
+	a.routes["/account/wing_buffs/get"] = s.GetWingBuffs
+	a.routes["/account/wing_buffs/collect"] = s.CollectWingBuffs
+	a.routes["/account/wing_buffs/drop"] = s.DropWingBuffs
+	a.routes["/account/wing_buffs/deposit"] = s.DepositWingBuffs
+	a.routes["/account/wing_buffs/convert"] = s.ConvertWingBuffs
+	a.routes["/account/collect_collectible"] = s.CollectCollectible
+	a.routes["/account/ack_collectible"] = s.AckCollectible
+	a.routes["/service/status/api/v1/get_unlocks"] = s.StatusUnlocks
+	a.routes["/service/status/api/v1/add_unlock"] = s.AddStatusUnlock
+	a.routes["/service/status/api/v1/delete_unlock"] = s.DeleteStatusUnlock
+	a.routes["/service/inventory/api/v1/unlocks/remove_dye"] = s.RemoveDye
 	return a
 }
 func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
