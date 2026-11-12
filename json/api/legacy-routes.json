@@ -1583,7 +1583,7 @@
     "handler": "_endpoint_friends_list",
     "source": "business/admin/__init__.py",
     "line": 165,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1595,7 +1595,7 @@
     "handler": "_endpoint_friends_set",
     "source": "business/admin/__init__.py",
     "line": 167,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1607,7 +1607,7 @@
     "handler": "_endpoint_friends_clear",
     "source": "business/admin/__init__.py",
     "line": 169,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1829,7 +1829,7 @@
     "handler": "reserve",
     "source": "business/service/__init__.py",
     "line": 115,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1939,7 +1939,7 @@
     "handler": "get_stage",
     "source": "business/service/__init__.py",
     "line": 126,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1950,7 +1950,7 @@
     "handler": "set_stage",
     "source": "business/service/__init__.py",
     "line": 128,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1961,7 +1961,7 @@
     "handler": "friends_in_apartments",
     "source": "business/service/__init__.py",
     "line": 129,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1972,7 +1972,7 @@
     "handler": "leave_apartment",
     "source": "business/service/__init__.py",
     "line": 130,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1983,7 +1983,7 @@
     "handler": "update_apartment_status",
     "source": "business/service/__init__.py",
     "line": 131,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {

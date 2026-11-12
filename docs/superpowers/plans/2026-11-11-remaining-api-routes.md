@@ -13,7 +13,7 @@
 ## 口径与边界
 
 - 基线为 2026-11-11 的 `docs/TODO.md` 未勾选路由：159 条；已接入 Go 路由 42 条。以下 10 批互斥，数量合计 159。分批只代表开发顺序，不代表测试或客户端验收通过。
-- 前八批代码接入后，当前机器清单为 192 条已接入、9 条待迁移；本计划各批的原始数量保留为启动时快照，测试与客户端验收仍待执行。
+- 十批代码接入后，扫描清单 201 条全部有 Go handler（其中 `/ugc` 由前缀路由处理）；本计划各批的原始数量保留为启动时快照，测试与客户端验收仍待执行。
 - `json/api/legacy-routes.json` 已按当前 Go route map 刷新；之后每批继续同步更新 TODO、路由报告及开发进度。
 - `/account/get_unlocks` 的全量自动解锁按客户端版本表合并，状态解锁和删除标记由 `/service/status/api/v1/get_unlocks` 独立读取；响应覆盖的管理员配置机制尚待迁移。此前 42 条已接入路由的兼容差异不计入 159，但应随所属业务批次复核。
 - 旧注册方法包含 GET、POST 和 OPTIONS；扩展现有只允许 POST 的路由分发时按具体路径约束方法。未知路径仍为 404，未迁移旧路径仍为 501。
@@ -277,11 +277,13 @@
 
 - [x] 按共同完成标准更新清单与验证状态（测试与客户端验收未执行）。
 
-### 第 9 批：舞台、公寓与预约（6 条）
+### 第 9 批：舞台、公寓与预约（6 条，代码已接入）
 
 对齐舞台状态、同公寓好友发现、离开和预约；房间状态不可只保存在单次 HTTP 请求内。
 
-- [ ] 核对并迁移以下入口：
+进度：6 条路由代码已接入；测试和客户端验收未执行。新增 schema v16 的 `stage_state` 表，按 `stage_id + owner_id` 保存共享空间摆放；旧 `instance/stage/*.json` 尚未提供导入工具。预约接口改用配置的 `room_host/room_port`，不再返回旧服务写死的 `127.0.0.1:8443`；公寓相关接口保持旧服务的空好友表与 success 回执。
+
+- [x] 核对并迁移以下入口（静态构建通过，测试与客户端验收未执行）：
 
   - `POST /service/reservation/api/v1/reserve`
   - `POST /service/stage/api/v1/get`
@@ -290,22 +292,25 @@
   - `POST /service/stage/api/v1/leave_apartment`
   - `POST /service/stage/api/v1/update_apartment_status`
 
-- [ ] 按共同完成标准更新清单与验证状态。
+- [x] 按共同完成标准更新清单与验证状态（测试与客户端验收未执行）。
 
-### 第 10 批：管理好友接口（3 条）
+### 第 10 批：管理好友接口（3 条，代码已接入）
 
 隔离管理身份与普通玩家身份；保留旧管理路径的 GET/POST 方法，同时记录修改和审计。
 
-- [ ] 核对并迁移以下入口：
+进度：3 条路由代码已接入；测试和客户端验收未执行。新增 schema v17 的 `admin_audit` 表，`friends_set`/`friends_clear` 的成功修改会写入审计并记录日志。管理接口默认只允许本机回环地址访问；配置 `admin_token` 后改用 `X-Admin-Token` 或请求体 `admin_token` 校验。删除写入 `status='removed'` 墓碑并置 `local_soft_deleted`，添加/恢复强制双向 active。
+
+- [x] 核对并迁移以下入口（静态构建通过，测试与客户端验收未执行）：
 
   - `POST,GET /admin/api/friends_list`
   - `POST,GET /admin/api/friends_set`
   - `POST,GET /admin/api/friends_clear`
 
-- [ ] 按共同完成标准更新清单与验证状态。
+- [x] 按共同完成标准更新清单与验证状态（测试与客户端验收未执行）。
 
 ## 跨批次验收
 
-- [ ] 10 批完成后重新扫描旧服务注册与 Go route map，确认 159 条均有对应处理函数，且动态路由缺口单独列出。
-- [ ] 在用户同意测试后运行相关 Go 测试与两端实际 APK 验证，记录首个失败请求和实际版本；修复后再将路由标为客户端通过。
-- [ ] 旧实例数据导入、room-server 与实时协议、管理页面和部署切换依照 TODO 另行实施，不因 159 条 HTTP 路由接入而视为完成。
+- [x] 10 批完成后重新扫描旧服务注册与 Go route map：2026-11-12 执行 `scripts/verify/inventory_routes.py`，旧服务 201 条注册、201 个唯一路径，Go 侧 `pending=0`；`/ugc/<path:subpath>` 由 `/ugc/` 前缀路由处理，作为动态路由单独列出。
+- [x] 在用户同意测试后运行相关 Go 测试：`go test -json ./...` 全部通过（31 个测试，0 失败），`go vet ./...`、Linux 构建与 Windows 交叉构建通过；日志见 `logs/api-server-tests.jsonl`、`logs/api-server-vet.log`、`logs/api-server-build-*.log`。
+- [ ] 两端实际 APK 验证：ADB 位于 `Tools/platform-tools/adb.exe`，2026-11-12 检查无已连接设备，未执行 0.1.8 / 0.3.11 客户端冷启动、认证、资源拉取、存档、进房与双端同步；不得将路由标记为客户端通过。
+- [ ] 旧实例数据导入、room-server 与实时协议、管理页面和部署切换依照 TODO 另行实施，不因 201 条 HTTP 路由接入而视为完成。

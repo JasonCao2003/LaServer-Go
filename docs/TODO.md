@@ -6,7 +6,7 @@
 
 ## 当前状态与勾选规则
 
-- 静态清单包含 201 条路由：192 条已有 Go handler、9 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
+- 静态清单包含 201 条路由：201 条已有 Go handler、0 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
 - api-server 已能独立运行；room-server 只有独立 module，无实现或运行入口。
 - 已有实体、HTTP handler 或本地测试通过，不等于真实账号数据迁移、完整客户端登录或联机通过。
 - 勾选路由表示已核对旧协议并接入 Go handler；静态构建、相关本地测试和真实客户端验收分别记录，不能以勾选代替测试通过。
@@ -76,7 +76,7 @@
 
 ## 待迁移路由逐项清单
 
-以下保留原 159 项批次清单，其中前八批共 150 项代码已接入、9 项尚待迁移；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
+以下保留原 159 项批次清单，十批共 159 项代码已全部接入；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
 
 ### 游戏账号与资源接口（122 条）
 
@@ -206,7 +206,7 @@
 - [x] `POST /service/relationship/api/v1/free_gifts/get_pending` — `get_pending_free_gifts`；旧来源 `business/service/__init__.py:112`；Go handler 已接入 30 天有效期内礼物查询，测试与客户端验收未执行
 - [x] `POST,OPTIONS /service/relationship/api/v1/free_gifts/send` — `send_free_gift_options`；旧来源 `business/service/__init__.py:113`；Go handler 已接入礼物扣费与落库，不自动创建占位账号，测试与客户端验收未执行
 - [x] `POST /service/relationship/api/v1/free_gifts/claim` — `claim_free_gift`；旧来源 `business/service/__init__.py:114`；Go handler 已接入幂等领取与货币快照，测试与客户端验收未执行
-- [ ] `POST /service/reservation/api/v1/reserve` — `reserve`；旧来源 `business/service/__init__.py:115`
+- [x] `POST /service/reservation/api/v1/reserve` — `reserve`；旧来源 `business/service/__init__.py:115`；Go handler 已接入，房间地址取配置而非旧写死值，测试与客户端验收未执行
 - [x] `POST /service/recording/api/v1/create` — `recording_create`；旧来源 `business/service/__init__.py:116`；Go handler 已接入文件存储，测试与客户端验收未执行
 - [x] `POST /service/recording/api/v1/get` — `recording_get`；旧来源 `business/service/__init__.py:117`；Go handler 已接入留影读取与最新回退，测试与客户端验收未执行
 - [x] `POST /service/recording/api/v2/create` — `recording_v2_create`；旧来源 `business/service/__init__.py:119`；Go handler 已接入分块元数据与 seek_table，测试与客户端验收未执行
@@ -216,11 +216,11 @@
 - [x] `POST /service/social-feed/api/v2/get_curated_feeds` — `get_curated_feed`；旧来源 `business/service/__init__.py:123`；Go handler 已接入服务层动态列表，测试与客户端验收未执行
 - [x] `POST /service/social-feed/api/v1/get_user_feeds` — `v1get_user_feeds`；旧来源 `business/service/__init__.py:124`；Go handler 已接入 v1 动态列表，测试与客户端验收未执行
 - [x] `POST /service/social-feed/api/v1/get_by_ids` — `v1_get_by_ids`；旧来源 `business/service/__init__.py:125`；Go handler 已接入按 id 与 resource_id 查询，测试与客户端验收未执行
-- [ ] `POST /service/stage/api/v1/get` — `get_stage`；旧来源 `business/service/__init__.py:126`
-- [ ] `POST /service/stage/api/v1/set` — `set_stage`；旧来源 `business/service/__init__.py:128`
-- [ ] `POST /service/stage/api/v1/friends_in_apartments` — `friends_in_apartments`；旧来源 `business/service/__init__.py:129`
-- [ ] `POST /service/stage/api/v1/leave_apartment` — `leave_apartment`；旧来源 `business/service/__init__.py:130`
-- [ ] `POST /service/stage/api/v1/update_apartment_status` — `update_apartment_status`；旧来源 `business/service/__init__.py:131`
+- [x] `POST /service/stage/api/v1/get` — `get_stage`；旧来源 `business/service/__init__.py:126`；Go handler 已接入按 stage/owner 读取摆放，测试与客户端验收未执行
+- [x] `POST /service/stage/api/v1/set` — `set_stage`；旧来源 `business/service/__init__.py:128`；Go handler 已接入宽容 props 解析与 upsert，测试与客户端验收未执行
+- [x] `POST /service/stage/api/v1/friends_in_apartments` — `friends_in_apartments`；旧来源 `business/service/__init__.py:129`；Go handler 已接入空好友列表响应，测试与客户端验收未执行
+- [x] `POST /service/stage/api/v1/leave_apartment` — `leave_apartment`；旧来源 `business/service/__init__.py:130`；Go handler 已接入 success 回执，测试与客户端验收未执行
+- [x] `POST /service/stage/api/v1/update_apartment_status` — `update_apartment_status`；旧来源 `business/service/__init__.py:131`；Go handler 已接入 success 回执，测试与客户端验收未执行
 - [x] `POST /service/status/api/v1/add_unlock` — `add_unlock`；旧来源 `business/service/__init__.py:132`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /service/status/api/v1/delete_unlock` — `delete_unlock`；旧来源 `business/service/__init__.py:133`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /service/status/api/v1/get_unlocks` — `get_unlocks_status`；旧来源 `business/service/__init__.py:134`；Go handler 已接入，测试与客户端验收未执行
@@ -244,9 +244,9 @@
 
 ### 已扫描的管理接口（3 条）
 
-- [ ] `POST,GET /admin/api/friends_list` — `_endpoint_friends_list`；旧来源 `business/admin/__init__.py:165`
-- [ ] `POST,GET /admin/api/friends_set` — `_endpoint_friends_set`；旧来源 `business/admin/__init__.py:167`
-- [ ] `POST,GET /admin/api/friends_clear` — `_endpoint_friends_clear`；旧来源 `business/admin/__init__.py:169`
+- [x] `POST,GET /admin/api/friends_list` — `_endpoint_friends_list`；旧来源 `business/admin/__init__.py:165`；Go handler 已接入，默认仅回环或 admin_token 可访问，测试与客户端验收未执行
+- [x] `POST,GET /admin/api/friends_set` — `_endpoint_friends_set`；旧来源 `business/admin/__init__.py:167`；Go handler 已接入双向添加/删除/恢复并写审计，测试与客户端验收未执行
+- [x] `POST,GET /admin/api/friends_clear` — `_endpoint_friends_clear`；旧来源 `business/admin/__init__.py:169`；Go handler 已接入双向清空并写审计，测试与客户端验收未执行
 
 ### 认证与统计接口（1 条）
 
