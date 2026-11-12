@@ -1373,7 +1373,7 @@
     "handler": "create_social_feed",
     "source": "business/account/__init__.py",
     "line": 276,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1384,7 +1384,7 @@
     "handler": "get_user_feeds",
     "source": "business/account/__init__.py",
     "line": 277,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1395,7 +1395,7 @@
     "handler": "get_curated_feeds",
     "source": "business/account/__init__.py",
     "line": 278,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1406,7 +1406,7 @@
     "handler": "get_social_feed_reactions",
     "source": "business/account/__init__.py",
     "line": 279,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1417,7 +1417,7 @@
     "handler": "social_feed_like",
     "source": "business/account/__init__.py",
     "line": 280,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1428,7 +1428,7 @@
     "handler": "delete_social_feed",
     "source": "business/account/__init__.py",
     "line": 281,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1840,7 +1840,7 @@
     "handler": "recording_create",
     "source": "business/service/__init__.py",
     "line": 116,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1851,7 +1851,7 @@
     "handler": "recording_get",
     "source": "business/service/__init__.py",
     "line": 117,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1862,7 +1862,7 @@
     "handler": "recording_v2_create",
     "source": "business/service/__init__.py",
     "line": 119,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1873,7 +1873,7 @@
     "handler": "recording_v2_update",
     "source": "business/service/__init__.py",
     "line": 120,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1884,7 +1884,7 @@
     "handler": "recording_v2_get",
     "source": "business/service/__init__.py",
     "line": 121,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1895,7 +1895,7 @@
     "handler": "serve_recording_ugc",
     "source": "business/service/__init__.py",
     "line": 122,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1906,7 +1906,7 @@
     "handler": "get_curated_feed",
     "source": "business/service/__init__.py",
     "line": 123,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1917,7 +1917,7 @@
     "handler": "v1get_user_feeds",
     "source": "business/service/__init__.py",
     "line": 124,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1928,7 +1928,7 @@
     "handler": "v1_get_by_ids",
     "source": "business/service/__init__.py",
     "line": 125,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2049,7 +2049,7 @@
     "handler": "social_feed_create",
     "source": "business/service/__init__.py",
     "line": 139,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2060,7 +2060,7 @@
     "handler": "social_feed_hide",
     "source": "business/service/__init__.py",
     "line": 140,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2071,7 +2071,7 @@
     "handler": "svc_social_feed_like",
     "source": "business/service/__init__.py",
     "line": 141,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2082,7 +2082,7 @@
     "handler": "social_feed_super_like",
     "source": "business/service/__init__.py",
     "line": 142,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2093,7 +2093,7 @@
     "handler": "social_feed_delete",
     "source": "business/service/__init__.py",
     "line": 143,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2104,7 +2104,7 @@
     "handler": "social_feed_edit",
     "source": "business/service/__init__.py",
     "line": 144,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2159,7 +2159,7 @@
     "handler": "social_feed_get_reactions",
     "source": "business/service/__init__.py",
     "line": 150,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2170,7 +2170,7 @@
     "handler": "social_feed_comments",
     "source": "business/service/__init__.py",
     "line": 151,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2181,7 +2181,7 @@
     "handler": "social_feed_report",
     "source": "business/service/__init__.py",
     "line": 152,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2192,7 +2192,7 @@
     "handler": "social_feed_get_penpals",
     "source": "business/service/__init__.py",
     "line": 153,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2203,7 +2203,7 @@
     "handler": "social_feed_get_penpal_by_id",
     "source": "business/service/__init__.py",
     "line": 154,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {

@@ -47,8 +47,12 @@ func Load(path string) (Config, error) {
 	}
 	cfg.Database = resolve(cfg.Database)
 	cfg.GameConfigDir = resolve(cfg.GameConfigDir)
+	cfg.InstanceDir = resolve(cfg.InstanceDir)
 	cfg.TLSCert = resolve(cfg.TLSCert)
 	cfg.TLSKey = resolve(cfg.TLSKey)
+	if cfg.InstanceDir == "" {
+		cfg.InstanceDir = filepath.Join(filepath.Dir(cfg.Database), "instance")
+	}
 	for k, v := range cfg.DefaultCurrency {
 		if !currencyField(k) || v < 0 {
 			return cfg, fmt.Errorf("invalid default currency %q", k)
@@ -73,6 +77,7 @@ type Config struct {
 	CurrentSeason          int              `json:"current_season"`
 	DefaultCurrency        map[string]int64 `json:"default_currency"`
 	GameConfigDir          string           `json:"game_config_dir"`
+	InstanceDir            string           `json:"instance_dir"`
 	ResourceAuthToken      string           `json:"resource_auth_token"`
 	StarwatchJWTSecret     string           `json:"starwatch_jwt_secret"`
 	StarwatchBrokerURL     string           `json:"starwatch_broker_url"`

@@ -9,6 +9,7 @@ import (
 	"log/slog"
 	"net"
 	"net/http"
+	"strings"
 )
 
 type Config = config.Config
@@ -16,12 +17,13 @@ type object = service.Object
 type endpoint func(service.Request, object) (object, error)
 type API struct {
 	cfg    *Config
+	svc    *service.Service
 	routes map[string]endpoint
 	legacy map[string]bool
 }
 
 func NewAPI(s *service.Service, cfg *Config) *API {
-	a := &API{cfg: cfg, routes: map[string]endpoint{}, legacy: map[string]bool{}}
+	a := &API{cfg: cfg, svc: s, routes: map[string]endpoint{}, legacy: map[string]bool{}}
 	for _, path := range service.LegacyPaths {
 		a.legacy[path] = true
 	}
@@ -191,6 +193,31 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/account/edit_message_geonote"] = s.EditMessageGeonote
 	a.routes["/account/geonote/request_n_bug_report_geonotes"] = s.RequestNBugReportGeonotes
 	a.routes["/account/request_n_bug_report_geonotes"] = s.RequestNBugReportGeonotes
+	a.routes["/account/social_feed/create"] = s.SocialFeedCreate
+	a.routes["/account/social_feed/get_user_feeds"] = s.AccountGetUserFeeds
+	a.routes["/account/social_feed/get_curated_feeds"] = s.AccountGetCuratedFeeds
+	a.routes["/account/social_feed/get_reactions"] = s.AccountGetFeedReactions
+	a.routes["/account/social_feed/like"] = s.AccountFeedLike
+	a.routes["/account/social_feed/delete"] = s.AccountDeleteFeed
+	a.routes["/service/recording/api/v1/create"] = s.RecordingCreateV1
+	a.routes["/service/recording/api/v1/get"] = s.RecordingGetV1
+	a.routes["/service/recording/api/v2/create"] = s.RecordingCreateV2
+	a.routes["/service/recording/api/v2/update"] = s.RecordingUpdateV2
+	a.routes["/service/recording/api/v2/get"] = s.RecordingGetV2
+	a.routes["/service/social-feed/api/v2/get_curated_feeds"] = s.ServiceGetCuratedFeeds
+	a.routes["/service/social-feed/api/v1/get_user_feeds"] = s.ServiceGetUserFeeds
+	a.routes["/service/social-feed/api/v1/get_by_ids"] = s.ServiceGetByIDs
+	a.routes["/service/social-feed/api/v1/create"] = s.ServiceSocialFeedCreate
+	a.routes["/service/social-feed/api/v1/hide"] = s.ServiceFeedHide
+	a.routes["/service/social-feed/api/v1/like"] = s.ServiceFeedLike
+	a.routes["/service/social-feed/api/v1/super_like"] = s.ServiceFeedSuperLike
+	a.routes["/service/social-feed/api/v1/delete"] = s.ServiceFeedDelete
+	a.routes["/service/social-feed/api/v1/edit"] = s.ServiceFeedEdit
+	a.routes["/service/social-feed/api/v1/get_reactions"] = s.ServiceGetFeedReactions
+	a.routes["/service/social-feed/api/v2/comments"] = s.SocialFeedComments
+	a.routes["/service/social-feed/api/v1/report"] = s.SocialFeedReport
+	a.routes["/service/social-feed/api/v2/get_penpals"] = s.ServiceGetPenpals
+	a.routes["/service/social-feed/api/v2/get_penpal_by_id"] = s.ServiceGetPenpalByID
 	return a
 }
 func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -202,6 +229,20 @@ func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		write(w, 200, object{"status": "ok"})
+		return
+	}
+	if strings.HasPrefix(r.URL.Path, "/ugc/") {
+		if r.Method != "GET" {
+			w.Header().Set("Allow", "GET")
+			write(w, 405, object{"error": "Method not allowed"})
+			return
+		}
+		resp := a.svc.ServeUGC(strings.TrimPrefix(r.URL.Path, "/ugc/"), r.Header.Get("Range"))
+		for key, value := range resp.Headers {
+			w.Header().Set(key, value)
+		}
+		w.WriteHeader(resp.Status)
+		_, _ = w.Write(resp.Body)
 		return
 	}
 	handler, ok := a.routes[r.URL.Path]
@@ -249,7 +290,7 @@ func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	result, err := handler(service.Request{Context: r.Context(), Path: r.URL.Path, UserAgent: r.UserAgent(), RemoteIP: remoteIP(r), Host: r.Host, Secure: r.TLS != nil}, data)
+	result, err := handler(service.Request{Context: r.Context(), Path: r.URL.Path, UserAgent: r.UserAgent(), RemoteIP: remoteIP(r), Host: r.Host, Secure: r.TLS != nil, Header: r.Header}, data)
 	if err != nil {
 		var e *service.Error
 		if errors.As(err, &e) {

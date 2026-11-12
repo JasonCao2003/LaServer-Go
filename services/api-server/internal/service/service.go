@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -17,15 +18,18 @@ type Request struct {
 	Context                         context.Context
 	Path, UserAgent, RemoteIP, Host string
 	Secure                          bool
+	Header                          http.Header
 }
 type Service struct {
-	store *repository.Store
-	cfg   *config.Config
-	bus   *messageBus
+	store       *repository.Store
+	cfg         *config.Config
+	bus         *messageBus
+	hints       *recentHints
+	recordingMu sync.Mutex
 }
 
 func New(store *repository.Store, cfg *config.Config) *Service {
-	return &Service{store: store, cfg: cfg, bus: newMessageBus()}
+	return &Service{store: store, cfg: cfg, bus: newMessageBus(), hints: newRecentHints()}
 }
 
 type Error struct {

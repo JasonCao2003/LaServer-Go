@@ -6,7 +6,7 @@
 
 ## 当前状态与勾选规则
 
-- 静态清单包含 201 条路由：166 条已有 Go handler、35 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
+- 静态清单包含 201 条路由：192 条已有 Go handler、9 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
 - api-server 已能独立运行；room-server 只有独立 module，无实现或运行入口。
 - 已有实体、HTTP handler 或本地测试通过，不等于真实账号数据迁移、完整客户端登录或联机通过。
 - 勾选路由表示已核对旧协议并接入 Go handler；静态构建、相关本地测试和真实客户端验收分别记录，不能以勾选代替测试通过。
@@ -76,7 +76,7 @@
 
 ## 待迁移路由逐项清单
 
-以下保留原 159 项批次清单，其中前七批共 124 项代码已接入、35 项尚待迁移；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
+以下保留原 159 项批次清单，其中前八批共 150 项代码已接入、9 项尚待迁移；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
 
 ### 游戏账号与资源接口（122 条）
 
@@ -165,12 +165,12 @@
 - [x] `POST /account/collect_pickup_batch` — `collect_pickup_batch`；旧来源 `business/account/__init__.py:269`
 - [x] `POST /account/buy_candle_wax` — `buy_candle_wax`；旧来源 `business/account/__init__.py:270`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/code/verify` — `verify_invite_code`；旧来源 `business/account/__init__.py:272`；Go handler 已接入，测试与客户端验收未执行
-- [ ] `POST /account/social_feed/create` — `create_social_feed`；旧来源 `business/account/__init__.py:276`
-- [ ] `POST /account/social_feed/get_user_feeds` — `get_user_feeds`；旧来源 `business/account/__init__.py:277`
-- [ ] `POST /account/social_feed/get_curated_feeds` — `get_curated_feeds`；旧来源 `business/account/__init__.py:278`
-- [ ] `POST /account/social_feed/get_reactions` — `get_social_feed_reactions`；旧来源 `business/account/__init__.py:279`
-- [ ] `POST /account/social_feed/like` — `social_feed_like`；旧来源 `business/account/__init__.py:280`
-- [ ] `POST /account/social_feed/delete` — `delete_social_feed`；旧来源 `business/account/__init__.py:281`
+- [x] `POST /account/social_feed/create` — `create_social_feed`；旧来源 `business/account/__init__.py:276`；Go handler 已接入，SQLite 持久化动态，测试与客户端验收未执行
+- [x] `POST /account/social_feed/get_user_feeds` — `get_user_feeds`；旧来源 `business/account/__init__.py:277`；Go handler 已接入账号层动态列表，测试与客户端验收未执行
+- [x] `POST /account/social_feed/get_curated_feeds` — `get_curated_feeds`；旧来源 `business/account/__init__.py:278`；Go handler 已接入好友/公开混排，测试与客户端验收未执行
+- [x] `POST /account/social_feed/get_reactions` — `get_social_feed_reactions`；旧来源 `business/account/__init__.py:279`；Go handler 已接入 9 键反应统计，测试与客户端验收未执行
+- [x] `POST /account/social_feed/like` — `social_feed_like`；旧来源 `business/account/__init__.py:280`；Go handler 已接入点赞切换，测试与客户端验收未执行
+- [x] `POST /account/social_feed/delete` — `delete_social_feed`；旧来源 `business/account/__init__.py:281`；Go handler 已接入作者所有权校验，测试与客户端验收未执行
 - [x] `POST /account/ack_unlock` — `ack_unlock`；旧来源 `business/account/__init__.py:282`；已迁移，待客户端验证
 - [x] `POST /account/chat/send` — `handle_chat_message`；旧来源 `business/account/__init__.py:283`；Go handler 已接入普通聊天广播，旧调试斜杠命令未迁移，测试与客户端验收未执行
 - [x] `POST /account/send` — `handle_send_message`；旧来源 `business/account/__init__.py:287`；Go handler 已接入聊天与赠礼分流，测试与客户端验收未执行
@@ -207,15 +207,15 @@
 - [x] `POST,OPTIONS /service/relationship/api/v1/free_gifts/send` — `send_free_gift_options`；旧来源 `business/service/__init__.py:113`；Go handler 已接入礼物扣费与落库，不自动创建占位账号，测试与客户端验收未执行
 - [x] `POST /service/relationship/api/v1/free_gifts/claim` — `claim_free_gift`；旧来源 `business/service/__init__.py:114`；Go handler 已接入幂等领取与货币快照，测试与客户端验收未执行
 - [ ] `POST /service/reservation/api/v1/reserve` — `reserve`；旧来源 `business/service/__init__.py:115`
-- [ ] `POST /service/recording/api/v1/create` — `recording_create`；旧来源 `business/service/__init__.py:116`
-- [ ] `POST /service/recording/api/v1/get` — `recording_get`；旧来源 `business/service/__init__.py:117`
-- [ ] `POST /service/recording/api/v2/create` — `recording_v2_create`；旧来源 `business/service/__init__.py:119`
-- [ ] `POST /service/recording/api/v2/update` — `recording_v2_update`；旧来源 `business/service/__init__.py:120`
-- [ ] `POST /service/recording/api/v2/get` — `recording_v2_get`；旧来源 `business/service/__init__.py:121`
-- [ ] `GET /ugc/<path:subpath>` — `serve_recording_ugc`；旧来源 `business/service/__init__.py:122`
-- [ ] `POST /service/social-feed/api/v2/get_curated_feeds` — `get_curated_feed`；旧来源 `business/service/__init__.py:123`
-- [ ] `POST /service/social-feed/api/v1/get_user_feeds` — `v1get_user_feeds`；旧来源 `business/service/__init__.py:124`
-- [ ] `POST /service/social-feed/api/v1/get_by_ids` — `v1_get_by_ids`；旧来源 `business/service/__init__.py:125`
+- [x] `POST /service/recording/api/v1/create` — `recording_create`；旧来源 `business/service/__init__.py:116`；Go handler 已接入文件存储，测试与客户端验收未执行
+- [x] `POST /service/recording/api/v1/get` — `recording_get`；旧来源 `business/service/__init__.py:117`；Go handler 已接入留影读取与最新回退，测试与客户端验收未执行
+- [x] `POST /service/recording/api/v2/create` — `recording_v2_create`；旧来源 `business/service/__init__.py:119`；Go handler 已接入分块元数据与 seek_table，测试与客户端验收未执行
+- [x] `POST /service/recording/api/v2/update` — `recording_v2_update`；旧来源 `business/service/__init__.py:120`；Go handler 已接入分块追加与幂等，测试与客户端验收未执行
+- [x] `POST /service/recording/api/v2/get` — `recording_v2_get`；旧来源 `business/service/__init__.py:121`；Go handler 已接入 seek_table 与下载链接，测试与客户端验收未执行
+- [x] `GET /ugc/<path:subpath>` — `serve_recording_ugc`；旧来源 `business/service/__init__.py:122`；Go handler 已接入 GET Range 文件读取，测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v2/get_curated_feeds` — `get_curated_feed`；旧来源 `business/service/__init__.py:123`；Go handler 已接入服务层动态列表，测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v1/get_user_feeds` — `v1get_user_feeds`；旧来源 `business/service/__init__.py:124`；Go handler 已接入 v1 动态列表，测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v1/get_by_ids` — `v1_get_by_ids`；旧来源 `business/service/__init__.py:125`；Go handler 已接入按 id 与 resource_id 查询，测试与客户端验收未执行
 - [ ] `POST /service/stage/api/v1/get` — `get_stage`；旧来源 `business/service/__init__.py:126`
 - [ ] `POST /service/stage/api/v1/set` — `set_stage`；旧来源 `business/service/__init__.py:128`
 - [ ] `POST /service/stage/api/v1/friends_in_apartments` — `friends_in_apartments`；旧来源 `business/service/__init__.py:129`
@@ -226,21 +226,21 @@
 - [x] `POST /service/status/api/v1/get_unlocks` — `get_unlocks_status`；旧来源 `business/service/__init__.py:134`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /service/trust/api/v1/get_capped` — `get_capped`；旧来源 `business/service/__init__.py:135`；Go handler 已接入固定空响应，不自动建号，测试与客户端验收未执行
 - [x] `POST /service/trust/api/v1/get` — `get_trust`；旧来源 `business/service/__init__.py:137`；Go handler 已接入固定空响应，测试与客户端验收未执行
-- [ ] `POST /service/social-feed/api/v1/create` — `social_feed_create`；旧来源 `business/service/__init__.py:139`
-- [ ] `POST /service/social-feed/api/v1/hide` — `social_feed_hide`；旧来源 `business/service/__init__.py:140`
-- [ ] `POST /service/social-feed/api/v1/like` — `svc_social_feed_like`；旧来源 `business/service/__init__.py:141`
-- [ ] `POST /service/social-feed/api/v1/super_like` — `social_feed_super_like`；旧来源 `business/service/__init__.py:142`
-- [ ] `POST /service/social-feed/api/v1/delete` — `social_feed_delete`；旧来源 `business/service/__init__.py:143`
-- [ ] `POST /service/social-feed/api/v1/edit` — `social_feed_edit`；旧来源 `business/service/__init__.py:144`
+- [x] `POST /service/social-feed/api/v1/create` — `social_feed_create`；旧来源 `business/service/__init__.py:139`；Go handler 已接入复合 id 创建，测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v1/hide` — `social_feed_hide`；旧来源 `business/service/__init__.py:140`；Go handler 已接入隐藏计数，测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v1/like` — `svc_social_feed_like`；旧来源 `business/service/__init__.py:141`；Go handler 已接入点赞切换，测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v1/super_like` — `social_feed_super_like`；旧来源 `business/service/__init__.py:142`；Go handler 已接入蜡烛扣减与计数，测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v1/delete` — `social_feed_delete`；旧来源 `business/service/__init__.py:143`；Go handler 已接入按 id 删除（旧实现无所有权校验），测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v1/edit` — `social_feed_edit`；旧来源 `business/service/__init__.py:144`；Go handler 已接入编辑与缺失时创建，测试与客户端验收未执行
 - [x] `POST /service/relationship/api/v1/add_follow` — `relationship_add_follow`；旧来源 `business/service/__init__.py:145`；Go handler 已接入 boat_follow 关注表，测试与客户端验收未执行
 - [x] `POST /service/relationship/api/v1/set_follow_name` — `relationship_set_follow_name`；旧来源 `business/service/__init__.py:146`；Go handler 已接入 boat_follow 关注表，测试与客户端验收未执行
 - [x] `POST /service/relationship/api/v1/delete_follow` — `relationship_delete_follow`；旧来源 `business/service/__init__.py:147`；Go handler 已接入 boat_follow 关注表，测试与客户端验收未执行
 - [x] `POST /service/inventory/api/v1/unlocks/remove_dye` — `inventory_remove_dye`；旧来源 `business/service/__init__.py:148`；Go handler 已接入，测试与客户端验收未执行
-- [ ] `POST /service/social-feed/api/v1/get_reactions` — `social_feed_get_reactions`；旧来源 `business/service/__init__.py:150`
-- [ ] `POST /service/social-feed/api/v2/comments` — `social_feed_comments`；旧来源 `business/service/__init__.py:151`
-- [ ] `POST /service/social-feed/api/v1/report` — `social_feed_report`；旧来源 `business/service/__init__.py:152`
-- [ ] `POST /service/social-feed/api/v2/get_penpals` — `social_feed_get_penpals`；旧来源 `business/service/__init__.py:153`
-- [ ] `POST /service/social-feed/api/v2/get_penpal_by_id` — `social_feed_get_penpal_by_id`；旧来源 `business/service/__init__.py:154`
+- [x] `POST /service/social-feed/api/v1/get_reactions` — `social_feed_get_reactions`；旧来源 `business/service/__init__.py:150`；Go handler 已接入 8 键反应统计，测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v2/comments` — `social_feed_comments`；旧来源 `business/service/__init__.py:151`；Go handler 已接入空评论响应，测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v1/report` — `social_feed_report`；旧来源 `business/service/__init__.py:152`；Go handler 已接入空 result 响应，测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v2/get_penpals` — `social_feed_get_penpals`；旧来源 `business/service/__init__.py:153`；Go handler 已接入空笔友列表，测试与客户端验收未执行
+- [x] `POST /service/social-feed/api/v2/get_penpal_by_id` — `social_feed_get_penpal_by_id`；旧来源 `business/service/__init__.py:154`；Go handler 已接入笔友动态读取，测试与客户端验收未执行
 
 ### 已扫描的管理接口（3 条）
 

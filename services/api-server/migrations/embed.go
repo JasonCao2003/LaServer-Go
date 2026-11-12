@@ -47,3 +47,6 @@ var Messages string
 
 //go:embed 014_geonotes.sql
 var Geonotes string
+
+//go:embed 015_social_feed.sql
+var SocialFeed string
