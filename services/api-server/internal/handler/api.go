@@ -138,6 +138,25 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/service/quest/api/v1/get_quest_schedule"] = s.QuestSchedule
 	a.routes["/service/quest/api/v1/create"] = s.CreateQuest
 	a.routes["/service/quest/api/v1/update_quest"] = s.UpdateQuest
+	a.routes["/account/get_blocked_friends"] = s.GetBlockedFriends
+	a.routes["/account/set_friend_name"] = s.SetFriendName
+	a.routes["/account/set_friend_block"] = s.SetFriendBlock
+	a.routes["/account/get_external_friends"] = s.GetExternalFriends
+	a.routes["/account/serendipity/get"] = s.Serendipity
+	a.routes["/account/star/get"] = s.StarTags
+	a.routes["/account/join_friend_game"] = s.JoinFriendGame
+	a.routes["/account/set_outfit"] = s.SetOutfit
+	a.routes["/account/set_joinable"] = s.SetJoinable
+	a.routes["/account/get_remote_outfit"] = s.GetRemoteOutfit
+	a.routes["/account/remove_relationship_hint"] = s.RemoveRelationshipHint
+	a.routes["/service/relationship/api/v1/get_all_friend_gist"] = s.GetAllFriendGist
+	a.routes["/service/relationship/api/v1/get_follower_count"] = s.GetFollowerCount
+	a.routes["/service/relationship/api/v1/update_friend_constellation_pages"] = s.UpdateFriendConstellationPages
+	a.routes["/service/trust/api/v1/get_capped"] = s.TrustGetCapped
+	a.routes["/service/trust/api/v1/get"] = s.TrustGet
+	a.routes["/service/relationship/api/v1/add_follow"] = s.AddFollow
+	a.routes["/service/relationship/api/v1/set_follow_name"] = s.SetFollowName
+	a.routes["/service/relationship/api/v1/delete_follow"] = s.DeleteFollow
 	return a
 }
 func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -160,10 +179,20 @@ func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		write(w, status, object{"error": http.StatusText(status)})
 		return
 	}
+	if r.URL.Path == "/service/relationship/api/v1/update_friend_constellation_pages" && r.Method == "OPTIONS" {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization,User-Agent,X-Requested-With")
+		w.Header().Set("Access-Control-Allow-Methods", "POST,OPTIONS")
+		w.Header().Set("Access-Control-Max-Age", "86400")
+		w.WriteHeader(200)
+		return
+	}
 	productInfoGet := r.URL.Path == "/account/commerce/product_info" && r.Method == "GET"
 	if r.Method != "POST" && !productInfoGet {
 		if r.URL.Path == "/account/commerce/product_info" {
 			w.Header().Set("Allow", "GET, POST")
+		} else if r.URL.Path == "/service/relationship/api/v1/update_friend_constellation_pages" {
+			w.Header().Set("Allow", "POST, OPTIONS")
 		} else {
 			w.Header().Set("Allow", "POST")
 		}

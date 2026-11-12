@@ -38,3 +38,6 @@ var Commerce string
 
 //go:embed 011_quests.sql
 var Quests string
+
+//go:embed 012_relationships.sql
+var Relationships string

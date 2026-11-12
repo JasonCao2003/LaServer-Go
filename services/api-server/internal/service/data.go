@@ -151,7 +151,12 @@ func (a *Service) Discover(r Request, m object) (object, error) {
 		sum := sha256.Sum256([]byte(uri + "|" + salt))
 		return hex.EncodeToString(sum[:])
 	}
-	return object{"uri": uri, "move_ts": now(), "signature": sig("signature"), "sig": sig("sig"), "ps_only": false, "platform_filter": 0}, nil
+	signature, signature2 := sig("signature"), sig("sig")
+	stamp := now()
+	if err := a.store.AssignServer(r.Context, text(m, "user"), repository.ServerAssignment{ServerURI: uri, MoveTS: stamp, Signature: signature, Sig: signature2, PSOnly: false, PlatformFilter: 0}); err != nil {
+		return nil, err
+	}
+	return object{"uri": uri, "move_ts": stamp, "signature": signature, "sig": signature2, "ps_only": false, "platform_filter": 0}, nil
 }
 
 func (a *Service) Checkpoints(r Request, m object) (object, error) {

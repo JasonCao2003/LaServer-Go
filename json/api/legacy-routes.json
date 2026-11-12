@@ -172,7 +172,7 @@
     "handler": "get_blocked_friends",
     "source": "business/account/__init__.py",
     "line": 164,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -183,7 +183,7 @@
     "handler": "set_friend_name",
     "source": "business/account/__init__.py",
     "line": 165,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -194,7 +194,7 @@
     "handler": "set_friend_block",
     "source": "business/account/__init__.py",
     "line": 168,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -271,7 +271,7 @@
     "handler": "get_external_friends",
     "source": "business/account/__init__.py",
     "line": 175,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -282,7 +282,7 @@
     "handler": "get_serendipity",
     "source": "business/account/__init__.py",
     "line": 176,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -293,7 +293,7 @@
     "handler": "get_star_tags",
     "source": "business/account/__init__.py",
     "line": 177,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1010,7 +1010,7 @@
     "handler": "join_friend_game",
     "source": "business/account/__init__.py",
     "line": 243,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1263,7 +1263,7 @@
     "handler": "set_outfit",
     "source": "business/account/__init__.py",
     "line": 266,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1274,7 +1274,7 @@
     "handler": "set_joinable",
     "source": "business/account/__init__.py",
     "line": 267,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1505,7 +1505,7 @@
     "handler": "get_remote_outfit",
     "source": "business/account/__init__.py",
     "line": 292,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1549,7 +1549,7 @@
     "handler": "remove_relationship_hint",
     "source": "business/account/__init__.py",
     "line": 299,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1761,7 +1761,7 @@
     "handler": "get_all_friend_gist",
     "source": "business/service/__init__.py",
     "line": 99,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1772,7 +1772,7 @@
     "handler": "get_follower_count",
     "source": "business/service/__init__.py",
     "line": 100,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1784,7 +1784,7 @@
     "handler": "update_friend_constellation_pages_entry",
     "source": "business/service/__init__.py",
     "line": 106,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2027,7 +2027,7 @@
     "handler": "get_capped",
     "source": "business/service/__init__.py",
     "line": 135,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2038,7 +2038,7 @@
     "handler": "get_trust",
     "source": "business/service/__init__.py",
     "line": 137,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2115,7 +2115,7 @@
     "handler": "relationship_add_follow",
     "source": "business/service/__init__.py",
     "line": 145,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2126,7 +2126,7 @@
     "handler": "relationship_set_follow_name",
     "source": "business/service/__init__.py",
     "line": 146,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -2137,7 +2137,7 @@
     "handler": "relationship_delete_follow",
     "source": "business/service/__init__.py",
     "line": 147,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {

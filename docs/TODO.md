@@ -6,7 +6,7 @@
 
 ## 当前状态与勾选规则
 
-- 静态清单包含 201 条路由：113 条已有 Go handler、88 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
+- 静态清单包含 201 条路由：132 条已有 Go handler、69 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
 - api-server 已能独立运行；room-server 只有独立 module，无实现或运行入口。
 - 已有实体、HTTP handler 或本地测试通过，不等于真实账号数据迁移、完整客户端登录或联机通过。
 - 勾选路由表示已核对旧协议并接入 Go handler；静态构建、相关本地测试和真实客户端验收分别记录，不能以勾选代替测试通过。
@@ -76,21 +76,21 @@
 
 ## 待迁移路由逐项清单
 
-以下保留原 159 项批次清单，其中前四批共 71 项代码已接入、88 项尚待迁移；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
+以下保留原 159 项批次清单，其中前五批共 90 项代码已接入、69 项尚待迁移；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
 
 ### 游戏账号与资源接口（122 条）
 
-- [ ] `POST /account/get_blocked_friends` — `get_blocked_friends`；旧来源 `business/account/__init__.py:164`
-- [ ] `POST /account/set_friend_name` — `set_friend_name`；旧来源 `business/account/__init__.py:165`
-- [ ] `POST /account/set_friend_block` — `set_friend_block`；旧来源 `business/account/__init__.py:168`
+- [x] `POST /account/get_blocked_friends` — `get_blocked_friends`；旧来源 `business/account/__init__.py:164`；Go handler 已接入，分页与拉黑标记按旧实现，测试与客户端验收未执行
+- [x] `POST /account/set_friend_name` — `set_friend_name`；旧来源 `business/account/__init__.py:165`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/set_friend_block` — `set_friend_block`；旧来源 `business/account/__init__.py:168`；Go handler 已接入，仅写当前账号方向，测试与客户端验收未执行
 - [x] `POST /account/set_achievement_stats` — `set_achievement_stats`；旧来源 `business/account/__init__.py:170`
 - [x] `POST /account/get_surveys` — `get_surveys`；旧来源 `business/account/__init__.py:171`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/get_shop` — `get_shop`；旧来源 `business/account/__init__.py:172`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/lootboxes/get` — `get_lootboxes`；旧来源 `business/account/__init__.py:173`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/lootboxes/redeem_box` — `redeem_box`；旧来源 `business/account/__init__.py:174`；Go handler 已接入，测试与客户端验收未执行
-- [ ] `POST /account/get_external_friends` — `get_external_friends`；旧来源 `business/account/__init__.py:175`
-- [ ] `POST /account/serendipity/get` — `get_serendipity`；旧来源 `business/account/__init__.py:176`
-- [ ] `POST /account/star/get` — `get_star_tags`；旧来源 `business/account/__init__.py:177`
+- [x] `POST /account/get_external_friends` — `get_external_friends`；旧来源 `business/account/__init__.py:175`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/serendipity/get` — `get_serendipity`；旧来源 `business/account/__init__.py:176`；Go handler 已接入，测试与客户端验收未执行
+- [x] `POST /account/star/get` — `get_star_tags`；旧来源 `business/account/__init__.py:177`；Go handler 已接入，高版本返回静态星标定义，测试与客户端验收未执行
 - [ ] `POST /account/get_pending_messages` — `get_pending_messages`；旧来源 `business/account/__init__.py:178`
 - [x] `POST /account/get_generic_shops` — `generic_shop_defs`；旧来源 `business/account/__init__.py:179`；返回旧版空定义列表，待客户端验收
 - [x] `POST /account/consumable/get_consumable_defs` — `get_consumable_defs`；旧来源 `business/account/__init__.py:180`；Go handler 已接入，测试与客户端验收未执行
@@ -141,7 +141,7 @@
 - [x] `POST /account/purchase_event_buff` — `purchase_event_buff`；旧来源 `business/account/__init__.py:234`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/purchase_generic_shop_item` — `purchase_generic_shop_item`；旧来源 `business/account/__init__.py:235`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/purchase_unlock` — `purchase_unlock`；旧来源 `business/account/__init__.py:239`；Go handler 已接入，测试与客户端验收未执行
-- [ ] `POST /account/join_friend_game` — `join_friend_game`；旧来源 `business/account/__init__.py:243`
+- [x] `POST /account/join_friend_game` — `join_friend_game`；旧来源 `business/account/__init__.py:243`；Go handler 已接入，依赖好友最近一次 server_assignment，room-server 未实现，测试与客户端验收未执行
 - [x] `POST /account/consumable/get_consumables1` — `get_consumables1`；旧来源 `business/account/__init__.py:244`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/trust/get_trust_tier_defs` — `get_trust_tier_defs`；旧来源 `business/account/__init__.py:245`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/get_video_defs` — `get_video_defs`；旧来源 `business/account/__init__.py:247`；Go handler 已接入，测试与客户端验收未执行
@@ -160,8 +160,8 @@
 - [x] `POST /account/buff/get_buff_defs` — `get_buff_defs`；旧来源 `business/account/__init__.py:263`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/get_account_world_quests` — `get_account_world_quests`；旧来源 `business/account/__init__.py:264`
 - [x] `POST /account/claim_quest_reward` — `claim_quest_reward`；旧来源 `business/account/__init__.py:265`
-- [ ] `POST /account/set_outfit` — `set_outfit`；旧来源 `business/account/__init__.py:266`
-- [ ] `POST /account/set_joinable` — `set_joinable`；旧来源 `business/account/__init__.py:267`
+- [x] `POST /account/set_outfit` — `set_outfit`；旧来源 `business/account/__init__.py:266`；Go handler 已接入，装扮写入按旧字段，测试与客户端验收未执行
+- [x] `POST /account/set_joinable` — `set_joinable`；旧来源 `business/account/__init__.py:267`；Go handler 已接入，按旧实现仅回显 joinable，测试与客户端验收未执行
 - [x] `POST /account/collect_pickup_batch` — `collect_pickup_batch`；旧来源 `business/account/__init__.py:269`
 - [x] `POST /account/buy_candle_wax` — `buy_candle_wax`；旧来源 `business/account/__init__.py:270`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/code/verify` — `verify_invite_code`；旧来源 `business/account/__init__.py:272`；Go handler 已接入，测试与客户端验收未执行
@@ -177,11 +177,11 @@
 - [ ] `POST /account/send_message` — `handle_send_message`；旧来源 `business/account/__init__.py:288`
 - [ ] `POST /account/translate` — `handle_translate`；旧来源 `business/account/__init__.py:289`
 - [ ] `POST /account/set_device_token` — `set_device_token`；旧来源 `business/account/__init__.py:290`
-- [ ] `POST /account/get_remote_outfit` — `get_remote_outfit`；旧来源 `business/account/__init__.py:292`
+- [x] `POST /account/get_remote_outfit` — `get_remote_outfit`；旧来源 `business/account/__init__.py:292`；Go handler 已接入，远程装扮读取按旧字段，测试与客户端验收未执行
 - [ ] `POST /account/give_candle` — `give_candle`；旧来源 `business/account/__init__.py:293`
 - [ ] `POST /account/claim_message_gift` — `claim_message_gift`；旧来源 `business/account/__init__.py:296`
 - [ ] `POST /account/claim_message_gifts` — `claim_message_gift`；旧来源 `business/account/__init__.py:297`
-- [ ] `POST /account/remove_relationship_hint` — `remove_relationship_hint`；旧来源 `business/account/__init__.py:299`
+- [x] `POST /account/remove_relationship_hint` — `remove_relationship_hint`；旧来源 `business/account/__init__.py:299`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/get_generic_shop_item_tracking_info` — `get_generic_shop_item_tracking_info`；旧来源 `business/account/__init__.py:300`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/purchase_dye` — `purchase_dye`；旧来源 `business/account/__init__.py:301`；Go handler 已接入，测试与客户端验收未执行
 
@@ -200,9 +200,9 @@
 - [x] `POST /service/quest/api/v1/get_quest_schedule` — `get_quest_schedule`；旧来源 `business/service/__init__.py:96`
 - [x] `POST /service/quest/api/v1/create` — `quest_create`；旧来源 `business/service/__init__.py:97`
 - [x] `POST /service/quest/api/v1/update_quest` — `quest_update`；旧来源 `business/service/__init__.py:98`
-- [ ] `POST /service/relationship/api/v1/get_all_friend_gist` — `get_all_friend_gist`；旧来源 `business/service/__init__.py:99`
-- [ ] `POST /service/relationship/api/v1/get_follower_count` — `get_follower_count`；旧来源 `business/service/__init__.py:100`
-- [ ] `POST,OPTIONS /service/relationship/api/v1/update_friend_constellation_pages` — `update_friend_constellation_pages_entry`；旧来源 `business/service/__init__.py:106`
+- [x] `POST /service/relationship/api/v1/get_all_friend_gist` — `get_all_friend_gist`；旧来源 `business/service/__init__.py:99`；Go handler 已接入，按旧实现返回空列表，测试与客户端验收未执行
+- [x] `POST /service/relationship/api/v1/get_follower_count` — `get_follower_count`；旧来源 `business/service/__init__.py:100`；Go handler 已接入，读取 follow_relationship，测试与客户端验收未执行
+- [x] `POST,OPTIONS /service/relationship/api/v1/update_friend_constellation_pages` — `update_friend_constellation_pages_entry`；旧来源 `business/service/__init__.py:106`；Go handler 已接入事务写入并支持 OPTIONS，测试与客户端验收未执行
 - [ ] `POST /service/relationship/api/v1/free_gifts/get_pending` — `get_pending_free_gifts`；旧来源 `business/service/__init__.py:112`
 - [ ] `POST,OPTIONS /service/relationship/api/v1/free_gifts/send` — `send_free_gift_options`；旧来源 `business/service/__init__.py:113`
 - [ ] `POST /service/relationship/api/v1/free_gifts/claim` — `claim_free_gift`；旧来源 `business/service/__init__.py:114`
@@ -224,17 +224,17 @@
 - [x] `POST /service/status/api/v1/add_unlock` — `add_unlock`；旧来源 `business/service/__init__.py:132`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /service/status/api/v1/delete_unlock` — `delete_unlock`；旧来源 `business/service/__init__.py:133`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /service/status/api/v1/get_unlocks` — `get_unlocks_status`；旧来源 `business/service/__init__.py:134`；Go handler 已接入，测试与客户端验收未执行
-- [ ] `POST /service/trust/api/v1/get_capped` — `get_capped`；旧来源 `business/service/__init__.py:135`
-- [ ] `POST /service/trust/api/v1/get` — `get_trust`；旧来源 `business/service/__init__.py:137`
+- [x] `POST /service/trust/api/v1/get_capped` — `get_capped`；旧来源 `business/service/__init__.py:135`；Go handler 已接入固定空响应，不自动建号，测试与客户端验收未执行
+- [x] `POST /service/trust/api/v1/get` — `get_trust`；旧来源 `business/service/__init__.py:137`；Go handler 已接入固定空响应，测试与客户端验收未执行
 - [ ] `POST /service/social-feed/api/v1/create` — `social_feed_create`；旧来源 `business/service/__init__.py:139`
 - [ ] `POST /service/social-feed/api/v1/hide` — `social_feed_hide`；旧来源 `business/service/__init__.py:140`
 - [ ] `POST /service/social-feed/api/v1/like` — `svc_social_feed_like`；旧来源 `business/service/__init__.py:141`
 - [ ] `POST /service/social-feed/api/v1/super_like` — `social_feed_super_like`；旧来源 `business/service/__init__.py:142`
 - [ ] `POST /service/social-feed/api/v1/delete` — `social_feed_delete`；旧来源 `business/service/__init__.py:143`
 - [ ] `POST /service/social-feed/api/v1/edit` — `social_feed_edit`；旧来源 `business/service/__init__.py:144`
-- [ ] `POST /service/relationship/api/v1/add_follow` — `relationship_add_follow`；旧来源 `business/service/__init__.py:145`
-- [ ] `POST /service/relationship/api/v1/set_follow_name` — `relationship_set_follow_name`；旧来源 `business/service/__init__.py:146`
-- [ ] `POST /service/relationship/api/v1/delete_follow` — `relationship_delete_follow`；旧来源 `business/service/__init__.py:147`
+- [x] `POST /service/relationship/api/v1/add_follow` — `relationship_add_follow`；旧来源 `business/service/__init__.py:145`；Go handler 已接入 boat_follow 关注表，测试与客户端验收未执行
+- [x] `POST /service/relationship/api/v1/set_follow_name` — `relationship_set_follow_name`；旧来源 `business/service/__init__.py:146`；Go handler 已接入 boat_follow 关注表，测试与客户端验收未执行
+- [x] `POST /service/relationship/api/v1/delete_follow` — `relationship_delete_follow`；旧来源 `business/service/__init__.py:147`；Go handler 已接入 boat_follow 关注表，测试与客户端验收未执行
 - [x] `POST /service/inventory/api/v1/unlocks/remove_dye` — `inventory_remove_dye`；旧来源 `business/service/__init__.py:148`；Go handler 已接入，测试与客户端验收未执行
 - [ ] `POST /service/social-feed/api/v1/get_reactions` — `social_feed_get_reactions`；旧来源 `business/service/__init__.py:150`
 - [ ] `POST /service/social-feed/api/v2/comments` — `social_feed_comments`；旧来源 `business/service/__init__.py:151`

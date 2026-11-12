@@ -29,7 +29,7 @@ func (s *Store) Statues(ctx context.Context, userID string) ([]StatueRecord, err
 	return out, rows.Err()
 }
 func (s *Store) Constellations(ctx context.Context, userID string) ([]ConstellationSlot, error) {
-	rows, err := s.db.QueryContext(ctx, "SELECT page_index,constellation_node_index,friend_id FROM constellation_friend_page WHERE user_id=? AND page_index BETWEEN 0 AND 9 ORDER BY page_index,constellation_node_index,id", userID)
+	rows, err := s.db.QueryContext(ctx, "SELECT page_index,constellation_node_index,friend_id FROM constellation_friend_page WHERE user_id=? AND page_index>=0 ORDER BY page_index,constellation_node_index,id", userID)
 	if err != nil {
 		return nil, err
 	}

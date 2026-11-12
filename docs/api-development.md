@@ -2,7 +2,7 @@
 
 ## 当前范围
 
-本阶段已有可运行的 api-server，使用 Go net/http 和 modernc.org/sqlite。不是完整旧服务替代品：静态扫描找到 business 下 201 条 add_url_rule 注册；当前接入其中 113 个路径，其余 88 个尚未迁移。本轮新增接口已完成 Go 静态构建检查，测试尚未执行。扫描不包含装饰器路由、动态注册、Socket.IO 或 MQTT/WebSocket 协议，不能把这份数量视为整个旧服务的接口总数。
+本阶段已有可运行的 api-server，使用 Go net/http 和 modernc.org/sqlite。不是完整旧服务替代品：静态扫描找到 business 下 201 条 add_url_rule 注册；当前接入其中 132 个路径，其余 69 个尚未迁移。本轮新增接口已完成 Go 静态构建检查，测试尚未执行。扫描不包含装饰器路由、动态注册、Socket.IO 或 MQTT/WebSocket 协议，不能把这份数量视为整个旧服务的接口总数。
 
 | 业务 | 已实现路径 |
 | --- | --- |
@@ -18,6 +18,7 @@
 | 玩家定义与状态 | /account/get_forge_rates、/account/get_outfit、/account/get_achievement_stats、/account/get_achievement_stats_tracking、/account/get_questionnaires、/account/get_event_currency_defs、/account/get_relationship_abilities、/account/get_invites、/account/get_questionnaire_groups、/account/quest/get_quest_defs、/account/iaplist、邀请码 create/check/accept/delete |
 | 公告与支持 | /account/get_motd、/account/support/has_reply |
 | 第一批资源与认证 | /account/get_surveys、/account/get_event_schedule、/account/get_spirit_shops、/account/get_currency_defs、/account/trust/get_trust_tier_defs、/account/get_video_defs、/account/get_radiance_spawn_defs、/account/get_level_pickups、/account/trust/get_trust_group_defs、/account/remote_config/upload、/account/trust/get_trust_activity_defs、/account/get_generic_shop_item_tracking_info、/service/auth/api/v1/token、/service/infraction/api/v1/get_infractions_status_decorated、/starwatch/auth/api/v1/auth |
+| 第五批好友与关系 | /account/get_blocked_friends、set_friend_name、set_friend_block、get_external_friends、serendipity/get、star/get、join_friend_game、set_outfit、set_joinable、get_remote_outfit、remove_relationship_hint；/service/relationship/api/v1/get_all_friend_gist、get_follower_count、update_friend_constellation_pages、add_follow、set_follow_name、delete_follow；/service/trust/api/v1/get、get_capped |
 
 所有游戏路径使用 POST，支持 Content-Type: text/plain 的 JSON，最大请求体 2 MiB；GET /healthz 为健康检查。JSON 错误不返回原始请求、会话或数据库细节。已注册旧路径未实现返回 501，未知路径返回 404。不能因为登录接口返回 200 就认为真实客户端已能进游戏：resource_list 的其余资源接口仍需迁移，WebSocket 和实时服务未实现。
 
@@ -35,11 +36,11 @@ go run ./cmd/server migrate --config config/api-server.json
 go run ./cmd/server --config config/api-server.json
 ```
 
-相对数据库和证书路径相对于配置文件目录解析。migrate 显式创建开发数据库目录，可初始化空数据库或将本项目 schema v1–v10 升级到 v11，拒绝无法识别的旧实例数据库。升级在事务中创建新增表并保留账号，不自动导入旧项目数据。正常启动要求 schema v11，不自动建表；已是 v11 时重跑 migrate 不会重复建表。当前 schema 只覆盖已迁移功能所需表，不能直接导入、复制或替换旧实例数据；旧 instance 和 legacy 数据必须分别迁移并验收。
+相对数据库和证书路径相对于配置文件目录解析。migrate 显式创建开发数据库目录，可初始化空数据库或将本项目 schema v1–v11 升级到 v12，拒绝无法识别的旧实例数据库。升级在事务中创建新增表并保留账号，不自动导入旧项目数据。正常启动要求 schema v12，不自动建表；已是 v12 时重跑 migrate 不会重复建表。当前 schema 只覆盖已迁移功能所需表，不能直接导入、复制或替换旧实例数据；旧 instance 和 legacy 数据必须分别迁移并验收。
 
 示例仅监听 127.0.0.1，默认不自动授权、不自动补建丢失账号，未授权登录返回 406。在隔离开发实例中可将 auto_authorize 设为 true 创建可登录测试账号；已有账号不会因此被批量授权。TLS 证书和私钥必须成对配置；旧客户端 TLS 互通尚未验证。API 独立启动，不检查实时服务是否在线，room_host/room_port 只是下发配置，不代表 ENet 已实现或可达。
 
-## 资源配置与 schema v11
+## 资源配置与 schema v12
 
 第四批增加玩家任务、季节任务和领取状态、世界任务冷却及每日拾取记录。任务创建与统计上报通过 SQLite 保存进度，领奖标记与货币变更在一个事务中提交；只有当日下发且已完成的任务可以领奖，客户端直接提交完成状态会被拒绝。旧服务的每日任务池会在重启或跨日时随机刷新并写回配置；Go 当前只读取现有配置池，跨日自动刷新仍待对齐；任务及领取标记统一按太平洋日界，未来日期排期使用任务目录按日期确定性生成。旧存量任务及领取标记尚无导入工具，不能直接切换真实账号。
 
@@ -49,7 +50,9 @@ go run ./cmd/server --config config/api-server.json
 
 活动日程已按版本选择低/高资源，处理每日重置、当前赛季、活动关闭与烛火分组。自动烛火组采用按日期稳定选取，尚未核对旧 Python 随机序列的逐项一致性；客户端版本纠偏配置也待复核。兑换树按客户端版本裁成完整先祖子树并支持分页，配置缺失时明确报错。上述边界在客户端验收前均保留待验证状态。
 
-schema v1–v7 开发库升级前保留备份，然后显式执行 migrate 命令；本轮没有对任何真实实例执行升级。迁移完成后应使用 v8 代码；旧版二进制不识别新 schema，不能直接作为回退程序。
+schema v12 增加第五批所需的好友关系表：外部好友、机缘匹配、星标定义与关联、服务器分配、在线状态、关注关系和船友关注（boat_follow）。`/account/find_previous_or_empty` 现在会把本次下发的房间写入 `server_assignment`，`join_friend_game` 按旧逻辑复制好友最近一次分配；room-server 尚未实现，返回的地址不代表 ENet 已可达。外部好友、机缘匹配与星标表初始为空，需导入旧数据或由后续写入路径补充；`/account/get_external_friends`、`/account/serendipity/get` 在空表上返回空列表是预期行为。`/account/star/get` 对 0.26.0 及以上版本返回内置静态星标定义，低版本读取数据库。`/service/trust/api/v1/get_capped` 保留旧固定响应，但不再像旧服务那样为任意 user id 自动建号。
+
+schema v1–v7 开发库升级前保留备份，然后显式执行 migrate 命令；本轮没有对任何真实实例执行升级。迁移完成后应使用 v12 代码；v11 及更早版本二进制不识别新 schema，不能直接作为回退程序。
 
 ## 已知协议差异与边界
 
@@ -64,6 +67,10 @@ schema v1–v7 开发库升级前保留备份，然后显式执行 migrate 命�
 - get_vars 来自旧源码公开协议常量，不代表其中开关指向的功能已经实现。MOTD 使用无外部链接的开发默认公告，尚未接入旧公告配置。设备描述写入等附带行为尚未完全迁移。
 - 登录 resource_list 和 websocket_url 保留旧协议字段，清单中其余资源及 websocket 实现仍待迁移；此处不保证完整客户端登录链路。
 - 错误响应的详细文案、auth/login 特殊错误形状和部分表单兼容尚未逐分支对齐；目前测试验证核心状态、数据副作用及首批响应字段。
+- 好友写接口只接受已存在的目标账号，不复制旧服务的占位账号创建行为；set_friend_name 会补建双向 friendship/friend_status，set_friend_block 只改当前账号方向，反向拉黑由读取端根据反向行判断。
+- 关注接口按旧实现写入 boat_follow，`get_follower_count` 读取 follow_relationship；旧服务同样没有写入 follow_relationship 的业务路径，因此该计数在导入或后续写入前保持 0。
+- `update_friend_constellation_pages` 按旧协议始终返回 HTTP 200，结果放在 result/status 字段；OPTIONS 返回 CORS 预检，非法分页只影响响应内容而不改状态码。
+- 好友在线状态未接入 UDP/room-server 在线列表，列表接口统一返回离线；`join_friend_game` 只依据数据库中的服务器分配，不检查好友实时在线。
 
 ## 验证
 
@@ -71,4 +78,4 @@ schema v1–v7 开发库升级前保留备份，然后显式执行 migrate 命�
 
 ## 后续迁移
 
-依赖启动资源完整性继续实现装扮、基础定义、解锁、好友与邀请，然后完成购买/奖励事务、任务和社交内容接口。每个接口需依据旧逻辑加入数据隔离、错误和并发断言，再更新清单状态。完整迁移未完成，不把 501 路由计为成功接口。
+依赖启动资源完整性继续实现装扮、基础定义、解锁、好友与邀请，然后完成购买/奖励事务、任务和社交内容接口。第五批好友与关系接口已接入，下一步为消息、聊天与赠礼，再迁移地理笔记、社交动态、舞台和管理接口。每个接口需依据旧逻辑加入数据隔离、错误和并发断言，再更新清单状态。完整迁移未完成，不把 501 路由计为成功接口。
