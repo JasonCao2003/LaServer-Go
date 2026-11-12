@@ -536,7 +536,7 @@
     "handler": "get_user_geonotes",
     "source": "business/account/__init__.py",
     "line": 199,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -547,7 +547,7 @@
     "handler": "get_user_geonotes2",
     "source": "business/account/__init__.py",
     "line": 200,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -558,7 +558,7 @@
     "handler": "request_geonotes_for_n_friends",
     "source": "business/account/__init__.py",
     "line": 201,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -569,7 +569,7 @@
     "handler": "create_geonote2",
     "source": "business/account/__init__.py",
     "line": 202,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -580,7 +580,7 @@
     "handler": "create_geonote2",
     "source": "business/account/__init__.py",
     "line": 203,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -591,7 +591,7 @@
     "handler": "create_bug_report_geonote",
     "source": "business/account/__init__.py",
     "line": 204,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -602,7 +602,7 @@
     "handler": "create_bug_report_geonote",
     "source": "business/account/__init__.py",
     "line": 205,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -613,7 +613,7 @@
     "handler": "social_geonote2",
     "source": "business/account/__init__.py",
     "line": 206,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -624,7 +624,7 @@
     "handler": "social_geonote2",
     "source": "business/account/__init__.py",
     "line": 207,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -635,7 +635,7 @@
     "handler": "delete_geonote",
     "source": "business/account/__init__.py",
     "line": 208,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -646,7 +646,7 @@
     "handler": "delete_geonote",
     "source": "business/account/__init__.py",
     "line": 209,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -657,7 +657,7 @@
     "handler": "delete_bug_report_geonote",
     "source": "business/account/__init__.py",
     "line": 210,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -668,7 +668,7 @@
     "handler": "delete_bug_report_geonote",
     "source": "business/account/__init__.py",
     "line": 211,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -679,7 +679,7 @@
     "handler": "edit_message_geonote",
     "source": "business/account/__init__.py",
     "line": 212,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -690,7 +690,7 @@
     "handler": "edit_message_geonote",
     "source": "business/account/__init__.py",
     "line": 213,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -701,7 +701,7 @@
     "handler": "request_n_bug_report_geonotes",
     "source": "business/account/__init__.py",
     "line": 214,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -712,7 +712,7 @@
     "handler": "request_n_bug_report_geonotes",
     "source": "business/account/__init__.py",
     "line": 215,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {

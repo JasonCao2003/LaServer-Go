@@ -44,3 +44,6 @@ var Relationships string
 
 //go:embed 013_messages.sql
 var Messages string
+
+//go:embed 014_geonotes.sql
+var Geonotes string

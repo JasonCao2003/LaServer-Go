@@ -174,6 +174,23 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/service/relationship/api/v1/free_gifts/get_pending"] = s.FreeGiftsGetPending
 	a.routes["/service/relationship/api/v1/free_gifts/send"] = s.FreeGiftsSend
 	a.routes["/service/relationship/api/v1/free_gifts/claim"] = s.FreeGiftsClaim
+	a.routes["/account/get_user_geonotes"] = s.GetUserGeonotes
+	a.routes["/account/geonote/get_user_geonotes"] = s.GetUserGeonotes
+	a.routes["/account/geonote/request_geonotes_for_n_friends"] = s.RequestGeonotesForNFriends
+	a.routes["/account/geonote/create_geonote2"] = s.CreateGeonote
+	a.routes["/account/create_geonote2"] = s.CreateGeonote
+	a.routes["/account/geonote/create_bug_report_geonote"] = s.CreateBugReportGeonote
+	a.routes["/account/create_bug_report_geonote"] = s.CreateBugReportGeonote
+	a.routes["/account/geonote/social_geonote2"] = s.SocialGeonote
+	a.routes["/account/social_geonote2"] = s.SocialGeonote
+	a.routes["/account/geonote/delete_geonote"] = s.DeleteGeonote
+	a.routes["/account/delete_geonote"] = s.DeleteGeonote
+	a.routes["/account/geonote/delete_bug_report_geonote"] = s.DeleteBugReportGeonote
+	a.routes["/account/delete_bug_report_geonote"] = s.DeleteBugReportGeonote
+	a.routes["/account/geonote/edit_message_geonote"] = s.EditMessageGeonote
+	a.routes["/account/edit_message_geonote"] = s.EditMessageGeonote
+	a.routes["/account/geonote/request_n_bug_report_geonotes"] = s.RequestNBugReportGeonotes
+	a.routes["/account/request_n_bug_report_geonotes"] = s.RequestNBugReportGeonotes
 	return a
 }
 func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {

@@ -6,7 +6,7 @@
 
 ## 当前状态与勾选规则
 
-- 静态清单包含 201 条路由：149 条已有 Go handler、52 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
+- 静态清单包含 201 条路由：166 条已有 Go handler、35 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
 - api-server 已能独立运行；room-server 只有独立 module，无实现或运行入口。
 - 已有实体、HTTP handler 或本地测试通过，不等于真实账号数据迁移、完整客户端登录或联机通过。
 - 勾选路由表示已核对旧协议并接入 Go handler；静态构建、相关本地测试和真实客户端验收分别记录，不能以勾选代替测试通过。
@@ -76,7 +76,7 @@
 
 ## 待迁移路由逐项清单
 
-以下保留原 159 项批次清单，其中前六批共 107 项代码已接入、52 项尚待迁移；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
+以下保留原 159 项批次清单，其中前七批共 124 项代码已接入、35 项尚待迁移；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
 
 ### 游戏账号与资源接口（122 条）
 
@@ -105,23 +105,23 @@
 - [x] `POST,GET /account/commerce/product_info` — `commerce_product_info`；旧来源 `business/account/__init__.py:194`；静态商品信息已接入，测试待执行
 - [x] `POST /account/get_spirit_shops` — `get_spirit_shops`；旧来源 `business/account/__init__.py:196`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/purchase_spirit_shop_item` — `purchase_spirit_shop_item`；旧来源 `business/account/__init__.py:198`；Go handler 已接入，测试与客户端验收未执行
-- [ ] `POST /account/get_user_geonotes` — `get_user_geonotes`；旧来源 `business/account/__init__.py:199`
-- [ ] `POST /account/geonote/get_user_geonotes` — `get_user_geonotes2`；旧来源 `business/account/__init__.py:200`
-- [ ] `POST /account/geonote/request_geonotes_for_n_friends` — `request_geonotes_for_n_friends`；旧来源 `business/account/__init__.py:201`
-- [ ] `POST /account/geonote/create_geonote2` — `create_geonote2`；旧来源 `business/account/__init__.py:202`
-- [ ] `POST /account/create_geonote2` — `create_geonote2`；旧来源 `business/account/__init__.py:203`
-- [ ] `POST /account/geonote/create_bug_report_geonote` — `create_bug_report_geonote`；旧来源 `business/account/__init__.py:204`
-- [ ] `POST /account/create_bug_report_geonote` — `create_bug_report_geonote`；旧来源 `business/account/__init__.py:205`
-- [ ] `POST /account/geonote/social_geonote2` — `social_geonote2`；旧来源 `business/account/__init__.py:206`
-- [ ] `POST /account/social_geonote2` — `social_geonote2`；旧来源 `business/account/__init__.py:207`
-- [ ] `POST /account/geonote/delete_geonote` — `delete_geonote`；旧来源 `business/account/__init__.py:208`
-- [ ] `POST /account/delete_geonote` — `delete_geonote`；旧来源 `business/account/__init__.py:209`
-- [ ] `POST /account/geonote/delete_bug_report_geonote` — `delete_bug_report_geonote`；旧来源 `business/account/__init__.py:210`
-- [ ] `POST /account/delete_bug_report_geonote` — `delete_bug_report_geonote`；旧来源 `business/account/__init__.py:211`
-- [ ] `POST /account/geonote/edit_message_geonote` — `edit_message_geonote`；旧来源 `business/account/__init__.py:212`
-- [ ] `POST /account/edit_message_geonote` — `edit_message_geonote`；旧来源 `business/account/__init__.py:213`
-- [ ] `POST /account/geonote/request_n_bug_report_geonotes` — `request_n_bug_report_geonotes`；旧来源 `business/account/__init__.py:214`
-- [ ] `POST /account/request_n_bug_report_geonotes` — `request_n_bug_report_geonotes`；旧来源 `business/account/__init__.py:215`
+- [x] `POST /account/get_user_geonotes` — `get_user_geonotes`；旧来源 `business/account/__init__.py:199`；Go handler 已接入，SQLite 持久化，测试与客户端验收未执行
+- [x] `POST /account/geonote/get_user_geonotes` — `get_user_geonotes2`；旧来源 `business/account/__init__.py:200`；Go handler 已接入，与账号路径共用实现，测试与客户端验收未执行
+- [x] `POST /account/geonote/request_geonotes_for_n_friends` — `request_geonotes_for_n_friends`；旧来源 `business/account/__init__.py:201`；Go handler 已接入，按旧实现不按好友过滤，测试与客户端验收未执行
+- [x] `POST /account/geonote/create_geonote2` — `create_geonote2`；旧来源 `business/account/__init__.py:202`；Go handler 已接入创建并校验作者，测试与客户端验收未执行
+- [x] `POST /account/create_geonote2` — `create_geonote2`；旧来源 `business/account/__init__.py:203`；Go handler 已接入，与 geonote 路径共用实现，测试与客户端验收未执行
+- [x] `POST /account/geonote/create_bug_report_geonote` — `create_bug_report_geonote`；旧来源 `business/account/__init__.py:204`；Go handler 已接入 bug 留言创建，测试与客户端验收未执行
+- [x] `POST /account/create_bug_report_geonote` — `create_bug_report_geonote`；旧来源 `business/account/__init__.py:205`；Go handler 已接入，与 geonote 路径共用实现，测试与客户端验收未执行
+- [x] `POST /account/geonote/social_geonote2` — `social_geonote2`；旧来源 `business/account/__init__.py:206`；Go handler 已接入点赞/可见/举报/表情状态，测试与客户端验收未执行
+- [x] `POST /account/social_geonote2` — `social_geonote2`；旧来源 `business/account/__init__.py:207`；Go handler 已接入，与 geonote 路径共用实现，测试与客户端验收未执行
+- [x] `POST /account/geonote/delete_geonote` — `delete_geonote`；旧来源 `business/account/__init__.py:208`；Go handler 已接入作者所有权校验，测试与客户端验收未执行
+- [x] `POST /account/delete_geonote` — `delete_geonote`；旧来源 `business/account/__init__.py:209`；Go handler 已接入，与 geonote 路径共用实现，测试与客户端验收未执行
+- [x] `POST /account/geonote/delete_bug_report_geonote` — `delete_bug_report_geonote`；旧来源 `business/account/__init__.py:210`；Go handler 已接入仅删除 bug 留言，测试与客户端验收未执行
+- [x] `POST /account/delete_bug_report_geonote` — `delete_bug_report_geonote`；旧来源 `business/account/__init__.py:211`；Go handler 已接入，与 geonote 路径共用实现，测试与客户端验收未执行
+- [x] `POST /account/geonote/edit_message_geonote` — `edit_message_geonote`；旧来源 `business/account/__init__.py:212`；Go handler 已接入作者所有权与 500 字截断，测试与客户端验收未执行
+- [x] `POST /account/edit_message_geonote` — `edit_message_geonote`；旧来源 `business/account/__init__.py:213`；Go handler 已接入，与 geonote 路径共用实现，测试与客户端验收未执行
+- [x] `POST /account/geonote/request_n_bug_report_geonotes` — `request_n_bug_report_geonotes`；旧来源 `business/account/__init__.py:214`；Go handler 已接入 bug 留言列表，测试与客户端验收未执行
+- [x] `POST /account/request_n_bug_report_geonotes` — `request_n_bug_report_geonotes`；旧来源 `business/account/__init__.py:215`；Go handler 已接入，与 geonote 路径共用实现，测试与客户端验收未执行
 - [x] `POST /account/get_daily_quests` — `get_daily_quests`；旧来源 `business/account/__init__.py:216`
 - [x] `POST /account/get_weekly_quests` — `get_weekly_quests`；旧来源 `business/account/__init__.py:217`
 - [x] `POST /account/get_season_quests_v2` — `get_season_quests_v2`；旧来源 `business/account/__init__.py:218`

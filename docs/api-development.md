@@ -2,7 +2,7 @@
 
 ## 当前范围
 
-本阶段已有可运行的 api-server，使用 Go net/http 和 modernc.org/sqlite。不是完整旧服务替代品：静态扫描找到 business 下 201 条 add_url_rule 注册；当前接入其中 149 个路径，其余 52 个尚未迁移。本轮新增接口已完成 Go 静态构建检查，测试尚未执行。扫描不包含装饰器路由、动态注册、Socket.IO 或 MQTT/WebSocket 协议，不能把这份数量视为整个旧服务的接口总数。
+本阶段已有可运行的 api-server，使用 Go net/http 和 modernc.org/sqlite。不是完整旧服务替代品：静态扫描找到 business 下 201 条 add_url_rule 注册；当前接入其中 166 个路径，其余 35 个尚未迁移。本轮新增接口已完成 Go 静态构建检查，测试尚未执行。扫描不包含装饰器路由、动态注册、Socket.IO 或 MQTT/WebSocket 协议，不能把这份数量视为整个旧服务的接口总数。
 
 | 业务 | 已实现路径 |
 | --- | --- |
@@ -20,6 +20,7 @@
 | 第一批资源与认证 | /account/get_surveys、/account/get_event_schedule、/account/get_spirit_shops、/account/get_currency_defs、/account/trust/get_trust_tier_defs、/account/get_video_defs、/account/get_radiance_spawn_defs、/account/get_level_pickups、/account/trust/get_trust_group_defs、/account/remote_config/upload、/account/trust/get_trust_activity_defs、/account/get_generic_shop_item_tracking_info、/service/auth/api/v1/token、/service/infraction/api/v1/get_infractions_status_decorated、/starwatch/auth/api/v1/auth |
 | 第五批好友与关系 | /account/get_blocked_friends、set_friend_name、set_friend_block、get_external_friends、serendipity/get、star/get、join_friend_game、set_outfit、set_joinable、get_remote_outfit、remove_relationship_hint；/service/relationship/api/v1/get_all_friend_gist、get_follower_count、update_friend_constellation_pages、add_follow、set_follow_name、delete_follow；/service/trust/api/v1/get、get_capped |
 | 第六批消息与赠礼 | /account/get_pending_messages、chat/send、send、send_message、translate、set_device_token、give_candle、claim_message_gift、claim_message_gifts；/service/message/api/v2/get_all、api/v1/get_all、api/v1/get、api/v1/mark_received、api/v1/mark_seen；/service/relationship/api/v1/free_gifts/get_pending、send、claim |
+| 第七批地理笔记 | /account/get_user_geonotes、geonote/get_user_geonotes、geonote/request_geonotes_for_n_friends、geonote/create_geonote2、create_geonote2、geonote/create_bug_report_geonote、create_bug_report_geonote、geonote/social_geonote2、social_geonote2、geonote/delete_geonote、delete_geonote、geonote/delete_bug_report_geonote、delete_bug_report_geonote、geonote/edit_message_geonote、edit_message_geonote、geonote/request_n_bug_report_geonotes、request_n_bug_report_geonotes |
 
 所有游戏路径使用 POST，支持 Content-Type: text/plain 的 JSON，最大请求体 2 MiB；GET /healthz 为健康检查。JSON 错误不返回原始请求、会话或数据库细节。已注册旧路径未实现返回 501，未知路径返回 404。不能因为登录接口返回 200 就认为真实客户端已能进游戏：resource_list 的其余资源接口仍需迁移，WebSocket 和实时服务未实现。
 
@@ -37,11 +38,11 @@ go run ./cmd/server migrate --config config/api-server.json
 go run ./cmd/server --config config/api-server.json
 ```
 
-相对数据库和证书路径相对于配置文件目录解析。migrate 显式创建开发数据库目录，可初始化空数据库或将本项目 schema v1–v12 升级到 v13，拒绝无法识别的旧实例数据库。升级在事务中创建新增表并保留账号，不自动导入旧项目数据。正常启动要求 schema v13，不自动建表；已是 v13 时重跑 migrate 不会重复建表。当前 schema 只覆盖已迁移功能所需表，不能直接导入、复制或替换旧实例数据；旧 instance 和 legacy 数据必须分别迁移并验收。
+相对数据库和证书路径相对于配置文件目录解析。migrate 显式创建开发数据库目录，可初始化空数据库或将本项目 schema v1–v13 升级到 v14，拒绝无法识别的旧实例数据库。升级在事务中创建新增表并保留账号，不自动导入旧项目数据。正常启动要求 schema v14，不自动建表；已是 v14 时重跑 migrate 不会重复建表。当前 schema 只覆盖已迁移功能所需表，不能直接导入、复制或替换旧实例数据；旧 instance 和 legacy 数据必须分别迁移并验收。
 
 示例仅监听 127.0.0.1，默认不自动授权、不自动补建丢失账号，未授权登录返回 406。在隔离开发实例中可将 auto_authorize 设为 true 创建可登录测试账号；已有账号不会因此被批量授权。TLS 证书和私钥必须成对配置；旧客户端 TLS 互通尚未验证。API 独立启动，不检查实时服务是否在线，room_host/room_port 只是下发配置，不代表 ENet 已实现或可达。
 
-## 资源配置与 schema v13
+## 资源配置与 schema v14
 
 第四批增加玩家任务、季节任务和领取状态、世界任务冷却及每日拾取记录。任务创建与统计上报通过 SQLite 保存进度，领奖标记与货币变更在一个事务中提交；只有当日下发且已完成的任务可以领奖，客户端直接提交完成状态会被拒绝。旧服务的每日任务池会在重启或跨日时随机刷新并写回配置；Go 当前只读取现有配置池，跨日自动刷新仍待对齐；任务及领取标记统一按太平洋日界，未来日期排期使用任务目录按日期确定性生成。旧存量任务及领取标记尚无导入工具，不能直接切换真实账号。
 
@@ -55,7 +56,9 @@ schema v12 增加第五批所需的好友关系表：外部好友、机缘匹配
 
 schema v13 增加消息与赠礼表：`message` 保存邮件已读时间，`free_gift` 保存免费礼物及其 30 天有效期。邮件内容不写入数据库，按 `game_config_dir/mailbox.json` 读取；文件缺失或格式错误时返回空邮件列表。聊天消息只存在于 api-server 进程内队列（每人最多 1000 条，重启丢失），由 `/account/get_pending_messages` 轮询排空；WebSocket 未实现，因此没有实时推送。免费礼物支持扣费、幂等领取和领取后角标计数，重复领取不重复发放。旧 `/account/chat/send` 的调试斜杠命令（改身高、货币、光翼）尚未迁移，会按普通聊天处理；`give_candle` 和礼物接口也不再自动创建占位账号，目标必须已存在。
 
-schema v1–v7 开发库升级前保留备份，然后显式执行 migrate 命令；本轮没有对任何真实实例执行升级。迁移完成后应使用 v13 代码；v12 及更早版本二进制不识别新 schema，不能直接作为回退程序。
+schema v14 增加 `geonote` 表，地理笔记改由 SQLite 持久化；旧服务的 `instance/geonotes.json` 旁路文件尚未提供导入工具，切换真实实例前需单独迁移。读取按 `bug` 分区和 `level_id` 过滤，返回同关卡全部留言；`request_geonotes_for_n_friends` 按旧实现不查询好友关系。点赞、可见、举报和表情是留言级全局状态，不按查看者区分；删除和编辑校验作者，删除不存在的留言仍返回 `result: ok`。留言正文截断到 500 个字符，不设过期时间。
+
+schema v1–v7 开发库升级前保留备份，然后显式执行 migrate 命令；本轮没有对任何真实实例执行升级。迁移完成后应使用 v14 代码；v13 及更早版本二进制不识别新 schema，不能直接作为回退程序。
 
 ## 已知协议差异与边界
 
@@ -78,6 +81,9 @@ schema v1–v7 开发库升级前保留备份，然后显式执行 migrate 命�
 - 邮件已读按旧语义逐条提交，不保证整个请求原子；`mark_seen` 只回显，不落库。
 - 免费礼物 `gift_id` 由进程内单调计数生成，不设唯一约束；旧服务的同款行为保留。礼物领取不校验有效期，过期礼物在已知 `gift_id` 时仍可领取。
 - `give_candle` 对零费用能力不写 `free_gift` 行，也不发送旧服务的临时礼物消息；需要客户端通过好友状态刷新感知能力变化。
+- geonote 的读写都没有按查看者的可见性过滤；被标记 `reported` 或 `visible=false` 的留言仍会出现在列表和 bug 列表中，这与旧实现一致。`likes` 只在 `liked` 从 false→true 或 true→false 时增减，且是全局计数。
+- `/account/geonote/request_geonotes_for_n_friends` 只按关卡返回留言，不读取好友关系；旧服务也没有注册无前缀的 `/account/request_geonotes_for_n_friends`，Go 保持同样缺口。
+- 旧 geonote 返回体同时包含新、旧两套字段（`geonote_id`/`id`、`created_at`/`created_time`、`pos_x` 与 `pos` 等），Go 保留这一双写形状以便各版本客户端读取。
 
 ## 验证
 
@@ -85,4 +91,4 @@ schema v1–v7 开发库升级前保留备份，然后显式执行 migrate 命�
 
 ## 后续迁移
 
-依赖启动资源完整性继续实现装扮、基础定义、解锁、好友与邀请，然后完成购买/奖励事务、任务和社交内容接口。第六批消息、聊天与赠礼接口已接入，下一步为地理笔记与留言，再迁移社交动态与留影、舞台和管理接口。每个接口需依据旧逻辑加入数据隔离、错误和并发断言，再更新清单状态。完整迁移未完成，不把 501 路由计为成功接口。
+依赖启动资源完整性继续实现装扮、基础定义、解锁、好友与邀请，然后完成购买/奖励事务、任务和社交内容接口。第七批地理笔记与留言接口已接入，下一步为社交动态、留影与 UGC（26 条），再迁移舞台与预约、管理好友接口。每个接口需依据旧逻辑加入数据隔离、错误和并发断言，再更新清单状态。完整迁移未完成，不把 501 路由计为成功接口。
