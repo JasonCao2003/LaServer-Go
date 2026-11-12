@@ -216,7 +216,7 @@
     "handler": "set_achievement_stats",
     "source": "business/account/__init__.py",
     "line": 170,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -723,7 +723,7 @@
     "handler": "get_daily_quests",
     "source": "business/account/__init__.py",
     "line": 216,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -734,7 +734,7 @@
     "handler": "get_weekly_quests",
     "source": "business/account/__init__.py",
     "line": 217,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -745,7 +745,7 @@
     "handler": "get_season_quests_v2",
     "source": "business/account/__init__.py",
     "line": 218,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -756,7 +756,7 @@
     "handler": "get_season_pass_defs",
     "source": "business/account/__init__.py",
     "line": 219,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -778,7 +778,7 @@
     "handler": "get_event_currency",
     "source": "business/account/__init__.py",
     "line": 221,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1142,7 +1142,7 @@
     "handler": "season_finalize",
     "source": "business/account/__init__.py",
     "line": 255,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1153,7 +1153,7 @@
     "handler": "season_start",
     "source": "business/account/__init__.py",
     "line": 256,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1164,7 +1164,7 @@
     "handler": "activate_season_quest",
     "source": "business/account/__init__.py",
     "line": 257,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1175,7 +1175,7 @@
     "handler": "claim_season_quest_reward",
     "source": "business/account/__init__.py",
     "line": 258,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1208,7 +1208,7 @@
     "handler": "get_season_quests",
     "source": "business/account/__init__.py",
     "line": 261,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1241,7 +1241,7 @@
     "handler": "get_account_world_quests",
     "source": "business/account/__init__.py",
     "line": 264,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1252,7 +1252,7 @@
     "handler": "claim_quest_reward",
     "source": "business/account/__init__.py",
     "line": 265,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1296,7 +1296,7 @@
     "handler": "collect_pickup_batch",
     "source": "business/account/__init__.py",
     "line": 269,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1695,7 +1695,7 @@
     "handler": "check_for_previous_completion",
     "source": "business/service/__init__.py",
     "line": 93,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1706,7 +1706,7 @@
     "handler": "get_player_quests",
     "source": "business/service/__init__.py",
     "line": 94,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1717,7 +1717,7 @@
     "handler": "get_player_quests_by_name",
     "source": "business/service/__init__.py",
     "line": 95,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1728,7 +1728,7 @@
     "handler": "get_quest_schedule",
     "source": "business/service/__init__.py",
     "line": 96,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1739,7 +1739,7 @@
     "handler": "quest_create",
     "source": "business/service/__init__.py",
     "line": 97,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {
@@ -1750,7 +1750,7 @@
     "handler": "quest_update",
     "source": "business/service/__init__.py",
     "line": 98,
-    "status": "pending",
+    "status": "implemented_local_only",
     "client_verified": false
   },
   {

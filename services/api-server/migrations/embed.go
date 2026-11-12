@@ -35,3 +35,6 @@ var MagicStatus string
 
 //go:embed 010_commerce.sql
 var Commerce string
+
+//go:embed 011_quests.sql
+var Quests string

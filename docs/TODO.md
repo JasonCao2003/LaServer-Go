@@ -6,7 +6,7 @@
 
 ## 当前状态与勾选规则
 
-- 静态清单包含 201 条路由：93 条已有 Go handler、108 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
+- 静态清单包含 201 条路由：113 条已有 Go handler、88 条待迁移。该数字不代表相关测试或客户端验收已完成，也不是整个旧服务的接口总数；别名可能指向相同业务。
 - api-server 已能独立运行；room-server 只有独立 module，无实现或运行入口。
 - 已有实体、HTTP handler 或本地测试通过，不等于真实账号数据迁移、完整客户端登录或联机通过。
 - 勾选路由表示已核对旧协议并接入 Go handler；静态构建、相关本地测试和真实客户端验收分别记录，不能以勾选代替测试通过。
@@ -76,14 +76,14 @@
 
 ## 待迁移路由逐项清单
 
-以下保留原 159 项批次清单，其中前三批共 51 项代码已接入、108 项尚待迁移；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
+以下保留原 159 项批次清单，其中前四批共 71 项代码已接入、88 项尚待迁移；来源为 json/api/legacy-routes.json。按注册来源分组，保留 HTTP 方法与处理函数，便于反查旧代码。仅覆盖已扫描注册，不替代前述清单外任务。一个业务及其别名可一起实现，但每个入口均需验证。此清单后续人工更新，不自动把代码存在视为已验收。
 
 ### 游戏账号与资源接口（122 条）
 
 - [ ] `POST /account/get_blocked_friends` — `get_blocked_friends`；旧来源 `business/account/__init__.py:164`
 - [ ] `POST /account/set_friend_name` — `set_friend_name`；旧来源 `business/account/__init__.py:165`
 - [ ] `POST /account/set_friend_block` — `set_friend_block`；旧来源 `business/account/__init__.py:168`
-- [ ] `POST /account/set_achievement_stats` — `set_achievement_stats`；旧来源 `business/account/__init__.py:170`
+- [x] `POST /account/set_achievement_stats` — `set_achievement_stats`；旧来源 `business/account/__init__.py:170`
 - [x] `POST /account/get_surveys` — `get_surveys`；旧来源 `business/account/__init__.py:171`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/get_shop` — `get_shop`；旧来源 `business/account/__init__.py:172`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/lootboxes/get` — `get_lootboxes`；旧来源 `business/account/__init__.py:173`；Go handler 已接入，测试与客户端验收未执行
@@ -122,12 +122,12 @@
 - [ ] `POST /account/edit_message_geonote` — `edit_message_geonote`；旧来源 `business/account/__init__.py:213`
 - [ ] `POST /account/geonote/request_n_bug_report_geonotes` — `request_n_bug_report_geonotes`；旧来源 `business/account/__init__.py:214`
 - [ ] `POST /account/request_n_bug_report_geonotes` — `request_n_bug_report_geonotes`；旧来源 `business/account/__init__.py:215`
-- [ ] `POST /account/get_daily_quests` — `get_daily_quests`；旧来源 `business/account/__init__.py:216`
-- [ ] `POST /account/get_weekly_quests` — `get_weekly_quests`；旧来源 `business/account/__init__.py:217`
-- [ ] `POST /account/get_season_quests_v2` — `get_season_quests_v2`；旧来源 `business/account/__init__.py:218`
-- [ ] `POST /account/get_season_pass_defs` — `get_season_pass_defs`；旧来源 `business/account/__init__.py:219`
+- [x] `POST /account/get_daily_quests` — `get_daily_quests`；旧来源 `business/account/__init__.py:216`
+- [x] `POST /account/get_weekly_quests` — `get_weekly_quests`；旧来源 `business/account/__init__.py:217`
+- [x] `POST /account/get_season_quests_v2` — `get_season_quests_v2`；旧来源 `business/account/__init__.py:218`
+- [x] `POST /account/get_season_pass_defs` — `get_season_pass_defs`；旧来源 `business/account/__init__.py:219`
 - [x] `POST /account/get_currency_defs` — `get_currency_defs`；旧来源 `business/account/__init__.py:220`；Go handler 已接入，测试与客户端验收未执行
-- [ ] `POST /account/get_event_currency` — `get_event_currency`；旧来源 `business/account/__init__.py:221`
+- [x] `POST /account/get_event_currency` — `get_event_currency`；旧来源 `business/account/__init__.py:221`
 - [x] `POST /account/wing_buffs/get` — `get_wing_buffs`；旧来源 `business/account/__init__.py:222`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/wing_buffs/collect` — `wing_buffs_collect`；旧来源 `business/account/__init__.py:223`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/collect_collectible` — `collect_collectible`；旧来源 `business/account/__init__.py:224`；Go handler 已接入，测试与客户端验收未执行
@@ -149,20 +149,20 @@
 - [x] `POST /account/get_level_pickups` — `get_level_pickups`；旧来源 `business/account/__init__.py:250`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/ack_forge_rate_reset` — `ack_forge_rate_reset`；旧来源 `business/account/__init__.py:252`；旧服务固定确认响应已接入，测试待执行
 - [x] `POST /account/trust/get_trust_group_defs` — `get_trust_group_defs`；旧来源 `business/account/__init__.py:254`；Go handler 已接入，测试与客户端验收未执行
-- [ ] `POST /account/season_finalize` — `season_finalize`；旧来源 `business/account/__init__.py:255`
-- [ ] `POST /account/season_start` — `season_start`；旧来源 `business/account/__init__.py:256`
-- [ ] `POST /account/activate_season_quest` — `activate_season_quest`；旧来源 `business/account/__init__.py:257`
-- [ ] `POST /account/claim_season_quest_reward` — `claim_season_quest_reward`；旧来源 `business/account/__init__.py:258`
+- [x] `POST /account/season_finalize` — `season_finalize`；旧来源 `business/account/__init__.py:255`
+- [x] `POST /account/season_start` — `season_start`；旧来源 `business/account/__init__.py:256`
+- [x] `POST /account/activate_season_quest` — `activate_season_quest`；旧来源 `business/account/__init__.py:257`
+- [x] `POST /account/claim_season_quest_reward` — `claim_season_quest_reward`；旧来源 `business/account/__init__.py:258`
 - [x] `POST /account/ack_collectible` — `ack_collectible`；旧来源 `business/account/__init__.py:259`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/remote_config/upload` — `upload_remote_config`；旧来源 `business/account/__init__.py:260`；Go handler 已接入，测试与客户端验收未执行
-- [ ] `POST /account/get_season_quests` — `get_season_quests`；旧来源 `business/account/__init__.py:261`
+- [x] `POST /account/get_season_quests` — `get_season_quests`；旧来源 `business/account/__init__.py:261`
 - [x] `POST /account/trust/get_trust_activity_defs` — `get_trust_activity_defs`；旧来源 `business/account/__init__.py:262`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/buff/get_buff_defs` — `get_buff_defs`；旧来源 `business/account/__init__.py:263`；Go handler 已接入，测试与客户端验收未执行
-- [ ] `POST /account/get_account_world_quests` — `get_account_world_quests`；旧来源 `business/account/__init__.py:264`
-- [ ] `POST /account/claim_quest_reward` — `claim_quest_reward`；旧来源 `business/account/__init__.py:265`
+- [x] `POST /account/get_account_world_quests` — `get_account_world_quests`；旧来源 `business/account/__init__.py:264`
+- [x] `POST /account/claim_quest_reward` — `claim_quest_reward`；旧来源 `business/account/__init__.py:265`
 - [ ] `POST /account/set_outfit` — `set_outfit`；旧来源 `business/account/__init__.py:266`
 - [ ] `POST /account/set_joinable` — `set_joinable`；旧来源 `business/account/__init__.py:267`
-- [ ] `POST /account/collect_pickup_batch` — `collect_pickup_batch`；旧来源 `business/account/__init__.py:269`
+- [x] `POST /account/collect_pickup_batch` — `collect_pickup_batch`；旧来源 `business/account/__init__.py:269`
 - [x] `POST /account/buy_candle_wax` — `buy_candle_wax`；旧来源 `business/account/__init__.py:270`；Go handler 已接入，测试与客户端验收未执行
 - [x] `POST /account/code/verify` — `verify_invite_code`；旧来源 `business/account/__init__.py:272`；Go handler 已接入，测试与客户端验收未执行
 - [ ] `POST /account/social_feed/create` — `create_social_feed`；旧来源 `business/account/__init__.py:276`
@@ -194,12 +194,12 @@
 - [ ] `POST /service/message/api/v1/get` — `get_message`；旧来源 `business/service/__init__.py:90`
 - [ ] `POST /service/message/api/v1/mark_received` — `mark_received`；旧来源 `business/service/__init__.py:91`
 - [ ] `POST /service/message/api/v1/mark_seen` — `mark_seen`；旧来源 `business/service/__init__.py:92`
-- [ ] `POST /service/quest/api/v1/check_for_previous_completion` — `check_for_previous_completion`；旧来源 `business/service/__init__.py:93`
-- [ ] `POST /service/quest/api/v1/get_player_quests` — `get_player_quests`；旧来源 `business/service/__init__.py:94`
-- [ ] `POST /service/quest/api/v1/get_player_quests_by_name` — `get_player_quests_by_name`；旧来源 `business/service/__init__.py:95`
-- [ ] `POST /service/quest/api/v1/get_quest_schedule` — `get_quest_schedule`；旧来源 `business/service/__init__.py:96`
-- [ ] `POST /service/quest/api/v1/create` — `quest_create`；旧来源 `business/service/__init__.py:97`
-- [ ] `POST /service/quest/api/v1/update_quest` — `quest_update`；旧来源 `business/service/__init__.py:98`
+- [x] `POST /service/quest/api/v1/check_for_previous_completion` — `check_for_previous_completion`；旧来源 `business/service/__init__.py:93`
+- [x] `POST /service/quest/api/v1/get_player_quests` — `get_player_quests`；旧来源 `business/service/__init__.py:94`
+- [x] `POST /service/quest/api/v1/get_player_quests_by_name` — `get_player_quests_by_name`；旧来源 `business/service/__init__.py:95`
+- [x] `POST /service/quest/api/v1/get_quest_schedule` — `get_quest_schedule`；旧来源 `business/service/__init__.py:96`
+- [x] `POST /service/quest/api/v1/create` — `quest_create`；旧来源 `business/service/__init__.py:97`
+- [x] `POST /service/quest/api/v1/update_quest` — `quest_update`；旧来源 `business/service/__init__.py:98`
 - [ ] `POST /service/relationship/api/v1/get_all_friend_gist` — `get_all_friend_gist`；旧来源 `business/service/__init__.py:99`
 - [ ] `POST /service/relationship/api/v1/get_follower_count` — `get_follower_count`；旧来源 `business/service/__init__.py:100`
 - [ ] `POST,OPTIONS /service/relationship/api/v1/update_friend_constellation_pages` — `update_friend_constellation_pages_entry`；旧来源 `business/service/__init__.py:106`

@@ -118,6 +118,26 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/account/purchase_unlock"] = s.PurchaseUnlock
 	a.routes["/account/commerce/receipt"] = s.CommerceReceipt
 	a.routes["/account/commerce/fulfill"] = s.CommerceFulfill
+	a.routes["/account/set_achievement_stats"] = s.SetAchievementStats
+	a.routes["/account/get_daily_quests"] = s.EmptyDailyQuests
+	a.routes["/account/get_weekly_quests"] = s.EmptyWeeklyQuests
+	a.routes["/account/get_season_quests_v2"] = s.EmptySeasonQuestsV2
+	a.routes["/account/get_season_pass_defs"] = s.EmptySeasonPassDefs
+	a.routes["/account/get_event_currency"] = s.EmptyEventCurrency
+	a.routes["/account/season_finalize"] = s.SeasonFinalize
+	a.routes["/account/season_start"] = s.SeasonStart
+	a.routes["/account/activate_season_quest"] = s.ActivateSeasonQuest
+	a.routes["/account/claim_season_quest_reward"] = s.ClaimSeasonQuestReward
+	a.routes["/account/get_season_quests"] = s.SeasonQuests
+	a.routes["/account/get_account_world_quests"] = s.WorldQuests
+	a.routes["/account/claim_quest_reward"] = s.ClaimWorldQuestReward
+	a.routes["/account/collect_pickup_batch"] = s.CollectPickupBatch
+	a.routes["/service/quest/api/v1/check_for_previous_completion"] = s.CheckPreviousCompletion
+	a.routes["/service/quest/api/v1/get_player_quests"] = s.PlayerQuests
+	a.routes["/service/quest/api/v1/get_player_quests_by_name"] = s.PlayerQuestsByName
+	a.routes["/service/quest/api/v1/get_quest_schedule"] = s.QuestSchedule
+	a.routes["/service/quest/api/v1/create"] = s.CreateQuest
+	a.routes["/service/quest/api/v1/update_quest"] = s.UpdateQuest
 	return a
 }
 func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
