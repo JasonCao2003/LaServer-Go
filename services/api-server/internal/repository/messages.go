@@ -127,7 +127,7 @@ func (t *Tx) InsertGift(ctx context.Context, g FreeGift) error {
 }
 
 func (t *Tx) GiftByID(ctx context.Context, receiverID, giftID string) (FreeGift, bool, error) {
-	g, err := scanGift(t.QueryRowContext(ctx, `SELECT `+giftColumns+` FROM free_gift WHERE gift_id=? AND receiver_id=? ORDER BY id LIMIT 1`, giftID, receiverID))
+	g, err := scanGift(t.QueryRowContext(ctx, `SELECT `+giftColumns+` FROM free_gift WHERE gift_id=? AND receiver_id=? AND (expires_at IS NULL OR expires_at>?) ORDER BY id LIMIT 1`, giftID, receiverID, nowEpoch()))
 	if err == sql.ErrNoRows {
 		return g, false, nil
 	}
@@ -135,7 +135,7 @@ func (t *Tx) GiftByID(ctx context.Context, receiverID, giftID string) (FreeGift,
 }
 
 func (t *Tx) LatestUnreceivedGiftFrom(ctx context.Context, receiverID, senderID string) (FreeGift, bool, error) {
-	g, err := scanGift(t.QueryRowContext(ctx, `SELECT `+giftColumns+` FROM free_gift WHERE receiver_id=? AND sender_id=? AND COALESCE(received,0)=0 ORDER BY sent_at DESC,id DESC LIMIT 1`, receiverID, senderID))
+	g, err := scanGift(t.QueryRowContext(ctx, `SELECT `+giftColumns+` FROM free_gift WHERE receiver_id=? AND sender_id=? AND COALESCE(received,0)=0 AND (expires_at IS NULL OR expires_at>?) ORDER BY sent_at DESC,id DESC LIMIT 1`, receiverID, senderID, nowEpoch()))
 	if err == sql.ErrNoRows {
 		return g, false, nil
 	}
@@ -143,7 +143,7 @@ func (t *Tx) LatestUnreceivedGiftFrom(ctx context.Context, receiverID, senderID 
 }
 
 func (t *Tx) UnreceivedGiftsFrom(ctx context.Context, receiverID, senderID string) ([]FreeGift, error) {
-	rows, err := t.QueryContext(ctx, `SELECT `+giftColumns+` FROM free_gift WHERE receiver_id=? AND sender_id=? AND COALESCE(received,0)=0 ORDER BY sent_at ASC,id ASC`, receiverID, senderID)
+	rows, err := t.QueryContext(ctx, `SELECT `+giftColumns+` FROM free_gift WHERE receiver_id=? AND sender_id=? AND COALESCE(received,0)=0 AND (expires_at IS NULL OR expires_at>?) ORDER BY sent_at ASC,id ASC`, receiverID, senderID, nowEpoch())
 	if err != nil {
 		return nil, err
 	}

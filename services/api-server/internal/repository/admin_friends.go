@@ -49,7 +49,7 @@ func (s *Store) AdminFriendRow(ctx context.Context, userID, friendID string) (Ad
 	return row, nil
 }
 
-func (s *Store) AdminSetFriendship(ctx context.Context, userID, friendID, state string) (bool, string, error) {
+func (s *Store) AdminSetFriendship(ctx context.Context, userID, friendID, state, adminIP, auditAction string) (bool, string, error) {
 	existsA, err := s.HasUser(ctx, userID)
 	if err != nil {
 		return false, "", err
@@ -99,16 +99,15 @@ func (s *Store) AdminSetFriendship(ctx context.Context, userID, friendID, state 
 			}
 		}
 	}
+	detail := "双向置为好友"
+	if state == "remove" {
+		detail = "双向置为已删除"
+	}
+	if _, err = tx.ExecContext(ctx, `INSERT INTO admin_audit(admin_ip,action,user_id,friend_id,detail,created_at) VALUES(?,?,?,?,?,?)`, adminIP, auditAction, userID, friendID, detail, nowEpoch()); err != nil {
+		return false, "", err
+	}
 	if err = tx.Commit(); err != nil {
 		return false, "", err
 	}
-	if state == "remove" {
-		return true, "双向置为已删除", nil
-	}
-	return true, "双向置为好友", nil
-}
-
-func (s *Store) InsertAdminAudit(ctx context.Context, adminIP, action, userID, friendID, detail string, stamp int64) error {
-	_, err := s.ExecContext(ctx, `INSERT INTO admin_audit(admin_ip,action,user_id,friend_id,detail,created_at) VALUES(?,?,?,?,?,?)`, adminIP, action, userID, friendID, detail, stamp)
-	return err
+	return true, detail, nil
 }

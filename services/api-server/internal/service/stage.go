@@ -127,7 +127,7 @@ func (a *Service) StageGet(r Request, m Object) (Object, error) {
 	}
 	state, found, err := a.store.StageState(r.Context, stageID, owner)
 	if err != nil {
-		return Object{"level_id": "", "props": []Object{}, "sequence": 1, "stage_id": "", "status": "OK", "user_id": nilUserID}, nil
+		return nil, err
 	}
 	props := []Object{}
 	if found {

@@ -195,7 +195,9 @@ func (a *Service) RecordingCreateV1(r Request, m Object) (Object, error) {
 		"recording_id": rid, "user_id": recordingAuthor(m), "level_id": text(m, "level_id"),
 		"name": recordingName(m), "created_at": now(), "recording_data": recordingData(m),
 	}
-	_ = a.saveRecordingMeta(rid, meta)
+	if !a.saveRecordingMeta(rid, meta) {
+		return nil, &Error{Status: 500, Body: Object{"status": "ERROR", "error": "STORAGE_ERROR", "recording_id": rid}}
+	}
 	return Object{"status": "OK", "recording_id": rid}, nil
 }
 
@@ -310,7 +312,12 @@ func (a *Service) RecordingCreateV2(r Request, m Object) (Object, error) {
 	if meta["last_chet"] == nil {
 		meta["last_chet"] = 0
 	}
-	_ = a.saveRecordingMeta(rid, meta)
+	if !a.saveRecordingMeta(rid, meta) {
+		if !found {
+			_ = os.Remove(a.recordingDataPath(rid))
+		}
+		return nil, &Error{Status: 500, Body: Object{"status": "ERROR", "error": "STORAGE_ERROR", "recording_id": rid}}
+	}
 	return a.recordingOKPayload(r, rid, meta), nil
 }
 
@@ -475,6 +482,11 @@ func parseRange(header string, total int64) (int64, int64, bool, bool) {
 }
 
 func (a *Service) ServeUGC(subpath, rangeHeader string) UGCResponse {
+	for _, part := range strings.Split(subpath, "/") {
+		if part == "" || part == "." || part == ".." || strings.Contains(part, `\`) || safeRecordingID(part) != part {
+			return UGCResponse{Status: 404, Headers: map[string]string{"Content-Type": "text/plain"}, Body: []byte("not found")}
+		}
+	}
 	name := subpath
 	if index := strings.LastIndexAny(name, `/\`); index >= 0 {
 		name = name[index+1:]

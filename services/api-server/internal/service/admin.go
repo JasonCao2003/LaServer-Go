@@ -102,12 +102,11 @@ func (a *Service) AdminFriendsSet(r Request, m Object) (Object, error) {
 	if action != "add" && action != "remove" && action != "restore" {
 		return Object{"ok": false, "detail": "未知操作: " + action, "action": action, "user": uid, "friend": friendID, "pushed": false}, nil
 	}
-	ok, detail, err := a.store.AdminSetFriendship(r.Context, uid, friendID, action)
+	ok, detail, err := a.store.AdminSetFriendship(r.Context, uid, friendID, action, r.RemoteIP, action)
 	if err != nil {
 		return Object{"ok": false, "detail": "执行失败", "action": action, "user": uid, "friend": friendID, "pushed": false}, nil
 	}
 	if ok {
-		_ = a.store.InsertAdminAudit(r.Context, r.RemoteIP, action, uid, friendID, detail, now())
 		slog.Info("admin friends change", "action", action, "user", uid, "friend", friendID, "ip", r.RemoteIP, "detail", detail)
 	}
 	return Object{"ok": ok, "detail": detail, "action": action, "user": uid, "friend": friendID, "pushed": false}, nil
@@ -128,14 +127,13 @@ func (a *Service) AdminFriendsClear(r Request, m Object) (Object, error) {
 	removed := []string{}
 	failed := []string{}
 	for _, friendID := range ids {
-		ok, detail, err := a.store.AdminSetFriendship(r.Context, uid, friendID, "remove")
+		ok, _, err := a.store.AdminSetFriendship(r.Context, uid, friendID, "remove", r.RemoteIP, "clear")
 		if err != nil || !ok {
 			failed = append(failed, friendID)
 			continue
 		}
 		removed = append(removed, friendID)
-		_ = a.store.InsertAdminAudit(r.Context, r.RemoteIP, "clear", uid, friendID, detail, now())
 	}
 	slog.Info("admin friends clear", "user", uid, "removed", len(removed), "failed", len(failed), "ip", r.RemoteIP)
-	return Object{"ok": true, "user": uid, "removed": removed, "removed_count": len(removed), "failed": failed}, nil
+	return Object{"ok": len(failed) == 0, "user": uid, "removed": removed, "removed_count": len(removed), "failed": failed}, nil
 }
