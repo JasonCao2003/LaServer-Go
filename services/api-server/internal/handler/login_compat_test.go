@@ -40,3 +40,29 @@ func TestAuthLoginUnauthorizedEnvelope(t *testing.T) {
 		t.Fatalf("legacy error fields lost: %v", out)
 	}
 }
+
+func TestAuthLoginRequiresUserAndPreservesDevice(t *testing.T) {
+	api, db := newAPI(t, true)
+	a := create(t, api)
+	call(t, api, "/account/auth/login", map[string]any{"device": a["device"], "key": a["key"]}, 400)
+	clientDevice := strings.Repeat("d", 32)
+	login := call(t, api, "/account/auth/login", map[string]any{"user": a["user"], "device": clientDevice}, 200)
+	if login["authinfo"].(map[string]any)["device"] != clientDevice {
+		t.Fatal("auth/login did not echo the supplied client device")
+	}
+	var storedDevice string
+	if err := db.QueryRow("SELECT device_identifier FROM user WHERE id=?", a["user"]).Scan(&storedDevice); err != nil {
+		t.Fatal(err)
+	}
+	if storedDevice != a["device"] {
+		t.Fatal("auth/login changed the registered device")
+	}
+	login = call(t, api, "/account/auth/login", map[string]any{"user": a["user"], "device": "short"}, 200)
+	if got := login["authinfo"].(map[string]any)["device"].(string); len(got) != 36 || got == storedDevice {
+		t.Fatalf("short device should receive a new UUID, got %q", got)
+	}
+	byDevice := call(t, api, "/account/login", map[string]any{"device": a["device"], "key": a["key"]}, 200)
+	if byDevice["user"] != a["user"] {
+		t.Fatal("registered device no longer identifies the account")
+	}
+}

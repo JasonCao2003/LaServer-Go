@@ -43,7 +43,7 @@ func UserLookup(key string) Statement {
 	if key != "id" && key != "device_identifier" {
 		panic("invalid lookup column")
 	}
-	return Statement("SELECT id,device_identifier,session,recovery_token,is_authorized,is_banned,ban_end_time,platform,created_at FROM user WHERE " + key + "=?")
+	return Statement("SELECT id,device_identifier,session,recovery_token,is_authorized,is_banned,ban_end_time,platform,created_at,credential_mode_issued FROM user WHERE " + key + "=?")
 }
 func CurrencyUpdate(key string) Statement {
 	switch key {
@@ -54,10 +54,10 @@ func CurrencyUpdate(key string) Statement {
 }
 
 const (
-	CreateUser                 Statement = `INSERT INTO user(id,device,device_identifier,session,recovery_token,is_authorized,ip_address,created_at,device_name,user_agent) VALUES(?,?,?,?,?,?,?,?,?,?)`
+	CreateUser                 Statement = `INSERT INTO user(id,device,device_identifier,session,recovery_token,is_authorized,ip_address,created_at,device_name,user_agent,credential_mode_issued) VALUES(?,?,?,?,?,?,?,?,?,?,?)`
 	CreateCurrency             Statement = "INSERT INTO user_currency(user_id) VALUES(?)"
 	ClearExpiredBan            Statement = "UPDATE user SET is_banned=0,ban_duration=0,ban_start_time=0,ban_end_time=0 WHERE id=?"
-	RotateSession              Statement = "UPDATE user SET session=?,recovery_token=?,device_identifier=?,ip_address=?,user_agent=? WHERE id=?"
+	RotateSession              Statement = "UPDATE user SET session=?,recovery_token=?,device_identifier=?,ip_address=?,user_agent=?,credential_mode_issued=0 WHERE id=?"
 	ReadCurrency               Statement = `SELECT candles,heart,heart_wax,prestige,prestige_vip,prestige_wax,season_candle,season_wax,season_wax_14,season_heart,season_pass_token,vip,wax FROM user_currency WHERE user_id=?`
 	MarkDailyBonus             Statement = `INSERT INTO season_pass_daily(user_id,day) SELECT user_id,? FROM user_currency WHERE user_id=? AND vip>0 ON CONFLICT(user_id,day) DO NOTHING`
 	GrantDailyBonus            Statement = "UPDATE user_currency SET season_candle=COALESCE(season_candle,0)+1,updated_at=CURRENT_TIMESTAMP WHERE user_id=?"
@@ -75,3 +75,5 @@ const (
 	AdvanceLatestBuild         Statement = "INSERT INTO version(id,version) VALUES(1,?) ON CONFLICT(id) DO UPDATE SET version=MAX(COALESCE(version.version,0),excluded.version)"
 	ReadLatestBuild            Statement = "SELECT version FROM version WHERE id=1"
 )
+
+const RotateSessionWithCredential Statement = "UPDATE user SET session=?,recovery_token=?,device_identifier=?,ip_address=?,user_agent=?,credential_mode_issued=1 WHERE id=? AND recovery_token=? AND credential_mode_issued=1"

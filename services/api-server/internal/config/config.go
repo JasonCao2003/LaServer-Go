@@ -71,6 +71,7 @@ func Load(path string) (Config, error) {
 type Config struct {
 	Listen                 string           `json:"listen"`
 	Database               string           `json:"database"`
+	LoginMode              string           `json:"login_mode"`
 	TLSCert                string           `json:"tls_cert"`
 	TLSKey                 string           `json:"tls_key"`
 	AutoAuthorize          bool             `json:"auto_authorize"`
@@ -102,6 +103,23 @@ func currencyField(k string) bool {
 }
 
 func ValidateRuntime(cfg Config) error {
+	switch cfg.LoginMode {
+	case "", "credential":
+		if cfg.RecreateMissingAccount {
+			return errors.New("recreate_missing_account requires login_mode legacy_dev")
+		}
+	case "legacy_dev":
+		host, _, err := net.SplitHostPort(cfg.Listen)
+		if err != nil {
+			return errors.New("legacy_dev requires a concrete private listen address")
+		}
+		ip := net.ParseIP(host)
+		if ip == nil || (!ip.IsLoopback() && !ip.IsPrivate()) {
+			return errors.New("legacy_dev requires a concrete private listen address")
+		}
+	default:
+		return fmt.Errorf("invalid login_mode %q", cfg.LoginMode)
+	}
 	ip := net.ParseIP(cfg.RoomHost)
 	if ip == nil || ip.To4() == nil || cfg.RoomPort < 1 || cfg.RoomPort > 65535 {
 		return errors.New("room_host must be IPv4 and room_port must be 1..65535")

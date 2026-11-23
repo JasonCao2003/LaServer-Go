@@ -17,7 +17,7 @@ func TestBatchBReceiptIsExplicitAndIdempotent(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(dir, "iaplist.json"), []byte(`{"iaplist":[{"id":"TEST_CANDLE","currencyType":"candles","currencyCount":5}]}`), 0600); err != nil {
 		t.Fatal(err)
 	}
-	enabled, err := New(db, Config{RoomHost: "192.168.1.10", RoomPort: 25565, GameConfigDir: dir, AllowFakeCommerce: true})
+	enabled, err := New(db, Config{LoginMode: "legacy_dev", Listen: "127.0.0.1:8443", RoomHost: "192.168.1.10", RoomPort: 25565, GameConfigDir: dir, AllowFakeCommerce: true})
 	if err != nil {
 		t.Fatal(err)
 	}

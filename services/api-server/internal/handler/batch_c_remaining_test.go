@@ -139,7 +139,7 @@ func TestBatchCMailboxVersionsAndRemainingMessageEntries(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(dir, "mailbox.json"), []byte(mailbox), 0600); err != nil {
 		t.Fatal(err)
 	}
-	api, err := New(db, Config{AutoAuthorize: true, GameConfigDir: dir, RoomHost: "192.168.1.10", RoomPort: 25565})
+	api, err := New(db, Config{AutoAuthorize: true, LoginMode: "legacy_dev", Listen: "127.0.0.1:8443", GameConfigDir: dir, RoomHost: "192.168.1.10", RoomPort: 25565})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -206,7 +206,7 @@ func TestBatchCGiftClaimSurvivesAPIRecreation(t *testing.T) {
 	api, db := newAPI(t, true)
 	a, b := create(t, api), create(t, api)
 	call(t, api, "/service/relationship/api/v1/free_gifts/send", map[string]any{"user": a["user"], "session": a["session"], "target": b["user"], "gift_type": "gift_scandle"}, 200)
-	api2, err := New(db, Config{AutoAuthorize: true, RoomHost: "192.168.1.10", RoomPort: 25565})
+	api2, err := New(db, Config{AutoAuthorize: true, LoginMode: "legacy_dev", Listen: "127.0.0.1:8443", RoomHost: "192.168.1.10", RoomPort: 25565})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -407,7 +407,7 @@ func TestBatchCRecordingRestartAndFailedChunk(t *testing.T) {
 	if err := os.WriteFile(path, []byte(`{"chet":1}`), 0600); err != nil {
 		t.Fatal(err)
 	}
-	api2, err := New(db, Config{AutoAuthorize: true, InstanceDir: dir, RoomHost: "192.168.1.10", RoomPort: 25565})
+	api2, err := New(db, Config{AutoAuthorize: true, LoginMode: "legacy_dev", Listen: "127.0.0.1:8443", InstanceDir: dir, RoomHost: "192.168.1.10", RoomPort: 25565})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -449,7 +449,7 @@ func cNewFileAPI(t *testing.T) (*API, *sql.DB, string) {
 	t.Helper()
 	_, db := newAPI(t, true)
 	dir := t.TempDir()
-	api, err := New(db, Config{AutoAuthorize: true, InstanceDir: dir, RoomHost: "192.168.1.10", RoomPort: 25565})
+	api, err := New(db, Config{AutoAuthorize: true, LoginMode: "legacy_dev", Listen: "127.0.0.1:8443", InstanceDir: dir, RoomHost: "192.168.1.10", RoomPort: 25565})
 	if err != nil {
 		t.Fatal(err)
 	}

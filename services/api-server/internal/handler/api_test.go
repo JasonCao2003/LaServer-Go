@@ -24,7 +24,7 @@ func newAPI(t *testing.T, authorized bool) (*API, *sql.DB) {
 	if err := Migrate(context.Background(), db); err != nil {
 		t.Fatal(err)
 	}
-	api, err := New(db, Config{AutoAuthorize: authorized, RoomHost: "192.168.1.10", RoomPort: 25565})
+	api, err := New(db, Config{AutoAuthorize: authorized, LoginMode: "legacy_dev", Listen: "127.0.0.1:8443", RoomHost: "192.168.1.10", RoomPort: 25565})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -98,7 +98,7 @@ func TestUserdataPersistenceAndSessionIsolation(t *testing.T) {
 	call(t, api, "/account/userdata", req, 401)
 	req["session"] = a["session"]
 	req["data"] = ""
-	api2, err := New(db, Config{RoomHost: "192.168.1.10", RoomPort: 25565})
+	api2, err := New(db, Config{LoginMode: "legacy_dev", Listen: "127.0.0.1:8443", RoomHost: "192.168.1.10", RoomPort: 25565})
 	if err != nil {
 		t.Fatal(err)
 	}

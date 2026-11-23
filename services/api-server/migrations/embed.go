@@ -56,3 +56,6 @@ var Stage string
 
 //go:embed 017_admin_audit.sql
 var AdminAudit string
+
+//go:embed 018_session_provenance.sql
+var SessionProvenance string

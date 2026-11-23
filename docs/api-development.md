@@ -41,11 +41,11 @@ go run ./cmd/server migrate --config config/api-server.json
 go run ./cmd/server --config config/api-server.json
 ```
 
-相对数据库和证书路径相对于配置文件目录解析。migrate 显式创建开发数据库目录，可初始化空数据库或将本项目 schema v1–v16 升级到 v17，拒绝无法识别的旧实例数据库。升级在事务中创建新增表并保留账号，不自动导入旧项目数据。正常启动要求 schema v17，不自动建表；已是 v17 时重跑 migrate 不会重复建表。当前 schema 只覆盖已迁移功能所需表，不能直接导入、复制或替换旧实例数据；旧 instance 和 legacy 数据必须分别迁移并验收。
+相对数据库和证书路径相对于配置文件目录解析。migrate 显式创建开发数据库目录，可初始化空数据库或将本项目 schema v1–v17 升级到 v18，拒绝无法识别的旧实例数据库。升级在事务中新增凭据签发模式列并保留账号；既有会话与令牌标为旧模式，不能在默认凭据模式继续使用。正常启动要求 schema v18，不自动建表；已是 v18 时重跑 migrate 不会重复建表。当前 schema 只覆盖已迁移功能所需表，不能直接导入、复制或替换旧实例数据；旧 instance 和 legacy 数据必须分别迁移并验收。
 
-示例仅监听 127.0.0.1，默认不自动授权、不自动补建丢失账号，未授权登录返回 406。在隔离开发实例中可将 auto_authorize 设为 true 创建可登录测试账号；已有账号不会因此被批量授权。TLS 证书和私钥必须成对配置；旧客户端 TLS 互通尚未验证。API 独立启动，不检查实时服务是否在线，room_host/room_port 只是下发配置，不代表 ENet 已实现或可达。
+示例仅监听 127.0.0.1，默认使用 `login_mode: credential`，不自动授权、不自动补建丢失账号。旧客户端测试需要在隔离实例中显式配置 `login_mode: legacy_dev` 和具体的回环或私有监听 IP；此模式允许仅凭 user ID／device 登录，不能暴露给不可信网络。未授权登录返回 406。在隔离开发实例中可将 auto_authorize 设为 true 创建可登录测试账号；已有账号不会因此被批量授权。TLS 证书和私钥必须成对配置；旧客户端 TLS 互通尚未验证。API 独立启动，不检查实时服务是否在线，room_host/room_port 只是下发配置，不代表 ENet 已实现或可达。
 
-## 资源配置与 schema v17
+## 资源配置与 schema v18
 
 第四批增加玩家任务、季节任务和领取状态、世界任务冷却及每日拾取记录。任务创建与统计上报通过 SQLite 保存进度，领奖标记与货币变更在一个事务中提交；只有当日下发且已完成的任务可以领奖，客户端直接提交完成状态会被拒绝。旧服务的每日任务池会在重启或跨日时随机刷新并写回配置；Go 当前只读取现有配置池，跨日自动刷新仍待对齐；任务及领取标记统一按太平洋日界，未来日期排期使用任务目录按日期确定性生成。旧存量任务及领取标记尚无导入工具，不能直接切换真实账号。
 
@@ -67,11 +67,11 @@ schema v16 增加 `stage_state` 表，按 `stage_id + owner_id` 保存共享空�
 
 schema v17 增加 `admin_audit` 表，记录管理好友修改的来源 IP、动作、目标账号和结果。`/admin/api/*` 默认只允许回环地址访问；配置 `admin_token` 后必须提供匹配的 `X-Admin-Token` 或请求体 `admin_token`。保留旧管理路径的 GET/POST：GET 从查询参数读取 `user`/`friend` 等字段，POST 读取 JSON。删除写入 `friendship.status='removed'` 墓碑并置 `local_soft_deleted`，添加/恢复强制双向 active；`pushed` 固定为 false，因为尚未实现 WebSocket 推送。
 
-schema v1–v7 开发库升级前保留备份，然后显式执行 migrate 命令；本轮没有对任何真实实例执行升级。迁移完成后应使用 v17 代码；v16 及更早版本二进制不识别新 schema，不能直接作为回退程序。
+schema v18 为 `user` 增加 `credential_mode_issued`。凭据模式创建和登录签发的会话、恢复令牌标为 1；旧模式创建或登录标为 0，即使旧登录没有轮换令牌也会降为 0。凭据模式拒绝标为 0 的会话与恢复令牌；旧账号需重新注册或通过未来的安全凭据重发流程迁移，不能直接切换。开发库升级前保留备份并显式执行 migrate；本轮没有对任何真实实例执行升级。迁移完成后应使用 v18 代码；v17 及更早二进制不识别新 schema，不能直接作为回退程序。
 
 ## 已知协议差异与边界
 
-- 登录沿用旧服务可仅凭 user ID 换取会话的行为，尚未实现可验证的设备签名或恢复凭据认证。该行为不是安全认证，当前版本仅供隔离本地开发，不应据此开放公网。
+- 默认认证模式仅支持 `/account/auth/create` 和用 `recovery_token` 登录的 `/account/auth/login`，并在成功后轮换令牌及会话；旧 ID／设备登录仅在 `legacy_dev` 模式保留。旧服务和现有 APK 请求日志没有证明客户端会提交恢复令牌，因此不能宣称原版客户端已适配默认模式。详见[认证与兼容说明](api-authentication.md)。
 - userdata 与 sync_user_data 均要求当前有效会话，并校验授权和封禁；旧 userdata 无严格校验、sync 仅警告会话不匹配的路径没有保留。
 - 默认关闭丢失账号补建，需要显式设置 recreate_missing_account；尚未迁移旧面板的自动授权开始时间、全解锁和账号默认数据配置，初始货币改为显式 default_currency 配置。
 - 季卡每日季蜡按 America/Los_Angeles 日期在 SQLite 事务中与领取标记一起提交，不再依赖旧旁路 JSON；重复和并发请求同日只发一次。旧每日标记尚未导入，不可直接切换真实账号。
@@ -81,7 +81,7 @@ schema v1–v7 开发库升级前保留备份，然后显式执行 migrate 命�
 - 收藏品保留 user_id 别名；缺少账号或会话时只返回基础配置，不查询账号持有条目。成就定义当前只查询动态表，尚未迁移旧服务针对高版本的静态响应覆盖。
 - get_vars 来自旧源码公开协议常量，不代表其中开关指向的功能已经实现。MOTD 使用无外部链接的开发默认公告，尚未接入旧公告配置。设备描述写入等附带行为尚未完全迁移。
 - 登录 resource_list 和 websocket_url 保留旧协议字段，清单中其余资源及 websocket 实现仍待迁移；此处不保证完整客户端登录链路。
-- 错误响应的详细文案、auth/login 特殊错误形状和部分表单兼容尚未逐分支对齐；目前测试验证核心状态、数据副作用及首批响应字段。
+- 认证错误的部分文字仍未逐分支对齐旧服务；`auth/login` 的 JSON、BOM、表单和未授权响应有本地回归测试，客户端真实请求体字段仍待抓取。
 - 好友写接口只接受已存在的目标账号，不复制旧服务的占位账号创建行为；set_friend_name 会补建双向 friendship/friend_status，set_friend_block 只改当前账号方向，反向拉黑由读取端根据反向行判断。
 - 关注接口按旧实现写入 boat_follow，`get_follower_count` 读取 follow_relationship；旧服务同样没有写入 follow_relationship 的业务路径，因此该计数在导入或后续写入前保持 0。
 - `update_friend_constellation_pages` 按旧协议始终返回 HTTP 200，结果放在 result/status 字段；OPTIONS 返回 CORS 预检，非法分页只影响响应内容而不改状态码。

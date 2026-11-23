@@ -13,6 +13,8 @@ func TestRoomAdmissionBindsDiscoveryToAccountSessionAndRoom(t *testing.T) {
 	_, db := newAPI(t, true)
 	cfg := Config{
 		AutoAuthorize:       true,
+		LoginMode:           "legacy_dev",
+		Listen:              "127.0.0.1:8443",
 		RoomHost:            "192.168.1.10",
 		RoomPort:            25565,
 		RoomAdmissionKey:    strings.Repeat("ab", 32),

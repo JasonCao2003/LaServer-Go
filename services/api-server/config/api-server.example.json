@@ -8,6 +8,7 @@
   "tls_cert": "",
   "tls_key": "",
   "auto_authorize": false,
+  "login_mode": "credential",
   "recreate_missing_account": false,
   "allow_fake_commerce": false,
   "room_host": "127.0.0.1",

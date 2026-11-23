@@ -147,7 +147,7 @@ func TestBatchCFreeGiftClaimIsScopedAndIdempotent(t *testing.T) {
 
 func TestBatchCRecordingChunksAndUGCRanges(t *testing.T) {
 	_, db := newAPI(t, true)
-	api, err := New(db, Config{AutoAuthorize: true, InstanceDir: t.TempDir(), RoomHost: "192.168.1.10", RoomPort: 25565})
+	api, err := New(db, Config{AutoAuthorize: true, LoginMode: "legacy_dev", Listen: "127.0.0.1:8443", InstanceDir: t.TempDir(), RoomHost: "192.168.1.10", RoomPort: 25565})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -244,7 +244,7 @@ func TestBatchCRecordingStorageFailureIsReported(t *testing.T) {
 	if err := os.WriteFile(blocked, []byte("x"), 0600); err != nil {
 		t.Fatal(err)
 	}
-	api, err := New(db, Config{AutoAuthorize: true, InstanceDir: blocked, RoomHost: "192.168.1.10", RoomPort: 25565})
+	api, err := New(db, Config{AutoAuthorize: true, LoginMode: "legacy_dev", Listen: "127.0.0.1:8443", InstanceDir: blocked, RoomHost: "192.168.1.10", RoomPort: 25565})
 	if err != nil {
 		t.Fatal(err)
 	}

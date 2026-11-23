@@ -49,7 +49,11 @@ func signedJWT(secret string, claims Object) (string, error) {
 func (a *Service) StarwatchAuth(r Request, m Object) (Object, error) {
 	session := text(m, "sessionToken")
 	var userID string
-	err := a.store.QueryRowContext(r.Context, repository.UserIDBySession, session).Scan(&userID)
+	query := repository.UserIDBySession
+	if a.cfg.LoginMode != "legacy_dev" {
+		query = repository.UserIDByCredentialSession
+	}
+	err := a.store.QueryRowContext(r.Context, query, session).Scan(&userID)
 	if errors.Is(err, sql.ErrNoRows) || session == "" {
 		return nil, &Error{Status: 400, Body: Object{"result": "not_found"}}
 	}

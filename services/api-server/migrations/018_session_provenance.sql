@@ -1,0 +1,1 @@
+ALTER TABLE user ADD COLUMN credential_mode_issued INTEGER NOT NULL DEFAULT 0;

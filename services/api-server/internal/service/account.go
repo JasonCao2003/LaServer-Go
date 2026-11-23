@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"crypto/rand"
+	"crypto/subtle"
 	"database/sql"
 	"encoding/base64"
 	"encoding/hex"
@@ -46,11 +47,15 @@ func legacyVersion(ua string) bool {
 
 func (a *Service) findUser(ctx context.Context, key, value string) (entity.User, error) {
 	var u entity.User
+	var verified int
 	// key is chosen by the caller from this allowlist, never from request input.
 	if key != "id" && key != "device_identifier" {
 		return u, errors.New("invalid lookup")
 	}
-	err := a.store.QueryRowContext(ctx, repository.UserLookup(key), value).Scan(&u.ID, &u.DeviceIdentifier, &u.Session, &u.RecoveryToken, &u.IsAuthorized, &u.IsBanned, &u.BanEndTime, &u.Platform, &u.CreatedAt)
+	err := a.store.QueryRowContext(ctx, repository.UserLookup(key), value).Scan(&u.ID, &u.DeviceIdentifier, &u.Session, &u.RecoveryToken, &u.IsAuthorized, &u.IsBanned, &u.BanEndTime, &u.Platform, &u.CreatedAt, &verified)
+	if err == nil && a.cfg.LoginMode != "legacy_dev" && verified != 1 {
+		u.Session = nil
+	}
 	return u, err
 }
 
@@ -98,7 +103,11 @@ func (a *Service) createUser(r Request, name, id string, authCreate bool) (entit
 		return u, err
 	}
 	defer tx.Rollback()
-	_, err = tx.ExecContext(r.Context, repository.CreateUser, id, name, device, session, recovery, authorized, remoteIP(r), stamp, name, r.UserAgent)
+	verified := 0
+	if authCreate && a.cfg.LoginMode != "legacy_dev" {
+		verified = 1
+	}
+	_, err = tx.ExecContext(r.Context, repository.CreateUser, id, name, device, session, recovery, authorized, remoteIP(r), stamp, name, r.UserAgent, verified)
 	if err != nil {
 		return u, err
 	}
@@ -121,6 +130,9 @@ func (a *Service) createUser(r Request, name, id string, authCreate bool) (entit
 
 func (a *Service) Create(r Request, m object) (object, error) {
 	auth := r.Path == "/account/auth/create"
+	if !auth && a.cfg.LoginMode != "legacy_dev" {
+		return nil, fail(403, "Legacy account protocol requires login_mode legacy_dev")
+	}
 	name, ok := m["device_name"].(string)
 	if !ok {
 		return nil, fail(400, "Invalid device_name")
@@ -187,22 +199,33 @@ func (a *Service) checkAllowed(ctx context.Context, u *entity.User, status int) 
 }
 
 func (a *Service) Login(r Request, m object) (object, error) {
+	credentialMode := a.cfg.LoginMode != "legacy_dev"
+	auth := r.Path == "/account/auth/login"
+	if credentialMode && r.Path != "/account/auth/login" {
+		return nil, fail(403, "Legacy account protocol requires login_mode legacy_dev")
+	}
 	id := strings.TrimSpace(text(m, "user"))
+	providedCredential := text(m, "recovery_token")
+	if credentialMode && (id == "" || providedCredential == "") {
+		return nil, fail(401, "Invalid credentials")
+	}
 	var u entity.User
 	var err error
-	if _, hasUser := m["user"]; !hasUser && text(m, "device") != "" {
+	if _, hasUser := m["user"]; !hasUser && text(m, "device") != "" && !credentialMode && !auth {
 		u, err = a.findUser(r.Context, "device_identifier", text(m, "device"))
 	} else {
 		if id == "" {
 			return nil, fail(400, "Missing required field: user")
 		}
 		u, err = a.findUser(r.Context, "id", id)
-		if errors.Is(err, sql.ErrNoRows) && a.cfg.RecreateMissingAccount {
+		if errors.Is(err, sql.ErrNoRows) && a.cfg.RecreateMissingAccount && !credentialMode {
 			u, err = a.createUser(r, text(m, "device_name"), id, false)
 		}
 	}
-	auth := r.Path == "/account/auth/login"
 	if errors.Is(err, sql.ErrNoRows) {
+		if credentialMode {
+			return nil, fail(401, "Invalid credentials")
+		}
 		if auth {
 			return object{"result": "not_found", "message": "用户不存在", "user_id": id}, nil
 		}
@@ -210,6 +233,12 @@ func (a *Service) Login(r Request, m object) (object, error) {
 	}
 	if err != nil {
 		return nil, err
+	}
+	if credentialMode && subtle.ConstantTimeCompare([]byte(providedCredential), []byte(stringValue(u.RecoveryToken))) != 1 {
+		return nil, fail(401, "Invalid credentials")
+	}
+	if credentialMode && u.Session == nil {
+		return nil, fail(401, "Invalid credentials")
 	}
 	if err = a.checkAllowed(r.Context, &u, 406); err != nil {
 		if auth {
@@ -236,14 +265,37 @@ func (a *Service) Login(r Request, m object) (object, error) {
 		}
 	}
 	device := stringValue(u.DeviceIdentifier)
-	if d := text(m, "device"); d != "" {
+	if d := text(m, "device"); d != "" && !auth {
 		device = d
 	}
-	if _, err = a.store.ExecContext(r.Context, repository.RotateSession, session, recovery, device, remoteIP(r), r.UserAgent, u.ID); err != nil {
+	query := repository.RotateSession
+	args := []any{session, recovery, device, remoteIP(r), r.UserAgent, u.ID}
+	if credentialMode {
+		query = repository.RotateSessionWithCredential
+		args = append(args, providedCredential)
+	}
+	updated, err := a.store.ExecContext(r.Context, query, args...)
+	if err != nil {
 		return nil, err
+	}
+	if credentialMode {
+		rows, err := updated.RowsAffected()
+		if err != nil {
+			return nil, err
+		}
+		if rows != 1 {
+			return nil, fail(401, "Invalid credentials")
+		}
 	}
 	u.DeviceIdentifier = &device
 	if auth {
+		responseDevice := text(m, "device")
+		if len([]rune(responseDevice)) < 32 {
+			responseDevice, err = uuid()
+			if err != nil {
+				return nil, err
+			}
+		}
 		key, err := token(32)
 		if err != nil {
 			return nil, err
@@ -252,7 +304,7 @@ func (a *Service) Login(r Request, m object) (object, error) {
 		if r.Secure {
 			scheme = "wss"
 		}
-		return object{"authinfo": object{"user": u.ID, "device": device, "key": key, "recovery_token": recovery}, "session": session, "resource_list": authLoginResources, "external_links": []string{}, "websocket_url": scheme + "://" + r.Host + "/account/ws", "websocket_auth": "Basic " + base64.StdEncoding.EncodeToString([]byte(u.ID+":"+session))}, nil
+		return object{"authinfo": object{"user": u.ID, "device": responseDevice, "key": key, "recovery_token": recovery}, "session": session, "resource_list": authLoginResources, "external_links": []string{}, "websocket_url": scheme + "://" + r.Host + "/account/ws", "websocket_auth": "Basic " + base64.StdEncoding.EncodeToString([]byte(u.ID+":"+session))}, nil
 	}
 	result := object{"user": u.ID, "device": nil, "key": strings.Repeat("0", 64), "session": session, "resource_list": loginResources}
 	if a.legacyUA(r) {

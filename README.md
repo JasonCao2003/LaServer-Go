@@ -2,7 +2,7 @@
 
 LaServer 的 Go 重构项目，逐步迁移旧客户端游戏接口与 ENet/UDP 联机逻辑，理清业务边界并简化部署。
 
-> 当前处于开发阶段，尚不能完整替代旧 LaServer。扫描清单中的 201 条路由已全部接入 Go handler；Go 测试、vet、Linux/Windows 构建和本机 51 项 API 冒烟测试已通过，真实客户端验收尚未执行。
+> 当前处于开发阶段，尚不能完整替代旧 LaServer。扫描清单中的 201 条路由已全部接入 Go handler；此前的 Go 测试、vet、Linux/Windows 构建和本机 51 项 API 冒烟测试已有记录。0.1.8／0.3.11 曾在隔离环境请求登录接口，完整客户端验收尚未完成。
 
 ## 服务与技术栈
 
@@ -33,7 +33,7 @@ LaServer-Go/
 │   │   │   ├── middleware/      请求体与访问日志
 │   │   │   ├── config/          配置加载
 │   │   │   └── app/             启动与生命周期
-│   │   ├── migrations/          SQLite schema v1–v8
+│   │   ├── migrations/          SQLite schema v1–v18
 │   │   ├── config/             无凭据配置示例
 │   │   ├── go.mod
 │   │   └── go.sum
@@ -55,7 +55,7 @@ API 按 handler、service、repository、model、middleware、config、app 分�
 ```sh
 cd services/api-server
 cp config/api-server.example.json config/api-server.json
-# 编辑配置后，为全新的开发数据库显式初始化。
+# 编辑配置后，初始化新库或将本项目旧 schema 升级至 v18。
 go run ./cmd/server migrate --config config/api-server.json
 # 正常启动或重启。
 go run ./cmd/server --config config/api-server.json
@@ -71,7 +71,8 @@ Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-s
 | `game_config_dir` | 只读游戏配置目录；收藏品需要 collectibles.json，地图定义需要 map.json |
 | `room_host` / `room_port` | 下发给客户端的实时服务 IPv4 和端口；下发地址不代表联机服务已就绪 |
 | `auto_authorize` | 是否自动授权新账号，默认 false |
-| `recreate_missing_account` | 是否按原 ID 补建缺失账号，默认 false |
+| `login_mode` | `credential`（默认）仅开放 `auth/create` 和使用 `recovery_token` 的 `auth/login`；`legacy_dev` 供隔离测试旧客户端，要求监听具体的回环或私有 IP |
+| `recreate_missing_account` | 是否按原 ID 补建缺失账号，默认 false；只允许与 `legacy_dev` 同用 |
 | `allow_fake_commerce` | 启用本地模拟购买，默认 false；仅接受唯一交易 ID，真实凭据不发货 |
 | `default_currency` / `current_season` | 新账号初始货币与当前赛季 |
 | `resource_auth_token` | 本地配置有效资源 CDN token；缺失时对应接口返回 503 |
@@ -79,7 +80,7 @@ Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-s
 
 在当前与旧 LaServer 并列的工作区中，`game_config_dir` 可设为 `../../../../LaServer/services/game-api/config`；其他部署需自行提供经过确认的配置文件。本仓库不自动复制旧客户端资源或真实账号数据，缺少必需资源的对应接口返回 503。
 
-`migrate` 支持初始化空数据库并逐版升级本项目 schema v1–v10，拒绝无法识别的非空数据库；正常启动要求 schema v10，不自动改表。已是 v10 时重跑 migrate 不会重复建表。不要将旧 Python 实例数据库直接复制到新服务路径，迁移前应备份并单独验证。
+`migrate` 支持初始化空数据库并逐版升级本项目 schema v1–v17，拒绝无法识别的非空数据库；正常启动要求 schema v18，不自动改表。已是 v18 时重跑 migrate 不会重复建表。升级前备份开发库；旧 Python 实例数据库不能直接复制到新服务路径。
 
 ## 接口进度与边界
 
@@ -87,7 +88,7 @@ Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-s
 
 游戏接口使用 POST，支持 text/plain 中的 JSON，请求体上限 2 MiB。清单内未迁移接口返回 501，未知路径返回 404；WebSocket、MQTT、自动全解锁与部分静态响应版本分流尚未完成。
 
-登录仍继承旧服务可仅凭 user ID 换取会话的行为，尚未建立可靠的设备凭据校验。当前版本用于隔离本地开发，不应直接开放公网。存档接口要求有效会话，防止跨账号读取或写入。
+旧客户端的 ID／设备登录仅在显式 `login_mode: legacy_dev` 下开放；该模式不可监听通配或公网地址，并须另行限制局域网访问。默认 `credential` 模式要求 `auth/login` 提交在凭据模式签发的 `recovery_token`，成功后轮换令牌和会话。旧模式使用过的账号不能直接切到凭据模式登录。现有 APK 请求记录尚未证明 0.1.8／0.3.11 会提交此令牌，因此两版客户端联调需使用隔离开发模式。部署限制及四条登录路径的协议证据见[认证与兼容说明](docs/api-authentication.md)。
 
 完整字段、行为差异和验收范围见[接口开发说明](docs/api-development.md)与[路由清单](json/api/legacy-routes.json)。模型来源见[实体映射](docs/entities.md)。
 
