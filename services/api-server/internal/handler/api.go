@@ -38,6 +38,7 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 	a.routes["/account/ack_unlock"] = s.AckUnlock
 	a.routes["/account/get_rank"] = s.Rank
 	a.routes["/account/find_previous_or_empty"] = s.Discover
+	a.routes["/internal/v1/room/admissions/verify"] = s.VerifyRoomAdmission
 	a.routes["/account/get_checkpoints"] = s.Checkpoints
 	a.routes["/account/set_checkpoint"] = s.Checkpoints
 	a.routes["/account/get_latest_build_version"] = s.LatestBuild

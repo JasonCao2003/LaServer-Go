@@ -1,6 +1,7 @@
 package config
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -61,6 +62,9 @@ func Load(path string) (Config, error) {
 	if cfg.CurrentSeason < 0 {
 		return cfg, errors.New("current_season cannot be negative")
 	}
+	if err := validateRoomAdmission(cfg); err != nil {
+		return cfg, err
+	}
 	return cfg, nil
 }
 
@@ -74,6 +78,8 @@ type Config struct {
 	AllowFakeCommerce      bool             `json:"allow_fake_commerce"`
 	RoomHost               string           `json:"room_host"`
 	RoomPort               int              `json:"room_port"`
+	RoomAdmissionKey       string           `json:"room_admission_key"`
+	RoomAdmissionBearer    string           `json:"room_admission_bearer"`
 	CurrentSeason          int              `json:"current_season"`
 	DefaultCurrency        map[string]int64 `json:"default_currency"`
 	GameConfigDir          string           `json:"game_config_dir"`
@@ -99,6 +105,20 @@ func ValidateRuntime(cfg Config) error {
 	ip := net.ParseIP(cfg.RoomHost)
 	if ip == nil || ip.To4() == nil || cfg.RoomPort < 1 || cfg.RoomPort > 65535 {
 		return errors.New("room_host must be IPv4 and room_port must be 1..65535")
+	}
+	return validateRoomAdmission(cfg)
+}
+
+func validateRoomAdmission(cfg Config) error {
+	if cfg.RoomAdmissionKey == "" && cfg.RoomAdmissionBearer == "" {
+		return nil
+	}
+	key, err := hex.DecodeString(cfg.RoomAdmissionKey)
+	if err != nil || len(key) != 32 {
+		return errors.New("room_admission_key must encode 32 bytes as hex")
+	}
+	if len(cfg.RoomAdmissionBearer) < 32 {
+		return errors.New("room_admission_bearer must contain at least 32 bytes")
 	}
 	return nil
 }

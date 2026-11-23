@@ -358,11 +358,22 @@ func (a *Service) JoinFriendGame(r Request, m Object) (Object, error) {
 	if !found {
 		return nil, joinError(404, "好友当前不在游戏中", "FRIEND_NOT_IN_GAME")
 	}
-	assignment.MoveTS = now() * 1000
+	stamp := now()
+	signature := assignment.Signature
+	if a.cfg.RoomAdmissionKey != "" {
+		if err := a.checkAllowed(r.Context, &u, 403); err != nil {
+			return nil, err
+		}
+		signature, err = a.issueRoomAdmission(u.ID, stringValue(u.Session), assignment.ServerURI, stamp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	assignment.MoveTS = stamp * 1000
 	if err = a.store.SaveJoinAssignment(r.Context, uid, assignment, friendID); err != nil {
 		return nil, err
 	}
-	move := Object{"signature": assignment.Signature, "sig": assignment.Sig, "target_id": friendID, "client_changelist": valueOr(m, "client_changelist", "282913"), "ps_only": assignment.PSOnly, "platform_filter": assignment.PlatformFilter, "public_ip": valueOr(m, "public_ip", "0.0.0.0"), "private_ip": valueOr(m, "private_ip", "127.0.0.1"), "port": valueOr(m, "port", 42336), "level": valueOr(m, "level", 3526133726), "level_hash": valueOr(m, "level_hash", 30890), "client_version": valueOr(m, "client_version", 5023), "players": []string{friendID}, "move_ts": assignment.MoveTS, "event_id": valueOr(m, "event_id", 0)}
+	move := Object{"signature": signature, "sig": assignment.Sig, "target_id": friendID, "client_changelist": valueOr(m, "client_changelist", "282913"), "ps_only": assignment.PSOnly, "platform_filter": assignment.PlatformFilter, "public_ip": valueOr(m, "public_ip", "0.0.0.0"), "private_ip": valueOr(m, "private_ip", "127.0.0.1"), "port": valueOr(m, "port", 42336), "level": valueOr(m, "level", 3526133726), "level_hash": valueOr(m, "level_hash", 30890), "client_version": valueOr(m, "client_version", 5023), "players": []string{friendID}, "move_ts": assignment.MoveTS, "event_id": valueOr(m, "event_id", 0)}
 	return Object{"move_to_game": move, "is_joinable": true, "is_dnd": false}, nil
 }
 

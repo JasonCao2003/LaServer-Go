@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.20)
+project(skyla_enet_bridge C)
+
+set(SKYLA_ENET_SOURCE "" CACHE PATH "ENet source directory from sky-enet 0.1.5")
+if(NOT EXISTS "${SKYLA_ENET_SOURCE}/include/enet/enet.h")
+    message(FATAL_ERROR "Set SKYLA_ENET_SOURCE to the ENet source directory")
+endif()
+
+set(BUILD_SHARED_LIBS OFF)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+add_subdirectory("${SKYLA_ENET_SOURCE}" enet EXCLUDE_FROM_ALL)
+add_library(skyla_enet_bridge SHARED bridge.c)
+target_compile_features(skyla_enet_bridge PRIVATE c_std_99)
+target_include_directories(skyla_enet_bridge PRIVATE "${SKYLA_ENET_SOURCE}/include")
+target_link_libraries(skyla_enet_bridge PRIVATE enet)

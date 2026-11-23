@@ -6,7 +6,6 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
 
 	"strconv"
@@ -143,17 +142,25 @@ func (a *Service) Rank(r Request, m object) (object, error) {
 }
 
 func (a *Service) Discover(r Request, m object) (object, error) {
-	if _, err := a.authenticated(r, m); err != nil {
+	u, err := a.authenticated(r, m)
+	if err != nil {
 		return nil, err
 	}
-	uri := fmt.Sprintf("%s:%d", a.cfg.RoomHost, a.cfg.RoomPort)
+	uri := a.roomAdmissionURI()
 	sig := func(salt string) string {
 		sum := sha256.Sum256([]byte(uri + "|" + salt))
 		return hex.EncodeToString(sum[:])
 	}
-	signature, signature2 := sig("signature"), sig("sig")
+	legacySignature, signature2 := sig("signature"), sig("sig")
+	signature := legacySignature
 	stamp := now()
-	if err := a.store.AssignServer(r.Context, text(m, "user"), repository.ServerAssignment{ServerURI: uri, MoveTS: stamp, Signature: signature, Sig: signature2, PSOnly: false, PlatformFilter: 0}); err != nil {
+	if a.cfg.RoomAdmissionKey != "" {
+		signature, err = a.issueRoomAdmission(u.ID, stringValue(u.Session), uri, stamp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	if err := a.store.AssignServer(r.Context, u.ID, repository.ServerAssignment{ServerURI: uri, MoveTS: stamp, Signature: legacySignature, Sig: signature2, PSOnly: false, PlatformFilter: 0}); err != nil {
 		return nil, err
 	}
 	return object{"uri": uri, "move_ts": stamp, "signature": signature, "sig": signature2, "ps_only": false, "platform_filter": 0}, nil
