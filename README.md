@@ -117,6 +117,7 @@ go build ./...
 - [项目约束](AGENTS.md)
 - [重构设计](docs/superpowers/specs/2026-11-11-go-rewrite-design.md)
 - [开发计划](docs/superpowers/plans/2026-11-11-go-rewrite.md)
+- [API 接口测试手册](docs/api-testing.md)
 - [复刻待办与剩余接口](docs/TODO.md)
 - [开发与修复记录](docs/TodoList.md)
 
