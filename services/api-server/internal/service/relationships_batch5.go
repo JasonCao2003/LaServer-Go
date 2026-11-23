@@ -364,6 +364,9 @@ func (a *Service) JoinFriendGame(r Request, m Object) (Object, error) {
 		if err := a.checkAllowed(r.Context, &u, 403); err != nil {
 			return nil, err
 		}
+		if assignment.ServerURI != a.roomAdmissionURI() {
+			return nil, joinError(404, "好友当前不在游戏中", "FRIEND_NOT_IN_GAME")
+		}
 		signature, err = a.issueRoomAdmission(u.ID, stringValue(u.Session), assignment.ServerURI, stamp)
 		if err != nil {
 			return nil, err

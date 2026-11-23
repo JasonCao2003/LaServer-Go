@@ -9,6 +9,8 @@ import (
 	"net/netip"
 	"os"
 	"time"
+
+	"github.com/JasonCao2003/LaServer-Go/services/room-server/internal/protocol"
 )
 
 // Config contains the room service's local listeners and session limits.
@@ -61,11 +63,14 @@ func (cfg Config) validate() error {
 	if cfg.MaxPlayers < 1 || cfg.MaxPlayers > cfg.MaxPeers {
 		return errors.New("max_players must be between 1 and max_peers")
 	}
+	if cfg.MaxPlayers > protocol.MaxRosterPlayers {
+		return fmt.Errorf("max_players must not exceed %d", protocol.MaxRosterPlayers)
+	}
 	if cfg.JoinTimeoutMS < 1 || cfg.JoinTimeoutMS > int64(math.MaxInt64/time.Millisecond) {
 		return errors.New("join_timeout_ms must be positive and fit in time.Duration")
 	}
-	if cfg.MaxFrameBytes < 1 {
-		return errors.New("max_frame_bytes must be positive")
+	if minimum := protocol.MinimumRoomFrameBytes(cfg.MaxPlayers); cfg.MaxFrameBytes < minimum {
+		return fmt.Errorf("max_frame_bytes must be at least %d for this room", minimum)
 	}
 	return nil
 }

@@ -57,6 +57,8 @@ func TestLoadRejectsInvalidConfiguration(t *testing.T) {
 		{"too-many-players", "\"max_players\": 8", "\"max_players\": 33", "max_players"},
 		{"zero-timeout", "6000", "0", "join_timeout_ms"},
 		{"zero-frame-size", "16384", "0", "max_frame_bytes"},
+		{"too-small-for-join-game", "16384", "1938", "max_frame_bytes"},
+		{"too-small-for-world-snapshot", "16384", "7508", "max_frame_bytes"},
 		{"unknown-key", "udp_listen", "udp_address", "unknown field"},
 		{"trailing-object", "\n}", "\n} {}", "after"},
 	} {
@@ -67,5 +69,16 @@ func TestLoadRejectsInvalidConfiguration(t *testing.T) {
 				t.Fatalf("error = %v, want %q", err, test.want)
 			}
 		})
+	}
+}
+
+func TestLoadChecksFrameLimitsAgainstConfiguredRoster(t *testing.T) {
+	body := strings.Replace(validConfig, `"max_peers": 32`, `"max_peers": 220`, 1)
+	body = strings.Replace(body, `"max_players": 8`, `"max_players": 220`, 1)
+	if _, err := Load(writeConfig(t, strings.Replace(body, "16384", "8143", 1))); err == nil || !strings.Contains(err.Error(), "max_frame_bytes") {
+		t.Fatalf("undersized roster frame limit: %v", err)
+	}
+	if _, err := Load(writeConfig(t, strings.Replace(body, "16384", "8144", 1))); err != nil {
+		t.Fatalf("exact roster frame limit: %v", err)
 	}
 }

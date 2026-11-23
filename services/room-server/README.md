@@ -1,6 +1,6 @@
 # 实时联机服务
 
-独立 Go module，计划使用 cmd/server/main.go 入口和 internal/transport、protocol、session、room、config、app 目录。当前实现包括时钟 Ping/Pong 编解码、EnterGame 名册编码、两字节 JoinGame 指纹识别、LevelUpdate 解码、独立房间配置、连接代次与在线会话登记、服务启停逻辑，以及 Windows amd64 原生 SkyENet 适配器。示例见 [realtime.example.json](config/realtime.example.json)，其 UDP 地址仅绑定回环。已提供 Windows 启动入口并接入 Go API 认证、初始名册、离房通知和时钟响应。完整快照、移动、过图和多版本玩法仍待实现。该模块目前使用 Go 标准库，无第三方依赖。
+独立 Go module，使用 internal/transport、protocol、session、room、config 和 app 目录。Windows amd64 入口接入原生 SkyENet、Go API 认证、初始名册、离房通知和时钟响应。`284/542` 房间支持同关卡 RPC、生物事件、亲和事件和音乐消息，转发玩家与关卡状态快照并处理 ACK、关卡权威选举和目标关卡名册刷新。示例见 [realtime.example.json](config/realtime.example.json)，其 UDP 地址绑定回环。真实双端同步和自然过图、多房间流转及其他协议族的玩法仍待验收或开发。Go 代码使用标准库，ENet 桥接单独构建。
 
 此服务独立构建和部署，不导入 api-server 的 internal 包，不直接读写其 SQLite。ENet/UDP 兼容验证和实现按项目开发计划推进。
 
@@ -25,5 +25,9 @@ API 配置需要设置 room_admission_key 和 room_admission_bearer。前者使�
 room-server 的 SKYLA_ROOM_ADMISSION_BEARER 使用与 API 相同的服务凭据。API 地址使用 HTTPS 或 HTTP 回环地址，公告值须与 API 的 room_host 和 room_port 相同。支持已验证签名偏移的 284/542 客户端。
 
 ~~~powershell
-go run ./cmd/server -config config/realtime.json -enet-bridge ../../tmp/room-enet-bridge/Release/skyla_enet_bridge.dll -admission-api http://127.0.0.1:18443 -announce 127.0.0.1:25565
+go run ./cmd/server -config config/realtime.example.json -enet-bridge ../../tmp/room-enet-bridge/Release/skyla_enet_bridge.dll -admission-api http://127.0.0.1:18443 -announce 127.0.0.1:25565
 ~~~
+
+需要自定义监听地址时，将 `config/realtime.example.json` 复制为 `config/realtime.json`，修改后把 `-config` 指向该文件。
+
+帧长上限需同时容纳 7500 字节快照及 9 字节包头，以及配置人数所需的完整名册。示例使用 16384 字节。

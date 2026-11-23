@@ -100,4 +100,21 @@ func TestRoomAdmissionBindsDiscoveryToAccountSessionAndRoom(t *testing.T) {
 	}
 	call(t, api, "/account/login", map[string]any{"device": player["device"], "key": player["key"]}, 200)
 	verify(player["user"], signature, room, cfg.RoomAdmissionBearer, 401)
+
+	if _, err := db.Exec("UPDATE server_assignment SET server_uri=? WHERE user_id=?", "192.168.1.11:25565", player["user"]); err != nil {
+		t.Fatal(err)
+	}
+	stale := call(t, api, "/account/join_friend_game", map[string]any{
+		"user": other["user"], "session": other["session"], "friend_id": player["user"],
+	}, 404)
+	if stale["code"] != "FRIEND_NOT_IN_GAME" {
+		t.Fatalf("unexpected stale room response: %v", stale["code"])
+	}
+	var assignments int
+	if err := db.QueryRow("SELECT COUNT(*) FROM server_assignment WHERE user_id=?", other["user"]).Scan(&assignments); err != nil {
+		t.Fatal(err)
+	}
+	if assignments != 1 {
+		t.Fatalf("joining a stale room wrote an assignment, found %d assignments", assignments)
+	}
 }

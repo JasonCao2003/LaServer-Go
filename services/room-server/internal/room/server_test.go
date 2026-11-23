@@ -3,6 +3,7 @@ package room
 import (
 	"bytes"
 	"context"
+	"errors"
 	"testing"
 	"time"
 
@@ -20,6 +21,7 @@ type sentFrame struct {
 type fakeHost struct {
 	sent         []sentFrame
 	disconnected []uint64
+	failSend     func(uint64, []byte) bool
 }
 
 func (*fakeHost) Poll(time.Duration) (transport.Event, bool, error) {
@@ -27,6 +29,9 @@ func (*fakeHost) Poll(time.Duration) (transport.Event, bool, error) {
 }
 
 func (h *fakeHost) Send(peer uint64, _ uint8, _ bool, data []byte) error {
+	if h.failSend != nil && h.failSend(peer, data) {
+		return errors.New("test transport rejected send")
+	}
 	h.sent = append(h.sent, sentFrame{peer, data})
 	return nil
 }

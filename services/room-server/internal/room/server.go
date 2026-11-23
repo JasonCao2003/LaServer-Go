@@ -28,9 +28,15 @@ type Verifier interface {
 }
 
 type connection struct {
-	ticket session.Ticket
-	cancel context.CancelFunc
-	player *protocol.RosterPlayer
+	ticket           session.Ticket
+	cancel           context.CancelFunc
+	player           *protocol.RosterPlayer
+	version          [2]uint16
+	levelChangeCount uint8
+	levelHash        uint16
+	hasLevelUpdate   bool
+	playerSync       snapshotStream
+	levelSync        snapshotStream
 }
 
 type admissionResult struct {
@@ -46,8 +52,10 @@ type Server struct {
 	verifier    Verifier
 	roomURI     string
 	joinTimeout time.Duration
+	maxFrame    int
 	sessions    *session.Registry
 	connections map[uint64]*connection
+	levels      map[levelGroup]*levelState
 	results     chan admissionResult
 	verifiers   chan struct{}
 	start       time.Time
@@ -60,8 +68,10 @@ func NewServer(host Host, cfg config.Config, roomURI string, verifier Verifier) 
 		verifier:    verifier,
 		roomURI:     roomURI,
 		joinTimeout: timeout,
+		maxFrame:    cfg.MaxFrameBytes,
 		sessions:    session.NewRegistry(cfg.MaxPeers, cfg.MaxPlayers, timeout),
 		connections: make(map[uint64]*connection),
+		levels:      make(map[levelGroup]*levelState),
 		results:     make(chan admissionResult, maxVerifiers),
 		verifiers:   make(chan struct{}, maxVerifiers),
 		start:       time.Now(),
@@ -186,6 +196,9 @@ func (s *Server) complete(result admissionResult, now time.Time) {
 		return
 	}
 	conn.player = &player
+	conn.version = [2]uint16{result.join.ServerVersion, result.join.ClientVersion}
+	conn.levelChangeCount = 1
+	s.levelFor(conn)
 	// Active sky0134 clients also receive the complete roster when a player joins.
 	s.broadcast(peer, frame)
 }
@@ -197,11 +210,9 @@ func (s *Server) receiveActive(conn *connection, frame []byte, now time.Time) {
 		s.drop(peer)
 	case 4:
 		update, err := protocol.DecodeLevelUpdate(frame, protocol.ClientIDSequence)
-		if err != nil || update.LevelID == conn.player.LevelID {
-			return
+		if err == nil {
+			s.changeLevel(conn, update)
 		}
-		conn.player.LevelID = update.LevelID
-		s.broadcast(peer, protocol.EncodePlayerChangedLevel(conn.player.NetID, update.LevelID))
 	case 12:
 		ping, err := protocol.DecodeTimePing(frame, protocol.ClientIDSequence)
 		if err != nil {
@@ -211,6 +222,8 @@ func (s *Server) receiveActive(conn *connection, frame []byte, now time.Time) {
 		if err := s.host.Send(peer, 0, false, pong); err != nil {
 			s.drop(peer)
 		}
+	case protocol.GameMessageID:
+		s.receiveGameMessage(conn, frame)
 	}
 }
 
@@ -257,6 +270,7 @@ func (s *Server) remove(peer uint64) {
 	s.sessions.Disconnect(conn.ticket)
 	delete(s.connections, peer)
 	if conn.player != nil {
+		s.leaveLevel(conn.group(), conn)
 		s.broadcast(peer, protocol.EncodePlayerLeft(conn.player.NetID, 0))
 	}
 }

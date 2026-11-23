@@ -46,9 +46,6 @@ func run(ctx context.Context, args []string) error {
 	if err != nil {
 		return err
 	}
-	if cfg.MaxPlayers > 255 {
-		return errors.New("this room profile supports at most 255 players")
-	}
 	bind, err := netip.ParseAddrPort(cfg.UDPListen)
 	if err != nil || !bind.Addr().Is4() {
 		return errors.New("this SkyENet build requires an IPv4 UDP listen address")
