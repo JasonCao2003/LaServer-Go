@@ -130,7 +130,7 @@ func TestCollectiblesMergeAndMissingConfiguration(t *testing.T) {
 		t.Fatal(err)
 	}
 	api.cfg.GameConfigDir = dir
-	if err := os.WriteFile(filepath.Join(dir, "map.json"), []byte(`{"get_map_defs":[{"id":42}]}`), 0600); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "map.json"), []byte(`{"get_map_defs":[{"id":42,"name":"fixture_map"}]}`), 0600); err != nil {
 		t.Fatal(err)
 	}
 	mapResponse := call(t, api, "/account/get_map_defs", map[string]any{}, 200)

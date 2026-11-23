@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"math"
 	"math/big"
 	"os"
@@ -78,25 +79,38 @@ func isUGCMagic(d Object) bool {
 }
 
 func (a *Service) magicDefinitions(key, filename string) []Object {
-	var raw []byte
+	decode := func(raw []byte) []Object {
+		var envelope map[string][]Object
+		decoder := json.NewDecoder(bytes.NewReader(raw))
+		decoder.UseNumber()
+		var extra any
+		if decoder.Decode(&envelope) != nil || decoder.Decode(&extra) != io.EOF {
+			return nil
+		}
+		defs := envelope[key]
+		for _, def := range defs {
+			if len(def) == 0 || defInt(def["id"]) == 0 {
+				return nil
+			}
+		}
+		return defs
+	}
 	if a.cfg.GameConfigDir != "" {
 		path := filepath.Join(filepath.Dir(a.cfg.GameConfigDir), "resources", "static_responses", filename)
-		raw, _ = os.ReadFile(path)
+		if raw, err := os.ReadFile(path); err == nil {
+			if defs := decode(raw); defs != nil {
+				return defs
+			}
+		}
 	}
-	if len(raw) == 0 {
-		raw, _ = legacyData.ReadFile("legacydata/" + filename)
-	}
-	var envelope map[string][]Object
-	decoder := json.NewDecoder(bytes.NewReader(raw))
-	decoder.UseNumber()
-	if decoder.Decode(&envelope) != nil {
+	raw, err := legacyData.ReadFile("legacydata/" + filename)
+	if err != nil {
 		return []Object{}
 	}
-	defs := envelope[key]
-	if defs == nil {
-		return []Object{}
+	if defs := decode(raw); defs != nil {
+		return defs
 	}
-	return defs
+	return []Object{}
 }
 
 func defInt(v any) int64 {

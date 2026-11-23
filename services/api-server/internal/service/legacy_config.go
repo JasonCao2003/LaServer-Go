@@ -28,11 +28,42 @@ func (a *Service) configuredObject(name string) (Object, error) {
 	return result, nil
 }
 
+func validConfiguredArray(value any, requiredField string) bool {
+	entries, ok := value.([]any)
+	if !ok {
+		return false
+	}
+	for _, entry := range entries {
+		obj, ok := entry.(map[string]any)
+		if !ok || len(obj) == 0 {
+			return false
+		}
+		if requiredField != "" && text(obj, requiredField) == "" {
+			return false
+		}
+	}
+	return true
+}
+
 func (a *Service) QuestDefinitions(_ Request, _ Object) (Object, error) {
-	return a.configuredObject("quest.json")
+	data, err := a.configuredObject("quest.json")
+	if err != nil {
+		return nil, err
+	}
+	if !validConfiguredArray(data["get_quest_defs"], "id") {
+		return nil, fail(503, "Invalid game configuration")
+	}
+	return data, nil
 }
 func (a *Service) IAPList(_ Request, _ Object) (Object, error) {
-	return a.configuredObject("iaplist.json")
+	data, err := a.configuredObject("iaplist.json")
+	if err != nil {
+		return nil, err
+	}
+	if !validConfiguredArray(data["iaplist"], "id") {
+		return nil, fail(503, "Invalid game configuration")
+	}
+	return data, nil
 }
 func (a *Service) QuestionnaireGroups(_ Request, _ Object) (Object, error) {
 	return Object{"get_questionnaire_groups": []any{}}, nil

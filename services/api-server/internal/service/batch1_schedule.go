@@ -1,9 +1,11 @@
 package service
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"hash/fnv"
+	"io"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -44,6 +46,32 @@ func tcandleGroup(name string) string {
 	return ""
 }
 
+func validScheduleEvents(events []any) bool {
+	for _, raw := range events {
+		event, ok := raw.(map[string]any)
+		if !ok || text(event, "name") == "" {
+			return false
+		}
+		when, ok := event["when"].([]any)
+		if !ok {
+			return false
+		}
+		if _, ok := event["duration"].(string); !ok {
+			return false
+		}
+		for _, rawOffset := range when {
+			offset, ok := rawOffset.(json.Number)
+			if !ok {
+				return false
+			}
+			if _, err := offset.Int64(); err != nil {
+				return false
+			}
+		}
+	}
+	return true
+}
+
 func (a *Service) scheduleSource(ua string) Object {
 	if a.cfg.GameConfigDir == "" {
 		return nil
@@ -60,7 +88,32 @@ func (a *Service) scheduleSource(ua string) Object {
 			continue
 		}
 		var value Object
-		if json.Unmarshal(raw, &value) == nil && asObject(value["event_schedule"]) != nil {
+		decoder := json.NewDecoder(bytes.NewReader(raw))
+		decoder.UseNumber()
+		var extra any
+		if decoder.Decode(&value) != nil || decoder.Decode(&extra) != io.EOF {
+			continue
+		}
+		schedule := asObject(value["event_schedule"])
+		events, ok := schedule["events"].([]any)
+		if !ok {
+			continue
+		}
+		valid := validScheduleEvents(events)
+		for _, field := range []string{"base_time", "valid_until"} {
+			if raw, exists := schedule[field]; exists {
+				n, ok := raw.(json.Number)
+				if !ok {
+					valid = false
+					break
+				}
+				if _, err := n.Int64(); err != nil {
+					valid = false
+					break
+				}
+			}
+		}
+		if valid {
 			return value
 		}
 	}
@@ -308,6 +361,35 @@ func (a *Service) EventSchedule(r Request, _ Object) (Object, error) {
 		out["valid_until"] = nowUnix + 1800
 	} else {
 		out["valid_until"] = number(schedule, "valid_until", 2147483648)
+	}
+	_, _, patch, _ := clientVersion(r.UserAgent)
+	if known && major == 0 && (minor < 13 || minor == 13 && patch <= 4) {
+		const signedMax = int64(1<<31 - 1)
+		out["valid_until"] = min(nowUnix+1800, signedMax)
+		maxOffset := max(int64(0), signedMax-base)
+		for _, event := range events {
+			switch when := event["when"].(type) {
+			case []any:
+				for i, value := range when {
+					switch offset := value.(type) {
+					case float64:
+						if offset > float64(maxOffset) {
+							when[i] = maxOffset
+						}
+					case json.Number:
+						if n, err := offset.Int64(); err == nil && n > maxOffset {
+							when[i] = maxOffset
+						}
+					}
+				}
+			case []int64:
+				for i, offset := range when {
+					if offset > maxOffset {
+						when[i] = maxOffset
+					}
+				}
+			}
+		}
 	}
 	return Object{"event_schedule": out}, nil
 }

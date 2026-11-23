@@ -62,6 +62,9 @@ func (a *Service) MapDefinitions(r Request, m object) (object, error) {
 	if json.Unmarshal(data, &result) != nil || result == nil {
 		return nil, fail(503, "Invalid map configuration")
 	}
+	if !validConfiguredArray(result["get_map_defs"], "name") {
+		return nil, fail(503, "Invalid map configuration")
+	}
 	return result, nil
 }
 
@@ -130,6 +133,11 @@ func (a *Service) Collectibles(r Request, m object) (object, error) {
 	}
 	if defaults == nil {
 		return nil, fail(503, "Invalid collectibles configuration")
+	}
+	for _, item := range defaults {
+		if len(item) == 0 || text(item, "id") == "" {
+			return nil, fail(503, "Invalid collectibles configuration")
+		}
 	}
 	out := []object{}
 	positions := map[string]int{}

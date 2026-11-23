@@ -3,12 +3,25 @@ package service
 import (
 	"bytes"
 	"encoding/json"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
 )
 
 func spiritNodeID(node Object, key string) int64 { return number(node, key, 0) }
+
+func validSpiritNodes(values []any) bool {
+	if !validConfiguredArray(values, "") {
+		return false
+	}
+	for _, value := range values {
+		if defInt(value.(map[string]any)["id"]) == 0 {
+			return false
+		}
+	}
+	return true
+}
 
 func spiritTreeLimit(ua string) int {
 	major, minor, _, known := clientVersion(ua)
@@ -125,27 +138,50 @@ func (a *Service) SpiritShops(r Request, m Object) (Object, error) {
 	if a.cfg.GameConfigDir == "" {
 		return nil, fail(503, "Game configuration unavailable")
 	}
-	library := filepath.Join(filepath.Dir(a.cfg.GameConfigDir), "resources", "static_responses", "account__get_spirit_shops.json")
-	raw, err := os.ReadFile(library)
-	if err != nil {
-		raw, err = os.ReadFile(filepath.Join(a.cfg.GameConfigDir, "spirit_shops.json"))
-	}
-	if err != nil {
-		return nil, fail(503, "Game configuration unavailable")
-	}
 	var data Object
-	decoder := json.NewDecoder(bytes.NewReader(raw))
-	decoder.UseNumber()
-	if err = decoder.Decode(&data); err != nil {
-		return nil, fail(503, "Invalid game configuration")
+	var values []any
+	invalid := false
+	for _, path := range []string{
+		filepath.Join(filepath.Dir(a.cfg.GameConfigDir), "resources", "static_responses", "account__get_spirit_shops.json"),
+		filepath.Join(a.cfg.GameConfigDir, "spirit_shops.json"),
+	} {
+		raw, err := os.ReadFile(path)
+		if err != nil {
+			if !os.IsNotExist(err) {
+				invalid = true
+			}
+			continue
+		}
+		var candidate Object
+		decoder := json.NewDecoder(bytes.NewReader(raw))
+		decoder.UseNumber()
+		var extra any
+		if decoder.Decode(&candidate) != nil || decoder.Decode(&extra) != io.EOF {
+			invalid = true
+			continue
+		}
+		var ok bool
+		values, ok = candidate["spirit_shops"].([]any)
+		if !ok {
+			invalid = true
+			continue
+		}
+		if !validSpiritNodes(values) {
+			invalid = true
+			continue
+		}
+		data = candidate
+		break
 	}
-	values, ok := data["spirit_shops"].([]any)
-	if !ok {
-		return nil, fail(503, "Invalid game configuration")
+	if data == nil {
+		if invalid {
+			return nil, fail(503, "Invalid game configuration")
+		}
+		return nil, fail(503, "Game configuration unavailable")
 	}
 	if control, readErr := a.legacyObject("game_control.json"); readErr == nil {
 		if override := asObject(control["spirit_shops"]); override != nil && boolSetting(override["enabled"], false) {
-			if shops, valid := override["shops"].([]any); valid && len(shops) > 0 {
+			if shops, valid := override["shops"].([]any); valid && len(shops) > 0 && validSpiritNodes(shops) {
 				values = shops
 			}
 		}

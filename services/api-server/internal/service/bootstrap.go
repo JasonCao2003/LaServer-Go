@@ -58,11 +58,24 @@ func (a *Service) Variables(_ Request, _ object) (object, error) {
 }
 func (a *Service) Motd(_ Request, _ object) (object, error) {
 	stamp := now()
+	defaults := object{"motd": "欢迎来到 LaServer", "motd_title": "LaServer", "motd_timestamp": stamp, "motd_version": 0, "motd_buttons": []any{}, "motd_season_start": stamp, "motd_season_end": stamp + 30*86400}
 	data, err := a.legacyObject("motd_config.json")
 	if err != nil {
 		return nil, err
 	}
 	if data != nil {
+		if _, ok := data["motd"].(string); !ok {
+			data["motd"] = defaults["motd"]
+		}
+		if _, ok := data["motd_title"].(string); !ok {
+			data["motd_title"] = defaults["motd_title"]
+		}
+		if _, ok := data["motd_buttons"].([]any); !ok {
+			data["motd_buttons"] = defaults["motd_buttons"]
+		}
+		if _, ok := data["motd_version"]; !ok {
+			data["motd_version"] = defaults["motd_version"]
+		}
 		if text(data, "motd_timestamp_mode") != "fixed" || number(data, "motd_timestamp", 0) == 0 {
 			data["motd_timestamp"] = stamp
 		}
@@ -75,7 +88,7 @@ func (a *Service) Motd(_ Request, _ object) (object, error) {
 		}
 		return data, nil
 	}
-	return object{"motd": "欢迎来到 LaServer", "motd_title": "LaServer", "motd_timestamp": stamp, "motd_version": 0, "motd_buttons": []any{}, "motd_season_start": stamp, "motd_season_end": stamp + 30*86400}, nil
+	return defaults, nil
 }
 func (a *Service) Support(r Request, m object) (object, error) {
 	if _, err := a.authenticated(r, m); err != nil {

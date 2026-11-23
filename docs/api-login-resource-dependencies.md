@@ -62,6 +62,7 @@
 ## 已解释的名称差异与缺口
 
 - `set_friend_status`、`set_random` 只在旧版及 Go 的 `auth_create` 列表中出现；已知候选接口分别返回 `set_friend_statues`、`set_rank`。这两个资源名不能据此判定为成功加载。
+- Task 3 实测候选路径时，`achievement_stats_tracking` 的旧动态处理器与 Go 都返回 `achievement_stats`，而旧静态 JSON 使用 `achievement_stats_tracking`；`iap_list` 对应配置及 Go 响应键是 `iaplist`。本表的 `response_key_match` 分类仍是 Task 1 的候选推断，实际字段以 [启动资源验证](api-startup-resource-verification.md) 为准。
 - `invite_list`、`gift_messages`、`free_gifts`、`infractions`、`questionnaires` 的已知业务入口与列表名不是相同响应键；表内候选仅用于追踪，客户端映射待抓取。`questionnaires` 当前 Go 只返回 `result=ok`，是旧占位语义。
 - `outfit_defs`、`get_user_profile`、`emote_sequences` 在旧静态响应键及注册路由中都找不到独立资源入口；目前作为显式待确认依赖，不以成功占位掩盖。
 - `get_shop`、`spirit_shops`、`event_schedule`、`motd`、`unlocks`、魔法定义等配置依赖要在 Task 3 分别测试正常、缺失、损坏及版本差异。现有日志中的 HTTP 200 不代表客户端接受了内容。
