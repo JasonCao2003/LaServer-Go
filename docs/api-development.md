@@ -2,7 +2,7 @@
 
 ## 当前范围
 
-本阶段已有可运行的 api-server，使用 Go net/http 和 modernc.org/sqlite。不是完整旧服务替代品：静态扫描找到 business 下 201 条 add_url_rule 注册，当前已全部接入 Go handler（`/ugc` 为前缀路由）。本轮新增接口已完成 Go 静态构建检查，测试尚未执行。扫描不包含装饰器路由、动态注册、Socket.IO 或 MQTT/WebSocket 协议，不能把这份数量视为整个旧服务的接口总数。
+现有 api-server 可独立运行，使用 Go net/http 和 modernc.org/sqlite。旧清单 201 条包含 200 条固定路径与动态 `/ugc/...`，均有 Go 入口和测试源码引用；Go 另有房间认证入口及 `/healthz`，合计 202 条固定路径。2026-11-23 的 Task 1 审计已列出首页、图标、热更新及 Socket.IO、原生 WebSocket、MQTT 命名空间；它们不能并入旧游戏清单。B 批 36 条直接 HTTP 入口用例与 API 模块回归已通过，逐分支及客户端验收仍未完成。详见[路由验证台账](api-route-verification.md)与[登录资源依赖](api-login-resource-dependencies.md)。
 
 | 业务 | 已实现路径 |
 | --- | --- |
@@ -25,11 +25,11 @@
 | 第九批舞台与预约 | /service/reservation/api/v1/reserve；/service/stage/api/v1/get、set、friends_in_apartments、leave_apartment、update_apartment_status |
 | 第十批管理好友 | /admin/api/friends_list、friends_set、friends_clear（POST/GET） |
 
-所有游戏路径使用 POST，支持 Content-Type: text/plain 的 JSON，最大请求体 2 MiB；GET /healthz 为健康检查。JSON 错误不返回原始请求、会话或数据库细节。已注册旧路径未实现返回 501，未知路径返回 404。不能因为登录接口返回 200 就认为真实客户端已能进游戏：resource_list 的其余资源接口仍需迁移，WebSocket 和实时服务未实现。
+大多数游戏路径使用 POST，支持 Content-Type: text/plain 的 JSON，最大请求体 2 MiB；`commerce/product_info` 和管理好友接口还接受 GET，三个旧入口接受 OPTIONS，`GET /healthz` 为健康检查。JSON 错误不返回原始请求、会话或数据库细节。已注册旧路径未实现返回 501，未知路径返回 404。登录接口返回 200 与客户端资源、存档及实时玩法验收是不同证据；Socket.IO、原生 WebSocket 和 MQTT 命名空间仍待迁移。
 
 ## 环境与启动
 
-项目 Go 最低版本为 1.26.0，驱动锁定 modernc.org/sqlite v1.62.0。原 Ubuntu WSL 工具链位于 `~/.local/opt/go1.27.4/`；本轮环境未提供 WSL 发行版，因此复用此前安装授权，在 Windows 用户目录放置便携 Go 1.27.4：`C:\Users\Jason\.local\opt\go1.27.4\go\bin`，下载缓存为 `C:\Users\Jason\.cache\laserver-go\go1.27.4.windows-amd64.zip`。未修改系统 PATH；本轮静态构建由该工具链完成。
+项目 Go 最低版本为 1.26.0，驱动锁定 modernc.org/sqlite v1.62.0。当前 Windows 环境没有可用 WSL 发行版；2026-11-23 的 Task 1 复用仓库 `tmp/toolchains/go1.26.0/go/bin/go.exe`，以 `tmp/go-task1` 作为 Go 临时构建目录、`tmp/go-cache` 作为已有编译缓存，完成 `go test ./...` 与 `go vet ./...`。这些 `tmp/` 产物不提交；需要重跑时先核对本机现有工具链。
 
 以下在 services/api-server/ 目录、Ubuntu WSL 执行。只为新开发实例操作，不指向旧数据库：
 

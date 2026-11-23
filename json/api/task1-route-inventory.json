@@ -1,0 +1,5538 @@
+{
+  "scope": "Static legacy-routes.json paths only; source references are not execution results.",
+  "legacy_count": 201,
+  "go_registered_count": 201,
+  "legacy_missing_in_go": [],
+  "legacy_dynamic_in_go": [
+    "/ugc/<path:subpath>"
+  ],
+  "go_only": [
+    "/internal/v1/room/admissions/verify"
+  ],
+  "extra_legacy_http_or_websocket": [
+    {
+      "path": "/",
+      "methods": [
+        "GET"
+      ],
+      "source": "index.py:212",
+      "kind": "decorator"
+    },
+    {
+      "path": "/account/ws",
+      "methods": [
+        "GET"
+      ],
+      "source": "infrastructure/transport/websocket_handler.py:825",
+      "kind": "sock"
+    },
+    {
+      "path": "/admin/api/hot_reload",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "source": "infrastructure/runtime/hot_reload.py:237",
+      "kind": "add_url_rule"
+    },
+    {
+      "path": "/favicon.ico",
+      "methods": [
+        "GET"
+      ],
+      "source": "index.py:218",
+      "kind": "decorator"
+    }
+  ],
+  "no_direct_test_reference": [],
+  "method_differences": [],
+  "routes": [
+    {
+      "path": "/account/auth/create",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:149",
+      "registered_sources": [
+        {
+          "path": "/account/auth/create",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:149",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Create",
+      "direct_test_files": [
+        "config_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/create",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:150",
+      "registered_sources": [
+        {
+          "path": "/account/create",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:150",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Create",
+      "direct_test_files": [
+        "api_test.go",
+        "config_test.go",
+        "policies_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_motd",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:151",
+      "registered_sources": [
+        {
+          "path": "/account/get_motd",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:151",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Motd",
+      "direct_test_files": [
+        "policies_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/auth/login",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:152",
+      "registered_sources": [
+        {
+          "path": "/account/auth/login",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:152",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Login",
+      "direct_test_files": [
+        "config_test.go",
+        "login_compat_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/login",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:153",
+      "registered_sources": [
+        {
+          "path": "/account/login",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:153",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Login",
+      "direct_test_files": [
+        "api_test.go",
+        "policies_test.go",
+        "room_admission_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_currency",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:154",
+      "registered_sources": [
+        {
+          "path": "/account/get_currency",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:154",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Currency",
+      "direct_test_files": [
+        "api_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_rank",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:155",
+      "registered_sources": [
+        {
+          "path": "/account/get_rank",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:155",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Rank",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/userdata",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:156",
+      "registered_sources": [
+        {
+          "path": "/account/userdata",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:156",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Userdata",
+      "direct_test_files": [
+        "api_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/sync_user_data",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:157",
+      "registered_sources": [
+        {
+          "path": "/account/sync_user_data",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:157",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Userdata",
+      "direct_test_files": [
+        "api_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/device_capabilities/lookup",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:158",
+      "registered_sources": [
+        {
+          "path": "/account/device_capabilities/lookup",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:158",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Capabilities",
+      "direct_test_files": [
+        "api_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_latest_build_version",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:159",
+      "registered_sources": [
+        {
+          "path": "/account/get_latest_build_version",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:159",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "LatestBuild",
+      "direct_test_files": [
+        "api_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_vars",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:160",
+      "registered_sources": [
+        {
+          "path": "/account/get_vars",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:160",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Variables",
+      "direct_test_files": [
+        "api_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/support/has_reply",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:161",
+      "registered_sources": [
+        {
+          "path": "/account/support/has_reply",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:161",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Support",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_achievement_stats_tracking",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:162",
+      "registered_sources": [
+        {
+          "path": "/account/get_achievement_stats_tracking",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:162",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AchievementStatsTracking",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_event_currency_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:163",
+      "registered_sources": [
+        {
+          "path": "/account/get_event_currency_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:163",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "EventCurrencyDefinitions",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_blocked_friends",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:164",
+      "registered_sources": [
+        {
+          "path": "/account/get_blocked_friends",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:164",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetBlockedFriends",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/set_friend_name",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:165",
+      "registered_sources": [
+        {
+          "path": "/account/set_friend_name",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:165",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SetFriendName",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/set_friend_block",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:168",
+      "registered_sources": [
+        {
+          "path": "/account/set_friend_block",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:168",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SetFriendBlock",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_questionnaires",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:169",
+      "registered_sources": [
+        {
+          "path": "/account/get_questionnaires",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:169",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Questionnaires",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/set_achievement_stats",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:170",
+      "registered_sources": [
+        {
+          "path": "/account/set_achievement_stats",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:170",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SetAchievementStats",
+      "direct_test_files": [
+        "batch_b_routes_test.go",
+        "batch_b_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_surveys",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:171",
+      "registered_sources": [
+        {
+          "path": "/account/get_surveys",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:171",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Surveys",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_shop",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:172",
+      "registered_sources": [
+        {
+          "path": "/account/get_shop",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:172",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetShop",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/lootboxes/get",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:173",
+      "registered_sources": [
+        {
+          "path": "/account/lootboxes/get",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:173",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetLootboxes",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/lootboxes/redeem_box",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:174",
+      "registered_sources": [
+        {
+          "path": "/account/lootboxes/redeem_box",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:174",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RedeemBox",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_external_friends",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:175",
+      "registered_sources": [
+        {
+          "path": "/account/get_external_friends",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:175",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetExternalFriends",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/serendipity/get",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:176",
+      "registered_sources": [
+        {
+          "path": "/account/serendipity/get",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:176",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Serendipity",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/star/get",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:177",
+      "registered_sources": [
+        {
+          "path": "/account/star/get",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:177",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "StarTags",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_pending_messages",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:178",
+      "registered_sources": [
+        {
+          "path": "/account/get_pending_messages",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:178",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetPendingMessages",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_generic_shops",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:179",
+      "registered_sources": [
+        {
+          "path": "/account/get_generic_shops",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:179",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GenericShops",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/consumable/get_consumable_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:180",
+      "registered_sources": [
+        {
+          "path": "/account/consumable/get_consumable_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:180",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ConsumableDefinitions",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/consumable/get_consumables",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:181",
+      "registered_sources": [
+        {
+          "path": "/account/consumable/get_consumables",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:181",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetConsumables",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/consumable/consume_item1",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:182",
+      "registered_sources": [
+        {
+          "path": "/account/consumable/consume_item1",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:182",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ConsumeItem",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_forge_rates",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:183",
+      "registered_sources": [
+        {
+          "path": "/account/get_forge_rates",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:183",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ForgeRates",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_achievements",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:184",
+      "registered_sources": [
+        {
+          "path": "/account/get_achievements",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:184",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Achievements",
+      "direct_test_files": [
+        "profile_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_achievement_stats",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:185",
+      "registered_sources": [
+        {
+          "path": "/account/get_achievement_stats",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:185",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AchievementStats",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_relationship_abilities",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:186",
+      "registered_sources": [
+        {
+          "path": "/account/get_relationship_abilities",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:186",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RelationshipDefinitions",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/redeem_reward",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:187",
+      "registered_sources": [
+        {
+          "path": "/account/redeem_reward",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:187",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RedeemReward",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_unlocks",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:188",
+      "registered_sources": [
+        {
+          "path": "/account/get_unlocks",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:188",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Unlocks",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_event_schedule",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:189",
+      "registered_sources": [
+        {
+          "path": "/account/get_event_schedule",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:189",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "EventSchedule",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/iaplist",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:190",
+      "registered_sources": [
+        {
+          "path": "/account/iaplist",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:190",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "IAPList",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/commerce/receipt",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:191",
+      "registered_sources": [
+        {
+          "path": "/account/commerce/receipt",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:191",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CommerceReceipt",
+      "direct_test_files": [
+        "batch_b_routes_test.go",
+        "batch_b_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/commerce/fulfill",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:192",
+      "registered_sources": [
+        {
+          "path": "/account/commerce/fulfill",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:192",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CommerceFulfill",
+      "direct_test_files": [
+        "batch_b_routes_test.go",
+        "batch_b_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/commerce/update",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:193",
+      "registered_sources": [
+        {
+          "path": "/account/commerce/update",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:193",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CommerceUpdate",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/commerce/product_info",
+      "legacy_methods": [
+        "POST",
+        "GET"
+      ],
+      "go_methods": [
+        "GET",
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:194",
+      "registered_sources": [
+        {
+          "path": "/account/commerce/product_info",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "source": "business/account/__init__.py:194",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CommerceProductInfo",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_collectibles",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:195",
+      "registered_sources": [
+        {
+          "path": "/account/get_collectibles",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:195",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Collectibles",
+      "direct_test_files": [
+        "policies_test.go",
+        "profile_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_spirit_shops",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:196",
+      "registered_sources": [
+        {
+          "path": "/account/get_spirit_shops",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:196",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SpiritShops",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_questionnaire_groups",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:197",
+      "registered_sources": [
+        {
+          "path": "/account/get_questionnaire_groups",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:197",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "QuestionnaireGroups",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/purchase_spirit_shop_item",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:198",
+      "registered_sources": [
+        {
+          "path": "/account/purchase_spirit_shop_item",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:198",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "PurchaseSpiritShopItem",
+      "direct_test_files": [
+        "api_test.go",
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_user_geonotes",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:199",
+      "registered_sources": [
+        {
+          "path": "/account/get_user_geonotes",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:199",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetUserGeonotes",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/geonote/get_user_geonotes",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:200",
+      "registered_sources": [
+        {
+          "path": "/account/geonote/get_user_geonotes",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:200",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetUserGeonotes",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/geonote/request_geonotes_for_n_friends",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:201",
+      "registered_sources": [
+        {
+          "path": "/account/geonote/request_geonotes_for_n_friends",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:201",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RequestGeonotesForNFriends",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/geonote/create_geonote2",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:202",
+      "registered_sources": [
+        {
+          "path": "/account/geonote/create_geonote2",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:202",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CreateGeonote",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/create_geonote2",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:203",
+      "registered_sources": [
+        {
+          "path": "/account/create_geonote2",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:203",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CreateGeonote",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/geonote/create_bug_report_geonote",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:204",
+      "registered_sources": [
+        {
+          "path": "/account/geonote/create_bug_report_geonote",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:204",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CreateBugReportGeonote",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/create_bug_report_geonote",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:205",
+      "registered_sources": [
+        {
+          "path": "/account/create_bug_report_geonote",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:205",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CreateBugReportGeonote",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/geonote/social_geonote2",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:206",
+      "registered_sources": [
+        {
+          "path": "/account/geonote/social_geonote2",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:206",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SocialGeonote",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/social_geonote2",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:207",
+      "registered_sources": [
+        {
+          "path": "/account/social_geonote2",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:207",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SocialGeonote",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/geonote/delete_geonote",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:208",
+      "registered_sources": [
+        {
+          "path": "/account/geonote/delete_geonote",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:208",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "DeleteGeonote",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/delete_geonote",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:209",
+      "registered_sources": [
+        {
+          "path": "/account/delete_geonote",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:209",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "DeleteGeonote",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/geonote/delete_bug_report_geonote",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:210",
+      "registered_sources": [
+        {
+          "path": "/account/geonote/delete_bug_report_geonote",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:210",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "DeleteBugReportGeonote",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/delete_bug_report_geonote",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:211",
+      "registered_sources": [
+        {
+          "path": "/account/delete_bug_report_geonote",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:211",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "DeleteBugReportGeonote",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/geonote/edit_message_geonote",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:212",
+      "registered_sources": [
+        {
+          "path": "/account/geonote/edit_message_geonote",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:212",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "EditMessageGeonote",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/edit_message_geonote",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:213",
+      "registered_sources": [
+        {
+          "path": "/account/edit_message_geonote",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:213",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "EditMessageGeonote",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/geonote/request_n_bug_report_geonotes",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:214",
+      "registered_sources": [
+        {
+          "path": "/account/geonote/request_n_bug_report_geonotes",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:214",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RequestNBugReportGeonotes",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/request_n_bug_report_geonotes",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:215",
+      "registered_sources": [
+        {
+          "path": "/account/request_n_bug_report_geonotes",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:215",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RequestNBugReportGeonotes",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_daily_quests",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:216",
+      "registered_sources": [
+        {
+          "path": "/account/get_daily_quests",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:216",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "EmptyDailyQuests",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_weekly_quests",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:217",
+      "registered_sources": [
+        {
+          "path": "/account/get_weekly_quests",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:217",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "EmptyWeeklyQuests",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_season_quests_v2",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:218",
+      "registered_sources": [
+        {
+          "path": "/account/get_season_quests_v2",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:218",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "EmptySeasonQuestsV2",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_season_pass_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:219",
+      "registered_sources": [
+        {
+          "path": "/account/get_season_pass_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:219",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "EmptySeasonPassDefs",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_currency_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:220",
+      "registered_sources": [
+        {
+          "path": "/account/get_currency_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:220",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CurrencyDefinitions",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_event_currency",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:221",
+      "registered_sources": [
+        {
+          "path": "/account/get_event_currency",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:221",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "EmptyEventCurrency",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/wing_buffs/get",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:222",
+      "registered_sources": [
+        {
+          "path": "/account/wing_buffs/get",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:222",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetWingBuffs",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/wing_buffs/collect",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:223",
+      "registered_sources": [
+        {
+          "path": "/account/wing_buffs/collect",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:223",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CollectWingBuffs",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/collect_collectible",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:224",
+      "registered_sources": [
+        {
+          "path": "/account/collect_collectible",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:224",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CollectCollectible",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/wing_buffs/drop",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:225",
+      "registered_sources": [
+        {
+          "path": "/account/wing_buffs/drop",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:225",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "DropWingBuffs",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/wing_buffs/deposit",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:226",
+      "registered_sources": [
+        {
+          "path": "/account/wing_buffs/deposit",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:226",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "DepositWingBuffs",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/wing_buffs/convert",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:227",
+      "registered_sources": [
+        {
+          "path": "/account/wing_buffs/convert",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:227",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ConvertWingBuffs",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_app_badge_number",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:228",
+      "registered_sources": [
+        {
+          "path": "/account/get_app_badge_number",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:228",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Badge",
+      "direct_test_files": [
+        "profile_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/buff/get_buffs1",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:229",
+      "registered_sources": [
+        {
+          "path": "/account/buff/get_buffs1",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:229",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetBuffs1",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/buff/get_buffs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:230",
+      "registered_sources": [
+        {
+          "path": "/account/buff/get_buffs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:230",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetBuffs",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/buff/remove_buff1",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:232",
+      "registered_sources": [
+        {
+          "path": "/account/buff/remove_buff1",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:232",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RemoveBuff",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/buff/remove_buff",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:233",
+      "registered_sources": [
+        {
+          "path": "/account/buff/remove_buff",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:233",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RemoveBuff",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/purchase_event_buff",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:234",
+      "registered_sources": [
+        {
+          "path": "/account/purchase_event_buff",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:234",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "PurchaseEventBuff",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/purchase_generic_shop_item",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:235",
+      "registered_sources": [
+        {
+          "path": "/account/purchase_generic_shop_item",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:235",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "PurchaseGenericShopItem",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_checkpoints",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:236",
+      "registered_sources": [
+        {
+          "path": "/account/get_checkpoints",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:236",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Checkpoints",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_invites",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:237",
+      "registered_sources": [
+        {
+          "path": "/account/get_invites",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:237",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Invites",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_online_friends",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:238",
+      "registered_sources": [
+        {
+          "path": "/account/get_online_friends",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:238",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "OnlineFriends",
+      "direct_test_files": [
+        "friends_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/purchase_unlock",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:239",
+      "registered_sources": [
+        {
+          "path": "/account/purchase_unlock",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:239",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "PurchaseUnlock",
+      "direct_test_files": [
+        "batch_b_routes_test.go",
+        "batch_b_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_achievement_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:240",
+      "registered_sources": [
+        {
+          "path": "/account/get_achievement_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:240",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AchievementDefinitions",
+      "direct_test_files": [
+        "profile_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_friend_statues",
+      "legacy_methods": [
+        "POST",
+        "OPTIONS"
+      ],
+      "go_methods": [
+        "OPTIONS",
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:241",
+      "registered_sources": [
+        {
+          "path": "/account/get_friend_statues",
+          "methods": [
+            "OPTIONS",
+            "POST"
+          ],
+          "source": "business/account/__init__.py:241",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "FriendStatues",
+      "direct_test_files": [
+        "friends_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_friends",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:242",
+      "registered_sources": [
+        {
+          "path": "/account/get_friends",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:242",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Friends",
+      "direct_test_files": [
+        "friends_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/join_friend_game",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:243",
+      "registered_sources": [
+        {
+          "path": "/account/join_friend_game",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:243",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "JoinFriendGame",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "room_admission_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/consumable/get_consumables1",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:244",
+      "registered_sources": [
+        {
+          "path": "/account/consumable/get_consumables1",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:244",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetConsumables1",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/trust/get_trust_tier_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:245",
+      "registered_sources": [
+        {
+          "path": "/account/trust/get_trust_tier_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:245",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "TrustTierDefinitions",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_map_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:246",
+      "registered_sources": [
+        {
+          "path": "/account/get_map_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:246",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "MapDefinitions",
+      "direct_test_files": [
+        "profile_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_video_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:247",
+      "registered_sources": [
+        {
+          "path": "/account/get_video_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:247",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "VideoDefinitions",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_radiance_spawn_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:248",
+      "registered_sources": [
+        {
+          "path": "/account/get_radiance_spawn_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:248",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RadianceSpawnDefinitions",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_outfit",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:249",
+      "registered_sources": [
+        {
+          "path": "/account/get_outfit",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:249",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Outfit",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_level_pickups",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:250",
+      "registered_sources": [
+        {
+          "path": "/account/get_level_pickups",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:250",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "LevelPickups",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/find_previous_or_empty",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:251",
+      "registered_sources": [
+        {
+          "path": "/account/find_previous_or_empty",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:251",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Discover",
+      "direct_test_files": [
+        "api_test.go",
+        "room_admission_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/ack_forge_rate_reset",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:252",
+      "registered_sources": [
+        {
+          "path": "/account/ack_forge_rate_reset",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:252",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AckForgeRateReset",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/quest/get_quest_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:253",
+      "registered_sources": [
+        {
+          "path": "/account/quest/get_quest_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:253",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "QuestDefinitions",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/trust/get_trust_group_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:254",
+      "registered_sources": [
+        {
+          "path": "/account/trust/get_trust_group_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:254",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "TrustGroupDefinitions",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/season_finalize",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:255",
+      "registered_sources": [
+        {
+          "path": "/account/season_finalize",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:255",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SeasonFinalize",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/season_start",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:256",
+      "registered_sources": [
+        {
+          "path": "/account/season_start",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:256",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SeasonStart",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/activate_season_quest",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:257",
+      "registered_sources": [
+        {
+          "path": "/account/activate_season_quest",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:257",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ActivateSeasonQuest",
+      "direct_test_files": [
+        "batch_b_routes_test.go",
+        "batch_b_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/claim_season_quest_reward",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:258",
+      "registered_sources": [
+        {
+          "path": "/account/claim_season_quest_reward",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:258",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ClaimSeasonQuestReward",
+      "direct_test_files": [
+        "batch_b_routes_test.go",
+        "batch_b_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/ack_collectible",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:259",
+      "registered_sources": [
+        {
+          "path": "/account/ack_collectible",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:259",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AckCollectible",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/remote_config/upload",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:260",
+      "registered_sources": [
+        {
+          "path": "/account/remote_config/upload",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:260",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RemoteConfigUpload",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_season_quests",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:261",
+      "registered_sources": [
+        {
+          "path": "/account/get_season_quests",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:261",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SeasonQuests",
+      "direct_test_files": [
+        "batch_b_routes_test.go",
+        "batch_b_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/trust/get_trust_activity_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:262",
+      "registered_sources": [
+        {
+          "path": "/account/trust/get_trust_activity_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:262",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "TrustActivityDefinitions",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/buff/get_buff_defs",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:263",
+      "registered_sources": [
+        {
+          "path": "/account/buff/get_buff_defs",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:263",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "BuffDefinitions",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_account_world_quests",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:264",
+      "registered_sources": [
+        {
+          "path": "/account/get_account_world_quests",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:264",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "WorldQuests",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/claim_quest_reward",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:265",
+      "registered_sources": [
+        {
+          "path": "/account/claim_quest_reward",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:265",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ClaimWorldQuestReward",
+      "direct_test_files": [
+        "batch_b_routes_test.go",
+        "batch_b_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/set_outfit",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:266",
+      "registered_sources": [
+        {
+          "path": "/account/set_outfit",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:266",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SetOutfit",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/set_joinable",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:267",
+      "registered_sources": [
+        {
+          "path": "/account/set_joinable",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:267",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SetJoinable",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/set_checkpoint",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:268",
+      "registered_sources": [
+        {
+          "path": "/account/set_checkpoint",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:268",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Checkpoints",
+      "direct_test_files": [
+        "api_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/collect_pickup_batch",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:269",
+      "registered_sources": [
+        {
+          "path": "/account/collect_pickup_batch",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:269",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CollectPickupBatch",
+      "direct_test_files": [
+        "batch_b_routes_test.go",
+        "batch_b_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/buy_candle_wax",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:270",
+      "registered_sources": [
+        {
+          "path": "/account/buy_candle_wax",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:270",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "BuyCandleWax",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/create_invite",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:271",
+      "registered_sources": [
+        {
+          "path": "/account/create_invite",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:271",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CreateInvite",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/code/verify",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:272",
+      "registered_sources": [
+        {
+          "path": "/account/code/verify",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:272",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "VerifyCode",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/check_invite",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:273",
+      "registered_sources": [
+        {
+          "path": "/account/check_invite",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:273",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CheckInvite",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/accept_invite",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:274",
+      "registered_sources": [
+        {
+          "path": "/account/accept_invite",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:274",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AcceptInvite",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/delete_invite",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:275",
+      "registered_sources": [
+        {
+          "path": "/account/delete_invite",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:275",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "DeleteInvite",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/social_feed/create",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:276",
+      "registered_sources": [
+        {
+          "path": "/account/social_feed/create",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:276",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SocialFeedCreate",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/social_feed/get_user_feeds",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:277",
+      "registered_sources": [
+        {
+          "path": "/account/social_feed/get_user_feeds",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:277",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AccountGetUserFeeds",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/social_feed/get_curated_feeds",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:278",
+      "registered_sources": [
+        {
+          "path": "/account/social_feed/get_curated_feeds",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:278",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AccountGetCuratedFeeds",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/social_feed/get_reactions",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:279",
+      "registered_sources": [
+        {
+          "path": "/account/social_feed/get_reactions",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:279",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AccountGetFeedReactions",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/social_feed/like",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:280",
+      "registered_sources": [
+        {
+          "path": "/account/social_feed/like",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:280",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AccountFeedLike",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/social_feed/delete",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:281",
+      "registered_sources": [
+        {
+          "path": "/account/social_feed/delete",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:281",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AccountDeleteFeed",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/ack_unlock",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:282",
+      "registered_sources": [
+        {
+          "path": "/account/ack_unlock",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:282",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AckUnlock",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/chat/send",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:283",
+      "registered_sources": [
+        {
+          "path": "/account/chat/send",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:283",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ChatSend",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/send",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:287",
+      "registered_sources": [
+        {
+          "path": "/account/send",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:287",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AccountSend",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/send_message",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:288",
+      "registered_sources": [
+        {
+          "path": "/account/send_message",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:288",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AccountSend",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/translate",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:289",
+      "registered_sources": [
+        {
+          "path": "/account/translate",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:289",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Translate",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/set_device_token",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:290",
+      "registered_sources": [
+        {
+          "path": "/account/set_device_token",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:290",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SetDeviceToken",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_remote_outfit",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:292",
+      "registered_sources": [
+        {
+          "path": "/account/get_remote_outfit",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:292",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetRemoteOutfit",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/give_candle",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:293",
+      "registered_sources": [
+        {
+          "path": "/account/give_candle",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:293",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GiveCandle",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/claim_message_gift",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:296",
+      "registered_sources": [
+        {
+          "path": "/account/claim_message_gift",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:296",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ClaimMessageGift",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/claim_message_gifts",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:297",
+      "registered_sources": [
+        {
+          "path": "/account/claim_message_gifts",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:297",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ClaimMessageGift",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/remove_relationship_hint",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:299",
+      "registered_sources": [
+        {
+          "path": "/account/remove_relationship_hint",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:299",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RemoveRelationshipHint",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/get_generic_shop_item_tracking_info",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:300",
+      "registered_sources": [
+        {
+          "path": "/account/get_generic_shop_item_tracking_info",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:300",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GenericShopTracking",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/account/purchase_dye",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/account/__init__.py:301",
+      "registered_sources": [
+        {
+          "path": "/account/purchase_dye",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/account/__init__.py:301",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "PurchaseDye",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/admin/api/friends_list",
+      "legacy_methods": [
+        "POST",
+        "GET"
+      ],
+      "go_methods": [
+        "GET",
+        "POST"
+      ],
+      "legacy_source": "business/admin/__init__.py:165",
+      "registered_sources": [
+        {
+          "path": "/admin/api/friends_list",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "source": "business/admin/__init__.py:165",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AdminFriendsList",
+      "direct_test_files": [
+        "batch_d_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/admin/api/friends_set",
+      "legacy_methods": [
+        "POST",
+        "GET"
+      ],
+      "go_methods": [
+        "GET",
+        "POST"
+      ],
+      "legacy_source": "business/admin/__init__.py:167",
+      "registered_sources": [
+        {
+          "path": "/admin/api/friends_set",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "source": "business/admin/__init__.py:167",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AdminFriendsSet",
+      "direct_test_files": [
+        "batch_d_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/admin/api/friends_clear",
+      "legacy_methods": [
+        "POST",
+        "GET"
+      ],
+      "go_methods": [
+        "GET",
+        "POST"
+      ],
+      "legacy_source": "business/admin/__init__.py:169",
+      "registered_sources": [
+        {
+          "path": "/admin/api/friends_clear",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "source": "business/admin/__init__.py:169",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AdminFriendsClear",
+      "direct_test_files": [
+        "batch_d_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/auth/api/v1/token",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:86",
+      "registered_sources": [
+        {
+          "path": "/service/auth/api/v1/token",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:86",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ResourceAuthToken",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/infraction/api/v1/get_infractions_status_decorated",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:87",
+      "registered_sources": [
+        {
+          "path": "/service/infraction/api/v1/get_infractions_status_decorated",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:87",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "InfractionStatus",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/message/api/v2/get_all",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:88",
+      "registered_sources": [
+        {
+          "path": "/service/message/api/v2/get_all",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:88",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "MessageGetAllV2",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/message/api/v1/get_all",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:89",
+      "registered_sources": [
+        {
+          "path": "/service/message/api/v1/get_all",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:89",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "MessageGetAllV1",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/message/api/v1/get",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:90",
+      "registered_sources": [
+        {
+          "path": "/service/message/api/v1/get",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:90",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "MessageGet",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/message/api/v1/mark_received",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:91",
+      "registered_sources": [
+        {
+          "path": "/service/message/api/v1/mark_received",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:91",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "MarkMessagesReceived",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/message/api/v1/mark_seen",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:92",
+      "registered_sources": [
+        {
+          "path": "/service/message/api/v1/mark_seen",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:92",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "MarkMessagesSeen",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/quest/api/v1/check_for_previous_completion",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:93",
+      "registered_sources": [
+        {
+          "path": "/service/quest/api/v1/check_for_previous_completion",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:93",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CheckPreviousCompletion",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/quest/api/v1/get_player_quests",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:94",
+      "registered_sources": [
+        {
+          "path": "/service/quest/api/v1/get_player_quests",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:94",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "PlayerQuests",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/quest/api/v1/get_player_quests_by_name",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:95",
+      "registered_sources": [
+        {
+          "path": "/service/quest/api/v1/get_player_quests_by_name",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:95",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "PlayerQuestsByName",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/quest/api/v1/get_quest_schedule",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:96",
+      "registered_sources": [
+        {
+          "path": "/service/quest/api/v1/get_quest_schedule",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:96",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "QuestSchedule",
+      "direct_test_files": [
+        "batch_b_routes_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/quest/api/v1/create",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:97",
+      "registered_sources": [
+        {
+          "path": "/service/quest/api/v1/create",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:97",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "CreateQuest",
+      "direct_test_files": [
+        "batch_b_routes_test.go",
+        "batch_b_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/quest/api/v1/update_quest",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:98",
+      "registered_sources": [
+        {
+          "path": "/service/quest/api/v1/update_quest",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:98",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "UpdateQuest",
+      "direct_test_files": [
+        "batch_b_routes_test.go",
+        "batch_b_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/relationship/api/v1/get_all_friend_gist",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:99",
+      "registered_sources": [
+        {
+          "path": "/service/relationship/api/v1/get_all_friend_gist",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:99",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetAllFriendGist",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/relationship/api/v1/get_follower_count",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:100",
+      "registered_sources": [
+        {
+          "path": "/service/relationship/api/v1/get_follower_count",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:100",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "GetFollowerCount",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/relationship/api/v1/update_friend_constellation_pages",
+      "legacy_methods": [
+        "POST",
+        "OPTIONS"
+      ],
+      "go_methods": [
+        "OPTIONS",
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:106",
+      "registered_sources": [
+        {
+          "path": "/service/relationship/api/v1/update_friend_constellation_pages",
+          "methods": [
+            "OPTIONS",
+            "POST"
+          ],
+          "source": "business/service/__init__.py:106",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "UpdateFriendConstellationPages",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/relationship/api/v1/free_gifts/get_pending",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:112",
+      "registered_sources": [
+        {
+          "path": "/service/relationship/api/v1/free_gifts/get_pending",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:112",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "FreeGiftsGetPending",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/relationship/api/v1/free_gifts/send",
+      "legacy_methods": [
+        "POST",
+        "OPTIONS"
+      ],
+      "go_methods": [
+        "OPTIONS",
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:113",
+      "registered_sources": [
+        {
+          "path": "/service/relationship/api/v1/free_gifts/send",
+          "methods": [
+            "OPTIONS",
+            "POST"
+          ],
+          "source": "business/service/__init__.py:113",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "FreeGiftsSend",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/relationship/api/v1/free_gifts/claim",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:114",
+      "registered_sources": [
+        {
+          "path": "/service/relationship/api/v1/free_gifts/claim",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:114",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "FreeGiftsClaim",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/reservation/api/v1/reserve",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:115",
+      "registered_sources": [
+        {
+          "path": "/service/reservation/api/v1/reserve",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:115",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "Reserve",
+      "direct_test_files": [
+        "batch_d_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/recording/api/v1/create",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:116",
+      "registered_sources": [
+        {
+          "path": "/service/recording/api/v1/create",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:116",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RecordingCreateV1",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/recording/api/v1/get",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:117",
+      "registered_sources": [
+        {
+          "path": "/service/recording/api/v1/get",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:117",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RecordingGetV1",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/recording/api/v2/create",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:119",
+      "registered_sources": [
+        {
+          "path": "/service/recording/api/v2/create",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:119",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RecordingCreateV2",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go",
+        "security_regression_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/recording/api/v2/update",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:120",
+      "registered_sources": [
+        {
+          "path": "/service/recording/api/v2/update",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:120",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RecordingUpdateV2",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go",
+        "security_regression_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/recording/api/v2/get",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:121",
+      "registered_sources": [
+        {
+          "path": "/service/recording/api/v2/get",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:121",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RecordingGetV2",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/ugc/<path:subpath>",
+      "legacy_methods": [
+        "GET"
+      ],
+      "go_methods": [
+        "GET"
+      ],
+      "legacy_source": "business/service/__init__.py:122",
+      "registered_sources": [
+        {
+          "path": "/ugc/<path:subpath>",
+          "methods": [
+            "GET"
+          ],
+          "source": "business/service/__init__.py:122",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": null,
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v2/get_curated_feeds",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:123",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v2/get_curated_feeds",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:123",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceGetCuratedFeeds",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v1/get_user_feeds",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:124",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v1/get_user_feeds",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:124",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceGetUserFeeds",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v1/get_by_ids",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:125",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v1/get_by_ids",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:125",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceGetByIDs",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/stage/api/v1/get",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:126",
+      "registered_sources": [
+        {
+          "path": "/service/stage/api/v1/get",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:126",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "StageGet",
+      "direct_test_files": [
+        "batch_d_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/stage/api/v1/set",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:128",
+      "registered_sources": [
+        {
+          "path": "/service/stage/api/v1/set",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:128",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "StageSet",
+      "direct_test_files": [
+        "batch_d_test.go",
+        "security_regression_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/stage/api/v1/friends_in_apartments",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:129",
+      "registered_sources": [
+        {
+          "path": "/service/stage/api/v1/friends_in_apartments",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:129",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "FriendsInApartments",
+      "direct_test_files": [
+        "batch_d_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/stage/api/v1/leave_apartment",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:130",
+      "registered_sources": [
+        {
+          "path": "/service/stage/api/v1/leave_apartment",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:130",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "LeaveApartment",
+      "direct_test_files": [
+        "batch_d_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/stage/api/v1/update_apartment_status",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:131",
+      "registered_sources": [
+        {
+          "path": "/service/stage/api/v1/update_apartment_status",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:131",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "UpdateApartmentStatus",
+      "direct_test_files": [
+        "batch_d_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/status/api/v1/add_unlock",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:132",
+      "registered_sources": [
+        {
+          "path": "/service/status/api/v1/add_unlock",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:132",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AddStatusUnlock",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/status/api/v1/delete_unlock",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:133",
+      "registered_sources": [
+        {
+          "path": "/service/status/api/v1/delete_unlock",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:133",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "DeleteStatusUnlock",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/status/api/v1/get_unlocks",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:134",
+      "registered_sources": [
+        {
+          "path": "/service/status/api/v1/get_unlocks",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:134",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "StatusUnlocks",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/trust/api/v1/get_capped",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:135",
+      "registered_sources": [
+        {
+          "path": "/service/trust/api/v1/get_capped",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:135",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "TrustGetCapped",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/trust/api/v1/get",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:137",
+      "registered_sources": [
+        {
+          "path": "/service/trust/api/v1/get",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:137",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "TrustGet",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v1/create",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:139",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v1/create",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:139",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceSocialFeedCreate",
+      "direct_test_files": [
+        "batch_c_remaining_test.go",
+        "batch_c_test.go",
+        "security_regression_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v1/hide",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:140",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v1/hide",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:140",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceFeedHide",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v1/like",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:141",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v1/like",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:141",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceFeedLike",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v1/super_like",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:142",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v1/super_like",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:142",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceFeedSuperLike",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v1/delete",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:143",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v1/delete",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:143",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceFeedDelete",
+      "direct_test_files": [
+        "batch_c_test.go",
+        "security_regression_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v1/edit",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:144",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v1/edit",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:144",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceFeedEdit",
+      "direct_test_files": [
+        "batch_c_test.go",
+        "security_regression_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/relationship/api/v1/add_follow",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:145",
+      "registered_sources": [
+        {
+          "path": "/service/relationship/api/v1/add_follow",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:145",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "AddFollow",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/relationship/api/v1/set_follow_name",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:146",
+      "registered_sources": [
+        {
+          "path": "/service/relationship/api/v1/set_follow_name",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:146",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SetFollowName",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/relationship/api/v1/delete_follow",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:147",
+      "registered_sources": [
+        {
+          "path": "/service/relationship/api/v1/delete_follow",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:147",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "DeleteFollow",
+      "direct_test_files": [
+        "batch_c_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/inventory/api/v1/unlocks/remove_dye",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:148",
+      "registered_sources": [
+        {
+          "path": "/service/inventory/api/v1/unlocks/remove_dye",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:148",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "RemoveDye",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v1/get_reactions",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:150",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v1/get_reactions",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:150",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceGetFeedReactions",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v2/comments",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:151",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v2/comments",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:151",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SocialFeedComments",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v1/report",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:152",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v1/report",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:152",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "SocialFeedReport",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v2/get_penpals",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:153",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v2/get_penpals",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:153",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceGetPenpals",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/service/social-feed/api/v2/get_penpal_by_id",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/service/__init__.py:154",
+      "registered_sources": [
+        {
+          "path": "/service/social-feed/api/v2/get_penpal_by_id",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/service/__init__.py:154",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "ServiceGetPenpalByID",
+      "direct_test_files": [
+        "batch_c_remaining_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    },
+    {
+      "path": "/starwatch/auth/api/v1/auth",
+      "legacy_methods": [
+        "POST"
+      ],
+      "go_methods": [
+        "POST"
+      ],
+      "legacy_source": "business/starwatch/__init__.py:17",
+      "registered_sources": [
+        {
+          "path": "/starwatch/auth/api/v1/auth",
+          "methods": [
+            "POST"
+          ],
+          "source": "business/starwatch/__init__.py:17",
+          "kind": "add_url_rule"
+        }
+      ],
+      "go_handler": "StarwatchAuth",
+      "direct_test_files": [
+        "batch_a_test.go"
+      ],
+      "direct_test_evidence": "source_reference_only",
+      "client_0_1_8": "not_verified",
+      "client_0_3_11": "not_verified"
+    }
+  ]
+}

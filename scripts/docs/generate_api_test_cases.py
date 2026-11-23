@@ -13,7 +13,9 @@ LOG = ROOT / "logs/mumu-0108-api-fixed-20261123.log"
 OUTPUT = ROOT / "docs/api-test-cases.md"
 
 routes = re.findall(r'a\.routes\["([^"]+)"\] = s\.(\w+)', HANDLER.read_text(encoding="utf-8"))
-assert len(routes) == 200, f"registered API routes changed: {len(routes)}"
+assert len(routes) == len({path for path, _ in routes}), "duplicate registered API path"
+internal_routes = [entry for entry in routes if entry[0].startswith("/internal/")]
+routes = [entry for entry in routes if not entry[0].startswith("/internal/")] + internal_routes
 routes.append(("/healthz", "Healthz"))
 
 functions: dict[str, str] = {}
@@ -81,9 +83,9 @@ def expectation(path: str, action: str) -> str:
 
 
 lines = [
-    "# API 逐路由测试用例（201 条）",
+    f"# API 逐路由测试用例（{len(routes)} 条）",
     "",
-    "来源：`services/api-server/internal/handler/api.go` 的 200 条注册 API 路径，加独立处理的 `GET /healthz`，合计 201 条固定路径。动态 `GET /ugc/...` 不计入。每一行对应一条路径；同一处理函数的别名也单列。详细操作示例见 [接口测试手册](api-testing.md)。",
+    f"来源：`services/api-server/internal/handler/api.go` 的 {len(routes)-1} 条注册 API 路径，加独立处理的 `GET /healthz`，合计 {len(routes)} 条固定路径。动态 `GET /ugc/...` 不计入。其中 `/internal/v1/room/admissions/verify` 是 Go 新增的服务间接口，不在旧客户端 201 条路由清单内。每一行对应一条路径；同一处理函数的别名也单列。详细操作示例见 [接口测试手册](api-testing.md)。",
     "",
     "**读表规则**：除注册、登录、公开配置和管理接口外，请求通常附 `user` 与 `session`；‘分支校验字段’和‘代码涉及’是静态提取的候选字段，**不等于此路径必填字段**，响应键也可能来自不同成功/失败分支。‘待核实’表示源码分支、旧协议或客户端请求尚需人工确认。游戏操作是测试入口建议，若客户端版本没有该功能则标‘无入口，仅接口测试’。✅ 只表示固定 MuMu 0.1.8 日志中出现过该路径的 POST 200，**不表示功能通过**；— 表示该日志无记录。",
     "",
@@ -97,6 +99,9 @@ for index, (path, handler) in enumerate(routes, 1):
     if path == "/healthz":
         lines.append(f"| {index:03d} | 健康检查 | `GET /healthz` | 无 | `status=ok` | 浏览器或终端请求；无游戏内入口 | HTTP 200 且状态为 ok；只能证明 API 进程响应 | — |")
         continue
+    if path == "/internal/v1/room/admissions/verify":
+        lines.append(f"| {index:03d} | 内部服务 | `POST {path}` | `Authorization: Bearer <服务凭据>`；`account_id`, `room_uri`, `signature` | `account_id`, `expires_at`；错误分支 `error` | 房间服务联调；无游戏内直接入口 | 有效且未过期的房间凭据返回 200；未授权、过期或错误房间拒绝 | — |")
+        continue
     group, game = category(path)
     body = functions.get(handler, "")
     request, response = fields(body)
@@ -108,7 +113,7 @@ for index, (path, handler) in enumerate(routes, 1):
         method = "POST/GET"
     else:
         method = "POST"
-    if path in ("/service/relationship/api/v1/update_friend_constellation_pages", "/service/relationship/api/v1/free_gifts/send"):
+    if path in ("/account/get_friend_statues", "/service/relationship/api/v1/update_friend_constellation_pages", "/service/relationship/api/v1/free_gifts/send"):
         method += "/OPTIONS"
     lines.append(f"| {index:03d} | {group} | `{method} {path}` | {request} | {response} | {game} | {expectation(path, group)} | {'✅' if path in seen else '—'} |")
 

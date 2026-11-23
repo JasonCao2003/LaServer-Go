@@ -1,0 +1,2392 @@
+{
+  "scope": "Server-supplied login resource lists and inferred response-key mappings; APK resource mapping requires client trace confirmation.",
+  "flow_sources": {
+    "create": "business/account/create/create.py",
+    "login": "business/account/login/login.py",
+    "auth_create": "business/account/auth_create/auth_create.py",
+    "auth_login": "business/account/auth_login/auth_login.py"
+  },
+  "flow_lists": {
+    "create": [
+      "device_capabilities",
+      "userdata",
+      "set_friends",
+      "set_friend_statues",
+      "online_friends",
+      "set_rank",
+      "currency",
+      "forge_rates",
+      "motd",
+      "outfit_defs",
+      "achievements",
+      "achievement_stats",
+      "relationship_defs",
+      "questionnaires",
+      "event_schedule",
+      "set_world_quests",
+      "iap_list",
+      "invite_list",
+      "unlocks",
+      "get_shop",
+      "spirit_shops",
+      "collectibles",
+      "wing_buffs",
+      "gift_messages",
+      "set_app_badge_number",
+      "get_consumable_defs",
+      "get_consumables",
+      "get_buff_defs",
+      "get_buffs",
+      "get_lootboxes",
+      "checkpoints",
+      "generic_shop_defs",
+      "external_account_friends",
+      "serendipity_matches",
+      "get_star_tag_defs",
+      "status_unlocks",
+      "free_gifts",
+      "get_map_defs",
+      "achievement_defs",
+      "achievement_stats_tracking",
+      "event_currency_defs",
+      "infractions",
+      "messages"
+    ],
+    "login": [
+      "device_capabilities",
+      "userdata",
+      "set_friends",
+      "set_friend_statues",
+      "online_friends",
+      "set_rank",
+      "currency",
+      "forge_rates",
+      "motd",
+      "outfit_defs",
+      "achievements",
+      "achievement_stats",
+      "relationship_defs",
+      "questionnaires",
+      "event_schedule",
+      "set_world_quests",
+      "iap_list",
+      "invite_list",
+      "unlocks",
+      "get_shop",
+      "spirit_shops",
+      "collectibles",
+      "wing_buffs",
+      "gift_messages",
+      "set_app_badge_number",
+      "get_consumable_defs",
+      "get_consumables",
+      "get_buff_defs",
+      "get_buffs",
+      "get_lootboxes",
+      "checkpoints",
+      "generic_shop_defs",
+      "external_account_friends",
+      "serendipity_matches",
+      "get_star_tag_defs",
+      "status_unlocks",
+      "free_gifts",
+      "get_map_defs",
+      "achievement_defs",
+      "achievement_stats_tracking",
+      "event_currency_defs",
+      "infractions",
+      "messages"
+    ],
+    "auth_create": [
+      "device_capabilities",
+      "userdata",
+      "set_friends",
+      "set_friend_status",
+      "online_friends",
+      "set_random",
+      "currency",
+      "forge_rates",
+      "motd",
+      "outfit_defs",
+      "achievements",
+      "achievement_stats",
+      "relationship_defs",
+      "questionnaires",
+      "event_schedule",
+      "set_world_quests",
+      "iap_list",
+      "invite_list",
+      "unlocks",
+      "get_shop",
+      "spirit_shops",
+      "collectibles",
+      "wing_buffs",
+      "gift_messages",
+      "set_app_badge_number",
+      "get_consumable_defs",
+      "get_consumables",
+      "get_buff_defs",
+      "get_buffs",
+      "get_lootboxes",
+      "checkpoints",
+      "generic_shop_defs",
+      "external_account_friends",
+      "serendipity_matches",
+      "get_star_tag_defs",
+      "status_unlocks",
+      "free_gifts",
+      "get_map_defs",
+      "achievement_defs",
+      "achievement_stats_tracking",
+      "event_currency_defs",
+      "infractions",
+      "messages",
+      "external_links"
+    ],
+    "auth_login": [
+      "device_capabilities",
+      "userdata",
+      "set_friends",
+      "set_friend_statues",
+      "online_friends",
+      "set_rank",
+      "currency",
+      "forge_rates",
+      "motd",
+      "outfit_defs",
+      "achievements",
+      "achievement_stats",
+      "relationship_defs",
+      "questionnaires",
+      "event_schedule",
+      "set_world_quests",
+      "iap_list",
+      "invite_list",
+      "unlocks",
+      "get_shop",
+      "spirit_shops",
+      "collectibles",
+      "wing_buffs",
+      "gift_messages",
+      "set_app_badge_number",
+      "get_consumable_defs",
+      "get_consumables",
+      "get_buff_defs",
+      "get_buffs",
+      "get_lootboxes",
+      "checkpoints",
+      "generic_shop_defs",
+      "external_account_friends",
+      "serendipity_matches",
+      "get_star_tag_defs",
+      "status_unlocks",
+      "free_gifts",
+      "get_map_defs",
+      "achievement_defs",
+      "achievement_stats_tracking",
+      "event_currency_defs",
+      "infractions",
+      "get_user_profile",
+      "emote_sequences",
+      "messages"
+    ],
+    "go_create": [
+      "device_capabilities",
+      "userdata",
+      "set_friends",
+      "set_friend_statues",
+      "online_friends",
+      "set_rank",
+      "currency",
+      "forge_rates",
+      "motd",
+      "outfit_defs",
+      "achievements",
+      "achievement_stats",
+      "relationship_defs",
+      "questionnaires",
+      "event_schedule",
+      "set_world_quests",
+      "iap_list",
+      "invite_list",
+      "unlocks",
+      "get_shop",
+      "spirit_shops",
+      "collectibles",
+      "wing_buffs",
+      "gift_messages",
+      "set_app_badge_number",
+      "get_consumable_defs",
+      "get_consumables",
+      "get_buff_defs",
+      "get_buffs",
+      "get_lootboxes",
+      "checkpoints",
+      "generic_shop_defs",
+      "external_account_friends",
+      "serendipity_matches",
+      "get_star_tag_defs",
+      "status_unlocks",
+      "free_gifts",
+      "get_map_defs",
+      "achievement_defs",
+      "achievement_stats_tracking",
+      "event_currency_defs",
+      "infractions",
+      "messages"
+    ],
+    "go_login": [
+      "device_capabilities",
+      "userdata",
+      "set_friends",
+      "set_friend_statues",
+      "online_friends",
+      "set_rank",
+      "currency",
+      "forge_rates",
+      "motd",
+      "outfit_defs",
+      "achievements",
+      "achievement_stats",
+      "relationship_defs",
+      "questionnaires",
+      "event_schedule",
+      "set_world_quests",
+      "iap_list",
+      "invite_list",
+      "unlocks",
+      "get_shop",
+      "spirit_shops",
+      "collectibles",
+      "wing_buffs",
+      "gift_messages",
+      "set_app_badge_number",
+      "get_consumable_defs",
+      "get_consumables",
+      "get_buff_defs",
+      "get_buffs",
+      "get_lootboxes",
+      "checkpoints",
+      "generic_shop_defs",
+      "external_account_friends",
+      "serendipity_matches",
+      "get_star_tag_defs",
+      "status_unlocks",
+      "free_gifts",
+      "get_map_defs",
+      "achievement_defs",
+      "achievement_stats_tracking",
+      "event_currency_defs",
+      "infractions",
+      "messages"
+    ],
+    "go_auth_create": [
+      "device_capabilities",
+      "userdata",
+      "set_friends",
+      "set_friend_status",
+      "online_friends",
+      "set_random",
+      "currency",
+      "forge_rates",
+      "motd",
+      "outfit_defs",
+      "achievements",
+      "achievement_stats",
+      "relationship_defs",
+      "questionnaires",
+      "event_schedule",
+      "set_world_quests",
+      "iap_list",
+      "invite_list",
+      "unlocks",
+      "get_shop",
+      "spirit_shops",
+      "collectibles",
+      "wing_buffs",
+      "gift_messages",
+      "set_app_badge_number",
+      "get_consumable_defs",
+      "get_consumables",
+      "get_buff_defs",
+      "get_buffs",
+      "get_lootboxes",
+      "checkpoints",
+      "generic_shop_defs",
+      "external_account_friends",
+      "serendipity_matches",
+      "get_star_tag_defs",
+      "status_unlocks",
+      "free_gifts",
+      "get_map_defs",
+      "achievement_defs",
+      "achievement_stats_tracking",
+      "event_currency_defs",
+      "infractions",
+      "messages",
+      "external_links"
+    ],
+    "go_auth_login": [
+      "device_capabilities",
+      "userdata",
+      "set_friends",
+      "set_friend_statues",
+      "online_friends",
+      "set_rank",
+      "currency",
+      "forge_rates",
+      "motd",
+      "outfit_defs",
+      "achievements",
+      "achievement_stats",
+      "relationship_defs",
+      "questionnaires",
+      "event_schedule",
+      "set_world_quests",
+      "iap_list",
+      "invite_list",
+      "unlocks",
+      "get_shop",
+      "spirit_shops",
+      "collectibles",
+      "wing_buffs",
+      "gift_messages",
+      "set_app_badge_number",
+      "get_consumable_defs",
+      "get_consumables",
+      "get_buff_defs",
+      "get_buffs",
+      "get_lootboxes",
+      "checkpoints",
+      "generic_shop_defs",
+      "external_account_friends",
+      "serendipity_matches",
+      "get_star_tag_defs",
+      "status_unlocks",
+      "free_gifts",
+      "get_map_defs",
+      "achievement_defs",
+      "achievement_stats_tracking",
+      "event_currency_defs",
+      "infractions",
+      "get_user_profile",
+      "emote_sequences",
+      "messages"
+    ]
+  },
+  "flow_differences": {
+    "create": {
+      "old_only": [],
+      "go_only": []
+    },
+    "login": {
+      "old_only": [],
+      "go_only": []
+    },
+    "auth_create": {
+      "old_only": [],
+      "go_only": []
+    },
+    "auth_login": {
+      "old_only": [],
+      "go_only": []
+    }
+  },
+  "resources": [
+    {
+      "resource": "achievement_defs",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_achievement_defs"
+      ],
+      "legacy_response_files": [
+        "account__get_achievement_defs.json"
+      ],
+      "candidate_go_path": "/account/get_achievement_defs",
+      "candidate_kind": "response_key_match",
+      "go_handler": "AchievementDefinitions",
+      "go_source": "services/api-server/internal/service/profile.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_achievement_defs.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": false,
+        "0.3.11": false
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "achievement_stats",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_achievement_stats",
+        "/account/set_achievement_stats"
+      ],
+      "legacy_response_files": [
+        "account__get_achievement_stats.json",
+        "account__set_achievement_stats.json"
+      ],
+      "candidate_go_path": "/account/get_achievement_stats",
+      "candidate_kind": "response_key_match",
+      "go_handler": "AchievementStats",
+      "go_source": "services/api-server/internal/service/player_state.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_achievement_stats.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_achievement_stats",
+          "/account/set_achievement_stats"
+        ],
+        "0.3.11": [
+          "/account/get_achievement_stats",
+          "/account/set_achievement_stats"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "achievement_stats_tracking",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_achievement_stats_tracking"
+      ],
+      "legacy_response_files": [
+        "account__get_achievement_stats_tracking.json"
+      ],
+      "candidate_go_path": "/account/get_achievement_stats_tracking",
+      "candidate_kind": "response_key_match",
+      "go_handler": "AchievementStatsTracking",
+      "go_source": "services/api-server/internal/service/player_state.go",
+      "go_direct_config_or_data_sources": [
+        "代码常量或辅助函数，待逐分支核对",
+        "旧静态库:account__get_achievement_stats_tracking.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": false,
+        "0.3.11": false
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "achievements",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_achievements"
+      ],
+      "legacy_response_files": [
+        "account__get_achievements.json"
+      ],
+      "candidate_go_path": "/account/get_achievements",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Achievements",
+      "go_source": "services/api-server/internal/service/profile.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_achievements.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_achievements"
+        ],
+        "0.3.11": [
+          "/account/get_achievements"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "checkpoints",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_checkpoints",
+        "/account/set_checkpoint"
+      ],
+      "legacy_response_files": [
+        "account__get_checkpoints.json",
+        "account__set_checkpoint.json"
+      ],
+      "candidate_go_path": "/account/get_checkpoints",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Checkpoints",
+      "go_source": "services/api-server/internal/service/data.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_checkpoints.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_checkpoints",
+          "/account/set_checkpoint"
+        ],
+        "0.3.11": [
+          "/account/get_checkpoints"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "collectibles",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/ack_collectible",
+        "/account/collect_collectible",
+        "/account/get_collectibles"
+      ],
+      "legacy_response_files": [
+        "account__ack_collectible.json",
+        "account__collect_collectible.json",
+        "account__get_collectibles.json"
+      ],
+      "candidate_go_path": "/account/get_collectibles",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Collectibles",
+      "go_source": "services/api-server/internal/service/profile.go",
+      "go_direct_config_or_data_sources": [
+        "game_config_or_embedded_json:auto_full_unlock.json,collectibles.json",
+        "SQLite",
+        "旧静态库:account__get_collectibles.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_collectibles"
+        ],
+        "0.3.11": [
+          "/account/ack_collectible",
+          "/account/get_collectibles"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "currency",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/buy_candle_wax",
+        "/account/claim_message_gift",
+        "/account/claim_quest_reward",
+        "/account/claim_season_quest_reward",
+        "/account/collect_pickup_batch",
+        "/account/get_currency",
+        "/account/give_candle",
+        "/account/lootboxes/redeem_box",
+        "/account/purchase_generic_shop_item",
+        "/account/purchase_spirit_shop_item",
+        "/account/season_finalize",
+        "/account/send_message",
+        "/account/wing_buffs/convert"
+      ],
+      "legacy_response_files": [
+        "account__buy_candle_wax.json",
+        "account__claim_message_gift.json",
+        "account__claim_quest_reward.json",
+        "account__claim_season_quest_reward.json",
+        "account__collect_pickup_batch.json",
+        "account__get_currency.json",
+        "account__give_candle.json",
+        "account__lootboxes__redeem_box.json",
+        "account__purchase_generic_shop_item.json",
+        "account__purchase_spirit_shop_item.json",
+        "account__season_finalize.json",
+        "account__send_message.json",
+        "account__wing_buffs__convert.json"
+      ],
+      "candidate_go_path": "/account/get_currency",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Currency",
+      "go_source": "services/api-server/internal/service/data.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_currency.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/collect_pickup_batch",
+          "/account/get_currency"
+        ],
+        "0.3.11": [
+          "/account/get_currency"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "device_capabilities",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/device_capabilities/lookup"
+      ],
+      "legacy_response_files": [
+        "account__device_capabilities__lookup.json"
+      ],
+      "candidate_go_path": "/account/device_capabilities/lookup",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Capabilities",
+      "go_source": "services/api-server/internal/service/bootstrap.go",
+      "go_direct_config_or_data_sources": [
+        "代码常量或辅助函数，待逐分支核对",
+        "旧静态库:account__device_capabilities__lookup.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/device_capabilities/lookup"
+        ],
+        "0.3.11": [
+          "/account/device_capabilities/lookup"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "emote_sequences",
+      "legacy_flows": [
+        "auth_login"
+      ],
+      "go_flows": [
+        "auth_login"
+      ],
+      "legacy_response_paths": [],
+      "legacy_response_files": [],
+      "candidate_go_path": null,
+      "candidate_kind": "no_independent_endpoint_found",
+      "go_handler": null,
+      "go_source": null,
+      "go_direct_config_or_data_sources": [
+        "未找到独立数据来源"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": false,
+        "0.3.11": false
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "event_currency_defs",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_event_currency_defs"
+      ],
+      "legacy_response_files": [
+        "account__get_event_currency_defs.json"
+      ],
+      "candidate_go_path": "/account/get_event_currency_defs",
+      "candidate_kind": "response_key_match",
+      "go_handler": "EventCurrencyDefinitions",
+      "go_source": "services/api-server/internal/service/player_state.go",
+      "go_direct_config_or_data_sources": [
+        "embedded_legacydata",
+        "旧静态库:account__get_event_currency_defs.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": false,
+        "0.3.11": false
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "event_schedule",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_event_schedule"
+      ],
+      "legacy_response_files": [
+        "account__get_event_schedule.json"
+      ],
+      "candidate_go_path": "/account/get_event_schedule",
+      "candidate_kind": "response_key_match",
+      "go_handler": "EventSchedule",
+      "go_source": "services/api-server/internal/service/batch1_schedule.go",
+      "go_direct_config_or_data_sources": [
+        "game_config_or_embedded_json:game_control.json",
+        "旧静态库:account__get_event_schedule.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_event_schedule"
+        ],
+        "0.3.11": [
+          "/account/get_event_schedule"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "external_account_friends",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_external_friends"
+      ],
+      "legacy_response_files": [
+        "account__get_external_friends.json"
+      ],
+      "candidate_go_path": "/account/get_external_friends",
+      "candidate_kind": "response_key_match",
+      "go_handler": "GetExternalFriends",
+      "go_source": "services/api-server/internal/service/relationships_batch5.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_external_friends.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_external_friends"
+        ],
+        "0.3.11": [
+          "/account/get_external_friends"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "external_links",
+      "legacy_flows": [
+        "auth_create"
+      ],
+      "go_flows": [
+        "auth_create"
+      ],
+      "legacy_response_paths": [
+        "/account/auth/login"
+      ],
+      "legacy_response_files": [
+        "account__auth__login.json"
+      ],
+      "candidate_go_path": "/account/auth/login",
+      "candidate_kind": "embedded_in_login_response",
+      "go_handler": "Login",
+      "go_source": "services/api-server/internal/service/account.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__auth__login.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/auth/login"
+        ],
+        "0.3.11": [
+          "/account/auth/login"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "forge_rates",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_forge_rates"
+      ],
+      "legacy_response_files": [
+        "account__get_forge_rates.json"
+      ],
+      "candidate_go_path": "/account/get_forge_rates",
+      "candidate_kind": "response_key_match",
+      "go_handler": "ForgeRates",
+      "go_source": "services/api-server/internal/service/player_state.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_forge_rates.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_forge_rates"
+        ],
+        "0.3.11": [
+          "/account/get_forge_rates"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "free_gifts",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [],
+      "legacy_response_files": [],
+      "candidate_go_path": "/service/relationship/api/v1/free_gifts/get_pending",
+      "candidate_kind": "alias_inference",
+      "go_handler": "FreeGiftsGetPending",
+      "go_source": "services/api-server/internal/service/messaging_routes.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:service__relationship__api__v1__free_gifts__get_pending.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": false,
+        "0.3.11": false
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "generic_shop_defs",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_generic_shops"
+      ],
+      "legacy_response_files": [
+        "account__get_generic_shops.json"
+      ],
+      "candidate_go_path": "/account/get_generic_shops",
+      "candidate_kind": "response_key_match",
+      "go_handler": "GenericShops",
+      "go_source": "services/api-server/internal/service/legacy_config.go",
+      "go_direct_config_or_data_sources": [
+        "代码常量或辅助函数，待逐分支核对",
+        "旧静态库:account__get_generic_shops.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_generic_shops"
+        ],
+        "0.3.11": [
+          "/account/get_generic_shops"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "get_buff_defs",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/buff/get_buff_defs"
+      ],
+      "legacy_response_files": [
+        "account__buff__get_buff_defs.json"
+      ],
+      "candidate_go_path": "/account/buff/get_buff_defs",
+      "candidate_kind": "response_key_match",
+      "go_handler": "BuffDefinitions",
+      "go_source": "services/api-server/internal/service/magic.go",
+      "go_direct_config_or_data_sources": [
+        "game_config_or_embedded_json:account__buff__get_buff_defs.json",
+        "旧静态库:account__buff__get_buff_defs.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/buff/get_buff_defs"
+        ],
+        "0.3.11": [
+          "/account/buff/get_buff_defs"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "get_buffs",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/buff/get_buffs1",
+        "/account/buff/remove_buff1",
+        "/account/claim_message_gift",
+        "/account/consumable/consume_item1",
+        "/service/relationship/api/v1/free_gifts/claim"
+      ],
+      "legacy_response_files": [
+        "account__buff__get_buffs1.json",
+        "account__buff__remove_buff1.json",
+        "account__claim_message_gift.json",
+        "account__consumable__consume_item1.json",
+        "service__relationship__api__v1__free_gifts__claim.json"
+      ],
+      "candidate_go_path": "/account/buff/get_buffs1",
+      "candidate_kind": "response_key_match",
+      "go_handler": "GetBuffs1",
+      "go_source": "services/api-server/internal/service/magic.go",
+      "go_direct_config_or_data_sources": [
+        "代码常量或辅助函数，待逐分支核对",
+        "旧静态库:account__buff__get_buffs1.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/buff/get_buffs1"
+        ],
+        "0.3.11": [
+          "/account/buff/get_buffs1"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "get_consumable_defs",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/consumable/get_consumable_defs"
+      ],
+      "legacy_response_files": [
+        "account__consumable__get_consumable_defs.json"
+      ],
+      "candidate_go_path": "/account/consumable/get_consumable_defs",
+      "candidate_kind": "response_key_match",
+      "go_handler": "ConsumableDefinitions",
+      "go_source": "services/api-server/internal/service/magic.go",
+      "go_direct_config_or_data_sources": [
+        "game_config_or_embedded_json:account__consumable__get_consumable_defs.json",
+        "旧静态库:account__consumable__get_consumable_defs.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/consumable/get_consumable_defs"
+        ],
+        "0.3.11": [
+          "/account/consumable/get_consumable_defs"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "get_consumables",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/consumable/consume_item1",
+        "/account/consumable/get_consumables1",
+        "/account/lootboxes/redeem_box",
+        "/account/purchase_generic_shop_item"
+      ],
+      "legacy_response_files": [
+        "account__consumable__consume_item1.json",
+        "account__consumable__get_consumables1.json",
+        "account__lootboxes__redeem_box.json",
+        "account__purchase_generic_shop_item.json"
+      ],
+      "candidate_go_path": "/account/consumable/get_consumables1",
+      "candidate_kind": "response_key_match",
+      "go_handler": "GetConsumables1",
+      "go_source": "services/api-server/internal/service/magic.go",
+      "go_direct_config_or_data_sources": [
+        "代码常量或辅助函数，待逐分支核对",
+        "旧静态库:account__consumable__get_consumables1.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/consumable/get_consumables1"
+        ],
+        "0.3.11": [
+          "/account/consumable/get_consumables1"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "get_lootboxes",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/lootboxes/get",
+        "/account/lootboxes/redeem_box"
+      ],
+      "legacy_response_files": [
+        "account__lootboxes__get.json",
+        "account__lootboxes__redeem_box.json"
+      ],
+      "candidate_go_path": "/account/lootboxes/get",
+      "candidate_kind": "response_key_match",
+      "go_handler": "GetLootboxes",
+      "go_source": "services/api-server/internal/service/commerce_read.go",
+      "go_direct_config_or_data_sources": [
+        "代码常量或辅助函数，待逐分支核对",
+        "旧静态库:account__lootboxes__get.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/lootboxes/get"
+        ],
+        "0.3.11": [
+          "/account/lootboxes/get"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "get_map_defs",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_map_defs"
+      ],
+      "legacy_response_files": [
+        "account__get_map_defs.json"
+      ],
+      "candidate_go_path": "/account/get_map_defs",
+      "candidate_kind": "response_key_match",
+      "go_handler": "MapDefinitions",
+      "go_source": "services/api-server/internal/service/profile.go",
+      "go_direct_config_or_data_sources": [
+        "game_config_or_embedded_json:map.json",
+        "旧静态库:account__get_map_defs.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": false,
+        "0.3.11": false
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "get_shop",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_shop"
+      ],
+      "legacy_response_files": [
+        "account__get_shop.json"
+      ],
+      "candidate_go_path": "/account/get_shop",
+      "candidate_kind": "response_key_match",
+      "go_handler": "GetShop",
+      "go_source": "services/api-server/internal/service/commerce_read.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_shop.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_shop"
+        ],
+        "0.3.11": [
+          "/account/get_shop"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "get_star_tag_defs",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/star/get"
+      ],
+      "legacy_response_files": [
+        "account__star__get.json"
+      ],
+      "candidate_go_path": "/account/star/get",
+      "candidate_kind": "response_key_match",
+      "go_handler": "StarTags",
+      "go_source": "services/api-server/internal/service/relationships_batch5.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "embedded_legacydata",
+        "旧静态库:account__star__get.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/star/get"
+        ],
+        "0.3.11": [
+          "/account/star/get"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "get_user_profile",
+      "legacy_flows": [
+        "auth_login"
+      ],
+      "go_flows": [
+        "auth_login"
+      ],
+      "legacy_response_paths": [],
+      "legacy_response_files": [],
+      "candidate_go_path": null,
+      "candidate_kind": "no_independent_endpoint_found",
+      "go_handler": null,
+      "go_source": null,
+      "go_direct_config_or_data_sources": [
+        "未找到独立数据来源"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": false,
+        "0.3.11": false
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "gift_messages",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [],
+      "legacy_response_files": [],
+      "candidate_go_path": "/account/get_pending_messages",
+      "candidate_kind": "alias_inference",
+      "go_handler": "GetPendingMessages",
+      "go_source": "services/api-server/internal/service/messaging_routes.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_pending_messages.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "iap_list",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/iaplist"
+      ],
+      "legacy_response_files": [
+        "account__iaplist.json"
+      ],
+      "candidate_go_path": "/account/iaplist",
+      "candidate_kind": "response_key_match",
+      "go_handler": "IAPList",
+      "go_source": "services/api-server/internal/service/legacy_config.go",
+      "go_direct_config_or_data_sources": [
+        "game_config_or_embedded_json:iaplist.json",
+        "旧静态库:account__iaplist.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/iaplist"
+        ],
+        "0.3.11": [
+          "/account/iaplist"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "infractions",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [],
+      "legacy_response_files": [],
+      "candidate_go_path": "/service/infraction/api/v1/get_infractions_status_decorated",
+      "candidate_kind": "alias_inference",
+      "go_handler": "InfractionStatus",
+      "go_source": "services/api-server/internal/service/batch1_database.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:service__infraction__api__v1__get_infractions_status_decorated.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": false,
+        "0.3.11": false
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "invite_list",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [],
+      "legacy_response_files": [],
+      "candidate_go_path": "/account/get_invites",
+      "candidate_kind": "alias_inference",
+      "go_handler": "Invites",
+      "go_source": "services/api-server/internal/service/legacy_config.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_invites.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "messages",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/service/message/api/v1/mark_received",
+        "/service/message/api/v1/mark_seen",
+        "/service/message/api/v2/get_all"
+      ],
+      "legacy_response_files": [
+        "service__message__api__v1__mark_received.json",
+        "service__message__api__v1__mark_seen.json",
+        "service__message__api__v2__get_all.json"
+      ],
+      "candidate_go_path": "/service/message/api/v2/get_all",
+      "candidate_kind": "response_key_match",
+      "go_handler": "MessageGetAllV2",
+      "go_source": "services/api-server/internal/service/messaging_routes.go",
+      "go_direct_config_or_data_sources": [
+        "代码常量或辅助函数，待逐分支核对",
+        "旧静态库:service__message__api__v2__get_all.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/service/message/api/v1/mark_seen"
+        ],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": false,
+        "0.3.11": false
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "motd",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_motd"
+      ],
+      "legacy_response_files": [
+        "account__get_motd.json"
+      ],
+      "candidate_go_path": "/account/get_motd",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Motd",
+      "go_source": "services/api-server/internal/service/bootstrap.go",
+      "go_direct_config_or_data_sources": [
+        "game_config_or_embedded_json:motd_config.json",
+        "旧静态库:account__get_motd.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_motd"
+        ],
+        "0.3.11": [
+          "/account/get_motd"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "online_friends",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_online_friends"
+      ],
+      "legacy_response_files": [
+        "account__get_online_friends.json"
+      ],
+      "candidate_go_path": "/account/get_online_friends",
+      "candidate_kind": "response_key_match",
+      "go_handler": "OnlineFriends",
+      "go_source": "services/api-server/internal/service/constellations.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_online_friends.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_online_friends"
+        ],
+        "0.3.11": [
+          "/account/get_online_friends"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "outfit_defs",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [],
+      "legacy_response_files": [],
+      "candidate_go_path": null,
+      "candidate_kind": "no_independent_endpoint_found",
+      "go_handler": null,
+      "go_source": null,
+      "go_direct_config_or_data_sources": [
+        "未找到独立数据来源"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": false,
+        "0.3.11": false
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "questionnaires",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [],
+      "legacy_response_files": [],
+      "candidate_go_path": "/account/get_questionnaires",
+      "candidate_kind": "alias_inference",
+      "go_handler": "Questionnaires",
+      "go_source": "services/api-server/internal/service/player_state.go",
+      "go_direct_config_or_data_sources": [
+        "代码常量或辅助函数，待逐分支核对"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": false,
+        "0.3.11": false
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "relationship_defs",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_relationship_abilities"
+      ],
+      "legacy_response_files": [
+        "account__get_relationship_abilities.json"
+      ],
+      "candidate_go_path": "/account/get_relationship_abilities",
+      "candidate_kind": "response_key_match",
+      "go_handler": "RelationshipDefinitions",
+      "go_source": "services/api-server/internal/service/player_state.go",
+      "go_direct_config_or_data_sources": [
+        "embedded_legacydata",
+        "旧静态库:account__get_relationship_abilities.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_relationship_abilities"
+        ],
+        "0.3.11": [
+          "/account/get_relationship_abilities"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "serendipity_matches",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/serendipity/get"
+      ],
+      "legacy_response_files": [
+        "account__serendipity__get.json"
+      ],
+      "candidate_go_path": "/account/serendipity/get",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Serendipity",
+      "go_source": "services/api-server/internal/service/relationships_batch5.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__serendipity__get.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/serendipity/get"
+        ],
+        "0.3.11": [
+          "/account/serendipity/get"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "set_app_badge_number",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/claim_message_gift",
+        "/account/get_app_badge_number",
+        "/service/relationship/api/v1/free_gifts/claim"
+      ],
+      "legacy_response_files": [
+        "account__claim_message_gift.json",
+        "account__get_app_badge_number.json",
+        "service__relationship__api__v1__free_gifts__claim.json"
+      ],
+      "candidate_go_path": "/account/get_app_badge_number",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Badge",
+      "go_source": "services/api-server/internal/service/profile.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_app_badge_number.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_app_badge_number"
+        ],
+        "0.3.11": [
+          "/account/get_app_badge_number"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "set_friend_statues",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_friend_statues"
+      ],
+      "legacy_response_files": [
+        "account__get_friend_statues.json"
+      ],
+      "candidate_go_path": "/account/get_friend_statues",
+      "candidate_kind": "response_key_match",
+      "go_handler": "FriendStatues",
+      "go_source": "services/api-server/internal/service/constellations.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_friend_statues.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_friend_statues"
+        ],
+        "0.3.11": [
+          "/account/get_friend_statues"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "set_friend_status",
+      "legacy_flows": [
+        "auth_create"
+      ],
+      "go_flows": [
+        "auth_create"
+      ],
+      "legacy_response_paths": [],
+      "legacy_response_files": [],
+      "candidate_go_path": "/account/get_friend_statues",
+      "candidate_kind": "alias_inference",
+      "go_handler": "FriendStatues",
+      "go_source": "services/api-server/internal/service/constellations.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_friend_statues.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "set_friends",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_friends"
+      ],
+      "legacy_response_files": [
+        "account__get_friends.json"
+      ],
+      "candidate_go_path": "/account/get_friends",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Friends",
+      "go_source": "services/api-server/internal/service/friends.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_friends.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_friends"
+        ],
+        "0.3.11": [
+          "/account/get_friends"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "set_random",
+      "legacy_flows": [
+        "auth_create"
+      ],
+      "go_flows": [
+        "auth_create"
+      ],
+      "legacy_response_paths": [],
+      "legacy_response_files": [],
+      "candidate_go_path": "/account/get_rank",
+      "candidate_kind": "alias_inference",
+      "go_handler": "Rank",
+      "go_source": "services/api-server/internal/service/data.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_rank.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [],
+        "0.3.11": []
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "set_rank",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_rank"
+      ],
+      "legacy_response_files": [
+        "account__get_rank.json"
+      ],
+      "candidate_go_path": "/account/get_rank",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Rank",
+      "go_source": "services/api-server/internal/service/data.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_rank.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_rank"
+        ],
+        "0.3.11": [
+          "/account/get_rank"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "set_world_quests",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_account_world_quests"
+      ],
+      "legacy_response_files": [
+        "account__get_account_world_quests.json"
+      ],
+      "candidate_go_path": "/account/get_account_world_quests",
+      "candidate_kind": "response_key_match",
+      "go_handler": "WorldQuests",
+      "go_source": "services/api-server/internal/service/quests_account.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__get_account_world_quests.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_account_world_quests"
+        ],
+        "0.3.11": [
+          "/account/get_account_world_quests"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "spirit_shops",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_spirit_shops"
+      ],
+      "legacy_response_files": [
+        "account__get_spirit_shops.json"
+      ],
+      "candidate_go_path": "/account/get_spirit_shops",
+      "candidate_kind": "response_key_match",
+      "go_handler": "SpiritShops",
+      "go_source": "services/api-server/internal/service/batch1_spirit.go",
+      "go_direct_config_or_data_sources": [
+        "game_config_or_embedded_json:account__get_spirit_shops.json,game_control.json,spirit_shops.json",
+        "旧静态库:account__get_spirit_shops.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_spirit_shops"
+        ],
+        "0.3.11": [
+          "/account/get_spirit_shops"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "status_unlocks",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/service/status/api/v1/get_unlocks"
+      ],
+      "legacy_response_files": [
+        "service__status__api__v1__get_unlocks.json"
+      ],
+      "candidate_go_path": "/service/status/api/v1/get_unlocks",
+      "candidate_kind": "response_key_match",
+      "go_handler": "StatusUnlocks",
+      "go_source": "services/api-server/internal/service/status_unlocks.go",
+      "go_direct_config_or_data_sources": [
+        "game_config_or_embedded_json:all_unlock_status.json,auto_full_unlock.json,kaiquantu.json",
+        "SQLite",
+        "旧静态库:service__status__api__v1__get_unlocks.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/service/status/api/v1/get_unlocks"
+        ],
+        "0.3.11": [
+          "/service/status/api/v1/get_unlocks"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "unlocks",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/get_unlocks"
+      ],
+      "legacy_response_files": [
+        "account__get_unlocks.json"
+      ],
+      "candidate_go_path": "/account/get_unlocks",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Unlocks",
+      "go_source": "services/api-server/internal/service/unlocks.go",
+      "go_direct_config_or_data_sources": [
+        "game_config_or_embedded_json:auto_full_unlock.json",
+        "SQLite",
+        "旧静态库:account__get_unlocks.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/get_unlocks"
+        ],
+        "0.3.11": [
+          "/account/get_unlocks"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "userdata",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/userdata"
+      ],
+      "legacy_response_files": [
+        "account__userdata.json"
+      ],
+      "candidate_go_path": "/account/userdata",
+      "candidate_kind": "response_key_match",
+      "go_handler": "Userdata",
+      "go_source": "services/api-server/internal/service/data.go",
+      "go_direct_config_or_data_sources": [
+        "SQLite",
+        "旧静态库:account__userdata.json"
+      ],
+      "go_direct_auth_signal": "session_checked_in_handler",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/userdata"
+        ],
+        "0.3.11": [
+          "/account/userdata"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    },
+    {
+      "resource": "wing_buffs",
+      "legacy_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "go_flows": [
+        "create",
+        "login",
+        "auth_create",
+        "auth_login"
+      ],
+      "legacy_response_paths": [
+        "/account/wing_buffs/convert",
+        "/account/wing_buffs/get"
+      ],
+      "legacy_response_files": [
+        "account__wing_buffs__convert.json",
+        "account__wing_buffs__get.json"
+      ],
+      "candidate_go_path": "/account/wing_buffs/get",
+      "candidate_kind": "response_key_match",
+      "go_handler": "GetWingBuffs",
+      "go_source": "services/api-server/internal/service/wing_buffs.go",
+      "go_direct_config_or_data_sources": [
+        "game_config_or_embedded_json:auto_full_unlock.json",
+        "旧静态库:account__wing_buffs__get.json"
+      ],
+      "go_direct_auth_signal": "no_direct_session_check_visible",
+      "http_200_paths_in_existing_logs": {
+        "0.1.8": [
+          "/account/wing_buffs/get"
+        ],
+        "0.3.11": [
+          "/account/wing_buffs/get"
+        ]
+      },
+      "candidate_http_200_in_existing_logs": {
+        "0.1.8": true,
+        "0.3.11": true
+      },
+      "client_resource_name_mapping": "not_captured_from_apk"
+    }
+  ]
+}

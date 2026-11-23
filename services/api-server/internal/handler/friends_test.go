@@ -1,6 +1,28 @@
 package handler
 
-import "testing"
+import (
+	"net/http"
+	"net/http/httptest"
+	"testing"
+)
+
+func TestFriendStatuesPreflightMatchesLegacyContract(t *testing.T) {
+	api, _ := newAPI(t, true)
+	response := httptest.NewRecorder()
+	api.ServeHTTP(response, httptest.NewRequest(http.MethodOptions, "/account/get_friend_statues", nil))
+	if response.Code != 200 {
+		t.Fatalf("OPTIONS status=%d, want 200: %s", response.Code, response.Body.String())
+	}
+	if got := response.Header().Get("Access-Control-Allow-Origin"); got != "*" {
+		t.Fatalf("origin header=%q", got)
+	}
+	if got := response.Header().Get("Access-Control-Allow-Headers"); got != "Content-Type,Authorization" {
+		t.Fatalf("allow headers=%q", got)
+	}
+	if got := response.Header().Get("Access-Control-Allow-Methods"); got != "GET,PUT,POST,DELETE,OPTIONS" {
+		t.Fatalf("allow methods=%q", got)
+	}
+}
 
 func TestFreshAccountFriendsAreAnArray(t *testing.T) {
 	api, _ := newAPI(t, true)

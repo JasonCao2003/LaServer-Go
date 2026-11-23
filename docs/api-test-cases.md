@@ -1,6 +1,6 @@
-# API 逐路由测试用例（201 条）
+# API 逐路由测试用例（202 条）
 
-来源：`services/api-server/internal/handler/api.go` 的 200 条注册 API 路径，加独立处理的 `GET /healthz`，合计 201 条固定路径。动态 `GET /ugc/...` 不计入。每一行对应一条路径；同一处理函数的别名也单列。详细操作示例见 [接口测试手册](api-testing.md)。
+来源：`services/api-server/internal/handler/api.go` 的 201 条注册 API 路径，加独立处理的 `GET /healthz`，合计 202 条固定路径。动态 `GET /ugc/...` 不计入。其中 `/internal/v1/room/admissions/verify` 是 Go 新增的服务间接口，不在旧客户端 201 条路由清单内。每一行对应一条路径；同一处理函数的别名也单列。详细操作示例见 [接口测试手册](api-testing.md)。
 
 **读表规则**：除注册、登录、公开配置和管理接口外，请求通常附 `user` 与 `session`；‘分支校验字段’和‘代码涉及’是静态提取的候选字段，**不等于此路径必填字段**，响应键也可能来自不同成功/失败分支。‘待核实’表示源码分支、旧协议或客户端请求尚需人工确认。游戏操作是测试入口建议，若客户端版本没有该功能则标‘无入口，仅接口测试’。✅ 只表示固定 MuMu 0.1.8 日志中出现过该路径的 POST 200，**不表示功能通过**；— 表示该日志无记录。
 
@@ -32,7 +32,7 @@
 | 022 | 任务/进度 | `POST /account/get_achievement_defs` | `user`, `session`；必需字段待核实 | `achievement_defs`, `category`, `description`, `icon_url`, `id`, `is_secret`, `name`, `points` | 打开任务、季节或地图进度界面并执行对应操作 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | — |
 | 023 | 启动资源/状态 | `POST /account/get_map_defs` | `user`, `session`；必需字段待核实 | 返回字段待核实（查函数分支/配置） | 冷启动或打开对应资料界面；核对资源同步请求 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | — |
 | 024 | 好友/关系 | `POST /account/get_friends` | `user`, `session`；必需字段待核实；代码涉及：`page_max`, `page_offset`, `players` | `abilities`, `attitude`, `created_at`, `device`, `friend_id`, `given`, `hints`, `is_online`, `last_seen`, `level`, `nickname`, `page_max` | 使用两个测试账号操作好友星盘、邀请或关系界面 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | ✅ |
-| 025 | 好友/关系 | `POST /account/get_friend_statues` | `user`, `session`；必需字段待核实 | `abilities`, `blocked`, `constellation_friend_pages`, `constellation_node_index`, `created_at`, `friend_id`, `friends`, `hints`, `level`, `local_blocked`, `local_soft_deleted`, `name` | 使用两个测试账号操作好友星盘、邀请或关系界面 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | ✅ |
+| 025 | 好友/关系 | `POST/OPTIONS /account/get_friend_statues` | `user`, `session`；必需字段待核实 | `abilities`, `blocked`, `constellation_friend_pages`, `constellation_node_index`, `created_at`, `friend_id`, `friends`, `hints`, `level`, `local_blocked`, `local_soft_deleted`, `name` | 使用两个测试账号操作好友星盘、邀请或关系界面 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | ✅ |
 | 026 | 好友/关系 | `POST /account/get_online_friends` | `user`, `session`；必需字段待核实 | `online_friends` | 使用两个测试账号操作好友星盘、邀请或关系界面 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | ✅ |
 | 027 | 商店/货币 | `POST /account/get_forge_rates` | `user`, `session`；必需字段待核实；代码涉及：`user_id` | `current_level`, `current_tier`, `enabled`, `forge_rates`, `level_completion`, `level_tier_count`, `level_tier_index`, `reset_acknowledged`, `source_type`, `tier_completion` | 打开商店或货币界面；写入接口仅用隔离测试账号 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | ✅ |
 | 028 | 物品/装扮 | `POST /account/get_outfit` | `user`, `session`；必需字段待核实 | `id`, `result`, `set_outfit` | 打开魔法、光翼、收藏或装扮界面并执行对应操作 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | ✅ |
@@ -114,7 +114,7 @@
 | 104 | 任务/进度 | `POST /account/get_season_quests` | `user`, `session`；必需字段待核实 | `activated`, `daily_quest_def_id`, `date`, `has_season_quests_rewards`, `rewarded`, `season_quests`, `start_value`, `stat_type` | 打开任务、季节或地图进度界面并执行对应操作 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | — |
 | 105 | 任务/进度 | `POST /account/get_account_world_quests` | `user`, `session`；必需字段待核实 | `cooldown_over_time`, `ever_completed`, `set_world_quests`, `world_quest_def_id` | 打开任务、季节或地图进度界面并执行对应操作 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | ✅ |
 | 106 | 任务/进度 | `POST /account/claim_quest_reward` | `user`, `session`；必需字段待核实；代码涉及：`bonus_percent`, `name` | `bonus_amount`, `bonus_wax_amount`, `cooldown_over_time`, `currency`, `ever_completed`, `result`, `update_forge_rates`, `world_quest_def_id` | 打开任务、季节或地图进度界面并执行对应操作 | 首次操作的状态变化与游戏一致；重复请求不得重复奖励或扣费；重登后读回一致，跨账号隔离 | — |
-| 107 | 任务/进度 | `POST /account/collect_pickup_batch` | `user`, `session`；必需字段待核实；代码涉及：`level_id`, `pickup_ids` | `currency`, `level_id`, `update_forge_rates`, `user` | 打开任务、季节或地图进度界面并执行对应操作 | 首次操作的状态变化与游戏一致；重复请求不得重复奖励或扣费；重登后读回一致，跨账号隔离 | — |
+| 107 | 任务/进度 | `POST /account/collect_pickup_batch` | `user`, `session`；必需字段待核实；代码涉及：`level_id`, `pickup_ids` | `currency`, `level_id`, `update_forge_rates`, `user` | 打开任务、季节或地图进度界面并执行对应操作 | 首次操作的状态变化与游戏一致；重复请求不得重复奖励或扣费；重登后读回一致，跨账号隔离 | ✅ |
 | 108 | 任务/进度 | `POST /service/quest/api/v1/check_for_previous_completion` | `user`, `session`；必需字段待核实 | `completed_today`, `previously_completed`, `quest_name`, `results` | 打开任务、季节或地图进度界面并执行对应操作 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | — |
 | 109 | 任务/进度 | `POST /service/quest/api/v1/get_player_quests` | `user`, `session`；必需字段待核实 | 返回字段待核实（查函数分支/配置） | 打开任务、季节或地图进度界面并执行对应操作 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | — |
 | 110 | 任务/进度 | `POST /service/quest/api/v1/get_player_quests_by_name` | `user`, `session`；必需字段待核实 | `quest_id`, `quest_name`, `results`, `start_time`, `stats` | 打开任务、季节或地图进度界面并执行对应操作 | 正常请求返回协议约定的字段和类型；内容与该账号/配置一致；无效会话不得读取私有数据 | — |
@@ -208,7 +208,8 @@
 | 198 | 管理 | `POST/GET /admin/api/friends_list` | 管理鉴权 + 查询/请求字段；必需字段待核实；代码涉及：`keyword` | `count`, `device_name`, `error`, `friend_id`, `friends`, `given`, `nickname`, `ok`, `recvd`, `remark`, `reverse_status`, `status` | 在隔离管理端调用；无游戏内入口 | 授权调用返回预期数据或结果；未授权拒绝；状态写入后读回一致 | — |
 | 199 | 管理 | `POST/GET /admin/api/friends_set` | 管理鉴权 + 查询/请求字段；必需字段待核实；代码涉及：`action`, `friend`, `friend_id`, `state` | `action`, `detail`, `friend`, `ok`, `pushed`, `user` | 在隔离管理端调用；无游戏内入口 | 授权调用返回预期数据或结果；未授权拒绝；状态写入后读回一致 | — |
 | 200 | 管理 | `POST/GET /admin/api/friends_clear` | 管理鉴权 + 查询/请求字段；必需字段待核实 | `error`, `failed`, `ok`, `removed`, `removed_count`, `user` | 在隔离管理端调用；无游戏内入口 | 授权调用返回预期数据或结果；未授权拒绝；状态写入后读回一致 | — |
-| 201 | 健康检查 | `GET /healthz` | 无 | `status=ok` | 浏览器或终端请求；无游戏内入口 | HTTP 200 且状态为 ok；只能证明 API 进程响应 | — |
+| 201 | 内部服务 | `POST /internal/v1/room/admissions/verify` | `Authorization: Bearer <服务凭据>`；`account_id`, `room_uri`, `signature` | `account_id`, `expires_at`；错误分支 `error` | 房间服务联调；无游戏内直接入口 | 有效且未过期的房间凭据返回 200；未授权、过期或错误房间拒绝 | — |
+| 202 | 健康检查 | `GET /healthz` | 无 | `status=ok` | 浏览器或终端请求；无游戏内入口 | HTTP 200 且状态为 ok；只能证明 API 进程响应 | — |
 
 ## 记录模板
 

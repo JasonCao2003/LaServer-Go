@@ -266,16 +266,22 @@ func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	constellationOptions := r.URL.Path == "/service/relationship/api/v1/update_friend_constellation_pages"
 	freeGiftOptions := r.URL.Path == "/service/relationship/api/v1/free_gifts/send"
-	if r.Method == "OPTIONS" && (constellationOptions || freeGiftOptions) {
+	friendStatuesOptions := r.URL.Path == "/account/get_friend_statues"
+	if r.Method == "OPTIONS" && (constellationOptions || freeGiftOptions || friendStatuesOptions) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
-		if freeGiftOptions {
+		if friendStatuesOptions {
+			w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization")
+			w.Header().Set("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
+		} else if freeGiftOptions {
 			w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With")
 			w.Header().Set("Access-Control-Max-Age", "3600")
 		} else {
 			w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization,User-Agent,X-Requested-With")
 			w.Header().Set("Access-Control-Max-Age", "86400")
 		}
-		w.Header().Set("Access-Control-Allow-Methods", "POST,OPTIONS")
+		if !friendStatuesOptions {
+			w.Header().Set("Access-Control-Allow-Methods", "POST,OPTIONS")
+		}
 		w.WriteHeader(200)
 		return
 	}
@@ -284,7 +290,7 @@ func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" && !productInfoGet && !adminGet {
 		if r.URL.Path == "/account/commerce/product_info" || strings.HasPrefix(r.URL.Path, "/admin/api/") {
 			w.Header().Set("Allow", "GET, POST")
-		} else if constellationOptions || freeGiftOptions {
+		} else if friendStatuesOptions || constellationOptions || freeGiftOptions {
 			w.Header().Set("Allow", "POST, OPTIONS")
 		} else {
 			w.Header().Set("Allow", "POST")

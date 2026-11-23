@@ -1,5 +1,15 @@
 # 游戏 API 路由验证台账
 
+## Task 1 入口审计（2026-11-23）
+
+完整逐路径来源、旧/Go 方法和测试文件引用见 [机器可读路由台账](../json/api/task1-route-inventory.json)，由 `python scripts/docs/audit_api_task1.py` 从旧服务注册代码、`legacy-routes.json`、Go route map 和 handler 测试源码重新生成。直接测试文件引用是源码证据，不能代替运行结果、全部分支或客户端通过。
+
+- 旧清单共有 **201 条**：200 条固定路径及动态 `GET /ugc/<path:subpath>`。Go route map 共有 **201 条**：200 条对应旧固定路径，另有新增的 `POST /internal/v1/room/admissions/verify`；Go 还单独处理 `/ugc/...` 和 `GET /healthz`。因此 Go 目前有 202 条固定路径，旧清单与 Go 的缺失路径为 0。逐条测试用例文档已按 202 条固定路径更新。
+- 旧 `index.py:190-192` 注册 account/service/starwatch；清单以外的显式注册为 `GET /`、`GET /favicon.ico`（`index.py:212,218`），条件注册的 `GET/POST /admin/api/hot_reload`（`infrastructure/runtime/hot_reload.py:237`），以及原生 WebSocket `/account/ws`（`infrastructure/transport/websocket_handler.py:825`）。首页、图标和热更新是运维入口；Go 尚未实现同名入口。热更新在 import 成功时注册，并可在运行时重新注册新增路由，不能由静态清单穷举。
+- 旧 `infrastructure/responses/__init__.py:280-329` 的 `before_request` 不是新路由：仅当上报 User-Agent 版本达到 0.26.0、路径存在于静态 manifest 且未排除时，以静态 JSON 截断原处理。旧 `index.py` 仅在直接启动时调用 `init_websocket`；其后注册 Socket.IO `/account/ws` 的连接、心跳、频道和聊天事件，Socket.IO `/mqtt` 的连接及消息事件，以及原生 WebSocket `/account/ws`。Socket.IO 的传输入口由框架提供，不能当普通 HTTP 路由或原生 MQTT 服务。Go 这些实时传输尚待 Task 5 独立盘点实现。
+- 旧清单 201 条均有直接测试源码引用；B 批 36 条新增 `TestBatchBDirectHTTPEntries`，逐路径发起 POST、错误 JSON、错误方法和无效会话请求，断言当前可观测的 HTTP 状态与关键响应键。真实支付收据在 Go 中按设计返回 501；部分旧兼容占位接口在无效会话下仍返回 200，不能将其视为已完成身份鉴权。B 批购买和任务的成功状态、余额及重复请求仍按 Task 4 验证。`GET /ugc/...` 的测试位于 C 批测试文件。客户端版本与资源依赖另见 [登录资源表](api-login-resource-dependencies.md)。
+- 旧 `/account/get_friend_statues` 允许 `OPTIONS` 并带有专用 CORS 头；审计时 Go 为 405。已按旧合同补齐，回归测试为 `TestFriendStatuesPreflightMatchesLegacyContract`。目前台账中旧与 Go 的显式方法差异为 0。
+
 基线：2026-11-12。A 批共 77 条：原有基础路由 42 条、第 1 批 15 条、第 2 批 20 条。B–D 批的逐分支证据仍按 [测试计划](superpowers/plans/2026-11-12-api-test-coverage.md) 逐项积累；C 批入口覆盖进展见下文。
 
 本表的“测试引用”仅证明测试源码直接调用该路径；不能推断所有认证、版本、错误分支或客户端行为均已覆盖。A 批新增的 `batch_a_test.go` 检查入口状态、关键响应字段，以及邀请码、状态解锁、光翼等状态闭环。真实 APK 验收均未执行。
