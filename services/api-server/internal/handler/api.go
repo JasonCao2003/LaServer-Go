@@ -322,7 +322,9 @@ func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func errorType(err error) string { return "internal" }
 func write(w http.ResponseWriter, status int, body object) {
 	w.WriteHeader(status)
-	_ = json.NewEncoder(w).Encode(body)
+	encoder := json.NewEncoder(w)
+	encoder.SetEscapeHTML(false)
+	_ = encoder.Encode(body)
 }
 func remoteIP(r *http.Request) string {
 	h, _, e := net.SplitHostPort(r.RemoteAddr)
