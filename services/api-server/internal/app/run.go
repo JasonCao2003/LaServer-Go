@@ -1,3 +1,5 @@
+// 服务依赖组装与生命周期管理
+
 package app
 
 import (
@@ -19,6 +21,7 @@ import (
 	"time"
 )
 
+// 运行服务主流程
 func Run(args []string) error {
 	migrate := len(args) > 0 && args[0] == "migrate"
 	if migrate {

@@ -1,3 +1,5 @@
+// 数据库连接、迁移与存储工具
+
 package repository
 
 import (
@@ -11,7 +13,7 @@ import (
 	"path/filepath"
 )
 
-// Open configures every SQLite connection. It does not initialize tables.
+// 打开 SQLite 数据库连接
 func Open(path string) (*sql.DB, error) {
 	absolute, err := filepath.Abs(path)
 	if err != nil {
@@ -34,7 +36,7 @@ func Open(path string) (*sql.DB, error) {
 	return db, nil
 }
 
-// A drive-letter path must be absolute in a file URI, not an authority (file://C:/...).
+// 辅助函数：文件URI路径
 func fileURIPath(path string) string {
 	if len(path) >= 3 && path[1] == ':' && path[2] == '/' {
 		return "/" + path
@@ -42,7 +44,7 @@ func fileURIPath(path string) string {
 	return path
 }
 
-// Migrate initializes only a new database; legacy instances require explicit import.
+// 初始化新库并执行迁移
 func Migrate(ctx context.Context, db *sql.DB) error {
 	tx, err := db.BeginTx(ctx, nil)
 	if err != nil {
@@ -208,6 +210,7 @@ func Migrate(ctx context.Context, db *sql.DB) error {
 	return tx.Commit()
 }
 
+// 校验数据库结构
 func CheckSchema(db *sql.DB) error {
 	var version int
 	if err := db.QueryRow("SELECT version FROM laserver_schema WHERE id=1").Scan(&version); err != nil {

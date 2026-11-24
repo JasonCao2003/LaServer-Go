@@ -1,3 +1,5 @@
+// 关卡拾取数据访问
+
 package repository
 
 import (
@@ -10,6 +12,7 @@ type PickupEmitter struct {
 	Events []map[string]any `json:"events"`
 }
 
+// 处理关卡拾取发射器
 func (s *Store) LevelPickupEmitters(ctx context.Context, userID string, level int64, defaults []PickupEmitter) ([]PickupEmitter, error) {
 	tx, err := s.BeginTx(ctx, nil)
 	if err != nil {

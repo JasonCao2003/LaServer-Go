@@ -1,3 +1,5 @@
+// 解锁数据访问
+
 package repository
 
 import (
@@ -12,6 +14,7 @@ type Unlock struct {
 	CreatedAt int64
 }
 
+// 初始化默认解锁
 func (s *Store) SeedDefaultUnlocks(ctx context.Context, userID string, defaults []Unlock) error {
 	tx, err := s.BeginTx(ctx, nil)
 	if err != nil {
@@ -33,6 +36,7 @@ func (s *Store) SeedDefaultUnlocks(ctx context.Context, userID string, defaults 
 	return tx.Commit()
 }
 
+// 读取解锁列表
 func (s *Store) Unlocks(ctx context.Context, userID string) ([]Unlock, error) {
 	rows, err := s.QueryContext(ctx, Statement(`SELECT name,unlock_type,ack,created_at FROM unlock_item WHERE user_id=? ORDER BY id`), userID)
 	if err != nil {
@@ -54,6 +58,7 @@ func (s *Store) Unlocks(ctx context.Context, userID string) ([]Unlock, error) {
 	return out, rows.Err()
 }
 
+// 确认解锁
 func (s *Store) AckUnlock(ctx context.Context, userID, name string, createdAt int64) (Unlock, error) {
 	var item Unlock
 	tx, err := s.BeginTx(ctx, nil)

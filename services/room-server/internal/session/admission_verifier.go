@@ -1,3 +1,5 @@
+// 调用 API 校验进房准入
+
 package session
 
 import (
@@ -29,6 +31,7 @@ type AdmissionVerifier struct {
 	client   *http.Client
 }
 
+// 创建进房准入校验器
 func NewAdmissionVerifier(baseURL, bearer string) (*AdmissionVerifier, error) {
 	endpoint, err := url.Parse(baseURL)
 	if err != nil || endpoint.Hostname() == "" || endpoint.User != nil ||
@@ -56,6 +59,7 @@ func NewAdmissionVerifier(baseURL, bearer string) (*AdmissionVerifier, error) {
 	}, nil
 }
 
+// 调用 API 校验进房凭证
 func (v *AdmissionVerifier) Verify(ctx context.Context, roomURI string, proof protocol.AdmissionProof) (VerifiedAdmission, error) {
 	body, err := json.Marshal(map[string]string{
 		"account_id": proof.AccountID,

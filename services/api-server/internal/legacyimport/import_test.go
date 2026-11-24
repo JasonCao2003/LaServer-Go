@@ -1,3 +1,5 @@
+// 旧数据库导入与安全检查测试
+
 package legacyimport
 
 import (

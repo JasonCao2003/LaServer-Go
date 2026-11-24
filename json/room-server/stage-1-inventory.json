@@ -837,8 +837,8 @@
     {
       "feature": "发现与好友加入",
       "sources": [
-        "api-server/internal/service/data.go",
-        "api-server/internal/service/relationships_batch5.go"
+        "api-server/internal/service/account_data.go",
+        "api-server/internal/service/relationships.go"
       ],
       "evidence": "source; per-build validation pending"
     },

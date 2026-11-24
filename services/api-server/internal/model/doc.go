@@ -1,3 +1,4 @@
+// 数据模型包：与旧 SQLite 表结构对应的持久化记录
 // Package model contains persistence records matching the legacy SQLite schema.
 // Nullable columns use pointers, including columns with application defaults.
 // These records are not API DTOs: JSON serialization intentionally omits fields.

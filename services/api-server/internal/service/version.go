@@ -1,3 +1,5 @@
+// 客户端版本兼容判断
+
 package service
 
 import (
@@ -12,6 +14,7 @@ import (
 
 var rawClientVersion = regexp.MustCompile(`/(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?`)
 
+// 判断是否为旧版客户端
 func (a *Service) legacyUA(r Request) bool {
 	match := rawClientVersion.FindStringSubmatch(r.UserAgent)
 	if len(match) == 0 {

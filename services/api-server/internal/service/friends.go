@@ -1,3 +1,5 @@
+// 好友列表读取
+
 package service
 
 import (
@@ -6,6 +8,7 @@ import (
 	"strings"
 )
 
+// 读取好友列表
 func (a *Service) Friends(r Request, m object) (object, error) {
 	u, err := a.authenticated(r, m)
 	if err != nil {
@@ -45,6 +48,8 @@ func (a *Service) Friends(r Request, m object) (object, error) {
 	}
 	return object{"set_friends": items, "set_friend_count": len(items), "result": "success", "user_id": u.ID, "total_friends": len(items), "page_max": limit, "page_offset": offset, "timestamp": now() * 1000}, nil
 }
+
+// 解析整数列表
 func intList(raw string) []int64 {
 	var values []json.RawMessage
 	if json.Unmarshal([]byte(raw), &values) != nil {

@@ -9,14 +9,14 @@ LaServer 的 Go 重构项目，逐步迁移旧客户端游戏接口与 ENet/UDP 
 | 服务 | 职责 | 当前状态 |
 | --- | --- | --- |
 | `api-server` | 游戏 HTTP 接口、账号和存档等持久化业务；后续承载管理 API | 可独立运行；201 条静态路由已接入，API↔实时服务联调和客户端验收仍待完成 |
-| `room-server` | ENet/UDP、连接会话、房间与玩家实时同步 | Windows amd64 可运行；已验证单客户端认证入房及重连，双端同步、自然过图、更多协议族仍待开发或验收 |
+| `room-server` | ENet/UDP、连接会话、房间与玩家实时同步 | Windows amd64 已有单客户端入房证据；Linux 已增加 cgo 原生适配并通过构建及 ABI 测试，真实联机待验收 |
 
 两个服务位于同一仓库，各自维护 Go module、入口、配置和发布流程，不要求同时启动。服务之间不直接导入对方的 internal 包，也不共享数据库作为通信通道。
 
 - Go 最低版本：1.26.0；各服务按各自的 `go.mod` 构建。
-- HTTP：标准库 `net/http`；日志：`log/slog`。
+- API 路由：Gin；HTTP 服务与 TLS：标准库 `net/http`；日志：`log/slog`。
 - 数据库：SQLite，使用 `database/sql` 和 `modernc.org/sqlite v1.62.0`，不引入 Redis 或 MySQL。
-- 房间状态保存在 `room-server` 内存中；Windows 原生传输使用单独构建的 SkyENet 桥接库，Linux 运行尚未实现。
+- 房间状态保存在 `room-server` 内存中；Windows/Linux 原生传输使用单独构建的 SkyENet 桥接库（DLL / .so）；Linux 需要 cgo 和 C 编译器，真实联机仍待验收。
 
 ## 目录
 
@@ -39,7 +39,7 @@ LaServer-Go/
 │   │   ├── go.mod
 │   │   └── go.sum
 │   └── room-server/
-│       ├── cmd/server/         Windows amd64 启动入口
+│       ├── cmd/server/         Windows/Linux 启动入口
 │       ├── internal/           transport、protocol、session、room、config、app
 │       ├── config/             示例配置
 │       ├── README.md
@@ -86,11 +86,11 @@ Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-s
 
 `migrate` 可初始化空数据库，或把本项目 schema v1–v17 升级到 v18；拒绝无法识别的非空库。正常启动要求 v18，不自动改表。旧 Python 数据库不能直接当作 Go 数据库使用。
 
-**旧数据按需迁移。** 开发和新实例可直接使用新建 SQLite；如需保留指定旧账号或存档，先用 `go run ./cmd/legacy-import -mode preflight -source <旧 users.db>` 只读盘点，再在隔离目标验证。导入器要求全新目标路径；当前旧实例报告 `partial=true`，默认拒绝部分导入，显式 `-allow-partial` 也不能保证旧账号完整保留。详见 [Task 4 持久化报告](docs/api-task4-persistence.md)。
+**旧数据按需迁移。** 开发和新实例可直接使用新建 SQLite；如需保留指定旧账号或存档，先用 `go run ./cmd/legacy-import -mode preflight -source <旧 users.db>` 只读盘点，再在隔离目标验证。导入器要求全新目标路径；当前旧实例报告 `partial=true`，默认拒绝部分导入，显式 `-allow-partial` 也不能保证旧账号完整保留。详见 [Task 4 持久化报告](docs/archive/records/api-task4-persistence.md)。
 
 ## 启动实时房间服务
 
-当前运行入口仅支持 Windows amd64，需先按 [room-server 说明](services/room-server/README.md) 构建 SkyENet 桥接 DLL，并配置 API 的房间入场密钥及服务间凭据。房间进程可独立启动；客户端实际入房时需要 API 验证会话。示例配置只监听回环地址，向局域网设备测试时须按实际网络设置监听和公告地址。Linux 运行与多版本兼容仍待开发。
+当前运行入口支持 Windows amd64 和启用 cgo 的 Linux；需先按 [room-server 说明](services/room-server/README.md) 构建 SkyENet 桥接 DLL 或 .so，并配置 API 的房间入场密钥及服务间凭据。房间进程可独立启动；客户端实际入房时需要 API 验证会话。示例配置只监听回环地址，向局域网设备测试时须按实际网络设置监听和公告地址。Linux 原生适配已有自动化测试，真实客户端联机与多版本兼容仍待验收。Linux 环境准备、命令及验证范围见 [Linux 开发说明](docs/linux-development.md)。
 
 ## 接口进度与边界
 
@@ -110,7 +110,7 @@ Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-s
 sh scripts/verify/api-server.sh
 ```
 
-脚本优先使用现有 `~/.local/opt/go1.27.4/bin`，也可使用 PATH 中的 Go；在 API module 内执行测试、vet 和构建，日志集中写入根 `logs/`。
+脚本使用 PATH 中的 Go，在 API module 内执行测试、vet 和构建，日志集中写入根 `logs/`，默认构建缓存写入根 `tmp/`。检查脚本禁止自动下载依赖和工具链；缺少 API 依赖时先在该 module 内自行执行 `go mod download`。Linux 房间服务独立检查：`sh scripts/verify/room-server.sh`。
 
 手动命令须进入服务目录，根目录没有统一 go.mod：
 
@@ -127,11 +127,12 @@ go build ./...
 
 - [项目约束](AGENTS.md)
 - [重构设计](docs/superpowers/specs/2026-11-11-go-rewrite-design.md)
-- [开发计划](docs/superpowers/plans/2026-11-11-go-rewrite.md)
+- [开发计划](docs/archive/plans/2026-11-11-go-rewrite.md)
 - [API 接口测试手册](docs/api-testing.md)
 - [开发交接](docs/development-handoff.md)
 - [实时服务说明](services/room-server/README.md)
 - [复刻待办与剩余接口](docs/TODO.md)
-- [开发与修复记录](docs/TodoList.md)
+- [开发过程归档与审查索引](docs/archive/README.md)
+- [开发与修复记录](docs/archive/records/TodoList.md)
 
 运行数据、真实配置、证书私钥、日志、抓包和构建产物不提交。示例配置、源码、依赖锁文件及脱敏报告纳入版本控制。旧 LaServer 仅作为兼容参考，不覆盖其未提交改动或真实数据。

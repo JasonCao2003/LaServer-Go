@@ -1,3 +1,5 @@
+// 服务依赖组装、监听与生命周期管理
+
 package app
 
 import (
@@ -20,8 +22,7 @@ type Transport interface {
 	Close() error
 }
 
-// Run opens both listeners before serving and releases them on startup failure,
-// cancellation, or a serve loop failure. openTransport must return a bound host.
+// 运行房间服务并管理监听生命周期
 func Run(ctx context.Context, cfg config.Config, openTransport func(config.Config) (Transport, error)) error {
 	transport, err := openTransport(cfg)
 	if err != nil {
@@ -85,6 +86,7 @@ func Run(ctx context.Context, cfg config.Config, openTransport func(config.Confi
 	return errors.Join(serveErr, managementErr, listenerErr, transport.Close())
 }
 
+// 构造非预期退出错误
 func unexpectedExit(name string, err error) error {
 	if err == nil {
 		return fmt.Errorf("%s stopped unexpectedly", name)
@@ -92,6 +94,7 @@ func unexpectedExit(name string, err error) error {
 	return fmt.Errorf("%s stopped: %w", name, err)
 }
 
+// 提供健康检查 HTTP 处理器
 func healthHandler(ready func() bool) http.Handler {
 	mux := http.NewServeMux()
 	alive := func(w http.ResponseWriter, _ *http.Request) {

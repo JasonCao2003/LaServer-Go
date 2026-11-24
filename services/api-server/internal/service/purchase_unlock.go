@@ -1,3 +1,5 @@
+// 解锁项购买
+
 package service
 
 import (
@@ -6,6 +8,7 @@ import (
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
 )
 
+// 购买解锁
 func (a *Service) PurchaseUnlock(r Request, m Object) (Object, error) {
 	missing := []string{}
 	for _, key := range []string{"user", "session", "cost"} {

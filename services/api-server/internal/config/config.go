@@ -1,3 +1,5 @@
+// 服务配置加载与校验
+
 package config
 
 import (
@@ -11,6 +13,7 @@ import (
 	"path/filepath"
 )
 
+// 加载并解析服务配置
 func Load(path string) (Config, error) {
 	var cfg Config
 	f, err := os.Open(path)
@@ -93,6 +96,7 @@ type Config struct {
 
 var currencyFields = []string{"candles", "heart", "heart_wax", "prestige", "prestige_vip", "prestige_wax", "season_candle", "season_wax", "season_wax_14", "season_heart", "season_pass_token", "vip", "wax"}
 
+// 判断是否为货币字段
 func currencyField(k string) bool {
 	for _, f := range currencyFields {
 		if f == k {
@@ -102,6 +106,7 @@ func currencyField(k string) bool {
 	return false
 }
 
+// 校验运行时配置
 func ValidateRuntime(cfg Config) error {
 	switch cfg.LoginMode {
 	case "", "credential":
@@ -127,6 +132,7 @@ func ValidateRuntime(cfg Config) error {
 	return validateRoomAdmission(cfg)
 }
 
+// 校验房间准入配置
 func validateRoomAdmission(cfg Config) error {
 	if cfg.RoomAdmissionKey == "" && cfg.RoomAdmissionBearer == "" {
 		return nil

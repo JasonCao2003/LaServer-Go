@@ -1,3 +1,5 @@
+// 鉴权视图查询
+
 package repository
 
 const UserIDBySession Statement = `SELECT id FROM user WHERE session=?`

@@ -1,3 +1,5 @@
+// 解锁项列表、默认解锁与确认
+
 package service
 
 import (
@@ -22,6 +24,7 @@ const (
 
 var emoteUnlockPattern = regexp.MustCompile(`^emote_upgrade_([a-zA-Z0-9]+)_([0-9]+)$`)
 
+// 读取默认解锁名称
 func (a *Service) defaultUnlockNames() map[string]bool {
 	allowed := map[string]bool{"CharSkyKid_Prop_None": true}
 	if a.cfg.GameConfigDir == "" {
@@ -52,6 +55,7 @@ func (a *Service) defaultUnlockNames() map[string]bool {
 	return allowed
 }
 
+// 判断是否默认解锁
 func isDefaultUnlock(name string, allowed map[string]bool) bool {
 	if !allowed[name] {
 		return false
@@ -59,6 +63,7 @@ func isDefaultUnlock(name string, allowed map[string]bool) bool {
 	return name == "CharSkyKid_Prop_None" || emoteUnlockPattern.MatchString(name)
 }
 
+// 初始化默认解锁
 func (a *Service) seedDefaultUnlocks(r Request, userID string, allowed map[string]bool) error {
 	items := make([]repository.Unlock, 0, len(allowed))
 	for name := range allowed {
@@ -73,6 +78,7 @@ func (a *Service) seedDefaultUnlocks(r Request, userID string, allowed map[strin
 	return a.store.SeedDefaultUnlocks(r.Context, userID, items)
 }
 
+// 读取解锁配置上限
 func (a *Service) unlockConfigLimit(key string, fallback int) int {
 	if a.cfg.GameConfigDir == "" {
 		return fallback
@@ -91,6 +97,7 @@ func (a *Service) unlockConfigLimit(key string, fallback int) int {
 	return fallback
 }
 
+// 计算解锁优先级
 func unlockPriority(item repository.Unlock) int {
 	name := item.Name
 	switch {
@@ -109,6 +116,7 @@ func unlockPriority(item repository.Unlock) int {
 	}
 }
 
+// 整理解锁列表
 func (a *Service) finalizeUnlocks(items []repository.Unlock, ua string) []repository.Unlock {
 	sort.SliceStable(items, func(i, j int) bool {
 		pi, pj := unlockPriority(items[i]), unlockPriority(items[j])
@@ -134,6 +142,7 @@ func (a *Service) finalizeUnlocks(items []repository.Unlock, ua string) []reposi
 	return items
 }
 
+// 构造解锁响应
 func unlockPayload(items []repository.Unlock) []Object {
 	out := make([]Object, 0, len(items))
 	for _, item := range items {
@@ -142,6 +151,7 @@ func unlockPayload(items []repository.Unlock) []Object {
 	return out
 }
 
+// 构造上限解锁列表
 func (a *Service) maxCountUnlocks(r Request, userID string, allowed map[string]bool) (Object, error) {
 	if a.cfg.GameConfigDir == "" {
 		return nil, fail(404, "Unlock configuration not found")
@@ -199,6 +209,7 @@ func (a *Service) maxCountUnlocks(r Request, userID string, allowed map[string]b
 	return Object{"unlocks": unlockPayload(items), "unlocks_total_count": len(items)}, nil
 }
 
+// 读取解锁列表
 func (a *Service) Unlocks(r Request, m Object) (Object, error) {
 	userID, session := text(m, "user"), text(m, "session")
 	if userID == "" || session == "" {
@@ -261,7 +272,7 @@ func (a *Service) Unlocks(r Request, m Object) (Object, error) {
 	return Object{"unlocks": unlockPayload(items), "unlocks_total_count": total}, nil
 }
 
-// Full unlocks are response-only so disabling the policy never deletes owned items.
+// 合并完整解锁列表
 func (a *Service) mergeFullUnlocks(owned []repository.Unlock, ua string) []repository.Unlock {
 	base := a.statusConfig("full_unlocks_template.json", "unlocks")
 	major, minor, patch, known := clientVersion(ua)
@@ -342,6 +353,7 @@ func (a *Service) mergeFullUnlocks(owned []repository.Unlock, ua string) []repos
 	return out
 }
 
+// 确认解锁
 func (a *Service) AckUnlock(r Request, m Object) (Object, error) {
 	for _, key := range []string{"user", "session", "name"} {
 		if _, ok := m[key]; !ok {

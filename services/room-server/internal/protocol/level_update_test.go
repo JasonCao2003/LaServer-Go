@@ -1,3 +1,5 @@
+// 关卡更新消息解析测试
+
 package protocol
 
 import (

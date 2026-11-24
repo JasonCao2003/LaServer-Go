@@ -1,3 +1,5 @@
+// 房间准入令牌签发与校验
+
 package service
 
 import (
@@ -15,10 +17,12 @@ import (
 
 const admissionTTLSeconds = 120
 
+// 返回房间准入服务地址
 func (a *Service) roomAdmissionURI() string {
 	return fmt.Sprintf("%s:%d", a.cfg.RoomHost, a.cfg.RoomPort)
 }
 
+// 签发房间准入令牌
 func (a *Service) issueRoomAdmission(account, session, room string, stamp int64) (string, error) {
 	key, err := hex.DecodeString(a.cfg.RoomAdmissionKey)
 	if err != nil || len(key) != 32 {
@@ -28,6 +32,7 @@ func (a *Service) issueRoomAdmission(account, session, room string, stamp int64)
 	return hex.EncodeToString(token[:]), nil
 }
 
+// 计算房间准入令牌
 func roomAdmissionToken(key []byte, account, session, room string, expires int64) [32]byte {
 	var token [32]byte
 	binary.BigEndian.PutUint64(token[:8], uint64(expires))
@@ -45,6 +50,7 @@ func roomAdmissionToken(key []byte, account, session, room string, expires int64
 	return token
 }
 
+// 校验房间准入
 func (a *Service) VerifyRoomAdmission(r Request, body Object) (Object, error) {
 	if a.cfg.RoomAdmissionKey == "" || a.cfg.RoomAdmissionBearer == "" {
 		return nil, fail(404, "Room admission is disabled")

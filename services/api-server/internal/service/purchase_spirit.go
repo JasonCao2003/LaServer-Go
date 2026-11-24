@@ -1,3 +1,5 @@
+// 精灵商店物品购买
+
 package service
 
 import (
@@ -7,6 +9,7 @@ import (
 	"strings"
 )
 
+// 解析精灵解锁 ID
 func spiritUnlockID(name string) int64 {
 	hash := uint32(2166136261)
 	for _, b := range []byte(name) {
@@ -16,9 +19,12 @@ func spiritUnlockID(name string) int64 {
 	return int64(hash)
 }
 
+// 构造精灵购买失败响应
 func spiritFailure(reason string) Object {
 	return Object{"result": "error", "error": reason, "currency": Object{}, "update_unlocks": []Object{}, "get_lootboxes": []Object{}}
 }
+
+// 购买精灵商店物品
 func (a *Service) PurchaseSpiritShopItem(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, true)
 	if err != nil {

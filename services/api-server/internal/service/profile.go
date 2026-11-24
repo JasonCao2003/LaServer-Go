@@ -1,3 +1,5 @@
+// 成就、地图、徽章与收集品档案
+
 package service
 
 import (
@@ -9,6 +11,7 @@ import (
 	"path/filepath"
 )
 
+// 获取成就定义
 func (a *Service) AchievementDefinitions(r Request, m object) (object, error) {
 	if _, err := a.authenticated(r, m); err != nil {
 		return nil, err
@@ -31,18 +34,24 @@ func (a *Service) AchievementDefinitions(r Request, m object) (object, error) {
 	}
 	return object{"achievement_defs": out}, rows.Err()
 }
+
+// 可空字符串转接口值
 func nullableString(v sql.NullString) any {
 	if v.Valid {
 		return v.String
 	}
 	return nil
 }
+
+// 可空整数转接口值
 func nullableInt(v sql.NullInt64) any {
 	if v.Valid {
 		return v.Int64
 	}
 	return nil
 }
+
+// 可空布尔转接口值
 func nullableBool(v sql.NullBool) any {
 	if v.Valid {
 		return v.Bool
@@ -50,6 +59,7 @@ func nullableBool(v sql.NullBool) any {
 	return nil
 }
 
+// 获取地图定义
 func (a *Service) MapDefinitions(r Request, m object) (object, error) {
 	if a.cfg.GameConfigDir == "" {
 		return nil, fail(503, "Game configuration unavailable")
@@ -68,6 +78,7 @@ func (a *Service) MapDefinitions(r Request, m object) (object, error) {
 	return result, nil
 }
 
+// 获取成就列表
 func (a *Service) Achievements(r Request, m object) (object, error) {
 	u, err := a.authenticated(r, m)
 	if err != nil {
@@ -96,6 +107,7 @@ func (a *Service) Achievements(r Request, m object) (object, error) {
 	return object{"achievements": out}, rows.Err()
 }
 
+// 获取徽章数量
 func (a *Service) Badge(r Request, m object) (object, error) {
 	u, err := a.authenticated(r, m)
 	if err != nil {
@@ -109,6 +121,7 @@ func (a *Service) Badge(r Request, m object) (object, error) {
 	return object{"set_app_badge_number": n}, err
 }
 
+// 获取收集品列表
 func (a *Service) Collectibles(r Request, m object) (object, error) {
 	if text(m, "user") == "" {
 		m["user"] = text(m, "user_id")
@@ -201,7 +214,7 @@ func (a *Service) Collectibles(r Request, m object) (object, error) {
 	return object{"collectibles": out}, rows.Err()
 }
 
-// Full actions are optional; preserve base and owned items if the auxiliary file is unavailable.
+// 辅助函数：可选完整收集品
 func (a *Service) optionalFullCollectibles() []object {
 	raw, err := os.ReadFile(filepath.Join(a.cfg.GameConfigDir, "quandongzuo.json"))
 	if err != nil {

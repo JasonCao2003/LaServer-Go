@@ -1,3 +1,5 @@
+// 关卡分组与玩家关卡切换
+
 package room
 
 import (
@@ -14,7 +16,7 @@ type levelState struct {
 	cacheHash   uint16
 }
 
-// levelFor retains the first admitted authority until it leaves this level group.
+// 获取连接所在关卡状态
 func (s *Server) levelFor(conn *connection) *levelState {
 	group := conn.group()
 	level := s.levels[group]
@@ -25,6 +27,7 @@ func (s *Server) levelFor(conn *connection) *levelState {
 	return level
 }
 
+// 处理玩家切换关卡
 func (s *Server) changeLevel(conn *connection, update protocol.LevelUpdate) {
 	previous := conn.group()
 	// Legacy level generations are byte counters. Accept wraparound, but an
@@ -56,6 +59,7 @@ func (s *Server) changeLevel(conn *connection, update protocol.LevelUpdate) {
 	}
 }
 
+// 处理玩家离开关卡
 func (s *Server) leaveLevel(group levelGroup, conn *connection) {
 	level := s.levels[group]
 	if level == nil || level.authority != conn {
@@ -83,6 +87,7 @@ func (s *Server) leaveLevel(group levelGroup, conn *connection) {
 	}
 }
 
+// 发送关卡选举消息
 func (s *Server) sendElection(target *connection, level *levelState) bool {
 	payload := protocol.EncodeLevelElection(level.authority.player.NetID, target.player.LevelID, level.cacheHash)
 	if !s.sendSnapshot(target, protocol.GameMsgLevelElection, 0, payload) {
@@ -94,7 +99,7 @@ func (s *Server) sendElection(target *connection, level *levelState) bool {
 	return true
 }
 
-// The 284/542 client rebuilds its visible roster when it enters a different level.
+// 刷新关卡玩家列表
 func (s *Server) refreshLevelRoster(group levelGroup) {
 	var members []*connection
 	var roster []protocol.RosterPlayer

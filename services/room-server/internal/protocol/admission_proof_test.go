@@ -1,3 +1,5 @@
+// 准入凭证解析测试
+
 package protocol
 
 import (

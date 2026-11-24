@@ -1,3 +1,5 @@
+// 玩家状态数据访问
+
 package repository
 
 import (
@@ -31,6 +33,7 @@ const (
 	readAchievementStats          Statement = `SELECT stat_type,value,updated_at FROM achievement_stat WHERE user_id=? ORDER BY id`
 )
 
+// 判断用户是否存在
 func (s *Store) HasUser(ctx context.Context, userID string) (bool, error) {
 	var exists int
 	err := s.QueryRowContext(ctx, userExists, userID).Scan(&exists)
@@ -40,6 +43,7 @@ func (s *Store) HasUser(ctx context.Context, userID string) (bool, error) {
 	return err == nil, err
 }
 
+// 读取锻造概率
 func (s *Store) ForgeRates(ctx context.Context, userID string) ([]ForgeRate, error) {
 	rows, err := s.QueryContext(ctx, readForgeRates, userID)
 	if err != nil {
@@ -61,6 +65,7 @@ type rowScanner interface {
 	Scan(dest ...any) error
 }
 
+// 扫描装扮
 func scanOutfit(scanner rowScanner) (Outfit, error) {
 	var row Outfit
 	row.Parts = make(map[string]map[string]int64, 10)
@@ -82,6 +87,7 @@ func scanOutfit(scanner rowScanner) (Outfit, error) {
 	return row, nil
 }
 
+// 获取或创建装扮
 func (s *Store) GetOrCreateOutfit(ctx context.Context, userID string) (Outfit, error) {
 	row, err := scanOutfit(s.QueryRowContext(ctx, readOutfit, userID))
 	if err == nil {
@@ -96,8 +102,7 @@ func (s *Store) GetOrCreateOutfit(ctx context.Context, userID string) (Outfit, e
 	return scanOutfit(s.QueryRowContext(ctx, readOutfit, userID))
 }
 
-// Outfits loads the outfit rows that exist for the given users. Friends without
-// a stored outfit are intentionally absent so callers can emit null.
+// 批量读取装扮
 func (s *Store) Outfits(ctx context.Context, userIDs []string) (map[string]Outfit, error) {
 	out := make(map[string]Outfit, len(userIDs))
 	if len(userIDs) == 0 {
@@ -130,6 +135,7 @@ type outfitPrefixScanner struct {
 	id   *string
 }
 
+// 扫描数据行
 func (s outfitPrefixScanner) Scan(dest ...any) error {
 	return s.rows.Scan(append([]any{s.id}, dest...)...)
 }
@@ -149,8 +155,7 @@ var outfitColumns = map[string]bool{
 	"height": true, "attitude": true, "arms_id": true,
 }
 
-// SetOutfitParts updates only the supplied columns. Column names are checked
-// against a fixed allowlist and never come from request input directly.
+// 设置装扮部件
 func (s *Store) SetOutfitParts(ctx context.Context, userID string, parts map[string]any) error {
 	if len(parts) == 0 {
 		return nil
@@ -177,6 +182,7 @@ type AchievementStat struct {
 	Value, Update int64
 }
 
+// 读取成就统计
 func (s *Store) AchievementStats(ctx context.Context, userID string, stamp int64) ([]AchievementStat, error) {
 	rows, err := s.QueryContext(ctx, readAchievementStats, userID)
 	if err != nil {

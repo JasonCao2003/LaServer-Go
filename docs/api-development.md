@@ -2,7 +2,7 @@
 
 ## 当前范围
 
-现有 api-server 可独立运行，使用 Go net/http 和 modernc.org/sqlite。旧清单 201 条包含 200 条固定路径与动态 `/ugc/...`，均有 Go 入口和测试源码引用；Go 另有房间认证入口及 `/healthz`，合计 202 条固定路径。2026-11-23 的 Task 1 审计已列出首页、图标、热更新及 Socket.IO、原生 WebSocket、MQTT 命名空间；它们不能并入旧游戏清单。B 批 36 条直接 HTTP 入口用例与 API 模块回归已通过，逐分支及客户端验收仍未完成。详见[路由验证台账](api-route-verification.md)与[登录资源依赖](api-login-resource-dependencies.md)。
+现有 api-server 可独立运行，使用 Gin 注册路由，net/http 管理监听与退出，modernc.org/sqlite 处理持久化。旧清单 201 条包含 200 条固定路径与动态 `/ugc/...`，均有 Go 入口和测试源码引用；Go 另有房间认证入口及 `/healthz`，合计 202 条固定路径。2026-11-23 的 Task 1 审计已列出首页、图标、热更新及 Socket.IO、原生 WebSocket、MQTT 命名空间；它们不能并入旧游戏清单。B 批 36 条直接 HTTP 入口用例与 API 模块回归已通过，逐分支及客户端验收仍未完成。详见[路由验证台账](api-route-verification.md)与[登录资源依赖](api-login-resource-dependencies.md)。
 
 | 业务 | 已实现路径 |
 | --- | --- |
@@ -69,7 +69,7 @@ schema v17 增加 `admin_audit` 表，记录管理好友修改的来源 IP、动
 
 schema v18 为 `user` 增加 `credential_mode_issued`。凭据模式创建和登录签发的会话、恢复令牌标为 1；旧模式创建或登录标为 0，即使旧登录没有轮换令牌也会降为 0。凭据模式拒绝标为 0 的会话与恢复令牌；旧账号需重新注册或通过未来的安全凭据重发流程迁移，不能直接切换。开发库升级前保留备份并显式执行 migrate；本轮没有对任何真实实例执行升级。迁移完成后应使用 v18 代码；v17 及更早二进制不识别新 schema，不能直接作为回退程序。
 
-Task 4 增加 `cmd/legacy-import`：只读预检旧 instance/legacy 库、按外键顺序复制兼容行到全新目标库、报告跳过行及旁路文件，默认拒绝部分导入。当前旧实例隔离导入为部分结果，不能作为旧账号完整恢复的依据；新实例可从空库继续开发。行数、关键值检查和单进程聊天限制见 [持久化报告](api-task4-persistence.md)。
+Task 4 增加 `cmd/legacy-import`：只读预检旧 instance/legacy 库、按外键顺序复制兼容行到全新目标库、报告跳过行及旁路文件，默认拒绝部分导入。当前旧实例隔离导入为部分结果，不能作为旧账号完整恢复的依据；新实例可从空库继续开发。行数、关键值检查和单进程聊天限制见 [持久化报告](archive/records/api-task4-persistence.md)。
 
 ## 已知协议差异与边界
 

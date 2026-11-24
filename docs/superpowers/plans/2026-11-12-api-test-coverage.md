@@ -8,7 +8,7 @@
 
 **Tech Stack:** Go `testing`、`httptest`、`modernc.org/sqlite`；`scripts/verify/local_smoke.py` 用于本地链路；ADB 真机验证单独执行。
 
-**Spec:** [十批路由计划](2026-11-11-remaining-api-routes.md)、[旧路由清单](../../../json/api/legacy-routes.json)、[开发说明](../../api-development.md)、旧 `LaServer/services/game-api` 源码。
+**Spec:** [十批路由计划](../../archive/plans/2026-11-11-remaining-api-routes.md)、[旧路由清单](../../../json/api/legacy-routes.json)、[开发说明](../../api-development.md)、旧 `LaServer/services/game-api` 源码。
 
 ## 当前证据与范围
 

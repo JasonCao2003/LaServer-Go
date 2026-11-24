@@ -1,3 +1,5 @@
+// 聊天、消息、蜡烛与免费礼物接口
+
 package service
 
 import (
@@ -12,8 +14,10 @@ import (
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
 )
 
+// 返回当前毫秒时间戳
 func nowMillis() int64 { return time.Now().UnixMilli() }
 
+// 转换标量字符串
 func scalarString(v any) string {
 	switch x := v.(type) {
 	case string:
@@ -27,11 +31,13 @@ func scalarString(v any) string {
 	}
 }
 
+// 格式化浮点数
 func strconvFormatFloat(v float64) string {
 	encoded, _ := json.Marshal(v)
 	return string(encoded)
 }
 
+// 校验消息接口会话
 func (a *Service) messageAuth(r Request, m Object) (string, error) {
 	uid, session := text(m, "user"), text(m, "session")
 	if uid == "" || session == "" {
@@ -47,10 +53,12 @@ func (a *Service) messageAuth(r Request, m Object) (string, error) {
 	return uid, nil
 }
 
+// 构造聊天载荷
 func chatPayload(uid, msg, ch, id string, stamp int64) Object {
 	return Object{"type": "chat", "sender_id": uid, "msg_id": id, "msg": msg, "ch": ch, "timestamp": stamp, "result": "success"}
 }
 
+// 获取待处理消息
 func (a *Service) GetPendingMessages(r Request, m Object) (Object, error) {
 	uid, err := a.messageAuth(r, m)
 	if err != nil {
@@ -92,6 +100,7 @@ func (a *Service) GetPendingMessages(r Request, m Object) (Object, error) {
 	return Object{"set_sent_messages": sent, "set_recvd_messages": recvd}, nil
 }
 
+// 发送聊天
 func (a *Service) ChatSend(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" || text(m, "session") == "" {
@@ -130,8 +139,7 @@ func (a *Service) ChatSend(r Request, m Object) (Object, error) {
 	return Object{"result": "success", "msg_id": id, "timestamp": stamp}, nil
 }
 
-// AccountSend handles /account/send and /account/send_message: chat-shaped
-// bodies delegate to chat, everything else sends a gift.
+// 发送账号消息或礼物
 func (a *Service) AccountSend(r Request, m Object) (Object, error) {
 	if text(m, "msg") != "" || text(m, "chat_msg") != "" || text(m, "message") != "" {
 		return a.ChatSend(r, m)
@@ -139,6 +147,7 @@ func (a *Service) AccountSend(r Request, m Object) (Object, error) {
 	return a.accountGiftSend(r, m)
 }
 
+// 发送账号礼物
 func (a *Service) accountGiftSend(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" {
@@ -216,10 +225,12 @@ func (a *Service) accountGiftSend(r Request, m Object) (Object, error) {
 	return Object{"res": "ok", "result": "ok", "currency": a.currencySnapshot(uid), "sent_message": entry, "timestamp": nowMillis()}, nil
 }
 
+// 翻译占位接口
 func (a *Service) Translate(_ Request, _ Object) (Object, error) {
 	return Object{"result": "ok"}, nil
 }
 
+// 设置设备令牌（占位）
 func (a *Service) SetDeviceToken(_ Request, _ Object) (Object, error) {
 	return Object{}, nil
 }
@@ -235,6 +246,7 @@ type relationAbility struct {
 	TrustActivity string  `json:"trust_activity"`
 }
 
+// 读取关系能力定义
 func (a *Service) relationAbilities() []relationAbility {
 	var defs struct {
 		Defs []relationAbility `json:"relationship_defs"`
@@ -245,6 +257,7 @@ func (a *Service) relationAbilities() []relationAbility {
 	return defs.Defs
 }
 
+// 判断能力是否包含
 func abilityContains(ids []int64, id int64) bool {
 	for _, v := range ids {
 		if v == id {
@@ -254,6 +267,7 @@ func abilityContains(ids []int64, id int64) bool {
 	return false
 }
 
+// 合并能力列表
 func unionAbilities(base, extra []int64) []int64 {
 	out := append([]int64{}, base...)
 	for _, id := range extra {
@@ -265,6 +279,7 @@ func unionAbilities(base, extra []int64) []int64 {
 	return out
 }
 
+// 移除关系提示
 func removeHint(hints []int64, hint int64) []int64 {
 	out := []int64{}
 	for _, h := range hints {
@@ -275,14 +290,17 @@ func removeHint(hints []int64, hint int64) []int64 {
 	return out
 }
 
+// 构造赠送失败响应
 func giveFailure(code string, currency Object, count int64) Object {
 	return Object{"res": "ok", "result": code, "currency": currency, "update_friends": []Object{}, "set_sent_messages": []Object{}, "set_friend_count": count, "update_online_friends": []Object{}, "trust_update": Object{"result": code, "applied": false}}
 }
 
+// 构造好友更新响应
 func friendUpdateEntry(e repository.RelationEntry) Object {
 	return Object{"abilities": intList(e.Abilities), "friend_id": e.ID, "given": e.Given, "hints": intList(e.Hints), "last_seen_outfit": nil, "level": e.Level, "nickname": e.Nickname, "recvd": e.Received, "soft_deleted": nil, "they_soft_deleted": nil, "unlinked_star_sku": "", "when_created": relationTime(e.WhenCreated)}
 }
 
+// 赠送蜡烛
 func (a *Service) GiveCandle(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" {
@@ -455,6 +473,7 @@ func (a *Service) GiveCandle(r Request, m Object) (Object, error) {
 	return Object{"res": "ok", "result": result, "currency": a.currencySnapshot(uid), "update_friends": []Object{friendUpdateEntry(own)}, "set_sent_messages": sent, "set_friend_count": count, "update_online_friends": []Object{Object{"friend_id": target, "level_id": 0}}, "trust_update": Object{"result": "ok", "applied": true, "target_player": target, "xp_delta": 0, "xp": 999999, "tier": 999, "source": source}}, nil
 }
 
+// 提取礼物 ID 列表
 func (a *Service) giftIDs(m Object) []string {
 	out := []string{}
 	add := func(v any) {
@@ -477,6 +496,7 @@ func (a *Service) giftIDs(m Object) []string {
 	return out
 }
 
+// 领取消息礼物
 func (a *Service) ClaimMessageGift(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" {
@@ -557,14 +577,17 @@ func (a *Service) ClaimMessageGift(r Request, m Object) (Object, error) {
 	return Object{"result": "ok", "currency": a.currencySnapshot(uid), "set_recvd_messages": claimed, "set_app_badge_number": badge, "get_buffs": []Object{}, "get_buffs_sign": emptyBuffSign}, nil
 }
 
+// 获取全部消息（v2）
 func (a *Service) MessageGetAllV2(r Request, m Object) (Object, error) {
 	return a.mailboxList(r, m, true), nil
 }
 
+// 获取全部消息（v1）
 func (a *Service) MessageGetAllV1(r Request, m Object) (Object, error) {
 	return a.mailboxList(r, m, false), nil
 }
 
+// 构造邮箱列表
 func (a *Service) mailboxList(r Request, m Object, byVersion bool) Object {
 	uid := text(m, "user")
 	if uid == "" {
@@ -593,11 +616,13 @@ func (a *Service) mailboxList(r Request, m Object, byVersion bool) Object {
 	return Object{"status": "OK", "messages": messages}
 }
 
+// 解析邮箱版本
 func mailboxVersion(ua string) ([3]int, bool) {
 	major, minor, patch, known := clientVersion(ua)
 	return [3]int{major, minor, patch}, known
 }
 
+// 获取单条消息
 func (a *Service) MessageGet(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" {
@@ -627,6 +652,7 @@ func (a *Service) MessageGet(r Request, m Object) (Object, error) {
 	return Object{"status": "OK", "update_messages": out}, nil
 }
 
+// 标记消息已接收
 func (a *Service) MarkMessagesReceived(r Request, m Object) (Object, error) {
 	if text(m, "user") == "" || text(m, "session") == "" {
 		return nil, fail(400, "Invalid request body")
@@ -661,6 +687,7 @@ func (a *Service) MarkMessagesReceived(r Request, m Object) (Object, error) {
 	return Object{"status": "OK", "messages": out}, nil
 }
 
+// 标记消息已读
 func (a *Service) MarkMessagesSeen(_ Request, m Object) (Object, error) {
 	stamp := now()
 	out := []Object{}
@@ -677,6 +704,7 @@ func (a *Service) MarkMessagesSeen(_ Request, m Object) (Object, error) {
 	return Object{"status": "OK", "messages": out}, nil
 }
 
+// 获取待领取免费礼物
 func (a *Service) FreeGiftsGetPending(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" || text(m, "session") == "" {
@@ -709,6 +737,7 @@ func (a *Service) FreeGiftsGetPending(r Request, m Object) (Object, error) {
 	return Object{"set_sent_free_gifts": sent, "set_recvd_free_gifts": recv}, nil
 }
 
+// 发送免费礼物
 func (a *Service) FreeGiftsSend(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" {
@@ -771,6 +800,7 @@ func (a *Service) FreeGiftsSend(r Request, m Object) (Object, error) {
 	return Object{"result": "ok", "sent_free_gift": sentGiftEntry(gift)}, nil
 }
 
+// 领取免费礼物
 func (a *Service) FreeGiftsClaim(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" {

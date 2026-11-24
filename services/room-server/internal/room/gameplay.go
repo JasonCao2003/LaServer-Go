@@ -1,3 +1,5 @@
+// 房间游戏消息与快照转发
+
 package room
 
 import (
@@ -18,10 +20,12 @@ type levelGroup struct {
 	version [2]uint16
 }
 
+// 返回连接所在关卡分组
 func (conn *connection) group() levelGroup {
 	return levelGroup{levelID: conn.player.LevelID, version: conn.version}
 }
 
+// 处理客户端游戏消息
 func (s *Server) receiveGameMessage(source *connection, frame []byte) {
 	msg, err := protocol.DecodeGameMessage(frame, protocol.ClientIDSequence)
 	if err != nil || msg.LevelChangeCount != source.levelChangeCount {
@@ -47,6 +51,7 @@ func (s *Server) receiveGameMessage(source *connection, frame []byte) {
 	}
 }
 
+// 处理客户端快照消息
 func (s *Server) receiveSnapshot(source *connection, msg protocol.GameMessage, reader *snapshot.Reader) {
 	frame, err := snapshot.Parse(msg.Payload)
 	if err != nil {
@@ -77,6 +82,7 @@ func (s *Server) receiveSnapshot(source *connection, msg protocol.GameMessage, r
 	}
 }
 
+// 编码玩家状态快照数据
 func encodePlayerState(source uint8, data []byte) []byte {
 	const headerSize = 5
 	out := make([]byte, headerSize+len(data))
@@ -86,6 +92,7 @@ func encodePlayerState(source uint8, data []byte) []byte {
 	return out
 }
 
+// 向目标发送快照
 func (s *Server) sendSnapshot(target *connection, msgType, source uint8, data []byte) bool {
 	if len(data)+protocol.GameSnapshotOverhead > s.maxFrame {
 		return false
@@ -101,6 +108,7 @@ func (s *Server) sendSnapshot(target *connection, msgType, source uint8, data []
 	return s.sendGameMessage(target, protocol.GameMessage{Type: msgType, SourcePlayer: source, Payload: frame.Bytes()})
 }
 
+// 向目标发送游戏消息
 func (s *Server) sendGameMessage(target *connection, msg protocol.GameMessage) bool {
 	msg.LevelChangeCount = target.levelChangeCount
 	frame, err := protocol.EncodeGameMessage(msg)

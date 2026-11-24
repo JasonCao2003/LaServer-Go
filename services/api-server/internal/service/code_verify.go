@@ -1,3 +1,5 @@
+// 邀请码校验
+
 package service
 
 import (
@@ -10,9 +12,12 @@ import (
 
 var inviteCodeFormat = regexp.MustCompile(`^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$`)
 
+// 构造邀请错误
 func inviteError(status int, message string) error {
 	return &Error{Status: status, Body: Object{"error": message, "result": "error"}}
 }
+
+// 校验邀请码
 func (a *Service) VerifyCode(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" {

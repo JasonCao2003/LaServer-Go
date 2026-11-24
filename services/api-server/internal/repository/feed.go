@@ -1,3 +1,5 @@
+// 社交动态数据访问
+
 package repository
 
 import (
@@ -27,17 +29,20 @@ type FeedExtra struct {
 
 const feedColumns = `id,user_id,social_feed_id,pool_type,pool_name,message,created_at,expire_at,likes_count,comments_count,report_count,hide_count,attempt_count,succeed_count,is_poisoned`
 
+// 扫描动态
 func scanFeed(scanner rowScanner) (FeedPost, error) {
 	var p FeedPost
 	err := scanner.Scan(&p.ID, &p.UserID, &p.SocialFeedID, &p.PoolType, &p.PoolName, &p.Message, &p.CreatedAt, &p.ExpireAt, &p.Likes, &p.Comments, &p.Reports, &p.Hides, &p.Attempts, &p.Succeeds, &p.Poisoned)
 	return p, err
 }
 
+// 创建动态
 func (s *Store) CreateFeed(ctx context.Context, p FeedPost) error {
 	_, err := s.ExecContext(ctx, `INSERT INTO social_feed_post(user_id,social_feed_id,pool_type,pool_name,message,created_at,expire_at,likes_count,comments_count,report_count,hide_count,attempt_count,succeed_count,is_poisoned) VALUES(?,?,?,?,?,?,?,0,0,0,0,0,0,0)`, p.UserID, p.SocialFeedID, p.PoolType, p.PoolName, p.Message, p.CreatedAt, p.ExpireAt)
 	return err
 }
 
+// 按 ID 获取动态
 func (s *Store) FeedByID(ctx context.Context, socialFeedID string) (FeedPost, bool, error) {
 	p, err := scanFeed(s.QueryRowContext(ctx, `SELECT `+feedColumns+` FROM social_feed_post WHERE social_feed_id=?`, socialFeedID))
 	if err == sql.ErrNoRows {
@@ -46,6 +51,7 @@ func (s *Store) FeedByID(ctx context.Context, socialFeedID string) (FeedPost, bo
 	return p, err == nil, err
 }
 
+// 处理动态
 func (s *Store) Feeds(ctx context.Context, poolTypes, poolNames []string, skip, limit int64, includeZeroExpiry bool, stamp int64) ([]FeedPost, int64, error) {
 	where := []string{}
 	args := []any{}
@@ -94,6 +100,7 @@ func (s *Store) Feeds(ctx context.Context, poolTypes, poolNames []string, skip, 
 	return out, total, rows.Err()
 }
 
+// 按 ID 列表获取动态
 func (s *Store) FeedsByIDs(ctx context.Context, ids []string) ([]FeedPost, error) {
 	if len(ids) == 0 {
 		return []FeedPost{}, nil
@@ -118,6 +125,7 @@ func (s *Store) FeedsByIDs(ctx context.Context, ids []string) ([]FeedPost, error
 	return out, rows.Err()
 }
 
+// 删除动态
 func (s *Store) DeleteFeed(ctx context.Context, socialFeedID string) (bool, error) {
 	tx, err := s.BeginTx(ctx, nil)
 	if err != nil {
@@ -144,16 +152,19 @@ func (s *Store) DeleteFeed(ctx context.Context, socialFeedID string) (bool, erro
 	return n > 0, nil
 }
 
+// 更新动态
 func (s *Store) UpdateFeed(ctx context.Context, id, message, poolType, poolName string, expireAt int64) error {
 	_, err := s.ExecContext(ctx, `UPDATE social_feed_post SET message=COALESCE(NULLIF(?,''),message),pool_type=COALESCE(NULLIF(?,''),pool_type),pool_name=COALESCE(NULLIF(?,''),pool_name),expire_at=? WHERE social_feed_id=?`, message, poolType, poolName, expireAt, id)
 	return err
 }
 
+// 更新动态计数
 func (s *Store) UpdateFeedCounters(ctx context.Context, id string, likes, hides int64) error {
 	_, err := s.ExecContext(ctx, `UPDATE social_feed_post SET likes_count=?,hide_count=? WHERE social_feed_id=?`, likes, hides, id)
 	return err
 }
 
+// 判断是否已点赞动态
 func (s *Store) FeedLikeExists(ctx context.Context, userID, socialFeedID string) (bool, error) {
 	var n int
 	err := s.QueryRowContext(ctx, `SELECT 1 FROM social_feed_like WHERE user_id=? AND social_feed_id=?`, userID, socialFeedID).Scan(&n)
@@ -163,16 +174,19 @@ func (s *Store) FeedLikeExists(ctx context.Context, userID, socialFeedID string)
 	return err == nil, err
 }
 
+// 新增动态点赞
 func (s *Store) AddFeedLike(ctx context.Context, userID, socialFeedID string, stamp int64) error {
 	_, err := s.ExecContext(ctx, `INSERT INTO social_feed_like(user_id,social_feed_id,created_at) VALUES(?,?,?) ON CONFLICT(user_id,social_feed_id) DO NOTHING`, userID, socialFeedID, stamp)
 	return err
 }
 
+// 移除动态点赞
 func (s *Store) RemoveFeedLike(ctx context.Context, userID, socialFeedID string) error {
 	_, err := s.ExecContext(ctx, `DELETE FROM social_feed_like WHERE user_id=? AND social_feed_id=?`, userID, socialFeedID)
 	return err
 }
 
+// 处理动态附加
 func (s *Store) FeedExtra(ctx context.Context, socialFeedID string) (FeedExtra, bool, error) {
 	var e FeedExtra
 	var tags sql.NullString
@@ -189,6 +203,7 @@ func (s *Store) FeedExtra(ctx context.Context, socialFeedID string) (FeedExtra, 
 	return e, true, nil
 }
 
+// 保存动态附加
 func (s *Store) SaveFeedExtra(ctx context.Context, e FeedExtra) error {
 	var tags any
 	if e.Tags != "" {
@@ -198,6 +213,7 @@ func (s *Store) SaveFeedExtra(ctx context.Context, e FeedExtra) error {
 	return err
 }
 
+// 读取资源对应的动态 ID
 func (s *Store) FeedIDForResource(ctx context.Context, resourceID string) (string, bool, error) {
 	var id string
 	err := s.QueryRowContext(ctx, `SELECT social_feed_id FROM social_feed_extra WHERE resource_id=? ORDER BY updated_at DESC LIMIT 1`, resourceID).Scan(&id)
@@ -207,6 +223,7 @@ func (s *Store) FeedIDForResource(ctx context.Context, resourceID string) (strin
 	return id, err == nil, err
 }
 
+// 读取动态对应的资源 ID
 func (s *Store) ResourceIDForFeed(ctx context.Context, socialFeedID string) (string, bool, error) {
 	var resource string
 	err := s.QueryRowContext(ctx, `SELECT resource_id FROM social_feed_extra WHERE social_feed_id=?`, feedKey(socialFeedID)).Scan(&resource)
@@ -216,6 +233,7 @@ func (s *Store) ResourceIDForFeed(ctx context.Context, socialFeedID string) (str
 	return resource, err == nil, err
 }
 
+// 生成动态键
 func feedKey(id string) string {
 	if index := strings.IndexByte(id, ':'); index >= 0 {
 		return id[:index]
@@ -223,6 +241,7 @@ func feedKey(id string) string {
 	return id
 }
 
+// 判断是否为好友
 func (s *Store) AreFriends(ctx context.Context, a, b string) (bool, error) {
 	var n int
 	err := s.QueryRowContext(ctx, `SELECT 1 FROM friendship WHERE status='active' AND ((user_id=? AND friend_id=?) OR (user_id=? AND friend_id=?)) LIMIT 1`, a, b, b, a).Scan(&n)
@@ -232,6 +251,7 @@ func (s *Store) AreFriends(ctx context.Context, a, b string) (bool, error) {
 	return err == nil, err
 }
 
+// 生成 SQL 占位符
 func placeholders(n int) string {
 	return strings.TrimSuffix(strings.Repeat("?,", n), ",")
 }

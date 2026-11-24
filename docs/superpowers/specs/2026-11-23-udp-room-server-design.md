@@ -2,7 +2,7 @@
 
 日期 2026-11-23 · 设计草案
 
-依据 [开发交接](../../room-server-handoff.md)、[Go 重构设计](2026-11-11-go-rewrite-design.md)及当前源码。本文定义开发边界、拟议接口和验收门槛。
+依据 [开发交接](../../archive/records/room-server-handoff.md)、[Go 重构设计](2026-11-11-go-rewrite-design.md)及当前源码。本文定义开发边界、拟议接口和验收门槛。
 
 ## 1. 范围与现状
 

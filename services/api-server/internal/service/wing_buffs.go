@@ -1,3 +1,5 @@
+// 光翼增益收集/存入/转换
+
 package service
 
 import (
@@ -12,7 +14,10 @@ import (
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
 )
 
+// 解析光翼接口用户
 func (a *Service) wingUser(r Request, m Object) (string, error) { return a.magicUser(r, m, true) }
+
+// 提取光翼名称
 func wingNames(m Object) []string {
 	result := []string{}
 	if raw, ok := m["names"].([]any); ok {
@@ -27,6 +32,8 @@ func wingNames(m Object) []string {
 	}
 	return result
 }
+
+// 解析存入掩码
 func depositMask(v any) int64 {
 	n, err := strconv.ParseUint(stringifyNumber(v), 10, 64)
 	if err != nil {
@@ -34,6 +41,8 @@ func depositMask(v any) int64 {
 	}
 	return int64(n & 0x7fffffffffffffff)
 }
+
+// 把数字转为字符串
 func stringifyNumber(v any) string {
 	switch n := v.(type) {
 	case json.Number:
@@ -43,6 +52,8 @@ func stringifyNumber(v any) string {
 	}
 	return ""
 }
+
+// 读取光翼数据
 func (a *Service) wingRows(r Request, uid string) ([]Object, error) {
 	rows, err := a.store.QueryContext(r.Context, repository.ReadWingBuffs, uid)
 	if err != nil {
@@ -61,6 +72,8 @@ func (a *Service) wingRows(r Request, uid string) ([]Object, error) {
 	}
 	return out, rows.Err()
 }
+
+// 读取完整光翼数据
 func (a *Service) fullWingRows() []Object {
 	if a.cfg.GameConfigDir == "" {
 		return nil
@@ -79,6 +92,8 @@ func (a *Service) fullWingRows() []Object {
 	}
 	return envelope.WingBuffs
 }
+
+// 获取光翼增益
 func (a *Service) GetWingBuffs(r Request, m Object) (Object, error) {
 	uid, err := a.wingUser(r, m)
 	if err != nil {
@@ -119,12 +134,18 @@ func (a *Service) GetWingBuffs(r Request, m Object) (Object, error) {
 	}
 	return Object{"result": "ok", "wing_buffs": out}, nil
 }
+
+// 收集光翼增益
 func (a *Service) CollectWingBuffs(r Request, m Object) (Object, error) {
 	return a.wingChange(r, m, true)
 }
+
+// 丢弃光翼增益
 func (a *Service) DropWingBuffs(r Request, m Object) (Object, error) {
 	return a.wingChange(r, m, false)
 }
+
+// 变更光翼数据
 func (a *Service) wingChange(r Request, m Object, collect bool) (Object, error) {
 	uid, err := a.wingUser(r, m)
 	if err != nil {
@@ -158,6 +179,8 @@ func (a *Service) wingChange(r Request, m Object, collect bool) (Object, error) 
 	}
 	return Object{"result": "ok", "update_wing_buffs": updates}, nil
 }
+
+// 存入光翼增益
 func (a *Service) DepositWingBuffs(r Request, m Object) (Object, error) {
 	uid, err := a.wingUser(r, m)
 	if err != nil {
@@ -193,6 +216,8 @@ func (a *Service) DepositWingBuffs(r Request, m Object) (Object, error) {
 	}
 	return Object{"result": "ok", "update_wing_buffs": updates}, nil
 }
+
+// 转换光翼增益
 func (a *Service) ConvertWingBuffs(r Request, m Object) (Object, error) {
 	uid, err := a.wingUser(r, m)
 	if err != nil {

@@ -1,3 +1,5 @@
+// 进房消息编码测试
+
 package protocol
 
 import (

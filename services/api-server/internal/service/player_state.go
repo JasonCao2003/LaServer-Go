@@ -1,3 +1,5 @@
+// 玩家锻造、装扮、问卷与成就统计
+
 package service
 
 import (
@@ -17,6 +19,7 @@ var defaultForgeRates = []Object{
 	{"source_type": "color_black_wax", "current_tier": 2, "current_level": 1, "tier_completion": 0.0, "level_completion": 0.0, "level_tier_index": 0, "level_tier_count": 1, "reset_acknowledged": false, "enabled": true},
 }
 
+// 读取锻造概率
 func (a *Service) ForgeRates(r Request, m Object) (Object, error) {
 	userID := text(m, "user")
 	if userID == "" {
@@ -36,6 +39,7 @@ func (a *Service) ForgeRates(r Request, m Object) (Object, error) {
 	return Object{"forge_rates": out}, nil
 }
 
+// 获取装扮
 func (a *Service) Outfit(r Request, m Object) (Object, error) {
 	userID := text(m, "user")
 	if userID == "" {
@@ -61,6 +65,7 @@ func (a *Service) Outfit(r Request, m Object) (Object, error) {
 	return result, nil
 }
 
+// 获取问卷
 func (a *Service) Questionnaires(r Request, m Object) (Object, error) {
 	if text(m, "user") == "" || text(m, "session") == "" {
 		return nil, &Error{Status: 400, Body: Object{"result": "missing_parameters"}}
@@ -75,6 +80,7 @@ func (a *Service) Questionnaires(r Request, m Object) (Object, error) {
 	return Object{"result": "ok"}, nil
 }
 
+// 读取成就统计
 func (a *Service) AchievementStats(r Request, m Object) (Object, error) {
 	u, err := a.authenticated(r, m)
 	if err != nil {
@@ -91,6 +97,7 @@ func (a *Service) AchievementStats(r Request, m Object) (Object, error) {
 	return Object{"achievement_stats": out}, nil
 }
 
+// 获取成就统计跟踪
 func (a *Service) AchievementStatsTracking(_ Request, m Object) (Object, error) {
 	if err := require(m, "user"); err != nil {
 		return nil, err
@@ -98,6 +105,7 @@ func (a *Service) AchievementStatsTracking(_ Request, m Object) (Object, error) 
 	return Object{"achievement_stats": []Object{{"type": "visit_night_vase_count", "value": int64(40000000000), "update": int64(1692419146)}}}, nil
 }
 
+// 获取活动货币定义
 func (a *Service) EventCurrencyDefinitions(_ Request, m Object) (Object, error) {
 	if err := require(m, "user"); err != nil {
 		return nil, err
@@ -109,6 +117,7 @@ func (a *Service) EventCurrencyDefinitions(_ Request, m Object) (Object, error) 
 	return result, nil
 }
 
+// 获取关系能力定义
 func (a *Service) RelationshipDefinitions(r Request, m Object) (Object, error) {
 	if err := require(m, "user"); err != nil {
 		return nil, err

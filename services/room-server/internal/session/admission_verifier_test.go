@@ -1,3 +1,5 @@
+// 进房准入校验测试
+
 package session
 
 import (

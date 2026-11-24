@@ -37,7 +37,7 @@ sh scripts/verify/api-server.sh
 
 检查进程退出码和日志中的失败事件。`go test -json` 的 `pass` 事件包含包和子测试，不能直接当作通过的路由数。定向重跑使用 `go test ./internal/handler -run '^Test名称$' -count=1`；修改业务逻辑后再跑完整 `go test ./...`。`go vet` 与 `go build` 是静态检查，不代替接口请求。
 
-已有自动化覆盖：A 批基础、资源与状态，B 批 36 条直接 HTTP 入口及部分交易和任务闭环，C 批好友、消息、内容、留影与 UGC，D 批舞台与管理。所有批次的逐分支矩阵仍未完成。B 批入口测试见 `internal/handler/batch_b_routes_test.go`，完整来源及测试引用见[路由台账](api-route-verification.md)。
+已有自动化覆盖：A 批基础、资源与状态，B 批 36 条直接 HTTP 入口及部分交易和任务闭环，C 批好友、消息、内容、留影与 UGC，D 批舞台与管理。所有批次的逐分支矩阵仍未完成。B 批入口测试见 `internal/handler/transaction_routes_test.go`，完整来源及测试引用见[路由台账](api-route-verification.md)。
 
 ## 运行实例冒烟
 

@@ -1,3 +1,5 @@
+// 购买蜡烛蜡/锻造资源
+
 package service
 
 import (
@@ -8,6 +10,7 @@ import (
 var forgeTargets = map[string][2]string{"wax": {"wax", "candles"}, "heart_wax": {"heart_wax", "heart"}, "season_wax": {"season_wax", "season_candle"}, "season_wax_14": {"season_wax_14", "season_heart"}, "prestige_wax": {"prestige_wax", "prestige"}, "prestige_vip": {"prestige_vip", "prestige"}}
 var forgeSourceHints = map[string]string{"candles": "wax", "candle": "wax", "heart": "heart_wax", "season_candle": "season_wax", "season_candles": "season_wax", "season_heart": "season_wax_14", "prestige": "prestige_wax"}
 
+// 解析锻造资源来源
 func forgeSource(m Object) string {
 	for _, key := range []string{"forge_currency", "source_type", "source", "forge_type", "forge_source", "wax_type", "wax", "currency", "currency_type", "type", "kind", "item_type", "resource", "target"} {
 		value := strings.ToLower(text(m, key))
@@ -20,6 +23,8 @@ func forgeSource(m Object) string {
 	}
 	return "wax"
 }
+
+// 购买蜡烛蜡
 func (a *Service) BuyCandleWax(r Request, m Object) (Object, error) {
 	failed := func(message string) Object {
 		return Object{"result": "error", "message": message, "currency": Object{}, "update_forge_rates": []Object{}}

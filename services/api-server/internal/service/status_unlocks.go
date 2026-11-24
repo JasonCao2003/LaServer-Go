@@ -1,3 +1,5 @@
+// 状态解锁与染料移除
+
 package service
 
 import (
@@ -11,6 +13,7 @@ import (
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
 )
 
+// 读取状态解锁配置
 func (a *Service) statusConfig(filename string, key string) []Object {
 	if a.cfg.GameConfigDir == "" {
 		return nil
@@ -33,6 +36,8 @@ func (a *Service) statusConfig(filename string, key string) []Object {
 	}
 	return nil
 }
+
+// 获取状态解锁
 func (a *Service) StatusUnlocks(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" {
@@ -134,6 +139,8 @@ func (a *Service) StatusUnlocks(r Request, m Object) (Object, error) {
 	}
 	return Object{"status_unlocks": out, "status_unlocks_total_count": len(out)}, nil
 }
+
+// 新增状态解锁
 func (a *Service) AddStatusUnlock(r Request, m Object) (Object, error) {
 	if err := require(m, "user", "session", "name", "ack"); err != nil {
 		return nil, err
@@ -183,6 +190,8 @@ func (a *Service) AddStatusUnlock(r Request, m Object) (Object, error) {
 	}
 	return response, nil
 }
+
+// 删除状态解锁
 func (a *Service) DeleteStatusUnlock(r Request, m Object) (Object, error) {
 	if err := require(m, "user", "session", "name"); err != nil {
 		return nil, err
@@ -211,6 +220,8 @@ func (a *Service) DeleteStatusUnlock(r Request, m Object) (Object, error) {
 	}
 	return Object{"result": "ok", "delete_status_unlocks": []string{name}}, nil
 }
+
+// 移除染料
 func (a *Service) RemoveDye(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, true)
 	if err != nil {
@@ -228,6 +239,7 @@ func (a *Service) RemoveDye(r Request, m Object) (Object, error) {
 	return Object{"status": "OK", "result": "ok"}, nil
 }
 
+// 收集收集品
 func (a *Service) CollectCollectible(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, true)
 	if err != nil {
@@ -279,4 +291,6 @@ func (a *Service) CollectCollectible(r Request, m Object) (Object, error) {
 	}
 	return Object{"collectibles": out}, rows.Err()
 }
+
+// 确认收集品
 func (a *Service) AckCollectible(_ Request, _ Object) (Object, error) { return Object{}, nil }

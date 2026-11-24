@@ -1,3 +1,5 @@
+// 游戏消息编解码测试
+
 package protocol
 
 import (

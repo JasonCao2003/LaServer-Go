@@ -1,3 +1,5 @@
+// 留影录制上传与读取
+
 package service
 
 import (
@@ -21,10 +23,12 @@ type UGCResponse struct {
 	Body    []byte
 }
 
+// 返回留影目录
 func (a *Service) recordingDir() string {
 	return filepath.Join(a.cfg.InstanceDir, "recordings")
 }
 
+// 规范化留影 ID
 func safeRecordingID(id string) string {
 	out := recordingSafeRE.ReplaceAllString(id, "")
 	if len(out) > 128 {
@@ -33,19 +37,23 @@ func safeRecordingID(id string) string {
 	return out
 }
 
+// 生成留影 ID
 func newRecordingID(seed string) string {
-	sum := sha1.Sum([]byte(fmt.Sprintf("%s|%d|%d", seed, time.Now().UnixNano(), len(seed))))
+	sum := sha1.Sum(fmt.Appendf(nil, "%s|%d|%d", seed, time.Now().UnixNano(), len(seed)))
 	return hex.EncodeToString(sum[:])[:24]
 }
 
+// 返回留影元数据路径
 func (a *Service) recordingMetaPath(rid string) string {
 	return filepath.Join(a.recordingDir(), safeRecordingID(rid)+".json")
 }
 
+// 返回留影数据路径
 func (a *Service) recordingDataPath(rid string) string {
 	return filepath.Join(a.recordingDir(), safeRecordingID(rid)+".ndjson")
 }
 
+// 读取留影元数据
 func (a *Service) loadRecordingMeta(rid string) (map[string]any, bool) {
 	raw, err := os.ReadFile(a.recordingMetaPath(rid))
 	if err != nil {
@@ -58,6 +66,7 @@ func (a *Service) loadRecordingMeta(rid string) (map[string]any, bool) {
 	return meta, true
 }
 
+// 保存留影元数据
 func (a *Service) saveRecordingMeta(rid string, meta map[string]any) bool {
 	if safeRecordingID(rid) == "" {
 		return false
@@ -77,6 +86,7 @@ func (a *Service) saveRecordingMeta(rid string, meta map[string]any) bool {
 	return os.Rename(tmp, path) == nil
 }
 
+// 解析留影作者
 func recordingAuthor(m Object) string {
 	uid := text(m, "user")
 	claimed := text(m, "user_id")
@@ -99,6 +109,7 @@ func recordingAuthor(m Object) string {
 	return uid
 }
 
+// 解析留影名称
 func recordingName(m Object) string {
 	if name := text(m, "name"); name != "" {
 		return name
@@ -109,6 +120,7 @@ func recordingName(m Object) string {
 	return text(m, "message")
 }
 
+// 解析留影数据
 func recordingData(m Object) map[string]any {
 	switch x := m["recording_data"].(type) {
 	case map[string]any:
@@ -122,6 +134,7 @@ func recordingData(m Object) map[string]any {
 	return map[string]any{}
 }
 
+// 选取留影 ID
 func pickRecordingID(m Object, keys ...string) string {
 	for _, key := range keys {
 		if s := text(m, key); strings.TrimSpace(s) != "" {
@@ -139,6 +152,7 @@ func pickRecordingID(m Object, keys ...string) string {
 	return ""
 }
 
+// 返回留影链接前缀
 func (a *Service) recordingLinkBase(r Request) string {
 	proto := firstHeaderValue(r.Header.Get("X-Forwarded-Proto"))
 	if proto == "" {
@@ -154,6 +168,7 @@ func (a *Service) recordingLinkBase(r Request) string {
 	return strings.TrimRight(proto+"://"+host, "/")
 }
 
+// 读取首个请求头值
 func firstHeaderValue(v string) string {
 	if index := strings.IndexByte(v, ','); index >= 0 {
 		v = v[:index]
@@ -161,6 +176,7 @@ func firstHeaderValue(v string) string {
 	return strings.TrimSpace(v)
 }
 
+// 构造留影链接
 func (a *Service) recordingLink(r Request, rid, author string) string {
 	if author == "" {
 		author = "_"
@@ -168,6 +184,7 @@ func (a *Service) recordingLink(r Request, rid, author string) string {
 	return a.recordingLinkBase(r) + "/ugc/" + author + "/" + safeRecordingID(rid) + ".ndjson"
 }
 
+// 构造留影成功响应
 func (a *Service) recordingOKPayload(r Request, rid string, meta map[string]any) Object {
 	seek := meta["seek_table"]
 	if seek == nil {
@@ -177,6 +194,7 @@ func (a *Service) recordingOKPayload(r Request, rid string, meta map[string]any)
 	return Object{"status": "OK", "recording_id": meta["recording_id"], "link": a.recordingLink(r, rid, author), "seek_table": seek}
 }
 
+// 创建留影（v1）
 func (a *Service) RecordingCreateV1(r Request, m Object) (Object, error) {
 	uid, err := a.questUser(r, m)
 	if err != nil {
@@ -201,6 +219,7 @@ func (a *Service) RecordingCreateV1(r Request, m Object) (Object, error) {
 	return Object{"status": "OK", "recording_id": rid}, nil
 }
 
+// 按 ID 查找留影
 func (a *Service) findRecordingForID(r Request, rid string) (map[string]any, string) {
 	meta, found := a.loadRecordingMeta(rid)
 	if found {
@@ -222,6 +241,7 @@ func (a *Service) findRecordingForID(r Request, rid string) (map[string]any, str
 	return nil, rid
 }
 
+// 获取留影（v1）
 func (a *Service) RecordingGetV1(r Request, m Object) (Object, error) {
 	rid := pickRecordingID(m, "recording_id", "resource_id", "id", "recording")
 	meta, _ := a.findRecordingForID(r, rid)
@@ -264,6 +284,7 @@ func (a *Service) RecordingGetV1(r Request, m Object) (Object, error) {
 	return Object{"level_id": meta["level_id"], "recording_data": meta["recording_data"], "recording_id": meta["recording_id"], "status": "OK", "user_id": meta["user_id"]}, nil
 }
 
+// 创建留影（v2）
 func (a *Service) RecordingCreateV2(r Request, m Object) (Object, error) {
 	uid, err := a.questUser(r, m)
 	if err != nil {
@@ -321,6 +342,7 @@ func (a *Service) RecordingCreateV2(r Request, m Object) (Object, error) {
 	return a.recordingOKPayload(r, rid, meta), nil
 }
 
+// 更新留影（v2）
 func (a *Service) RecordingUpdateV2(r Request, m Object) (Object, error) {
 	uid, err := a.questUser(r, m)
 	if err != nil {
@@ -402,6 +424,7 @@ func (a *Service) RecordingUpdateV2(r Request, m Object) (Object, error) {
 	return a.recordingOKPayload(r, rid, meta), nil
 }
 
+// 获取留影（v2）
 func (a *Service) RecordingGetV2(r Request, m Object) (Object, error) {
 	rid := pickRecordingID(m, "recording_id", "resource_id", "id", "recording")
 	meta, resolved := a.findRecordingForID(r, rid)
@@ -428,10 +451,11 @@ func (a *Service) RecordingGetV2(r Request, m Object) (Object, error) {
 			}
 		}
 	}
-	recmID := sha1.Sum([]byte(fmt.Sprint(meta["recording_id"])))
+	recmID := sha1.Sum(fmt.Append(nil, meta["recording_id"]))
 	return Object{"MongoID": hex.EncodeToString(recmID[:])[:24], "status": "OK", "recording_id": meta["recording_id"], "seek_table": table, "link": a.recordingLink(r, fmt.Sprint(meta["recording_id"]), fmt.Sprint(meta["user_id"])), "user_id": meta["user_id"], "level_id": meta["level_id"]}, nil
 }
 
+// 解析 Range 请求头
 func parseRange(header string, total int64) (int64, int64, bool, bool) {
 	if header == "" {
 		return 0, total - 1, false, true
@@ -481,6 +505,7 @@ func parseRange(header string, total int64) (int64, int64, bool, bool) {
 	return start, end, true, true
 }
 
+// 提供UGC
 func (a *Service) ServeUGC(subpath, rangeHeader string) UGCResponse {
 	for _, part := range strings.Split(subpath, "/") {
 		if part == "" || part == "." || part == ".." || strings.Contains(part, `\`) || safeRecordingID(part) != part {

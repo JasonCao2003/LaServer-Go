@@ -1,3 +1,5 @@
+// 好友列表与好友状态接口测试
+
 package handler
 
 import (

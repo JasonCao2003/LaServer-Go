@@ -1,3 +1,5 @@
+// 关系数据访问
+
 package repository
 
 import (
@@ -8,6 +10,7 @@ import (
 	"time"
 )
 
+// 返回当前时间戳
 func nowEpoch() int64 { return time.Now().Unix() }
 
 const defaultFriendAbilities = "[1,2,9,10,19]"
@@ -33,12 +36,14 @@ const relationFields = `fs.friend_id,COALESCE(fs.nickname,''),COALESCE(fs.abilit
 
 const relationSelect = `SELECT ` + relationFields + ` FROM friend_status fs LEFT JOIN friendship f ON f.user_id=fs.user_id AND f.friend_id=fs.friend_id LEFT JOIN friendship r ON r.user_id=fs.friend_id AND r.friend_id=fs.user_id`
 
+// 扫描关系
 func scanRelation(scanner rowScanner) (RelationEntry, error) {
 	var e RelationEntry
 	err := scanner.Scan(&e.ID, &e.Nickname, &e.Abilities, &e.Hints, &e.Given, &e.Received, &e.Level, &e.WhenCreated, &e.Badge, &e.SelfBlocked, &e.TheyBlocked, &e.Removed, &e.LocalDeleted)
 	return e, err
 }
 
+// 处理关系
 func (s *Store) Relation(ctx context.Context, userID, friendID string) (RelationEntry, bool, error) {
 	e, err := scanRelation(s.QueryRowContext(ctx, Statement(relationSelect+` WHERE fs.user_id=? AND fs.friend_id=?`), userID, friendID))
 	if err == sql.ErrNoRows {
@@ -50,6 +55,7 @@ func (s *Store) Relation(ctx context.Context, userID, friendID string) (Relation
 	return e, true, nil
 }
 
+// 处理拉黑好友
 func (s *Store) BlockedFriends(ctx context.Context, userID string, limit, offset int64) ([]CandidateFriend, int64, error) {
 	var total int64
 	if err := s.QueryRowContext(ctx, `SELECT count(*) FROM friendship WHERE user_id=? AND status='blocked'`, userID).Scan(&total); err != nil {
@@ -71,8 +77,7 @@ func (s *Store) BlockedFriends(ctx context.Context, userID string, limit, offset
 	return out, total, rows.Err()
 }
 
-// ensureOneRelationship creates the owner-scoped friendship and status rows in
-// one direction. A blocked or removed row is never promoted to active.
+// 确保单个关系
 func ensureOneRelationship(ctx context.Context, tx *Tx, owner, friend string, stamp int64) error {
 	if _, err := tx.ExecContext(ctx, `INSERT INTO friendship(user_id,friend_id,status) VALUES(?,?,'active') ON CONFLICT(user_id,friend_id) DO UPDATE SET status='active',updated_at=CURRENT_TIMESTAMP WHERE friendship.status='pending'`, owner, friend); err != nil {
 		return err
@@ -81,6 +86,7 @@ func ensureOneRelationship(ctx context.Context, tx *Tx, owner, friend string, st
 	return err
 }
 
+// 新增提示
 func addHints(raw string) []int64 {
 	var values []json.RawMessage
 	if json.Unmarshal([]byte(raw), &values) != nil {
@@ -101,6 +107,7 @@ func addHints(raw string) []int64 {
 	return out
 }
 
+// 保存好友名称
 func (s *Store) SaveFriendName(ctx context.Context, userID, friendID, name string) (RelationEntry, bool, error) {
 	exists, err := s.HasUser(ctx, friendID)
 	if err != nil || !exists {
@@ -142,6 +149,7 @@ func (s *Store) SaveFriendName(ctx context.Context, userID, friendID, name strin
 	return e, found, err
 }
 
+// 保存好友拉黑
 func (s *Store) SaveFriendBlock(ctx context.Context, userID, friendID string, blocked bool) (RelationEntry, bool, error) {
 	exists, err := s.HasUser(ctx, friendID)
 	if err != nil || !exists {
@@ -166,6 +174,7 @@ func (s *Store) SaveFriendBlock(ctx context.Context, userID, friendID string, bl
 	return e, found, err
 }
 
+// 移除好友提示
 func (s *Store) RemoveFriendHint(ctx context.Context, userID, friendID string, hint int64) (RelationEntry, bool, error) {
 	e, found, err := s.Relation(ctx, userID, friendID)
 	if err != nil || !found {
@@ -199,6 +208,7 @@ type ExternalFriendRecord struct {
 	ConnectedAt                           sql.NullInt64
 }
 
+// 读取外部好友
 func (s *Store) ExternalFriends(ctx context.Context, userID string, limit int64) ([]ExternalFriendRecord, error) {
 	rows, err := s.QueryContext(ctx, `SELECT external_account_id,external_platform,friend_nickname,friend_user_id,friend_avatar,COALESCE(is_connected,0),connected_at FROM external_account_friend WHERE user_id=? LIMIT ?`, userID, limit)
 	if err != nil {
@@ -224,6 +234,7 @@ type SerendipityRecord struct {
 	ExpiresAt                        sql.NullInt64
 }
 
+// 读取缘分匹配
 func (s *Store) SerendipityMatches(ctx context.Context, userID string, limit, stamp int64) ([]SerendipityRecord, error) {
 	rows, err := s.QueryContext(ctx, `SELECT sm.id,sm.matched_user_id,sm.match_type,COALESCE(sm.match_score,0),sm.matched_at,COALESCE(sm.status,'active'),sm.expires_at FROM serendipity_match sm JOIN user u ON u.id=sm.matched_user_id WHERE sm.user_id=? AND sm.status='active' AND (sm.expires_at IS NULL OR sm.expires_at>?) ORDER BY sm.match_score DESC,sm.id LIMIT ?`, userID, stamp, limit)
 	if err != nil {
@@ -249,6 +260,7 @@ type StarTagLink struct {
 	LinkedAt            int64
 }
 
+// 获取星标标签
 func (s *Store) StarTags(ctx context.Context, userID string) ([]StarTagDefinition, []StarTagLink, error) {
 	rows, err := s.QueryContext(ctx, `SELECT name,sku,COALESCE(part,''),consumable_name,COALESCE(group_name,''),COALESCE(batches,''),COALESCE(can_link_with,'') FROM star_tag_def ORDER BY id`)
 	if err != nil {
@@ -291,6 +303,7 @@ type ServerAssignment struct {
 	PlatformFilter            int64
 }
 
+// 读取最新服务器分配
 func (s *Store) LatestAssignment(ctx context.Context, userID string) (ServerAssignment, bool, error) {
 	var a ServerAssignment
 	err := s.QueryRowContext(ctx, `SELECT server_uri,move_ts,signature,sig,COALESCE(ps_only,0),COALESCE(platform_filter,0) FROM server_assignment WHERE user_id=? ORDER BY move_ts DESC,id DESC LIMIT 1`, userID).Scan(&a.ServerURI, &a.MoveTS, &a.Signature, &a.Sig, &a.PSOnly, &a.PlatformFilter)
@@ -300,12 +313,13 @@ func (s *Store) LatestAssignment(ctx context.Context, userID string) (ServerAssi
 	return a, err == nil, err
 }
 
-// AssignServer records the room a player was last sent to so friends can join.
+// 分配服务器
 func (s *Store) AssignServer(ctx context.Context, userID string, a ServerAssignment) error {
 	_, err := s.ExecContext(ctx, `INSERT INTO server_assignment(user_id,server_uri,move_ts,signature,sig,ps_only,platform_filter) VALUES(?,?,?,?,?,?,?)`, userID, a.ServerURI, a.MoveTS, a.Signature, a.Sig, a.PSOnly, a.PlatformFilter)
 	return err
 }
 
+// 保存加入分配
 func (s *Store) SaveJoinAssignment(ctx context.Context, userID string, a ServerAssignment, friendID string) error {
 	tx, err := s.BeginTx(ctx, nil)
 	if err != nil {
@@ -326,7 +340,7 @@ type ConstellationItem struct {
 	Node     int64
 }
 
-// SaveConstellationPages replaces only the page indexes present in pages.
+// 保存星座页面
 func (s *Store) SaveConstellationPages(ctx context.Context, userID string, pages [][]ConstellationItem) error {
 	tx, err := s.BeginTx(ctx, nil)
 	if err != nil {
@@ -346,17 +360,20 @@ func (s *Store) SaveConstellationPages(ctx context.Context, userID string, pages
 	return tx.Commit()
 }
 
+// 统计关注者数量
 func (s *Store) FollowerCount(ctx context.Context, userID string) (int64, error) {
 	var count int64
 	err := s.QueryRowContext(ctx, `SELECT count(*) FROM follow_relationship WHERE following_id=? AND status='active'`, userID).Scan(&count)
 	return count, err
 }
 
+// 写入船关注
 func (s *Store) UpsertBoatFollow(ctx context.Context, userID, creator, nickname, lastModified string) error {
 	_, err := s.ExecContext(ctx, `INSERT INTO boat_follow(user_id,creator,nickname,last_modified) VALUES(?,?,?,?) ON CONFLICT(user_id,creator) DO UPDATE SET nickname=excluded.nickname,last_modified=excluded.last_modified`, userID, creator, nickname, lastModified)
 	return err
 }
 
+// 删除船关注
 func (s *Store) DeleteBoatFollow(ctx context.Context, userID, creator string) (int64, error) {
 	result, err := s.ExecContext(ctx, `DELETE FROM boat_follow WHERE user_id=? AND creator=?`, userID, creator)
 	if err != nil {
@@ -365,7 +382,7 @@ func (s *Store) DeleteBoatFollow(ctx context.Context, userID, creator string) (i
 	return result.RowsAffected()
 }
 
-// cleanCreator mirrors the legacy split(":")[0] behavior for creator ids.
+// 清理创建者 ID
 func CleanCreator(creator string) string {
 	if index := strings.IndexByte(creator, ':'); index >= 0 {
 		return creator[:index]

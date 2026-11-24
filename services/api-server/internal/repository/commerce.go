@@ -1,3 +1,5 @@
+// 商城订单与商品数据访问
+
 package repository
 
 import (
@@ -7,12 +9,15 @@ import (
 
 var spendableCurrency = map[string]bool{"candles": true, "heart": true, "heart_wax": true, "prestige": true, "prestige_vip": true, "prestige_wax": true, "season_candle": true, "season_wax": true, "season_wax_14": true, "season_heart": true, "season_pass_token": true, "vip": true, "wax": true}
 
+// 构造读取货币的 SQL 语句
 func CurrencyRead(field string) Statement {
 	if !spendableCurrency[field] {
 		panic("invalid currency field")
 	}
 	return Statement(`SELECT COALESCE(` + field + `,0) FROM user_currency WHERE user_id=?`)
 }
+
+// 扣减货币
 func (t *Tx) SpendCurrency(ctx context.Context, uid, field string, amount int64) (bool, error) {
 	if !spendableCurrency[field] || amount < 0 {
 		return false, sql.ErrNoRows
@@ -28,6 +33,8 @@ func (t *Tx) SpendCurrency(ctx context.Context, uid, field string, amount int64)
 	n, err := result.RowsAffected()
 	return n == 1, err
 }
+
+// 发放货币
 func (t *Tx) GrantCurrency(ctx context.Context, uid, field string, amount int64) error {
 	if !spendableCurrency[field] || amount < 0 {
 		return sql.ErrNoRows

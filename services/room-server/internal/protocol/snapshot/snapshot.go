@@ -1,3 +1,5 @@
+// 快照帧解析、读写与历史管理
+
 package snapshot
 
 import (
@@ -22,6 +24,7 @@ type Frame struct {
 	Payload  []byte
 }
 
+// 解析快照帧
 func Parse(data []byte) (Frame, error) {
 	if len(data) < HeaderSize {
 		return Frame{}, errors.New("truncated snapshot header")
@@ -29,6 +32,7 @@ func Parse(data []byte) (Frame, error) {
 	return Frame{Sequence: data[0], Base: data[1], Checksum: data[2], Payload: data[HeaderSize:]}, nil
 }
 
+// 返回快照帧字节
 func (f Frame) Bytes() []byte {
 	data := make([]byte, HeaderSize+len(f.Payload))
 	data[0], data[1], data[2] = f.Sequence, f.Base, f.Checksum
@@ -48,9 +52,10 @@ type Reader struct {
 	resyncing bool
 }
 
+// 返回已读到的最新序号
 func (r *Reader) LatestSequence() uint8 { return r.latest }
 
-// Read returns a read-only snapshot that may also serve as a later baseline.
+// 读取并应用快照帧
 func (r *Reader) Read(frame Frame) ([]byte, error) {
 	if len(frame.Payload) > MaxDataBytes || checksum(frame.Payload) != frame.Checksum {
 		return nil, errors.New("invalid snapshot size or checksum")
@@ -94,6 +99,7 @@ type Writer struct {
 	synced   bool
 }
 
+// 写入快照数据并返回帧
 func (w *Writer) Write(data []byte) (Frame, error) {
 	if len(data) > MaxDataBytes {
 		return Frame{}, errors.New("snapshot exceeds the legacy size limit")
@@ -134,6 +140,7 @@ func (w *Writer) Write(data []byte) (Frame, error) {
 	return frame, nil
 }
 
+// 记录对端确认序号
 func (w *Writer) Ack(sequence uint8) {
 	if index := findKeyframe(w.history, sequence); index >= 0 {
 		w.discardBefore(index)
@@ -141,12 +148,14 @@ func (w *Writer) Ack(sequence uint8) {
 	}
 }
 
+// 丢弃指定序号前的历史
 func (w *Writer) discardBefore(index int) {
 	remaining := copy(w.history, w.history[index:])
 	clear(w.history[remaining:])
 	w.history = w.history[:remaining]
 }
 
+// 分配下一个快照序号
 func (w *Writer) allocateSequence() uint8 {
 	if w.sequence == 0 {
 		w.sequence = 1
@@ -158,6 +167,7 @@ func (w *Writer) allocateSequence() uint8 {
 	return w.sequence
 }
 
+// 查找可用的关键帧
 func findKeyframe(history []keyframe, sequence uint8) int {
 	for i := len(history) - 1; i >= 0; i-- {
 		if history[i].sequence == sequence {
@@ -167,6 +177,7 @@ func findKeyframe(history []keyframe, sequence uint8) int {
 	return -1
 }
 
+// 记录快照关键帧历史
 func remember(history []keyframe, snapshot keyframe) []keyframe {
 	if len(history) < historySize {
 		return append(history, snapshot)
@@ -176,6 +187,7 @@ func remember(history []keyframe, snapshot keyframe) []keyframe {
 	return history
 }
 
+// 计算快照校验和
 func checksum(data []byte) uint8 {
 	hash := uint8(197)
 	for _, value := range data {

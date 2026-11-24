@@ -1,5 +1,7 @@
 //go:build windows && amd64
 
+// Windows 原生传输实现
+
 package transport
 
 import (
@@ -39,6 +41,7 @@ type Native struct {
 	buffer     []byte
 }
 
+// 打开原生 UDP 传输
 func OpenNative(path string, addr netip.AddrPort, maxPeers, maxFrame int) (*Native, error) {
 	if !filepath.IsAbs(path) {
 		return nil, errors.New("SkyENet bridge path must be absolute")
@@ -63,6 +66,7 @@ func OpenNative(path string, addr netip.AddrPort, maxPeers, maxFrame int) (*Nati
 	return host, nil
 }
 
+// 打开 Windows 网桥传输
 func openBridge(dll *syscall.DLL, addr netip.AddrPort, maxPeers, maxFrame int) (*Native, error) {
 	host := &Native{dll: dll}
 	var abi, open *syscall.Proc
@@ -98,6 +102,7 @@ func openBridge(dll *syscall.DLL, addr netip.AddrPort, maxPeers, maxFrame int) (
 	return host, nil
 }
 
+// 轮询传输事件
 func (host *Native) Poll(timeout time.Duration) (Event, bool, error) {
 	if host.handle == 0 {
 		return Event{}, false, errors.New("SkyENet host is closed")
@@ -130,6 +135,7 @@ func (host *Native) Poll(timeout time.Duration) (Event, bool, error) {
 	}
 }
 
+// 发送数据到指定连接
 func (host *Native) Send(peer uint64, channel uint8, reliable bool, data []byte) error {
 	if host.handle == 0 {
 		return errors.New("SkyENet host is closed")
@@ -147,12 +153,14 @@ func (host *Native) Send(peer uint64, channel uint8, reliable bool, data []byte)
 	return nil
 }
 
+// 断开指定连接
 func (host *Native) Disconnect(peer uint64, code uint32) {
 	if host.handle != 0 {
 		host.disconnect.Call(host.handle, uintptr(peer), uintptr(code))
 	}
 }
 
+// 关闭传输资源
 func (host *Native) Close() error {
 	if host.handle == 0 {
 		return nil

@@ -1,3 +1,5 @@
+// 活动增益购买
+
 package service
 
 import (
@@ -5,6 +7,7 @@ import (
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
 )
 
+// 购买活动增益
 func (a *Service) PurchaseEventBuff(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" {

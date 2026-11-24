@@ -1,3 +1,5 @@
+// 收据与履约交易处理
+
 package service
 
 import (
@@ -7,9 +9,12 @@ import (
 	"strings"
 )
 
+// 构造交易失败错误
 func commerceFailure(status int, result string) error {
 	return &Error{Status: status, Body: Object{"errorcode": 1, "result": result}}
 }
+
+// 取首个非空文本字段
 func firstText(m Object, keys ...string) string {
 	for _, key := range keys {
 		if value := text(m, key); value != "" {
@@ -18,6 +23,8 @@ func firstText(m Object, keys ...string) string {
 	}
 	return ""
 }
+
+// 规范化交易货币字段
 func commerceCurrencyField(raw string) string {
 	switch raw {
 	case "hearts":
@@ -33,6 +40,8 @@ func commerceCurrencyField(raw string) string {
 	}
 	return raw
 }
+
+// 处理交易收据
 func (a *Service) CommerceReceipt(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, true)
 	if err != nil {
@@ -157,6 +166,8 @@ func (a *Service) CommerceReceipt(r Request, m Object) (Object, error) {
 	item := Object{"product_id": pid, "transaction_id": tid, "result": "ok", "status": "simulated", "duplicate": duplicate, "granted": granted}
 	return Object{"errorcode": 0, "result": "ok", "status": "simulated", "transactions": []Object{item}, "verified": []Object{}, "granted": granted, "currency": currency}, nil
 }
+
+// 处理交易履约
 func (a *Service) CommerceFulfill(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, true)
 	if err != nil {

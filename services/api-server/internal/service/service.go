@@ -1,3 +1,5 @@
+// 服务核心类型、请求上下文与公共工具
+
 package service
 
 import (
@@ -28,6 +30,7 @@ type Service struct {
 	recordingMu sync.Mutex
 }
 
+// 创建实例
 func New(store *repository.Store, cfg *config.Config) *Service {
 	return &Service{store: store, cfg: cfg, bus: newMessageBus(), hints: newRecentHints()}
 }
@@ -37,9 +40,16 @@ type Error struct {
 	Body   Object
 }
 
-func (e *Error) Error() string              { return http.StatusText(e.Status) }
+// 返回错误文本
+func (e *Error) Error() string { return http.StatusText(e.Status) }
+
+// 构造服务错误响应
 func fail(status int, message string) error { return &Error{status, object{"error": message}} }
-func text(m object, k string) string        { s, _ := m[k].(string); return s }
+
+// 读取字符串字段
+func text(m object, k string) string { s, _ := m[k].(string); return s }
+
+// 读取整数字段
 func number(m object, k string, def int64) int64 {
 	v := m[k]
 	var s string
@@ -61,21 +71,33 @@ func number(m object, k string, def int64) int64 {
 	}
 	return n
 }
+
+// 读取整数指针
 func integer(p *int64) int64 {
 	if p == nil {
 		return 0
 	}
 	return *p
 }
+
+// 读取字符串指针
 func stringValue(p *string) string {
 	if p == nil {
 		return ""
 	}
 	return *p
 }
+
+// 返回请求来源 IP
 func remoteIP(r Request) string { return r.RemoteIP }
-func legacyUA(r Request) bool   { return legacyVersion(r.UserAgent) }
-func now() int64                { return time.Now().Unix() }
+
+// 判断是否为旧版客户端
+func legacyUA(r Request) bool { return legacyVersion(r.UserAgent) }
+
+// 返回当前时间戳
+func now() int64 { return time.Now().Unix() }
+
+// 校验必需字段
 func require(m object, keys ...string) error {
 	var missing []string
 	for _, k := range keys {

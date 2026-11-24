@@ -1,3 +1,5 @@
+// 房间游戏逻辑测试
+
 package room
 
 import (

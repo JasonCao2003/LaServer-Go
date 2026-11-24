@@ -1,3 +1,5 @@
+// 邀请数据访问
+
 package repository
 
 import (
@@ -14,6 +16,7 @@ type Invite struct {
 	Created       int64
 }
 
+// 按令牌获取邀请
 func (s *Store) InviteByToken(ctx context.Context, tokenID string) (Invite, error) {
 	var item Invite
 	var code, friend sql.NullString
@@ -27,6 +30,7 @@ func (s *Store) InviteByToken(ctx context.Context, tokenID string) (Invite, erro
 	return item, err
 }
 
+// 删除邀请
 func (s *Store) DeleteInvite(ctx context.Context, tokenID, ownerID string) (bool, error) {
 	result, err := s.ExecContext(ctx, Statement(`DELETE FROM invite WHERE token_id=? AND inviter_user_id=?`), tokenID, ownerID)
 	if err != nil {
@@ -36,11 +40,13 @@ func (s *Store) DeleteInvite(ctx context.Context, tokenID, ownerID string) (bool
 	return n > 0, err
 }
 
+// 创建邀请
 func (s *Store) CreateInvite(ctx context.Context, inviterID, tokenID, formattedCode, nickname string, created int64) error {
 	_, err := s.ExecContext(ctx, Statement(`INSERT INTO invite(inviter_user_id,token_id,formatted_code,nickname,created) VALUES(?,?,?,?,?)`), inviterID, tokenID, formattedCode, nickname, created)
 	return err
 }
 
+// 接受邀请
 func (s *Store) AcceptInvite(ctx context.Context, tokenID, userID, inviterID, nickname string, created int64) (bool, error) {
 	tx, err := s.BeginTx(ctx, nil)
 	if err != nil {
@@ -82,12 +88,14 @@ func (s *Store) AcceptInvite(ctx context.Context, tokenID, userID, inviterID, ni
 	return true, nil
 }
 
+// 统计好友数量
 func (s *Store) FriendCount(ctx context.Context, userID string) (int, error) {
 	var n int
 	err := s.QueryRowContext(ctx, Statement(`SELECT count(*) FROM friend_status WHERE user_id=?`), userID).Scan(&n)
 	return n, err
 }
 
+// 获取邀请列表
 func (s *Store) Invites(ctx context.Context, userID string) ([]Invite, error) {
 	rows, err := s.QueryContext(ctx, Statement(`SELECT inviter_user_id,token_id,nickname,friend_id,created FROM invite WHERE inviter_user_id=? ORDER BY id`), userID)
 	if err != nil {

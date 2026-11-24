@@ -1,3 +1,5 @@
+// 通用 SQL 查询封装
+
 package repository
 
 import (
@@ -8,19 +10,27 @@ import (
 type Statement string
 type Store struct{ db *sql.DB }
 
+// 创建实例
 func New(db *sql.DB) *Store { return &Store{db: db} }
+
+// 执行上下文
 func (s *Store) ExecContext(c context.Context, q Statement, args ...any) (sql.Result, error) {
 	return s.db.ExecContext(c, string(q), args...)
 }
+
+// 查询上下文
 func (s *Store) QueryContext(c context.Context, q Statement, args ...any) (*sql.Rows, error) {
 	return s.db.QueryContext(c, string(q), args...)
 }
+
+// 查询行上下文
 func (s *Store) QueryRowContext(c context.Context, q Statement, args ...any) *sql.Row {
 	return s.db.QueryRowContext(c, string(q), args...)
 }
 
 type Tx struct{ tx *sql.Tx }
 
+// 开始事务
 func (s *Store) BeginTx(c context.Context, o *sql.TxOptions) (*Tx, error) {
 	t, e := s.db.BeginTx(c, o)
 	if e != nil {
@@ -28,23 +38,37 @@ func (s *Store) BeginTx(c context.Context, o *sql.TxOptions) (*Tx, error) {
 	}
 	return &Tx{t}, nil
 }
+
+// 执行上下文
 func (t *Tx) ExecContext(c context.Context, q Statement, args ...any) (sql.Result, error) {
 	return t.tx.ExecContext(c, string(q), args...)
 }
+
+// 查询行上下文
 func (t *Tx) QueryRowContext(c context.Context, q Statement, args ...any) *sql.Row {
 	return t.tx.QueryRowContext(c, string(q), args...)
 }
+
+// 查询上下文
 func (t *Tx) QueryContext(c context.Context, q Statement, args ...any) (*sql.Rows, error) {
 	return t.tx.QueryContext(c, string(q), args...)
 }
-func (t *Tx) Commit() error   { return t.tx.Commit() }
+
+// 提交
+func (t *Tx) Commit() error { return t.tx.Commit() }
+
+// 回滚
 func (t *Tx) Rollback() error { return t.tx.Rollback() }
+
+// 构造用户查找的 SQL 语句
 func UserLookup(key string) Statement {
 	if key != "id" && key != "device_identifier" {
 		panic("invalid lookup column")
 	}
 	return Statement("SELECT id,device_identifier,session,recovery_token,is_authorized,is_banned,ban_end_time,platform,created_at,credential_mode_issued FROM user WHERE " + key + "=?")
 }
+
+// 构造更新货币的 SQL 语句
 func CurrencyUpdate(key string) Statement {
 	switch key {
 	case "candles", "heart", "heart_wax", "prestige", "prestige_vip", "prestige_wax", "season_candle", "season_wax", "season_wax_14", "season_heart", "season_pass_token", "vip", "wax":

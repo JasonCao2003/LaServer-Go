@@ -1,3 +1,5 @@
+// 时间同步消息测试
+
 package protocol
 
 import (

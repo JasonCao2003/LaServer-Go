@@ -1,3 +1,5 @@
+// 资源视图查询
+
 package repository
 
 const (

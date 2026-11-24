@@ -1,3 +1,5 @@
+// 玩家进出与关卡变更通知编解码
+
 package protocol
 
 import (
@@ -13,13 +15,14 @@ const (
 	cancelMoveID         = 11
 )
 
-// EncodePlayerJoined is the incremental roster notification used by legacy engines.
+// 编码玩家加入通知
 func EncodePlayerJoined(player RosterPlayer) []byte {
 	frame := newServerFrame(playerJoinedID, rosterRecordSize)
 	writeRosterPlayer(frame[serverHeader:], player)
 	return frame
 }
 
+// 编码玩家离开通知
 func EncodePlayerLeft(playerID, reason uint8) []byte {
 	frame := newServerFrame(playerLeftID, 2)
 	frame[serverHeader] = playerID
@@ -27,6 +30,7 @@ func EncodePlayerLeft(playerID, reason uint8) []byte {
 	return frame
 }
 
+// 编码玩家切换关卡通知
 func EncodePlayerChangedLevel(playerID uint8, levelID uint32) []byte {
 	frame := newServerFrame(playerChangedLevelID, 5)
 	frame[serverHeader] = playerID
@@ -42,14 +46,17 @@ type MoveControl struct {
 	Extra    []byte
 }
 
+// 解析移动结果消息
 func DecodeMoveResult(frame []byte, layout ClientLayout) (MoveControl, error) {
 	return decodeMoveControl(frame, layout, moveResultID)
 }
 
+// 解析取消移动消息
 func DecodeCancelMove(frame []byte, layout ClientLayout) (MoveControl, error) {
 	return decodeMoveControl(frame, layout, cancelMoveID)
 }
 
+// 解析移动控制消息
 func decodeMoveControl(frame []byte, layout ClientLayout, id byte) (MoveControl, error) {
 	packet, err := decodeClientFrame(frame, layout, id)
 	if err != nil {

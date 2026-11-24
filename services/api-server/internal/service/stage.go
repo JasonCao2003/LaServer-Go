@@ -1,3 +1,5 @@
+// 舞台读写与预约占位
+
 package service
 
 import (
@@ -9,6 +11,7 @@ import (
 
 const nilUserID = "00000000-0000-0000-0000-000000000000"
 
+// 解析舞台 ID 与归属
 func stageIDFor(m Object) (string, string) {
 	stageID := strings.TrimSpace(text(m, "stage_id"))
 	levelID := strings.TrimSpace(text(m, "level_id"))
@@ -18,6 +21,7 @@ func stageIDFor(m Object) (string, string) {
 	return stageID, levelID
 }
 
+// 规范化舞台道具
 func normalizeStageProp(raw any) (Object, bool) {
 	prop, ok := raw.(map[string]any)
 	if !ok {
@@ -63,6 +67,7 @@ func normalizeStageProp(raw any) (Object, bool) {
 	return out, true
 }
 
+// 规范化舞台道具列表
 func normalizeStageProps(list []any) []Object {
 	out := []Object{}
 	for _, raw := range list {
@@ -73,6 +78,7 @@ func normalizeStageProps(list []any) []Object {
 	return out
 }
 
+// 从请求解析舞台道具
 func stagePropsFromRequest(m Object) ([]any, bool) {
 	keys := []string{"props", "prop", "items", "placements", "stage_props", "props_list", "objects", "props_data"}
 	dictList := func(v any) ([]any, bool) {
@@ -114,6 +120,7 @@ func stagePropsFromRequest(m Object) ([]any, bool) {
 	return best, best != nil
 }
 
+// 获取舞台
 func (a *Service) StageGet(r Request, m Object) (Object, error) {
 	stageID, levelID := stageIDFor(m)
 	caller := text(m, "user")
@@ -154,6 +161,7 @@ func (a *Service) StageGet(r Request, m Object) (Object, error) {
 	return Object{"level_id": respLevel, "props": props, "sequence": sequence, "stage_id": stageID, "status": "OK", "user_id": respUser, "updated_at": state.UpdatedAt}, nil
 }
 
+// 保存舞台
 func (a *Service) StageSet(r Request, m Object) (Object, error) {
 	stageID, levelID := stageIDFor(m)
 	owner, err := a.questUser(r, m)
@@ -201,18 +209,22 @@ func (a *Service) StageSet(r Request, m Object) (Object, error) {
 	return Object{"status": "OK"}, nil
 }
 
+// 获取公寓内好友（占位）
 func (a *Service) FriendsInApartments(_ Request, _ Object) (Object, error) {
 	return Object{"friends": []Object{}}, nil
 }
 
+// 离开公寓（占位）
 func (a *Service) LeaveApartment(_ Request, _ Object) (Object, error) {
 	return Object{"result": "success"}, nil
 }
 
+// 更新公寓状态（占位）
 func (a *Service) UpdateApartmentStatus(_ Request, _ Object) (Object, error) {
 	return Object{"result": "success"}, nil
 }
 
+// 预约房间（占位）
 func (a *Service) Reserve(_ Request, _ Object) (Object, error) {
 	return Object{"status": true, "msg": "OK", "timestamp": now(), "hmac": strings.Repeat("0", 64), "bench_id": 5, "seat_id": 1, "room_ip": a.cfg.RoomHost, "room_port": a.cfg.RoomPort, "platform_filter": 0, "event_id": 8, "base_event_id": 8, "subevent_id": 0}, nil
 }

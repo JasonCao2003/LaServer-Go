@@ -1,3 +1,5 @@
+// 游戏消息编解码
+
 package protocol
 
 import (
@@ -32,6 +34,7 @@ type GameMessage struct {
 	Payload          []byte
 }
 
+// 解析游戏消息
 func DecodeGameMessage(frame []byte, layout ClientLayout) (GameMessage, error) {
 	packet, err := decodeClientFrame(frame, layout, GameMessageID)
 	if err != nil {
@@ -61,6 +64,7 @@ func DecodeGameMessage(frame []byte, layout ClientLayout) (GameMessage, error) {
 	return msg, nil
 }
 
+// 编码游戏消息
 func EncodeGameMessage(msg GameMessage) ([]byte, error) {
 	if len(msg.Payload) > math.MaxUint16-gameMessageHeader {
 		return nil, fmt.Errorf("GameMsg payload is too large")
@@ -72,8 +76,7 @@ func EncodeGameMessage(msg GameMessage) ([]byte, error) {
 	return frame, nil
 }
 
-// EncodeLevelElection writes the empty NetLevelData header and default legacy padding.
-// The authority's opaque world state is sent in a separate GameMsg.
+// 编码关卡选举消息
 func EncodeLevelElection(authority uint8, levelID uint32, levelHash uint16) []byte {
 	const electHeaderSize, electPadding = 22, 16
 	data := make([]byte, electHeaderSize+electPadding)

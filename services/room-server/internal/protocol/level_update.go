@@ -1,3 +1,5 @@
+// 关卡更新消息解析
+
 package protocol
 
 import (
@@ -23,7 +25,7 @@ type LevelUpdate struct {
 	TrailingState    uint8
 }
 
-// DecodeLevelUpdate decodes the fixed layout and its optional trailing state.
+// 解析关卡更新消息
 func DecodeLevelUpdate(frame []byte, layout ClientLayout) (LevelUpdate, error) {
 	packet, err := decodeClientFrame(frame, layout, levelUpdateID)
 	if err != nil {

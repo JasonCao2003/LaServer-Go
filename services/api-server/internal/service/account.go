@@ -1,3 +1,5 @@
+// 账号创建、登录与会话鉴权
+
 package service
 
 import (
@@ -18,6 +20,7 @@ import (
 	entity "github.com/JasonCao2003/LaServer-Go/services/api-server/internal/model"
 )
 
+// 生成随机令牌
 func token(n int) (string, error) {
 	b := make([]byte, n)
 	if _, err := rand.Read(b); err != nil {
@@ -25,6 +28,8 @@ func token(n int) (string, error) {
 	}
 	return hex.EncodeToString(b), nil
 }
+
+// 生成 UUID
 func uuid() (string, error) {
 	s, e := token(16)
 	if e != nil {
@@ -35,6 +40,7 @@ func uuid() (string, error) {
 
 var versionPattern = regexp.MustCompile(`Sky[^/]*/([0-9]+)\.([0-9]+)\.([0-9]+)`)
 
+// 判断是否为旧版客户端
 func legacyVersion(ua string) bool {
 	m := versionPattern.FindStringSubmatch(ua)
 	if len(m) == 0 {
@@ -45,6 +51,7 @@ func legacyVersion(ua string) bool {
 	return major == 0 && minor < 5
 }
 
+// 按条件查找用户
 func (a *Service) findUser(ctx context.Context, key, value string) (entity.User, error) {
 	var u entity.User
 	var verified int
@@ -59,6 +66,7 @@ func (a *Service) findUser(ctx context.Context, key, value string) (entity.User,
 	return u, err
 }
 
+// 创建用户记录
 func (a *Service) createUser(r Request, name, id string, authCreate bool) (entity.User, error) {
 	var u entity.User
 	var err error
@@ -128,6 +136,7 @@ func (a *Service) createUser(r Request, name, id string, authCreate bool) (entit
 	return a.findUser(r.Context, "id", id)
 }
 
+// 创建账号或资源
 func (a *Service) Create(r Request, m object) (object, error) {
 	auth := r.Path == "/account/auth/create"
 	if !auth && a.cfg.LoginMode != "legacy_dev" {
@@ -174,6 +183,7 @@ func (a *Service) Create(r Request, m object) (object, error) {
 	return result, nil
 }
 
+// 构造封禁错误
 func banError(u entity.User, status int) error {
 	info := object{"user_id": u.ID, "end_date": integer(u.BanEndTime), "type": "account"}
 	if until := integer(u.BanEndTime); until > now() {
@@ -183,6 +193,8 @@ func banError(u entity.User, status int) error {
 	}
 	return &Error{status, object{"error": "Account banned", "baninfo": info}}
 }
+
+// 校验账号是否允许登录
 func (a *Service) checkAllowed(ctx context.Context, u *entity.User, status int) error {
 	if integer(u.IsBanned) == 1 {
 		if integer(u.BanEndTime) == 0 || integer(u.BanEndTime) > now() {
@@ -198,6 +210,7 @@ func (a *Service) checkAllowed(ctx context.Context, u *entity.User, status int) 
 	return nil
 }
 
+// 执行账号登录
 func (a *Service) Login(r Request, m object) (object, error) {
 	credentialMode := a.cfg.LoginMode != "legacy_dev"
 	auth := r.Path == "/account/auth/login"
@@ -313,6 +326,7 @@ func (a *Service) Login(r Request, m object) (object, error) {
 	return result, nil
 }
 
+// 为旧版响应补充字段
 func augmentLegacy(result object, u entity.User) {
 	result["device"] = stringValue(u.DeviceIdentifier)
 	result["tos_url"] = "https://www.thatgamecompany.com/terms-of-service/"
@@ -327,6 +341,7 @@ func augmentLegacy(result object, u entity.User) {
 	result["motd_season_end"] = 0
 }
 
+// 校验会话并返回用户
 func (a *Service) authenticated(r Request, m object) (entity.User, error) {
 	var u entity.User
 	if text(m, "user") == "" || text(m, "session") == "" {

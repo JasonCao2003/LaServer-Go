@@ -9,13 +9,16 @@ from __future__ import annotations
 import ast
 import json
 import re
+import sys
 import warnings
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "scripts/verify"))
+from gin_routes import gin_path, registered_routes
+
 LEGACY = ROOT.parent / "LaServer" / "services" / "game-api"
-ROUTE_FILE = ROOT / "services/api-server/internal/handler/api.go"
 TEST_DIR = ROOT / "services/api-server/internal/handler"
 OUTPUT = ROOT / "json/api/task1-route-inventory.json"
 RESOURCE_OUTPUT = ROOT / "json/api/task1-login-resources.json"
@@ -86,7 +89,7 @@ def main() -> None:
     if not LEGACY.is_dir():
         raise SystemExit(f"legacy source checkout missing: {LEGACY}")
     old = json.loads((ROOT / "json/api/legacy-routes.json").read_text(encoding="utf-8"))
-    go = dict(re.findall(r'a\.routes\["([^"]+)"\] = s\.(\w+)', ROUTE_FILE.read_text(encoding="utf-8")))
+    go, methods = registered_routes()
     registrations = legacy_registrations()
     registered: dict[str, list[dict[str, object]]] = {}
     for entry in registrations:
@@ -95,14 +98,7 @@ def main() -> None:
     rows = []
     for item in old:
         path = item["path"]
-        if path == "/ugc/<path:subpath>":
-            go_methods = ["GET"]
-        elif path in {"/account/commerce/product_info", "/admin/api/friends_list", "/admin/api/friends_set", "/admin/api/friends_clear"}:
-            go_methods = ["GET", "POST"]
-        elif path in {"/account/get_friend_statues", "/service/relationship/api/v1/update_friend_constellation_pages", "/service/relationship/api/v1/free_gifts/send"}:
-            go_methods = ["OPTIONS", "POST"]
-        else:
-            go_methods = ["POST"]
+        go_methods = sorted(methods.get(gin_path(path), []))
         refs = sorted(name for name, body in tests.items() if f'"{path}"' in body)
         if path == "/ugc/<path:subpath>":
             refs = sorted(name for name, body in tests.items() if '"/ugc/' in body)
@@ -119,7 +115,7 @@ def main() -> None:
             "client_0_3_11": "not_verified",
         })
     old_paths = {item["path"] for item in old}
-    go_dynamic = {"/ugc/<path:subpath>"} if '"/ugc/"' in ROUTE_FILE.read_text(encoding="utf-8") else set()
+    go_dynamic = {p for p in old_paths if gin_path(p) != p and gin_path(p) in methods}
     go_only = sorted(set(go) - old_paths)
     extra_legacy = sorted((entry for entry in registrations if entry["path"] not in old_paths), key=lambda x: (str(x["path"]), str(x["source"])))
     report = {

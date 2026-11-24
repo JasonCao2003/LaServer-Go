@@ -1,3 +1,5 @@
+// 加入游戏指纹解析
+
 package protocol
 
 import (
@@ -31,7 +33,7 @@ type JoinFingerprint struct {
 	EnterGame     EnterGameLayout
 }
 
-// DecodeJoinGameFingerprint recognizes the legacy JoinGame profile from its wire fields.
+// 解析加入游戏指纹
 func DecodeJoinGameFingerprint(frame []byte) (JoinFingerprint, error) {
 	packet, err := decodeClientFrame(frame, ClientIDSequence, joinGameID)
 	if err != nil {

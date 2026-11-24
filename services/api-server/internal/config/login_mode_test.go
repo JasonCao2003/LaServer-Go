@@ -1,3 +1,5 @@
+// 登录模式配置校验测试
+
 package config
 
 import "testing"

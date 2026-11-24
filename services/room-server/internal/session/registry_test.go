@@ -1,3 +1,5 @@
+// 会话注册表测试
+
 package session
 
 import (

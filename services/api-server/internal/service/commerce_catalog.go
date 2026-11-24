@@ -1,3 +1,5 @@
+// 商城静态目录数据
+
 package service
 
 import (
@@ -7,6 +9,7 @@ import (
 	"path/filepath"
 )
 
+// 读取商城目录资源
 func (a *Service) catalog(filename, fallback, key string) []Object {
 	if a.cfg.GameConfigDir == "" {
 		return nil
@@ -33,6 +36,8 @@ func (a *Service) catalog(filename, fallback, key string) []Object {
 	}
 	return nil
 }
+
+// 构造精灵节点
 func (a *Service) spiritNode(name string) Object {
 	for _, node := range a.catalog("account__get_spirit_shops.json", "spirit_shops.json", "spirit_shops") {
 		if text(node, "nm") == name {
@@ -41,6 +46,8 @@ func (a *Service) spiritNode(name string) Object {
 	}
 	return nil
 }
+
+// 构造通用商店定义
 func (a *Service) genericShopDef(m Object) Object {
 	defs := a.catalog("account__get_generic_shops.json", "generic_shops.json", "generic_shop_defs")
 	for _, key := range []string{"id", "item_id", "shop_item_id", "generic_shop_item_id", "unlock_id"} {

@@ -1,3 +1,5 @@
+// 进房准入令牌校验测试
+
 package handler
 
 import (

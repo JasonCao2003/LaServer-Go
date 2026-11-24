@@ -1,3 +1,5 @@
+// 请求体读取与大小限制中间件
+
 package middleware
 
 import (
@@ -15,10 +17,10 @@ type BodyError struct {
 	Message string
 }
 
+// 返回错误文本
 func (e *BodyError) Error() string { return e.Message }
 
-// ReadObject preserves text/plain JSON while limiting allocation and rejecting extra values.
-// Only auth/login historically accepts form fields; other routes remain JSON-only.
+// 读取并解析请求体
 func ReadObject(w http.ResponseWriter, r *http.Request) (map[string]any, *BodyError) {
 	raw, err := io.ReadAll(http.MaxBytesReader(w, r.Body, 2<<20))
 	if err != nil {

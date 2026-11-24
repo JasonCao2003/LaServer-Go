@@ -1,3 +1,5 @@
+// 玩家通知编解码测试
+
 package protocol
 
 import (

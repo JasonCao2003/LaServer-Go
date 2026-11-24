@@ -1,3 +1,5 @@
+// 玩家留言（geonote）增删改查
+
 package service
 
 import (
@@ -17,6 +19,7 @@ const geonoteIDAlphabet = "abcdefghijklmnopqrstuvwxyz0123456789"
 
 var geonotePosRE = regexp.MustCompile(`[-0-9.]+`)
 
+// 生成留言 ID
 func newGeonoteID() string {
 	buf := make([]byte, 6)
 	_, _ = rand.Read(buf)
@@ -27,10 +30,12 @@ func newGeonoteID() string {
 	return fmt.Sprintf("gn_%x_%s", nowMillis(), suffix)
 }
 
+// 构造留言错误
 func geonoteError(status int, code string) error {
 	return &Error{Status: status, Body: Object{"result": code}}
 }
 
+// 解析留言读取用户
 func (a *Service) geonoteReadUser(r Request, m Object) (string, error) {
 	if _, ok := m["user"]; !ok {
 		return "", geonoteError(400, "invalid_params")
@@ -61,6 +66,7 @@ func (a *Service) geonoteReadUser(r Request, m Object) (string, error) {
 	return uid, nil
 }
 
+// 解析留言写入用户
 func (a *Service) geonoteWriteUser(r Request, m Object) (string, error) {
 	uid := text(m, "user")
 	if uid == "" {
@@ -79,6 +85,7 @@ func (a *Service) geonoteWriteUser(r Request, m Object) (string, error) {
 	return uid, nil
 }
 
+// 解析三维向量
 func vec3(v any, fallback [3]float64) [3]float64 {
 	out := fallback
 	switch x := v.(type) {
@@ -99,6 +106,7 @@ func vec3(v any, fallback [3]float64) [3]float64 {
 	return out
 }
 
+// 解析留言布尔标记
 func geonoteFlag(v any) *bool {
 	if v == nil {
 		return nil
@@ -131,6 +139,7 @@ func geonoteFlag(v any) *bool {
 	return &value
 }
 
+// 构造留言响应
 func geonoteClient(n repository.Geonote, viewer string) Object {
 	pos := []float64{n.PosX, n.PosY, n.PosZ}
 	parent := vec3(n.ParentRelPos, [3]float64{})
@@ -147,6 +156,7 @@ func geonoteClient(n repository.Geonote, viewer string) Object {
 	}
 }
 
+// 构造留言列表响应
 func geonotePayload(notes []repository.Geonote, viewer string) Object {
 	items := []Object{}
 	likes := []Object{}
@@ -170,6 +180,7 @@ func geonotePayload(notes []repository.Geonote, viewer string) Object {
 	return Object{"geonotes": items, "likes": likes, "emojis": []Object{}, "social": social}
 }
 
+// 解析留言关卡
 func geonoteLevel(m Object) int64 {
 	if n := number(m, "level_id", -1); n >= 0 {
 		return n
@@ -177,6 +188,7 @@ func geonoteLevel(m Object) int64 {
 	return number(m, "level", 0)
 }
 
+// 限制留言数量
 func geonoteLimit(value int64) int64 {
 	if value <= 0 {
 		return 100
@@ -187,6 +199,7 @@ func geonoteLimit(value int64) int64 {
 	return value
 }
 
+// 获取用户留言
 func (a *Service) GetUserGeonotes(r Request, m Object) (Object, error) {
 	uid, err := a.geonoteReadUser(r, m)
 	if err != nil {
@@ -207,6 +220,7 @@ func (a *Service) GetUserGeonotes(r Request, m Object) (Object, error) {
 	return geonotePayload(notes, uid), nil
 }
 
+// 请求若干好友留言
 func (a *Service) RequestGeonotesForNFriends(r Request, m Object) (Object, error) {
 	uid, err := a.geonoteReadUser(r, m)
 	if err != nil {
@@ -227,6 +241,7 @@ func (a *Service) RequestGeonotesForNFriends(r Request, m Object) (Object, error
 	return geonotePayload(notes, uid), nil
 }
 
+// 请求若干问题举报留言
 func (a *Service) RequestNBugReportGeonotes(r Request, m Object) (Object, error) {
 	uid, err := a.geonoteWriteUser(r, m)
 	if err != nil {
@@ -247,6 +262,7 @@ func (a *Service) RequestNBugReportGeonotes(r Request, m Object) (Object, error)
 	return geonotePayload(notes, uid), nil
 }
 
+// 按字符数截断文本
 func runeLimit(s string, n int) string {
 	runes := []rune(s)
 	if len(runes) > n {
@@ -255,14 +271,17 @@ func runeLimit(s string, n int) string {
 	return string(runes)
 }
 
+// 创建留言
 func (a *Service) CreateGeonote(r Request, m Object) (Object, error) {
 	return a.createGeonote(r, m, false)
 }
 
+// 创建问题举报留言
 func (a *Service) CreateBugReportGeonote(r Request, m Object) (Object, error) {
 	return a.createGeonote(r, m, true)
 }
 
+// 创建留言
 func (a *Service) createGeonote(r Request, m Object, bug bool) (Object, error) {
 	uid, err := a.geonoteWriteUser(r, m)
 	if err != nil {
@@ -320,6 +339,7 @@ func (a *Service) createGeonote(r Request, m Object, bug bool) (Object, error) {
 	return result, nil
 }
 
+// 读取浮点数或默认值
 func floatOr(m Object, key string) float64 {
 	if f, ok := floatValue(m[key]); ok {
 		return f
@@ -327,14 +347,17 @@ func floatOr(m Object, key string) float64 {
 	return 0
 }
 
+// 删除留言
 func (a *Service) DeleteGeonote(r Request, m Object) (Object, error) {
 	return a.deleteGeonote(r, m, false)
 }
 
+// 删除问题举报留言
 func (a *Service) DeleteBugReportGeonote(r Request, m Object) (Object, error) {
 	return a.deleteGeonote(r, m, true)
 }
 
+// 删除留言
 func (a *Service) deleteGeonote(r Request, m Object, bugOnly bool) (Object, error) {
 	uid, err := a.geonoteWriteUser(r, m)
 	if err != nil {
@@ -352,6 +375,7 @@ func (a *Service) deleteGeonote(r Request, m Object, bugOnly bool) (Object, erro
 	return Object{"result": "ok"}, nil
 }
 
+// 编辑留言
 func (a *Service) EditMessageGeonote(r Request, m Object) (Object, error) {
 	uid, err := a.geonoteWriteUser(r, m)
 	if err != nil {
@@ -392,6 +416,7 @@ func (a *Service) EditMessageGeonote(r Request, m Object) (Object, error) {
 	return result, nil
 }
 
+// 执行社交留言操作
 func (a *Service) SocialGeonote(r Request, m Object) (Object, error) {
 	uid, err := a.geonoteWriteUser(r, m)
 	if err != nil {

@@ -464,18 +464,12 @@
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_achievement_stats",
-          "/account/set_achievement_stats"
-        ],
-        "0.3.11": [
-          "/account/get_achievement_stats",
-          "/account/set_achievement_stats"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -548,16 +542,12 @@
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_achievements"
-        ],
-        "0.3.11": [
-          "/account/get_achievements"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -586,24 +576,19 @@
       "candidate_go_path": "/account/get_checkpoints",
       "candidate_kind": "response_key_match",
       "go_handler": "Checkpoints",
-      "go_source": "services/api-server/internal/service/data.go",
+      "go_source": "services/api-server/internal/service/account_data.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__get_checkpoints.json"
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_checkpoints",
-          "/account/set_checkpoint"
-        ],
-        "0.3.11": [
-          "/account/get_checkpoints"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -642,17 +627,12 @@
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_collectibles"
-        ],
-        "0.3.11": [
-          "/account/ack_collectible",
-          "/account/get_collectibles"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -703,24 +683,19 @@
       "candidate_go_path": "/account/get_currency",
       "candidate_kind": "response_key_match",
       "go_handler": "Currency",
-      "go_source": "services/api-server/internal/service/data.go",
+      "go_source": "services/api-server/internal/service/account_data.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__get_currency.json"
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/collect_pickup_batch",
-          "/account/get_currency"
-        ],
-        "0.3.11": [
-          "/account/get_currency"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -754,16 +729,12 @@
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/device_capabilities/lookup"
-        ],
-        "0.3.11": [
-          "/account/device_capabilities/lookup"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -857,23 +828,19 @@
       "candidate_go_path": "/account/get_event_schedule",
       "candidate_kind": "response_key_match",
       "go_handler": "EventSchedule",
-      "go_source": "services/api-server/internal/service/batch1_schedule.go",
+      "go_source": "services/api-server/internal/service/event_schedule.go",
       "go_direct_config_or_data_sources": [
         "game_config_or_embedded_json:game_control.json",
         "旧静态库:account__get_event_schedule.json"
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_event_schedule"
-        ],
-        "0.3.11": [
-          "/account/get_event_schedule"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -900,23 +867,19 @@
       "candidate_go_path": "/account/get_external_friends",
       "candidate_kind": "response_key_match",
       "go_handler": "GetExternalFriends",
-      "go_source": "services/api-server/internal/service/relationships_batch5.go",
+      "go_source": "services/api-server/internal/service/relationships.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__get_external_friends.json"
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_external_friends"
-        ],
-        "0.3.11": [
-          "/account/get_external_friends"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -928,32 +891,23 @@
       "go_flows": [
         "auth_create"
       ],
-      "legacy_response_paths": [
-        "/account/auth/login"
-      ],
-      "legacy_response_files": [
-        "account__auth__login.json"
-      ],
-      "candidate_go_path": "/account/auth/login",
+      "legacy_response_paths": [],
+      "legacy_response_files": [],
+      "candidate_go_path": null,
       "candidate_kind": "embedded_in_login_response",
-      "go_handler": "Login",
-      "go_source": "services/api-server/internal/service/account.go",
+      "go_handler": null,
+      "go_source": null,
       "go_direct_config_or_data_sources": [
-        "SQLite",
-        "旧静态库:account__auth__login.json"
+        "未找到独立数据来源"
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/auth/login"
-        ],
-        "0.3.11": [
-          "/account/auth/login"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -987,16 +941,12 @@
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_forge_rates"
-        ],
-        "0.3.11": [
-          "/account/get_forge_rates"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1058,23 +1008,19 @@
       "candidate_go_path": "/account/get_generic_shops",
       "candidate_kind": "response_key_match",
       "go_handler": "GenericShops",
-      "go_source": "services/api-server/internal/service/legacy_config.go",
+      "go_source": "services/api-server/internal/service/config_resources.go",
       "go_direct_config_or_data_sources": [
         "代码常量或辅助函数，待逐分支核对",
         "旧静态库:account__get_generic_shops.json"
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_generic_shops"
-        ],
-        "0.3.11": [
-          "/account/get_generic_shops"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1108,16 +1054,12 @@
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/buff/get_buff_defs"
-        ],
-        "0.3.11": [
-          "/account/buff/get_buff_defs"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1159,16 +1101,12 @@
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/buff/get_buffs1"
-        ],
-        "0.3.11": [
-          "/account/buff/get_buffs1"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1202,16 +1140,12 @@
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/consumable/get_consumable_defs"
-        ],
-        "0.3.11": [
-          "/account/consumable/get_consumable_defs"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1251,16 +1185,12 @@
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/consumable/get_consumables1"
-        ],
-        "0.3.11": [
-          "/account/consumable/get_consumables1"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1289,23 +1219,19 @@
       "candidate_go_path": "/account/lootboxes/get",
       "candidate_kind": "response_key_match",
       "go_handler": "GetLootboxes",
-      "go_source": "services/api-server/internal/service/commerce_read.go",
+      "go_source": "services/api-server/internal/service/commerce_shop.go",
       "go_direct_config_or_data_sources": [
         "代码常量或辅助函数，待逐分支核对",
         "旧静态库:account__lootboxes__get.json"
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/lootboxes/get"
-        ],
-        "0.3.11": [
-          "/account/lootboxes/get"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1371,23 +1297,19 @@
       "candidate_go_path": "/account/get_shop",
       "candidate_kind": "response_key_match",
       "go_handler": "GetShop",
-      "go_source": "services/api-server/internal/service/commerce_read.go",
+      "go_source": "services/api-server/internal/service/commerce_shop.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__get_shop.json"
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_shop"
-        ],
-        "0.3.11": [
-          "/account/get_shop"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1414,7 +1336,7 @@
       "candidate_go_path": "/account/star/get",
       "candidate_kind": "response_key_match",
       "go_handler": "StarTags",
-      "go_source": "services/api-server/internal/service/relationships_batch5.go",
+      "go_source": "services/api-server/internal/service/relationships.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "embedded_legacydata",
@@ -1422,16 +1344,12 @@
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/star/get"
-        ],
-        "0.3.11": [
-          "/account/star/get"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1493,8 +1411,8 @@
         "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1521,23 +1439,19 @@
       "candidate_go_path": "/account/iaplist",
       "candidate_kind": "response_key_match",
       "go_handler": "IAPList",
-      "go_source": "services/api-server/internal/service/legacy_config.go",
+      "go_source": "services/api-server/internal/service/config_resources.go",
       "go_direct_config_or_data_sources": [
         "game_config_or_embedded_json:iaplist.json",
         "旧静态库:account__iaplist.json"
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/iaplist"
-        ],
-        "0.3.11": [
-          "/account/iaplist"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1560,7 +1474,7 @@
       "candidate_go_path": "/service/infraction/api/v1/get_infractions_status_decorated",
       "candidate_kind": "alias_inference",
       "go_handler": "InfractionStatus",
-      "go_source": "services/api-server/internal/service/batch1_database.go",
+      "go_source": "services/api-server/internal/service/definitions_misc.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:service__infraction__api__v1__get_infractions_status_decorated.json"
@@ -1595,7 +1509,7 @@
       "candidate_go_path": "/account/get_invites",
       "candidate_kind": "alias_inference",
       "go_handler": "Invites",
-      "go_source": "services/api-server/internal/service/legacy_config.go",
+      "go_source": "services/api-server/internal/service/config_resources.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__get_invites.json"
@@ -1606,8 +1520,8 @@
         "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1645,9 +1559,7 @@
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/service/message/api/v1/mark_seen"
-        ],
+        "0.1.8": [],
         "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
@@ -1686,16 +1598,12 @@
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_motd"
-        ],
-        "0.3.11": [
-          "/account/get_motd"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1722,23 +1630,19 @@
       "candidate_go_path": "/account/get_online_friends",
       "candidate_kind": "response_key_match",
       "go_handler": "OnlineFriends",
-      "go_source": "services/api-server/internal/service/constellations.go",
+      "go_source": "services/api-server/internal/service/friend_status.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__get_online_friends.json"
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_online_friends"
-        ],
-        "0.3.11": [
-          "/account/get_online_friends"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1840,16 +1744,12 @@
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_relationship_abilities"
-        ],
-        "0.3.11": [
-          "/account/get_relationship_abilities"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1876,23 +1776,19 @@
       "candidate_go_path": "/account/serendipity/get",
       "candidate_kind": "response_key_match",
       "go_handler": "Serendipity",
-      "go_source": "services/api-server/internal/service/relationships_batch5.go",
+      "go_source": "services/api-server/internal/service/relationships.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__serendipity__get.json"
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/serendipity/get"
-        ],
-        "0.3.11": [
-          "/account/serendipity/get"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1930,16 +1826,12 @@
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_app_badge_number"
-        ],
-        "0.3.11": [
-          "/account/get_app_badge_number"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1964,23 +1856,19 @@
       "candidate_go_path": "/account/get_friend_statues",
       "candidate_kind": "response_key_match",
       "go_handler": "FriendStatues",
-      "go_source": "services/api-server/internal/service/constellations.go",
+      "go_source": "services/api-server/internal/service/friend_status.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__get_friend_statues.json"
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_friend_statues"
-        ],
-        "0.3.11": [
-          "/account/get_friend_statues"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -1997,7 +1885,7 @@
       "candidate_go_path": "/account/get_friend_statues",
       "candidate_kind": "alias_inference",
       "go_handler": "FriendStatues",
-      "go_source": "services/api-server/internal/service/constellations.go",
+      "go_source": "services/api-server/internal/service/friend_status.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__get_friend_statues.json"
@@ -2008,8 +1896,8 @@
         "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -2043,16 +1931,12 @@
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_friends"
-        ],
-        "0.3.11": [
-          "/account/get_friends"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -2069,7 +1953,7 @@
       "candidate_go_path": "/account/get_rank",
       "candidate_kind": "alias_inference",
       "go_handler": "Rank",
-      "go_source": "services/api-server/internal/service/data.go",
+      "go_source": "services/api-server/internal/service/account_data.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__get_rank.json"
@@ -2080,8 +1964,8 @@
         "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -2106,23 +1990,19 @@
       "candidate_go_path": "/account/get_rank",
       "candidate_kind": "response_key_match",
       "go_handler": "Rank",
-      "go_source": "services/api-server/internal/service/data.go",
+      "go_source": "services/api-server/internal/service/account_data.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__get_rank.json"
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_rank"
-        ],
-        "0.3.11": [
-          "/account/get_rank"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -2149,23 +2029,19 @@
       "candidate_go_path": "/account/get_account_world_quests",
       "candidate_kind": "response_key_match",
       "go_handler": "WorldQuests",
-      "go_source": "services/api-server/internal/service/quests_account.go",
+      "go_source": "services/api-server/internal/service/season_quests.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__get_account_world_quests.json"
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_account_world_quests"
-        ],
-        "0.3.11": [
-          "/account/get_account_world_quests"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -2192,23 +2068,19 @@
       "candidate_go_path": "/account/get_spirit_shops",
       "candidate_kind": "response_key_match",
       "go_handler": "SpiritShops",
-      "go_source": "services/api-server/internal/service/batch1_spirit.go",
+      "go_source": "services/api-server/internal/service/spirit_shops.go",
       "go_direct_config_or_data_sources": [
         "game_config_or_embedded_json:account__get_spirit_shops.json,game_control.json,spirit_shops.json",
         "旧静态库:account__get_spirit_shops.json"
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_spirit_shops"
-        ],
-        "0.3.11": [
-          "/account/get_spirit_shops"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -2243,16 +2115,12 @@
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/service/status/api/v1/get_unlocks"
-        ],
-        "0.3.11": [
-          "/service/status/api/v1/get_unlocks"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -2287,16 +2155,12 @@
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/get_unlocks"
-        ],
-        "0.3.11": [
-          "/account/get_unlocks"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -2323,23 +2187,19 @@
       "candidate_go_path": "/account/userdata",
       "candidate_kind": "response_key_match",
       "go_handler": "Userdata",
-      "go_source": "services/api-server/internal/service/data.go",
+      "go_source": "services/api-server/internal/service/account_data.go",
       "go_direct_config_or_data_sources": [
         "SQLite",
         "旧静态库:account__userdata.json"
       ],
       "go_direct_auth_signal": "session_checked_in_handler",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/userdata"
-        ],
-        "0.3.11": [
-          "/account/userdata"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     },
@@ -2375,16 +2235,12 @@
       ],
       "go_direct_auth_signal": "no_direct_session_check_visible",
       "http_200_paths_in_existing_logs": {
-        "0.1.8": [
-          "/account/wing_buffs/get"
-        ],
-        "0.3.11": [
-          "/account/wing_buffs/get"
-        ]
+        "0.1.8": [],
+        "0.3.11": []
       },
       "candidate_http_200_in_existing_logs": {
-        "0.1.8": true,
-        "0.3.11": true
+        "0.1.8": false,
+        "0.3.11": false
       },
       "client_resource_name_mapping": "not_captured_from_apk"
     }

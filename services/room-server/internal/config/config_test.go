@@ -1,3 +1,5 @@
+// 配置加载与校验测试
+
 package config
 
 import (

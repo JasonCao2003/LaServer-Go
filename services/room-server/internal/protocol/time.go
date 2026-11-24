@@ -1,3 +1,5 @@
+// 时间同步消息编解码
+
 package protocol
 
 import (
@@ -21,7 +23,7 @@ type TimePing struct {
 	RequestID uint16
 }
 
-// DecodeTimePing decodes a ping using the layout selected by the caller.
+// 解析时间同步请求
 func DecodeTimePing(frame []byte, layout ClientLayout) (TimePing, error) {
 	packet, err := decodeClientFrame(frame, layout, timePingID)
 	if err != nil {
@@ -37,7 +39,7 @@ func DecodeTimePing(frame []byte, layout ClientLayout) (TimePing, error) {
 	}, nil
 }
 
-// EncodeTimePong encodes the server frame with the original client request ID.
+// 编码时间同步响应
 func EncodeTimePong(requestID uint16, receivedAt, sentAt float64) []byte {
 	frame := newServerFrame(timePongID, timePongSize)
 

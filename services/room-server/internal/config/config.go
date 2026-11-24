@@ -1,3 +1,5 @@
+// 房间服务配置加载与校验
+
 package config
 
 import (
@@ -23,6 +25,7 @@ type Config struct {
 	MaxFrameBytes    int    `json:"max_frame_bytes"`
 }
 
+// 加载并解析服务配置
 func Load(path string) (Config, error) {
 	file, err := os.Open(path)
 	if err != nil {
@@ -48,6 +51,7 @@ func Load(path string) (Config, error) {
 	return cfg, nil
 }
 
+// 校验服务配置
 func (cfg Config) validate() error {
 	udp, err := netip.ParseAddrPort(cfg.UDPListen)
 	if err != nil || udp.Port() == 0 {

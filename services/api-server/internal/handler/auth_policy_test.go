@@ -1,3 +1,5 @@
+// 鉴权策略与登录模式回归测试
+
 package handler
 
 import (

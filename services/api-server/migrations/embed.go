@@ -1,3 +1,5 @@
+// SQL 迁移文件嵌入
+
 package migrations
 
 import _ "embed"

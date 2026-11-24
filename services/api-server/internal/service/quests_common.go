@@ -1,3 +1,5 @@
+// 任务公共工具与空占位响应
+
 package service
 
 import (
@@ -12,22 +14,32 @@ import (
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
 )
 
+// 返回空的每日任务
 func (a *Service) EmptyDailyQuests(_ Request, _ Object) (Object, error) {
 	return Object{"daily_quests": []any{}}, nil
 }
+
+// 返回空的每周任务
 func (a *Service) EmptyWeeklyQuests(_ Request, _ Object) (Object, error) {
 	return Object{"weekly_quests": []any{}}, nil
 }
+
+// 返回空的赛季任务
 func (a *Service) EmptySeasonQuestsV2(_ Request, _ Object) (Object, error) {
 	return Object{"season_quests": []any{}, "has_season_quests_rewards": []any{}}, nil
 }
+
+// 返回空的赛季通行证定义
 func (a *Service) EmptySeasonPassDefs(_ Request, _ Object) (Object, error) {
 	return Object{"season_pass_defs": []any{}}, nil
 }
+
+// 返回空的活动货币
 func (a *Service) EmptyEventCurrency(_ Request, _ Object) (Object, error) {
 	return Object{"event_currency": []any{}}, nil
 }
 
+// 解析任务接口用户
 func (a *Service) questUser(r Request, m Object) (string, error) {
 	uid := text(m, "user")
 	if uid == "" {
@@ -45,6 +57,8 @@ func (a *Service) questUser(r Request, m Object) (string, error) {
 	}
 	return uid, nil
 }
+
+// 读取游戏控制配置
 func (a *Service) gameControl() Object {
 	if a.cfg.GameConfigDir == "" {
 		return Object{}
@@ -59,6 +73,8 @@ func (a *Service) gameControl() Object {
 	}
 	return out
 }
+
+// 读取嵌套对象
 func nestedObject(m Object, k string) Object {
 	v, _ := m[k].(map[string]any)
 	if v == nil {
@@ -66,6 +82,8 @@ func nestedObject(m Object, k string) Object {
 	}
 	return v
 }
+
+// 读取任务池
 func questPool(v any) []Object {
 	raw, _ := v.([]any)
 	out := make([]Object, 0, len(raw))
@@ -78,6 +96,8 @@ func questPool(v any) []Object {
 	}
 	return out
 }
+
+// 读取每日任务池
 func (a *Service) dailyQuestPools() (season, normal []Object) {
 	cfg := a.gameControl()
 	dq := nestedObject(cfg, "daily_quests")
@@ -93,6 +113,8 @@ func (a *Service) dailyQuestPools() (season, normal []Object) {
 	}
 	return
 }
+
+// 读取任务奖励
 func (a *Service) questReward(season bool) int64 {
 	key := "reward_candle"
 	if season {
@@ -104,6 +126,8 @@ func (a *Service) questReward(season bool) int64 {
 	}
 	return n
 }
+
+// 读取当前赛季编号
 func (a *Service) seasonNumber() int64 {
 	n := number(nestedObject(a.gameControl(), "season"), "current_season", int64(a.cfg.CurrentSeason))
 	if n < 0 {
@@ -111,6 +135,8 @@ func (a *Service) seasonNumber() int64 {
 	}
 	return n
 }
+
+// 判断赛季是否禁用
 func (a *Service) seasonDisabled(name string) bool {
 	if a.cfg.GameConfigDir == "" {
 		return false
@@ -118,11 +144,17 @@ func (a *Service) seasonDisabled(name string) bool {
 	_, err := os.Stat(filepath.Join(a.cfg.GameConfigDir, name+"_disabled"))
 	return err == nil
 }
+
+// 按太平洋时区计算日期
 func pacificDay(epoch int64) string {
 	zone, _ := time.LoadLocation("America/Los_Angeles")
 	return time.Unix(epoch, 0).In(zone).Format("2006-01-02")
 }
+
+// 返回当前太平洋日期
 func localDay() string { return pacificDay(now()) }
+
+// 提取任务名称列表
 func questNames(m Object) []string {
 	raw, _ := m["quest_names"].([]any)
 	out := make([]string, 0, len(raw))
@@ -133,8 +165,14 @@ func questNames(m Object) []string {
 	}
 	return out
 }
-func questID(m Object) string                   { return text(m, "quest_id") }
+
+// 读取任务 ID
+func questID(m Object) string { return text(m, "quest_id") }
+
+// 判断是否插入成功
 func insertionCount(r sql.Result) (bool, error) { n, e := r.RowsAffected(); return n > 0, e }
+
+// 读取任务统计
 func questStats(ctx context.Context, reader interface {
 	QueryContext(context.Context, repository.Statement, ...any) (*sql.Rows, error)
 }, id string) (Object, error) {
@@ -156,6 +194,8 @@ func questStats(ctx context.Context, reader interface {
 	}
 	return out, rows.Err()
 }
+
+// 构造任务定义
 func questDefinition(a *Service, name string) Object {
 	for _, q := range a.magicDefinitions("get_quest_defs", "account__quest__get_quest_defs.json") {
 		if text(q, "id") == name {

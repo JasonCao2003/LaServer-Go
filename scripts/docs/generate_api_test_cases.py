@@ -3,17 +3,20 @@
 from __future__ import annotations
 
 import re
+import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-HANDLER = ROOT / "services/api-server/internal/handler/api.go"
+sys.path.insert(0, str(ROOT / "scripts/verify"))
+from gin_routes import registered_routes
+
 SERVICE = ROOT / "services/api-server/internal/service"
 LOG = ROOT / "logs/mumu-0108-api-fixed-20261123.log"
 OUTPUT = ROOT / "docs/api-test-cases.md"
 
-routes = re.findall(r'a\.routes\["([^"]+)"\] = s\.(\w+)', HANDLER.read_text(encoding="utf-8"))
-assert len(routes) == len({path for path, _ in routes}), "duplicate registered API path"
+handlers, methods = registered_routes()
+routes = list(handlers.items())
 internal_routes = [entry for entry in routes if entry[0].startswith("/internal/")]
 routes = [entry for entry in routes if not entry[0].startswith("/internal/")] + internal_routes
 routes.append(("/healthz", "Healthz"))
@@ -85,7 +88,7 @@ def expectation(path: str, action: str) -> str:
 lines = [
     f"# API 逐路由测试用例（{len(routes)} 条）",
     "",
-    f"来源：`services/api-server/internal/handler/api.go` 的 {len(routes)-1} 条注册 API 路径，加独立处理的 `GET /healthz`，合计 {len(routes)} 条固定路径。动态 `GET /ugc/...` 不计入。其中 `/internal/v1/room/admissions/verify` 是 Go 新增的服务间接口，不在旧客户端 201 条路由清单内。每一行对应一条路径；同一处理函数的别名也单列。详细操作示例见 [接口测试手册](api-testing.md)。",
+    f"来源：`services/api-server/internal/handler/router.go` 与 `routes_*.go` 的 {len(routes)-1} 条注册 API 路径，加独立处理的 `GET /healthz`，合计 {len(routes)} 条固定路径。动态 `GET /ugc/...` 不计入。其中 `/internal/v1/room/admissions/verify` 是 Go 新增的服务间接口，不在旧客户端 201 条路由清单内。每一行对应一条路径；同一处理函数的别名也单列。详细操作示例见 [接口测试手册](api-testing.md)。",
     "",
     "**读表规则**：除注册、登录、公开配置和管理接口外，请求通常附 `user` 与 `session`；‘分支校验字段’和‘代码涉及’是静态提取的候选字段，**不等于此路径必填字段**，响应键也可能来自不同成功/失败分支。‘待核实’表示源码分支、旧协议或客户端请求尚需人工确认。游戏操作是测试入口建议，若客户端版本没有该功能则标‘无入口，仅接口测试’。✅ 只表示固定 MuMu 0.1.8 日志中出现过该路径的 POST 200，**不表示功能通过**；— 表示该日志无记录。",
     "",
@@ -109,12 +112,7 @@ for index, (path, handler) in enumerate(routes, 1):
         request = "管理鉴权 + 查询/请求字段；" + request
     elif not any(x in path for x in ("/create", "/login", "/auth/", "/get_latest_build_version", "/device_capabilities/lookup", "/get_vars", "/get_motd")):
         request = "`user`, `session`；" + request
-    if path in ("/account/commerce/product_info", "/admin/api/friends_list", "/admin/api/friends_set", "/admin/api/friends_clear"):
-        method = "POST/GET"
-    else:
-        method = "POST"
-    if path in ("/account/get_friend_statues", "/service/relationship/api/v1/update_friend_constellation_pages", "/service/relationship/api/v1/free_gifts/send"):
-        method += "/OPTIONS"
+    method = "/".join(methods[path])
     lines.append(f"| {index:03d} | {group} | `{method} {path}` | {request} | {response} | {game} | {expectation(path, group)} | {'✅' if path in seen else '—'} |")
 
 lines.extend(["", "## 记录模板", "", "`序号 / 客户端版本 / 请求体（脱敏） / 响应状态和字段 / 游戏操作 / 游戏结果 / 数据前后值 / 日志时间 / 结论（通过、失败、未执行、占位兼容）`", ""])

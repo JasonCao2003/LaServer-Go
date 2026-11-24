@@ -1,3 +1,5 @@
+// 魔法与状态效果数据访问
+
 package repository
 
 const (

@@ -1,3 +1,5 @@
+// 染料购买
+
 package service
 
 import (
@@ -5,6 +7,7 @@ import (
 	"strings"
 )
 
+// 解析染料槽位
 func dyeSlot(value any) (string, []string) {
 	raw, _ := value.([]any)
 	parts := []string{}
@@ -26,6 +29,8 @@ func dyeSlot(value any) (string, []string) {
 	}
 	return strings.Join(parts, "_"), colors
 }
+
+// 购买染料
 func (a *Service) PurchaseDye(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, true)
 	if err != nil {

@@ -1,3 +1,5 @@
+// 旧数据库预检与导入实现
+
 // Package legacyimport copies compatible legacy SQLite rows into a new Go API database.
 // The legacy database is attached read-only; unsupported tables and orphan rows are reported.
 package legacyimport
@@ -75,8 +77,10 @@ var legacyAliases = map[string]map[string]string{
 	"season_quest_reward": {"quest_id": "daily_quest_def_id"},
 }
 
+// 转义 SQLite 标识符
 func quoted(name string) string { return `"` + strings.ReplaceAll(name, `"`, `""`) + `"` }
 
+// 生成旧库只读 URI
 func readonlyURI(path string) (string, error) {
 	abs, err := filepath.Abs(path)
 	if err != nil {
@@ -100,6 +104,7 @@ func readonlyURI(path string) (string, error) {
 	return u.String(), nil
 }
 
+// 读取数据库表清单
 func schemaTables(ctx context.Context, q interface {
 	QueryContext(context.Context, string, ...any) (*sql.Rows, error)
 }, schema string) ([]string, error) {
@@ -119,6 +124,7 @@ func schemaTables(ctx context.Context, q interface {
 	return out, rows.Err()
 }
 
+// 读取表字段信息
 func tableColumns(ctx context.Context, q interface {
 	QueryContext(context.Context, string, ...any) (*sql.Rows, error)
 }, schema, table string) ([]column, error) {
@@ -140,6 +146,7 @@ func tableColumns(ctx context.Context, q interface {
 	return out, rows.Err()
 }
 
+// 读取表外键信息
 func tableForeignKeys(ctx context.Context, q interface {
 	QueryContext(context.Context, string, ...any) (*sql.Rows, error)
 }, table string) ([]foreignKey, error) {
@@ -160,6 +167,7 @@ func tableForeignKeys(ctx context.Context, q interface {
 	return out, rows.Err()
 }
 
+// 检查旧库附属文件
 func sidecars(source string) ([]SidecarReport, error) {
 	out := []SidecarReport{}
 	rootDir := filepath.Dir(source)
@@ -207,6 +215,7 @@ func sidecars(source string) ([]SidecarReport, error) {
 	return out, nil
 }
 
+// 确保目标不在旧实例目录内
 func ensureOutsideLegacy(sourceDB, target string) error {
 	realSource, err := filepath.EvalSymlinks(sourceDB)
 	if err != nil {
@@ -224,6 +233,7 @@ func ensureOutsideLegacy(sourceDB, target string) error {
 	return nil
 }
 
+// 创建迁移用内存库
 func migrateMemory(ctx context.Context) (*sql.DB, error) {
 	db, err := sql.Open("sqlite", ":memory:")
 	if err != nil {
@@ -241,7 +251,7 @@ func migrateMemory(ctx context.Context) (*sql.DB, error) {
 	return db, nil
 }
 
-// Preflight reads the source through SQLite's read-only URI and writes only to an in-memory target.
+// 预检旧数据库并生成报告
 func Preflight(ctx context.Context, source string) (Report, error) {
 	realSource, err := filepath.EvalSymlinks(source)
 	if err != nil {
@@ -255,12 +265,12 @@ func Preflight(ctx context.Context, source string) (Report, error) {
 	return copyInto(ctx, db, realSource, "")
 }
 
-// Import requires a destination path that does not exist, including an empty existing database.
+// 导入旧数据库到新目标
 func Import(ctx context.Context, source, target string) (Report, error) {
 	return ImportWithOptions(ctx, source, target, Options{})
 }
 
-// ImportWithOptions requires an explicit opt-in when rows or sidecar files cannot be migrated.
+// 按选项导入旧数据库
 func ImportWithOptions(ctx context.Context, source, target string, options Options) (Report, error) {
 	sourceAbs, err := filepath.Abs(source)
 	if err != nil {
@@ -350,6 +360,7 @@ func ImportWithOptions(ctx context.Context, source, target string, options Optio
 	return report, nil
 }
 
+// 复制旧库数据到目标
 func copyInto(ctx context.Context, db *sql.DB, source, target string) (Report, error) {
 	uri, err := readonlyURI(source)
 	if err != nil {
@@ -473,6 +484,7 @@ func copyInto(ctx context.Context, db *sql.DB, source, target string) (Report, e
 	return report, nil
 }
 
+// 判断报告是否存在数据丢失
 func reportHasLoss(report Report) bool {
 	for _, row := range report.Tables {
 		if row.SkippedRows > 0 {
@@ -487,6 +499,7 @@ func reportHasLoss(report Report) bool {
 	return false
 }
 
+// 判断除计划留影外是否存在数据丢失
 func reportHasLossExceptPlannedRecordings(report Report, recordingsPlanned bool) bool {
 	for _, row := range report.Tables {
 		if row.SkippedRows > 0 {
@@ -504,6 +517,7 @@ func reportHasLossExceptPlannedRecordings(report Report, recordingsPlanned bool)
 	return false
 }
 
+// 导入动态附加数据
 func importFeedExtras(ctx context.Context, tx *sql.Tx, report *Report) error {
 	root := filepath.Join(filepath.Dir(report.Source), "feed_extra")
 	entries, err := os.ReadDir(root)
@@ -576,6 +590,7 @@ func importFeedExtras(ctx context.Context, tx *sql.Tx, report *Report) error {
 	return nil
 }
 
+// 复制留影文件
 func copyRecordings(sourceDB, targetDir string, expected int) (int, error) {
 	sourceDir := filepath.Join(filepath.Dir(sourceDB), "recordings")
 	entries, err := os.ReadDir(sourceDir)
@@ -648,6 +663,7 @@ func copyRecordings(sourceDB, targetDir string, expected int) (int, error) {
 	return len(entries), nil
 }
 
+// 复制单张表数据
 func copyTable(ctx context.Context, tx *sql.Tx, table string) (TableReport, error) {
 	row := TableReport{Name: table}
 	if err := tx.QueryRowContext(ctx, "SELECT count(*) FROM legacy."+quoted(table)).Scan(&row.SourceRows); err != nil {
@@ -725,6 +741,7 @@ func copyTable(ctx context.Context, tx *sql.Tx, table string) (TableReport, erro
 	return row, nil
 }
 
+// 校验导入后的键值一致性
 func compareKeyValues(ctx context.Context, tx *sql.Tx, report *Report) error {
 	for _, row := range report.Tables {
 		if row.Status != "copied" || row.Name != "user_currency" && row.Name != "user_data" {

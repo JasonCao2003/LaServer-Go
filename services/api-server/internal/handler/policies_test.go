@@ -1,3 +1,5 @@
+// 授权策略、MOTD 与收集品测试
+
 package handler
 
 import (

@@ -1,3 +1,5 @@
+// 授权/开关策略读取
+
 package service
 
 import (
@@ -10,7 +12,7 @@ import (
 	"strconv"
 )
 
-// legacyObject reads only named configuration files. It never writes legacy state.
+// 读取旧版配置文件对象
 func (a *Service) legacyObject(name string) (object, error) {
 	if name != filepath.Base(name) {
 		return nil, errors.New("invalid configuration name")
@@ -38,6 +40,7 @@ func (a *Service) legacyObject(name string) (object, error) {
 	return out, nil
 }
 
+// 读取开关策略
 func (a *Service) policy(name string, stamp int64, fallback bool) (bool, error) {
 	data, err := a.legacyObject(name)
 	if err != nil {

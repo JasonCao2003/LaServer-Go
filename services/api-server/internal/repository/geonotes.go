@@ -1,3 +1,5 @@
+// 玩家留言数据访问
+
 package repository
 
 import (
@@ -25,17 +27,20 @@ type Geonote struct {
 
 const geonoteColumns = `id,geonote_id,pool_type,pool_name,message,author_id,author_name,created_at,edited_at,level_id,level_hash,pos_x,pos_y,pos_z,parent_guid,parent_rel_pos,cam_dir,likes,liked,visible,reported,emoji_id,bug,server_time`
 
+// 扫描留言
 func scanGeonote(scanner rowScanner) (Geonote, error) {
 	var n Geonote
 	err := scanner.Scan(&n.ID, &n.GeonoteID, &n.PoolType, &n.PoolName, &n.Message, &n.AuthorID, &n.AuthorName, &n.CreatedAt, &n.EditedAt, &n.LevelID, &n.LevelHash, &n.PosX, &n.PosY, &n.PosZ, &n.ParentGUID, &n.ParentRelPos, &n.CamDir, &n.Likes, &n.Liked, &n.Visible, &n.Reported, &n.EmojiID, &n.Bug, &n.ServerTime)
 	return n, err
 }
 
+// 创建留言
 func (s *Store) CreateGeonote(ctx context.Context, n Geonote) error {
 	_, err := s.ExecContext(ctx, `INSERT INTO geonote(geonote_id,pool_type,pool_name,message,author_id,author_name,created_at,level_id,level_hash,pos_x,pos_y,pos_z,parent_guid,parent_rel_pos,cam_dir,likes,liked,visible,reported,emoji_id,bug,server_time) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,0,1,0,0,?,?)`, n.GeonoteID, n.PoolType, n.PoolName, n.Message, n.AuthorID, n.AuthorName, n.CreatedAt, n.LevelID, n.LevelHash, n.PosX, n.PosY, n.PosZ, n.ParentGUID, n.ParentRelPos, n.CamDir, n.Bug, n.ServerTime)
 	return err
 }
 
+// 处理留言
 func (s *Store) Geonotes(ctx context.Context, levelID int64, filterLevel, bug bool, limit int64) ([]Geonote, error) {
 	query := `SELECT ` + geonoteColumns + ` FROM geonote WHERE bug=?`
 	args := []any{bug}
@@ -64,6 +69,7 @@ func (s *Store) Geonotes(ctx context.Context, levelID int64, filterLevel, bug bo
 	return out, rows.Err()
 }
 
+// 按 ID 获取留言
 func (s *Store) GeonoteByID(ctx context.Context, geonoteID string) (Geonote, bool, error) {
 	n, err := scanGeonote(s.QueryRowContext(ctx, `SELECT `+geonoteColumns+` FROM geonote WHERE geonote_id=?`, geonoteID))
 	if err == sql.ErrNoRows {
@@ -72,6 +78,7 @@ func (s *Store) GeonoteByID(ctx context.Context, geonoteID string) (Geonote, boo
 	return n, err == nil, err
 }
 
+// 删除留言
 func (s *Store) DeleteGeonote(ctx context.Context, geonoteID, authorID string, bugOnly bool) (bool, error) {
 	query := `DELETE FROM geonote WHERE geonote_id=? AND author_id=?`
 	if bugOnly {
@@ -85,6 +92,7 @@ func (s *Store) DeleteGeonote(ctx context.Context, geonoteID, authorID string, b
 	return n > 0, err
 }
 
+// 编辑留言
 func (s *Store) EditGeonote(ctx context.Context, geonoteID, authorID, message string, stamp int64) (Geonote, bool, error) {
 	result, err := s.ExecContext(ctx, `UPDATE geonote SET message=?,edited_at=? WHERE geonote_id=? AND author_id=?`, message, stamp, geonoteID, authorID)
 	if err != nil {
@@ -97,8 +105,7 @@ func (s *Store) EditGeonote(ctx context.Context, geonoteID, authorID, message st
 	return s.GeonoteByID(ctx, geonoteID)
 }
 
-// MutateGeonote applies global like/visibility/report/emoji changes. Likes only
-// move on a false->true or true->false transition, matching the legacy store.
+// 修改留言
 func (s *Store) MutateGeonote(ctx context.Context, geonoteID string, liked, visible, reported *bool, emojiID *int64, stamp int64) (Geonote, bool, error) {
 	tx, err := s.BeginTx(ctx, nil)
 	if err != nil {

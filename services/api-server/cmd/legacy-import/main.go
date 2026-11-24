@@ -1,3 +1,5 @@
+// 旧数据导入命令行入口
+
 package main
 
 import (
@@ -10,6 +12,7 @@ import (
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/legacyimport"
 )
 
+// 程序入口
 func main() {
 	mode := flag.String("mode", "preflight", "preflight or import")
 	source := flag.String("source", "", "path to legacy SQLite database (opened read-only)")

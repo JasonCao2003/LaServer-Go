@@ -1,3 +1,5 @@
+// 客户端启动资源（版本、变量、MOTD 等）
+
 package service
 
 import (
@@ -14,6 +16,7 @@ import (
 
 var buildPattern = regexp.MustCompile(`/[0-9.]*\.([0-9]+)`)
 
+// 获取最新构建版本
 func (a *Service) LatestBuild(r Request, _ object) (object, error) {
 	build := int64(0)
 	if m := buildPattern.FindStringSubmatch(r.UserAgent); len(m) > 1 {
@@ -31,6 +34,7 @@ func (a *Service) LatestBuild(r Request, _ object) (object, error) {
 	return object{"latest_build_version": build, "min_gpu_rating": 540, "maintenance_mode": false, "maintenance_msg": "", "app_store_uri": "", "tos": object{"version": 4, "tos_url": "", "pp_url": ""}, "cs_enabled": true, "cs_db_enabled": false, "country_code": "CN"}, nil
 }
 
+// 获取设备能力配置
 func (a *Service) Capabilities(r Request, m object) (object, error) {
 	if id := text(m, "user"); id != "" {
 		u, err := a.findUser(r.Context, "id", id)
@@ -51,11 +55,14 @@ func (a *Service) Capabilities(r Request, m object) (object, error) {
 	return object{"device_capabilities": object{"gpu_rating": 10003, "hash_id": binary.BigEndian.Uint32(b[:])}}, nil
 }
 
+// 获取客户端变量
 func (a *Service) Variables(_ Request, _ object) (object, error) {
 	var out object
 	err := json.Unmarshal([]byte(variablesJSON), &out)
 	return out, err
 }
+
+// 获取公告信息
 func (a *Service) Motd(_ Request, _ object) (object, error) {
 	stamp := now()
 	defaults := object{"motd": "欢迎来到 LaServer", "motd_title": "LaServer", "motd_timestamp": stamp, "motd_version": 0, "motd_buttons": []any{}, "motd_season_start": stamp, "motd_season_end": stamp + 30*86400}
@@ -90,6 +97,8 @@ func (a *Service) Motd(_ Request, _ object) (object, error) {
 	}
 	return defaults, nil
 }
+
+// 查询客服回复
 func (a *Service) Support(r Request, m object) (object, error) {
 	if _, err := a.authenticated(r, m); err != nil {
 		return nil, err

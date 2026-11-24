@@ -1,3 +1,5 @@
+// 表情家族与等级映射
+
 package service
 
 import (
@@ -6,6 +8,7 @@ import (
 	"strings"
 )
 
+// 解析表情家族名称
 func emoteFamily(name string) (string, bool) {
 	if !strings.HasPrefix(name, "emote_upgrade_") {
 		return "", false
@@ -19,6 +22,8 @@ func emoteFamily(name string) (string, bool) {
 	}
 	return name[:cut], true
 }
+
+// 读取表情家族等级
 func (a *Service) emoteFamilyLevels(name string) []string {
 	family, ok := emoteFamily(name)
 	if !ok {

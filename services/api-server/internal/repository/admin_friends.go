@@ -1,3 +1,5 @@
+// 管理后台好友数据访问
+
 package repository
 
 import (
@@ -13,6 +15,7 @@ type AdminFriendRow struct {
 	TwoWay                          bool
 }
 
+// 读取管理员好友 ID
 func (s *Store) AdminFriendIDs(ctx context.Context, userID string) ([]string, error) {
 	rows, err := s.QueryContext(ctx, `SELECT friend_id FROM friendship WHERE user_id=? UNION SELECT user_id FROM friendship WHERE friend_id=?`, userID, userID)
 	if err != nil {
@@ -34,6 +37,7 @@ func (s *Store) AdminFriendIDs(ctx context.Context, userID string) ([]string, er
 	return out, rows.Err()
 }
 
+// 读取管理员好友记录
 func (s *Store) AdminFriendRow(ctx context.Context, userID, friendID string) (AdminFriendRow, error) {
 	var row AdminFriendRow
 	var forward, reverse sql.NullString
@@ -49,6 +53,7 @@ func (s *Store) AdminFriendRow(ctx context.Context, userID, friendID string) (Ad
 	return row, nil
 }
 
+// 设置管理员好友关系
 func (s *Store) AdminSetFriendship(ctx context.Context, userID, friendID, state, adminIP, auditAction string) (bool, string, error) {
 	existsA, err := s.HasUser(ctx, userID)
 	if err != nil {

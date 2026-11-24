@@ -1,3 +1,5 @@
+// 房间服务事件循环与玩家管理
+
 package room
 
 import (
@@ -61,6 +63,7 @@ type Server struct {
 	start       time.Time
 }
 
+// 创建房间服务实例
 func NewServer(host Host, cfg config.Config, roomURI string, verifier Verifier) *Server {
 	timeout := time.Duration(cfg.JoinTimeoutMS) * time.Millisecond
 	return &Server{
@@ -78,6 +81,7 @@ func NewServer(host Host, cfg config.Config, roomURI string, verifier Verifier) 
 	}
 }
 
+// 运行房间事件循环
 func (s *Server) Serve(ctx context.Context, ready func()) error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer func() {
@@ -109,8 +113,10 @@ func (s *Server) Serve(ctx context.Context, ready func()) error {
 	return ctx.Err()
 }
 
+// 关闭传输资源
 func (s *Server) Close() error { return s.host.Close() }
 
+// 分发底层网络事件
 func (s *Server) handleEvent(ctx context.Context, event transport.Event, now time.Time) {
 	switch event.Kind {
 	case transport.Connected:
@@ -137,6 +143,7 @@ func (s *Server) handleEvent(ctx context.Context, event transport.Event, now tim
 	}
 }
 
+// 开始处理进房请求
 func (s *Server) begin(ctx context.Context, conn *connection, frame []byte, now time.Time) {
 	if err := s.sessions.StartJoin(conn.ticket, now); err != nil {
 		return
@@ -172,6 +179,7 @@ func (s *Server) begin(ctx context.Context, conn *connection, frame []byte, now 
 	}()
 }
 
+// 完成进房校验并加入房间
 func (s *Server) complete(result admissionResult, now time.Time) {
 	peer := result.ticket.Peer
 	conn := s.connections[peer]
@@ -203,6 +211,7 @@ func (s *Server) complete(result admissionResult, now time.Time) {
 	s.broadcast(peer, frame)
 }
 
+// 处理已进房连接的数据
 func (s *Server) receiveActive(conn *connection, frame []byte, now time.Time) {
 	peer := conn.ticket.Peer
 	switch frame[0] {
@@ -227,6 +236,7 @@ func (s *Server) receiveActive(conn *connection, frame []byte, now time.Time) {
 	}
 }
 
+// 向其他玩家广播数据
 func (s *Server) broadcast(except uint64, frame []byte) {
 	for peer, conn := range s.connections {
 		if peer != except && conn.player != nil {
@@ -235,6 +245,7 @@ func (s *Server) broadcast(except uint64, frame []byte) {
 	}
 }
 
+// 生成玩家列表与下一个玩家 ID
 func (s *Server) rosterAndNextID() ([]protocol.RosterPlayer, uint8) {
 	players := make([]protocol.RosterPlayer, 0, len(s.connections))
 	var occupied [256]bool
@@ -254,11 +265,13 @@ func (s *Server) rosterAndNextID() ([]protocol.RosterPlayer, uint8) {
 	return players, 0
 }
 
+// 丢弃指定连接
 func (s *Server) drop(peer uint64) {
 	s.remove(peer)
 	s.host.Disconnect(peer, 0)
 }
 
+// 移除指定玩家
 func (s *Server) remove(peer uint64) {
 	conn := s.connections[peer]
 	if conn == nil {

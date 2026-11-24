@@ -1,3 +1,5 @@
+// 消息数据访问
+
 package repository
 
 import (
@@ -16,6 +18,7 @@ type FreeGift struct {
 	ExpiresAt            sql.NullInt64
 }
 
+// 读取用户 ID 列表
 func (s *Store) UserIDs(ctx context.Context) ([]string, error) {
 	rows, err := s.QueryContext(ctx, `SELECT id FROM user`)
 	if err != nil {
@@ -35,12 +38,14 @@ func (s *Store) UserIDs(ctx context.Context) ([]string, error) {
 
 const giftColumns = `id,sender_id,receiver_id,gift_type,gift_id,sent_at,COALESCE(received,0),received_at,expires_at`
 
+// 扫描礼物
 func scanGift(scanner rowScanner) (FreeGift, error) {
 	var g FreeGift
 	err := scanner.Scan(&g.ID, &g.SenderID, &g.ReceiverID, &g.GiftType, &g.GiftID, &g.SentAt, &g.Received, &g.ReceivedAt, &g.ExpiresAt)
 	return g, err
 }
 
+// 读取已发送礼物
 func (s *Store) SentGifts(ctx context.Context, userID string, stamp int64) ([]FreeGift, error) {
 	rows, err := s.QueryContext(ctx, `SELECT `+giftColumns+` FROM free_gift WHERE sender_id=? AND (expires_at IS NULL OR expires_at>?) ORDER BY sent_at DESC,id DESC`, userID, stamp)
 	if err != nil {
@@ -58,6 +63,7 @@ func (s *Store) SentGifts(ctx context.Context, userID string, stamp int64) ([]Fr
 	return out, rows.Err()
 }
 
+// 读取已接收礼物
 func (s *Store) ReceivedGifts(ctx context.Context, userID string, stamp int64) ([]FreeGift, error) {
 	rows, err := s.QueryContext(ctx, `SELECT `+giftColumns+` FROM free_gift WHERE receiver_id=? AND COALESCE(received,0)=0 AND (expires_at IS NULL OR expires_at>?) ORDER BY sent_at ASC,id ASC`, userID, stamp)
 	if err != nil {
@@ -75,17 +81,20 @@ func (s *Store) ReceivedGifts(ctx context.Context, userID string, stamp int64) (
 	return out, rows.Err()
 }
 
+// 统计待领取礼物数量
 func (s *Store) PendingGiftCount(ctx context.Context, userID string, stamp int64) (int64, error) {
 	var count int64
 	err := s.QueryRowContext(ctx, `SELECT count(*) FROM free_gift WHERE receiver_id=? AND COALESCE(received,0)=0 AND (expires_at IS NULL OR expires_at>?)`, userID, stamp).Scan(&count)
 	return count, err
 }
 
+// 确保货币
 func (t *Tx) EnsureCurrency(ctx context.Context, userID string) error {
 	_, err := t.ExecContext(ctx, `INSERT INTO user_currency(user_id,wax) VALUES(?,3) ON CONFLICT(user_id) DO NOTHING`, userID)
 	return err
 }
 
+// 处理货币余额
 func (t *Tx) CurrencyBalance(ctx context.Context, userID, field string) (int64, error) {
 	if !spendableCurrency[field] {
 		return 0, sql.ErrNoRows
@@ -95,8 +104,7 @@ func (t *Tx) CurrencyBalance(ctx context.Context, userID, field string) (int64, 
 	return balance, err
 }
 
-// ClampSpend subtracts cost but never below zero, mirroring the legacy
-// give-candle behavior that charges even when the balance is insufficient.
+// 限制扣减
 func (t *Tx) ClampSpend(ctx context.Context, userID, field string, cost int64) error {
 	if !spendableCurrency[field] || cost < 0 {
 		return sql.ErrNoRows
@@ -105,6 +113,7 @@ func (t *Tx) ClampSpend(ctx context.Context, userID, field string, cost int64) e
 	return err
 }
 
+// 新增货币
 func (t *Tx) AddCurrency(ctx context.Context, userID, field string, amount int64) error {
 	if !spendableCurrency[field] || amount < 0 {
 		return sql.ErrNoRows
@@ -113,6 +122,7 @@ func (t *Tx) AddCurrency(ctx context.Context, userID, field string, amount int64
 	return err
 }
 
+// 设置货币
 func (t *Tx) SetCurrency(ctx context.Context, userID, field string, value int64) error {
 	if !spendableCurrency[field] || value < 0 {
 		return sql.ErrNoRows
@@ -121,11 +131,13 @@ func (t *Tx) SetCurrency(ctx context.Context, userID, field string, value int64)
 	return err
 }
 
+// 插入礼物
 func (t *Tx) InsertGift(ctx context.Context, g FreeGift) error {
 	_, err := t.ExecContext(ctx, `INSERT INTO free_gift(sender_id,receiver_id,gift_type,gift_id,sent_at,received,expires_at) VALUES(?,?,?,?,?,0,?)`, g.SenderID, g.ReceiverID, g.GiftType, g.GiftID, g.SentAt, g.ExpiresAt.Int64)
 	return err
 }
 
+// 按 ID 获取礼物
 func (t *Tx) GiftByID(ctx context.Context, receiverID, giftID string) (FreeGift, bool, error) {
 	g, err := scanGift(t.QueryRowContext(ctx, `SELECT `+giftColumns+` FROM free_gift WHERE gift_id=? AND receiver_id=? AND (expires_at IS NULL OR expires_at>?) ORDER BY id LIMIT 1`, giftID, receiverID, nowEpoch()))
 	if err == sql.ErrNoRows {
@@ -134,6 +146,7 @@ func (t *Tx) GiftByID(ctx context.Context, receiverID, giftID string) (FreeGift,
 	return g, err == nil, err
 }
 
+// 获取来自指定好友的最新未接收礼物
 func (t *Tx) LatestUnreceivedGiftFrom(ctx context.Context, receiverID, senderID string) (FreeGift, bool, error) {
 	g, err := scanGift(t.QueryRowContext(ctx, `SELECT `+giftColumns+` FROM free_gift WHERE receiver_id=? AND sender_id=? AND COALESCE(received,0)=0 AND (expires_at IS NULL OR expires_at>?) ORDER BY sent_at DESC,id DESC LIMIT 1`, receiverID, senderID, nowEpoch()))
 	if err == sql.ErrNoRows {
@@ -142,6 +155,7 @@ func (t *Tx) LatestUnreceivedGiftFrom(ctx context.Context, receiverID, senderID 
 	return g, err == nil, err
 }
 
+// 获取来自指定好友的未接收礼物
 func (t *Tx) UnreceivedGiftsFrom(ctx context.Context, receiverID, senderID string) ([]FreeGift, error) {
 	rows, err := t.QueryContext(ctx, `SELECT `+giftColumns+` FROM free_gift WHERE receiver_id=? AND sender_id=? AND COALESCE(received,0)=0 AND (expires_at IS NULL OR expires_at>?) ORDER BY sent_at ASC,id ASC`, receiverID, senderID, nowEpoch())
 	if err != nil {
@@ -159,11 +173,13 @@ func (t *Tx) UnreceivedGiftsFrom(ctx context.Context, receiverID, senderID strin
 	return out, rows.Err()
 }
 
+// 标记礼物已接收
 func (t *Tx) MarkGiftReceived(ctx context.Context, id, stamp int64) error {
 	_, err := t.ExecContext(ctx, `UPDATE free_gift SET received=1,received_at=? WHERE id=?`, stamp, id)
 	return err
 }
 
+// 标记消息已接收
 func (s *Store) MarkMessageReceived(ctx context.Context, userID, messageID string, stamp int64) error {
 	tx, err := s.BeginTx(ctx, nil)
 	if err != nil {
@@ -179,6 +195,7 @@ func (s *Store) MarkMessageReceived(ctx context.Context, userID, messageID strin
 	return tx.Commit()
 }
 
+// 读取关系事务数据
 func (t *Tx) RelationTx(ctx context.Context, userID, friendID string) (RelationEntry, bool, error) {
 	e, err := scanRelation(t.QueryRowContext(ctx, Statement(relationSelect+` WHERE fs.user_id=? AND fs.friend_id=?`), userID, friendID))
 	if err == sql.ErrNoRows {
@@ -190,6 +207,7 @@ func (t *Tx) RelationTx(ctx context.Context, userID, friendID string) (RelationE
 	return e, true, nil
 }
 
+// 确保关系配对事务
 func (t *Tx) EnsureRelationPairTx(ctx context.Context, userID, friendID, abilities string, stamp int64) error {
 	if abilities == "" {
 		abilities = defaultFriendAbilities
@@ -205,13 +223,13 @@ func (t *Tx) EnsureRelationPairTx(ctx context.Context, userID, friendID, abiliti
 	return nil
 }
 
+// 保存关系事务
 func (t *Tx) SaveRelationTx(ctx context.Context, userID, friendID, abilities, hints string, given, received int64, stamp int64) error {
 	_, err := t.ExecContext(ctx, `UPDATE friend_status SET abilities=?,hints=?,given=?,recvd=?,local_soft_deleted=0,when_created=CASE WHEN COALESCE(when_created,0)=0 THEN ? ELSE when_created END,updated_at=CURRENT_TIMESTAMP WHERE user_id=? AND friend_id=?`, abilities, hints, given, received, stamp, userID, friendID)
 	return err
 }
 
-// CountAddedFriends counts friend_status rows that the client treats as real
-// friends: lit/blocked rows included, removed tombstones excluded.
+// 统计已添加好友
 func (s *Store) CountAddedFriends(ctx context.Context, userID string) (int64, error) {
 	records, err := s.Statues(ctx, userID)
 	if err != nil {

@@ -1,3 +1,5 @@
+// 客户端与服务端帧头处理
+
 package protocol
 
 import (
@@ -25,6 +27,7 @@ type clientFrame struct {
 	payload  []byte
 }
 
+// 解析客户端帧
 func decodeClientFrame(frame []byte, layout ClientLayout, expectedID byte) (clientFrame, error) {
 	var idOffset int
 	switch layout {
@@ -53,6 +56,7 @@ func decodeClientFrame(frame []byte, layout ClientLayout, expectedID byte) (clie
 	return decoded, nil
 }
 
+// 创建服务端帧缓冲区
 func newServerFrame(id byte, payloadSize uint16) []byte {
 	frame := make([]byte, serverHeader+int(payloadSize))
 	frame[0] = id

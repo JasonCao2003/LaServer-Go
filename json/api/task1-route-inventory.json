@@ -45,7 +45,100 @@
     }
   ],
   "no_direct_test_reference": [],
-  "method_differences": [],
+  "method_differences": [
+    {
+      "path": "/account/commerce/fulfill",
+      "legacy": [
+        "POST"
+      ],
+      "go": [
+        "POST",
+        "POST"
+      ]
+    },
+    {
+      "path": "/account/ack_forge_rate_reset",
+      "legacy": [
+        "POST"
+      ],
+      "go": [
+        "POST",
+        "POST"
+      ]
+    },
+    {
+      "path": "/admin/api/friends_clear",
+      "legacy": [
+        "POST",
+        "GET"
+      ],
+      "go": [
+        "GET",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/service/quest/api/v1/update_quest",
+      "legacy": [
+        "POST"
+      ],
+      "go": [
+        "POST",
+        "POST"
+      ]
+    },
+    {
+      "path": "/service/relationship/api/v1/free_gifts/claim",
+      "legacy": [
+        "POST"
+      ],
+      "go": [
+        "POST",
+        "POST"
+      ]
+    },
+    {
+      "path": "/ugc/<path:subpath>",
+      "legacy": [
+        "GET"
+      ],
+      "go": [
+        "GET",
+        "GET"
+      ]
+    },
+    {
+      "path": "/service/relationship/api/v1/delete_follow",
+      "legacy": [
+        "POST"
+      ],
+      "go": [
+        "POST",
+        "POST"
+      ]
+    },
+    {
+      "path": "/service/social-feed/api/v2/get_penpal_by_id",
+      "legacy": [
+        "POST"
+      ],
+      "go": [
+        "POST",
+        "POST"
+      ]
+    },
+    {
+      "path": "/starwatch/auth/api/v1/auth",
+      "legacy": [
+        "POST"
+      ],
+      "go": [
+        "POST",
+        "POST"
+      ]
+    }
+  ],
   "routes": [
     {
       "path": "/account/auth/create",
@@ -68,6 +161,7 @@
       ],
       "go_handler": "Create",
       "direct_test_files": [
+        "auth_policy_test.go",
         "config_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
@@ -95,9 +189,11 @@
       ],
       "go_handler": "Create",
       "direct_test_files": [
-        "api_test.go",
+        "auth_policy_test.go",
         "config_test.go",
-        "policies_test.go"
+        "core_flows_test.go",
+        "policies_test.go",
+        "router_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -124,6 +220,7 @@
       ],
       "go_handler": "Motd",
       "direct_test_files": [
+        "config_resources_test.go",
         "policies_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
@@ -151,8 +248,9 @@
       ],
       "go_handler": "Login",
       "direct_test_files": [
+        "auth_policy_test.go",
         "config_test.go",
-        "login_compat_test.go"
+        "login_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -179,7 +277,9 @@
       ],
       "go_handler": "Login",
       "direct_test_files": [
-        "api_test.go",
+        "auth_policy_test.go",
+        "core_flows_test.go",
+        "login_test.go",
         "policies_test.go",
         "room_admission_test.go"
       ],
@@ -208,7 +308,8 @@
       ],
       "go_handler": "Currency",
       "direct_test_files": [
-        "api_test.go"
+        "auth_policy_test.go",
+        "core_flows_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -235,7 +336,7 @@
       ],
       "go_handler": "Rank",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -262,7 +363,7 @@
       ],
       "go_handler": "Userdata",
       "direct_test_files": [
-        "api_test.go"
+        "core_flows_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -289,7 +390,7 @@
       ],
       "go_handler": "Userdata",
       "direct_test_files": [
-        "api_test.go"
+        "core_flows_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -316,7 +417,7 @@
       ],
       "go_handler": "Capabilities",
       "direct_test_files": [
-        "api_test.go"
+        "core_flows_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -343,7 +444,7 @@
       ],
       "go_handler": "LatestBuild",
       "direct_test_files": [
-        "api_test.go"
+        "core_flows_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -370,7 +471,7 @@
       ],
       "go_handler": "Variables",
       "direct_test_files": [
-        "api_test.go"
+        "core_flows_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -397,7 +498,7 @@
       ],
       "go_handler": "Support",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -424,7 +525,7 @@
       ],
       "go_handler": "AchievementStatsTracking",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -451,7 +552,7 @@
       ],
       "go_handler": "EventCurrencyDefinitions",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -478,7 +579,7 @@
       ],
       "go_handler": "GetBlockedFriends",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -505,7 +606,7 @@
       ],
       "go_handler": "SetFriendName",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -532,7 +633,7 @@
       ],
       "go_handler": "SetFriendBlock",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -559,7 +660,7 @@
       ],
       "go_handler": "Questionnaires",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -586,8 +687,10 @@
       ],
       "go_handler": "SetAchievementStats",
       "direct_test_files": [
-        "batch_b_routes_test.go",
-        "batch_b_test.go"
+        "persistence_restart_test.go",
+        "transaction_flow_test.go",
+        "transaction_routes_test.go",
+        "transactions_rollback_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -614,7 +717,7 @@
       ],
       "go_handler": "Surveys",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -641,7 +744,8 @@
       ],
       "go_handler": "GetShop",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "config_resources_test.go",
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -668,7 +772,7 @@
       ],
       "go_handler": "GetLootboxes",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -695,7 +799,8 @@
       ],
       "go_handler": "RedeemBox",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go",
+        "transactions_rollback_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -722,7 +827,7 @@
       ],
       "go_handler": "GetExternalFriends",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -749,7 +854,7 @@
       ],
       "go_handler": "Serendipity",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -776,7 +881,7 @@
       ],
       "go_handler": "StarTags",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -803,7 +908,8 @@
       ],
       "go_handler": "GetPendingMessages",
       "direct_test_files": [
-        "batch_c_test.go"
+        "persistence_restart_test.go",
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -830,7 +936,7 @@
       ],
       "go_handler": "GenericShops",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -857,7 +963,8 @@
       ],
       "go_handler": "ConsumableDefinitions",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go",
+        "magic_config_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -884,7 +991,7 @@
       ],
       "go_handler": "GetConsumables",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -911,7 +1018,7 @@
       ],
       "go_handler": "ConsumeItem",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -938,7 +1045,7 @@
       ],
       "go_handler": "ForgeRates",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -992,7 +1099,7 @@
       ],
       "go_handler": "AchievementStats",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1019,7 +1126,7 @@
       ],
       "go_handler": "RelationshipDefinitions",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1046,7 +1153,7 @@
       ],
       "go_handler": "RedeemReward",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1073,7 +1180,8 @@
       ],
       "go_handler": "Unlocks",
       "direct_test_files": [
-        "batch_a_test.go"
+        "config_resources_test.go",
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1100,7 +1208,8 @@
       ],
       "go_handler": "EventSchedule",
       "direct_test_files": [
-        "batch_a_test.go"
+        "event_schedule_test.go",
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1127,7 +1236,8 @@
       ],
       "go_handler": "IAPList",
       "direct_test_files": [
-        "batch_a_test.go"
+        "config_resources_test.go",
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1154,8 +1264,10 @@
       ],
       "go_handler": "CommerceReceipt",
       "direct_test_files": [
-        "batch_b_routes_test.go",
-        "batch_b_test.go"
+        "persistence_restart_test.go",
+        "transaction_flow_test.go",
+        "transaction_routes_test.go",
+        "transactions_rollback_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1167,6 +1279,7 @@
         "POST"
       ],
       "go_methods": [
+        "POST",
         "POST"
       ],
       "legacy_source": "business/account/__init__.py:192",
@@ -1182,8 +1295,8 @@
       ],
       "go_handler": "CommerceFulfill",
       "direct_test_files": [
-        "batch_b_routes_test.go",
-        "batch_b_test.go"
+        "transaction_flow_test.go",
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1210,7 +1323,7 @@
       ],
       "go_handler": "CommerceUpdate",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1240,7 +1353,8 @@
       ],
       "go_handler": "CommerceProductInfo",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "router_test.go",
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1267,6 +1381,7 @@
       ],
       "go_handler": "Collectibles",
       "direct_test_files": [
+        "config_resources_test.go",
         "policies_test.go",
         "profile_test.go"
       ],
@@ -1295,7 +1410,8 @@
       ],
       "go_handler": "SpiritShops",
       "direct_test_files": [
-        "batch_a_test.go"
+        "config_resources_test.go",
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1322,7 +1438,7 @@
       ],
       "go_handler": "QuestionnaireGroups",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1349,8 +1465,8 @@
       ],
       "go_handler": "PurchaseSpiritShopItem",
       "direct_test_files": [
-        "api_test.go",
-        "batch_b_routes_test.go"
+        "core_flows_test.go",
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1377,8 +1493,8 @@
       ],
       "go_handler": "GetUserGeonotes",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go"
+        "content_contract_test.go",
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1405,8 +1521,8 @@
       ],
       "go_handler": "GetUserGeonotes",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go"
+        "content_contract_test.go",
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1433,7 +1549,7 @@
       ],
       "go_handler": "RequestGeonotesForNFriends",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1460,8 +1576,8 @@
       ],
       "go_handler": "CreateGeonote",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go"
+        "content_contract_test.go",
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1488,7 +1604,7 @@
       ],
       "go_handler": "CreateGeonote",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1515,7 +1631,7 @@
       ],
       "go_handler": "CreateBugReportGeonote",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1542,7 +1658,7 @@
       ],
       "go_handler": "CreateBugReportGeonote",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1569,7 +1685,7 @@
       ],
       "go_handler": "SocialGeonote",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1596,7 +1712,7 @@
       ],
       "go_handler": "SocialGeonote",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1623,7 +1739,7 @@
       ],
       "go_handler": "DeleteGeonote",
       "direct_test_files": [
-        "batch_c_test.go"
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1650,7 +1766,7 @@
       ],
       "go_handler": "DeleteGeonote",
       "direct_test_files": [
-        "batch_c_test.go"
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1677,7 +1793,7 @@
       ],
       "go_handler": "DeleteBugReportGeonote",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1704,7 +1820,7 @@
       ],
       "go_handler": "DeleteBugReportGeonote",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1731,7 +1847,7 @@
       ],
       "go_handler": "EditMessageGeonote",
       "direct_test_files": [
-        "batch_c_test.go"
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1758,7 +1874,7 @@
       ],
       "go_handler": "EditMessageGeonote",
       "direct_test_files": [
-        "batch_c_test.go"
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1785,7 +1901,7 @@
       ],
       "go_handler": "RequestNBugReportGeonotes",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1812,7 +1928,7 @@
       ],
       "go_handler": "RequestNBugReportGeonotes",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1839,7 +1955,7 @@
       ],
       "go_handler": "EmptyDailyQuests",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1866,7 +1982,7 @@
       ],
       "go_handler": "EmptyWeeklyQuests",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1893,7 +2009,7 @@
       ],
       "go_handler": "EmptySeasonQuestsV2",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1920,7 +2036,7 @@
       ],
       "go_handler": "EmptySeasonPassDefs",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1947,7 +2063,7 @@
       ],
       "go_handler": "CurrencyDefinitions",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -1974,7 +2090,7 @@
       ],
       "go_handler": "EmptyEventCurrency",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2001,7 +2117,7 @@
       ],
       "go_handler": "GetWingBuffs",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2028,7 +2144,7 @@
       ],
       "go_handler": "CollectWingBuffs",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2055,7 +2171,7 @@
       ],
       "go_handler": "CollectCollectible",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2082,7 +2198,7 @@
       ],
       "go_handler": "DropWingBuffs",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2109,7 +2225,7 @@
       ],
       "go_handler": "DepositWingBuffs",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2136,7 +2252,7 @@
       ],
       "go_handler": "ConvertWingBuffs",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2190,7 +2306,7 @@
       ],
       "go_handler": "GetBuffs1",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2217,7 +2333,7 @@
       ],
       "go_handler": "GetBuffs",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2244,7 +2360,7 @@
       ],
       "go_handler": "RemoveBuff",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2271,7 +2387,7 @@
       ],
       "go_handler": "RemoveBuff",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2298,7 +2414,7 @@
       ],
       "go_handler": "PurchaseEventBuff",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2325,7 +2441,7 @@
       ],
       "go_handler": "PurchaseGenericShopItem",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2352,7 +2468,7 @@
       ],
       "go_handler": "Checkpoints",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2379,7 +2495,7 @@
       ],
       "go_handler": "Invites",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2433,8 +2549,10 @@
       ],
       "go_handler": "PurchaseUnlock",
       "direct_test_files": [
-        "batch_b_routes_test.go",
-        "batch_b_test.go"
+        "persistence_restart_test.go",
+        "transaction_flow_test.go",
+        "transaction_routes_test.go",
+        "transactions_rollback_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2491,7 +2609,8 @@
       ],
       "go_handler": "FriendStatues",
       "direct_test_files": [
-        "friends_test.go"
+        "friends_test.go",
+        "router_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2545,7 +2664,7 @@
       ],
       "go_handler": "JoinFriendGame",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
+        "content_contract_test.go",
         "room_admission_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
@@ -2573,7 +2692,7 @@
       ],
       "go_handler": "GetConsumables1",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2600,7 +2719,7 @@
       ],
       "go_handler": "TrustTierDefinitions",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2627,6 +2746,7 @@
       ],
       "go_handler": "MapDefinitions",
       "direct_test_files": [
+        "config_resources_test.go",
         "profile_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
@@ -2654,7 +2774,7 @@
       ],
       "go_handler": "VideoDefinitions",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2681,7 +2801,7 @@
       ],
       "go_handler": "RadianceSpawnDefinitions",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2708,7 +2828,8 @@
       ],
       "go_handler": "Outfit",
       "direct_test_files": [
-        "batch_a_test.go"
+        "config_resources_test.go",
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2735,7 +2856,7 @@
       ],
       "go_handler": "LevelPickups",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2762,7 +2883,7 @@
       ],
       "go_handler": "Discover",
       "direct_test_files": [
-        "api_test.go",
+        "core_flows_test.go",
         "room_admission_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
@@ -2775,6 +2896,7 @@
         "POST"
       ],
       "go_methods": [
+        "POST",
         "POST"
       ],
       "legacy_source": "business/account/__init__.py:252",
@@ -2790,7 +2912,7 @@
       ],
       "go_handler": "AckForgeRateReset",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2817,7 +2939,8 @@
       ],
       "go_handler": "QuestDefinitions",
       "direct_test_files": [
-        "batch_a_test.go"
+        "config_resources_test.go",
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2844,7 +2967,7 @@
       ],
       "go_handler": "TrustGroupDefinitions",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2871,7 +2994,7 @@
       ],
       "go_handler": "SeasonFinalize",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2898,7 +3021,7 @@
       ],
       "go_handler": "SeasonStart",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2925,8 +3048,10 @@
       ],
       "go_handler": "ActivateSeasonQuest",
       "direct_test_files": [
-        "batch_b_routes_test.go",
-        "batch_b_test.go"
+        "persistence_restart_test.go",
+        "transaction_flow_test.go",
+        "transaction_routes_test.go",
+        "transactions_rollback_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2953,8 +3078,10 @@
       ],
       "go_handler": "ClaimSeasonQuestReward",
       "direct_test_files": [
-        "batch_b_routes_test.go",
-        "batch_b_test.go"
+        "persistence_restart_test.go",
+        "transaction_flow_test.go",
+        "transaction_routes_test.go",
+        "transactions_rollback_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -2981,7 +3108,7 @@
       ],
       "go_handler": "AckCollectible",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3008,7 +3135,7 @@
       ],
       "go_handler": "RemoteConfigUpload",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3035,8 +3162,10 @@
       ],
       "go_handler": "SeasonQuests",
       "direct_test_files": [
-        "batch_b_routes_test.go",
-        "batch_b_test.go"
+        "persistence_restart_test.go",
+        "transaction_flow_test.go",
+        "transaction_routes_test.go",
+        "transactions_rollback_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3063,7 +3192,7 @@
       ],
       "go_handler": "TrustActivityDefinitions",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3090,7 +3219,8 @@
       ],
       "go_handler": "BuffDefinitions",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go",
+        "magic_config_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3117,7 +3247,7 @@
       ],
       "go_handler": "WorldQuests",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3144,8 +3274,8 @@
       ],
       "go_handler": "ClaimWorldQuestReward",
       "direct_test_files": [
-        "batch_b_routes_test.go",
-        "batch_b_test.go"
+        "transaction_flow_test.go",
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3172,7 +3302,7 @@
       ],
       "go_handler": "SetOutfit",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3199,7 +3329,7 @@
       ],
       "go_handler": "SetJoinable",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3226,7 +3356,7 @@
       ],
       "go_handler": "Checkpoints",
       "direct_test_files": [
-        "api_test.go"
+        "core_flows_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3253,8 +3383,8 @@
       ],
       "go_handler": "CollectPickupBatch",
       "direct_test_files": [
-        "batch_b_routes_test.go",
-        "batch_b_test.go"
+        "transaction_flow_test.go",
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3281,7 +3411,7 @@
       ],
       "go_handler": "BuyCandleWax",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3308,7 +3438,7 @@
       ],
       "go_handler": "CreateInvite",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3335,7 +3465,7 @@
       ],
       "go_handler": "VerifyCode",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3362,7 +3492,7 @@
       ],
       "go_handler": "CheckInvite",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3389,7 +3519,7 @@
       ],
       "go_handler": "AcceptInvite",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3416,7 +3546,7 @@
       ],
       "go_handler": "DeleteInvite",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3443,7 +3573,7 @@
       ],
       "go_handler": "SocialFeedCreate",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3470,7 +3600,7 @@
       ],
       "go_handler": "AccountGetUserFeeds",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3497,7 +3627,7 @@
       ],
       "go_handler": "AccountGetCuratedFeeds",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3524,7 +3654,7 @@
       ],
       "go_handler": "AccountGetFeedReactions",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3551,7 +3681,7 @@
       ],
       "go_handler": "AccountFeedLike",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3578,7 +3708,7 @@
       ],
       "go_handler": "AccountDeleteFeed",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3605,7 +3735,7 @@
       ],
       "go_handler": "AckUnlock",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3632,7 +3762,8 @@
       ],
       "go_handler": "ChatSend",
       "direct_test_files": [
-        "batch_c_test.go"
+        "persistence_restart_test.go",
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3659,7 +3790,7 @@
       ],
       "go_handler": "AccountSend",
       "direct_test_files": [
-        "batch_c_test.go"
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3686,7 +3817,7 @@
       ],
       "go_handler": "AccountSend",
       "direct_test_files": [
-        "batch_c_test.go"
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3713,7 +3844,7 @@
       ],
       "go_handler": "Translate",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3740,7 +3871,7 @@
       ],
       "go_handler": "SetDeviceToken",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3767,7 +3898,7 @@
       ],
       "go_handler": "GetRemoteOutfit",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3794,7 +3925,7 @@
       ],
       "go_handler": "GiveCandle",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3821,8 +3952,8 @@
       ],
       "go_handler": "ClaimMessageGift",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go"
+        "content_contract_test.go",
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3849,8 +3980,8 @@
       ],
       "go_handler": "ClaimMessageGift",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go"
+        "content_contract_test.go",
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3877,7 +4008,7 @@
       ],
       "go_handler": "RemoveRelationshipHint",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3904,7 +4035,7 @@
       ],
       "go_handler": "GenericShopTracking",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3931,7 +4062,7 @@
       ],
       "go_handler": "PurchaseDye",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3961,7 +4092,8 @@
       ],
       "go_handler": "AdminFriendsList",
       "direct_test_files": [
-        "batch_d_test.go"
+        "router_test.go",
+        "stage_admin_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -3991,7 +4123,7 @@
       ],
       "go_handler": "AdminFriendsSet",
       "direct_test_files": [
-        "batch_d_test.go"
+        "stage_admin_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4004,6 +4136,7 @@
         "GET"
       ],
       "go_methods": [
+        "GET",
         "GET",
         "POST"
       ],
@@ -4021,7 +4154,7 @@
       ],
       "go_handler": "AdminFriendsClear",
       "direct_test_files": [
-        "batch_d_test.go"
+        "stage_admin_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4048,7 +4181,7 @@
       ],
       "go_handler": "ResourceAuthToken",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4075,7 +4208,7 @@
       ],
       "go_handler": "InfractionStatus",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4102,7 +4235,7 @@
       ],
       "go_handler": "MessageGetAllV2",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4129,7 +4262,7 @@
       ],
       "go_handler": "MessageGetAllV1",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4156,7 +4289,7 @@
       ],
       "go_handler": "MessageGet",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4183,7 +4316,8 @@
       ],
       "go_handler": "MarkMessagesReceived",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go",
+        "persistence_restart_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4210,7 +4344,7 @@
       ],
       "go_handler": "MarkMessagesSeen",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4237,7 +4371,7 @@
       ],
       "go_handler": "CheckPreviousCompletion",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4264,7 +4398,7 @@
       ],
       "go_handler": "PlayerQuests",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4291,7 +4425,7 @@
       ],
       "go_handler": "PlayerQuestsByName",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4318,7 +4452,7 @@
       ],
       "go_handler": "QuestSchedule",
       "direct_test_files": [
-        "batch_b_routes_test.go"
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4345,8 +4479,8 @@
       ],
       "go_handler": "CreateQuest",
       "direct_test_files": [
-        "batch_b_routes_test.go",
-        "batch_b_test.go"
+        "transaction_flow_test.go",
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4358,6 +4492,7 @@
         "POST"
       ],
       "go_methods": [
+        "POST",
         "POST"
       ],
       "legacy_source": "business/service/__init__.py:98",
@@ -4373,8 +4508,8 @@
       ],
       "go_handler": "UpdateQuest",
       "direct_test_files": [
-        "batch_b_routes_test.go",
-        "batch_b_test.go"
+        "transaction_flow_test.go",
+        "transaction_routes_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4401,7 +4536,7 @@
       ],
       "go_handler": "GetAllFriendGist",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4428,7 +4563,7 @@
       ],
       "go_handler": "GetFollowerCount",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4458,7 +4593,7 @@
       ],
       "go_handler": "UpdateFriendConstellationPages",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4485,7 +4620,8 @@
       ],
       "go_handler": "FreeGiftsGetPending",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go",
+        "persistence_restart_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4515,8 +4651,9 @@
       ],
       "go_handler": "FreeGiftsSend",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go"
+        "content_contract_test.go",
+        "persistence_restart_test.go",
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4528,6 +4665,7 @@
         "POST"
       ],
       "go_methods": [
+        "POST",
         "POST"
       ],
       "legacy_source": "business/service/__init__.py:114",
@@ -4543,8 +4681,8 @@
       ],
       "go_handler": "FreeGiftsClaim",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go"
+        "content_contract_test.go",
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4571,7 +4709,7 @@
       ],
       "go_handler": "Reserve",
       "direct_test_files": [
-        "batch_d_test.go"
+        "stage_admin_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4598,8 +4736,8 @@
       ],
       "go_handler": "RecordingCreateV1",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go"
+        "content_contract_test.go",
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4626,7 +4764,7 @@
       ],
       "go_handler": "RecordingGetV1",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4653,8 +4791,9 @@
       ],
       "go_handler": "RecordingCreateV2",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go",
+        "content_contract_test.go",
+        "persistence_restart_test.go",
+        "relationship_content_test.go",
         "security_regression_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
@@ -4682,8 +4821,8 @@
       ],
       "go_handler": "RecordingUpdateV2",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go",
+        "content_contract_test.go",
+        "relationship_content_test.go",
         "security_regression_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
@@ -4711,8 +4850,9 @@
       ],
       "go_handler": "RecordingGetV2",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go"
+        "content_contract_test.go",
+        "persistence_restart_test.go",
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4724,6 +4864,7 @@
         "GET"
       ],
       "go_methods": [
+        "GET",
         "GET"
       ],
       "legacy_source": "business/service/__init__.py:122",
@@ -4739,8 +4880,9 @@
       ],
       "go_handler": null,
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go"
+        "content_contract_test.go",
+        "relationship_content_test.go",
+        "router_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4767,7 +4909,7 @@
       ],
       "go_handler": "ServiceGetCuratedFeeds",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4794,7 +4936,7 @@
       ],
       "go_handler": "ServiceGetUserFeeds",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4821,7 +4963,8 @@
       ],
       "go_handler": "ServiceGetByIDs",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go",
+        "persistence_restart_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4848,7 +4991,7 @@
       ],
       "go_handler": "StageGet",
       "direct_test_files": [
-        "batch_d_test.go"
+        "stage_admin_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4875,8 +5018,8 @@
       ],
       "go_handler": "StageSet",
       "direct_test_files": [
-        "batch_d_test.go",
-        "security_regression_test.go"
+        "security_regression_test.go",
+        "stage_admin_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4903,7 +5046,7 @@
       ],
       "go_handler": "FriendsInApartments",
       "direct_test_files": [
-        "batch_d_test.go"
+        "stage_admin_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4930,7 +5073,7 @@
       ],
       "go_handler": "LeaveApartment",
       "direct_test_files": [
-        "batch_d_test.go"
+        "stage_admin_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4957,7 +5100,7 @@
       ],
       "go_handler": "UpdateApartmentStatus",
       "direct_test_files": [
-        "batch_d_test.go"
+        "stage_admin_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -4984,7 +5127,7 @@
       ],
       "go_handler": "AddStatusUnlock",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5011,7 +5154,7 @@
       ],
       "go_handler": "DeleteStatusUnlock",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5038,7 +5181,7 @@
       ],
       "go_handler": "StatusUnlocks",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5065,7 +5208,7 @@
       ],
       "go_handler": "TrustGetCapped",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5092,7 +5235,7 @@
       ],
       "go_handler": "TrustGet",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5119,8 +5262,9 @@
       ],
       "go_handler": "ServiceSocialFeedCreate",
       "direct_test_files": [
-        "batch_c_remaining_test.go",
-        "batch_c_test.go",
+        "content_contract_test.go",
+        "persistence_restart_test.go",
+        "relationship_content_test.go",
         "security_regression_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
@@ -5148,7 +5292,7 @@
       ],
       "go_handler": "ServiceFeedHide",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5175,7 +5319,7 @@
       ],
       "go_handler": "ServiceFeedLike",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5202,7 +5346,7 @@
       ],
       "go_handler": "ServiceFeedSuperLike",
       "direct_test_files": [
-        "batch_c_test.go"
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5229,7 +5373,7 @@
       ],
       "go_handler": "ServiceFeedDelete",
       "direct_test_files": [
-        "batch_c_test.go",
+        "relationship_content_test.go",
         "security_regression_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
@@ -5257,7 +5401,7 @@
       ],
       "go_handler": "ServiceFeedEdit",
       "direct_test_files": [
-        "batch_c_test.go",
+        "relationship_content_test.go",
         "security_regression_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
@@ -5285,7 +5429,7 @@
       ],
       "go_handler": "AddFollow",
       "direct_test_files": [
-        "batch_c_test.go"
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5312,7 +5456,7 @@
       ],
       "go_handler": "SetFollowName",
       "direct_test_files": [
-        "batch_c_test.go"
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5324,6 +5468,7 @@
         "POST"
       ],
       "go_methods": [
+        "POST",
         "POST"
       ],
       "legacy_source": "business/service/__init__.py:147",
@@ -5339,7 +5484,7 @@
       ],
       "go_handler": "DeleteFollow",
       "direct_test_files": [
-        "batch_c_test.go"
+        "relationship_content_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5366,7 +5511,7 @@
       ],
       "go_handler": "RemoveDye",
       "direct_test_files": [
-        "batch_a_test.go"
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5393,7 +5538,7 @@
       ],
       "go_handler": "ServiceGetFeedReactions",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5420,7 +5565,7 @@
       ],
       "go_handler": "SocialFeedComments",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5447,7 +5592,7 @@
       ],
       "go_handler": "SocialFeedReport",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5474,7 +5619,7 @@
       ],
       "go_handler": "ServiceGetPenpals",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5486,6 +5631,7 @@
         "POST"
       ],
       "go_methods": [
+        "POST",
         "POST"
       ],
       "legacy_source": "business/service/__init__.py:154",
@@ -5501,7 +5647,7 @@
       ],
       "go_handler": "ServiceGetPenpalByID",
       "direct_test_files": [
-        "batch_c_remaining_test.go"
+        "content_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",
@@ -5513,6 +5659,7 @@
         "POST"
       ],
       "go_methods": [
+        "POST",
         "POST"
       ],
       "legacy_source": "business/starwatch/__init__.py:17",
@@ -5528,7 +5675,8 @@
       ],
       "go_handler": "StarwatchAuth",
       "direct_test_files": [
-        "batch_a_test.go"
+        "auth_policy_test.go",
+        "inventory_contract_test.go"
       ],
       "direct_test_evidence": "source_reference_only",
       "client_0_1_8": "not_verified",

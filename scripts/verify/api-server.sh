@@ -1,9 +1,15 @@
 #!/bin/sh
 set -eu
+# Verification is offline; prepare missing modules explicitly before running.
+export GOPROXY=off
+export GOSUMDB=off
+export GOTOOLCHAIN=local
 cd "$(dirname "$0")/../.."
-export PATH="$HOME/.local/opt/go1.27.4/bin:$PATH"
-mkdir -p logs
+mkdir -p logs tmp/go-build tmp/go-tmp
 repo_root="$PWD"
+export GOCACHE="${GOCACHE:-$repo_root/tmp/go-build}"
+export GOTMPDIR="${GOTMPDIR:-$repo_root/tmp/go-tmp}"
+export TMPDIR="$GOTMPDIR"
 cd services/api-server
 go version > "$repo_root"/logs/api-server-environment.log
 go env GOOS GOARCH GOMOD GOCACHE GOPATH >> "$repo_root"/logs/api-server-environment.log

@@ -1,8 +1,9 @@
 """Read legacy route registrations without importing application code."""
 import ast
 import json
-import re
 from pathlib import Path
+
+from gin_routes import gin_path, registered_routes
 
 root = Path(__file__).resolve().parents[2]
 source = root.parent / 'LaServer/services/game-api'
@@ -17,15 +18,13 @@ for path in sorted((source / 'business').rglob('*.py')):
         kw = {k.arg: k.value for k in node.keywords}
         routes.append({'path': node.args[0].value, 'methods': ast.literal_eval(kw['methods']) if 'methods' in kw else ['GET'], 'handler': ast.unparse(node.args[2]) if len(node.args) > 2 else ast.unparse(kw.get('view_func')), 'source': str(path.relative_to(source)).replace('\\', '/'), 'line': node.lineno, 'status': 'pending'})
 out = root / 'json/api/legacy-routes.json'
-handler = (root / 'services/api-server/internal/handler/api.go').read_text(encoding='utf-8')
-implemented = set(re.findall(r'a\.routes\["([^"]+)"\]', handler))
-prefixes = set(re.findall(r'HasPrefix\(r\.URL\.Path, "(/[^"]*)"\)', handler))
+_, methods = registered_routes()
 previous = {}
 if out.exists():
     previous = {row['path']: row.get('client_verified', False) for row in json.loads(out.read_text(encoding='utf-8'))}
 for route in routes:
     path = route['path']
-    route['status'] = 'implemented_local_only' if path in implemented or any(path.startswith(prefix) for prefix in prefixes) else 'pending'
+    route['status'] = 'implemented_local_only' if gin_path(path) in methods else 'pending'
     route['client_verified'] = bool(previous.get(path, False))
 out.parent.mkdir(parents=True, exist_ok=True)
 out.write_text(json.dumps(routes, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

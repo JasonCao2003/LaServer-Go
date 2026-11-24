@@ -1,3 +1,5 @@
+// 启动、迁移与退出流程测试
+
 package main
 
 import (
@@ -12,6 +14,8 @@ import (
 	"syscall"
 	"testing"
 	"time"
+
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
 )
 
 func TestGameAPIProcess(t *testing.T) {
@@ -63,8 +67,23 @@ func TestMigrateStartAndShutdownWithoutRealtime(t *testing.T) {
 	if out, err := process(t, ctx, "migrate", "--config", config).CombinedOutput(); err != nil {
 		t.Fatalf("migrate: %v %s", err, out)
 	}
-	if out, err := process(t, ctx, "migrate", "--config", config).CombinedOutput(); err == nil {
-		t.Fatalf("second migrate accepted: %s", out)
+	db, err := repository.Open(filepath.Join(dir, "data", "test.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	if _, err := db.Exec("INSERT INTO user(id,session,recovery_token) VALUES('startup-test','test-session','test-recovery')"); err != nil {
+		t.Fatal(err)
+	}
+	if out, err := process(t, ctx, "migrate", "--config", config).CombinedOutput(); err != nil {
+		t.Fatalf("repeat migrate: %v %s", err, out)
+	}
+	if err := repository.CheckSchema(db); err != nil {
+		t.Fatal(err)
+	}
+	var accounts int
+	if err := db.QueryRow("SELECT count(*) FROM user WHERE id='startup-test' AND session='test-session' AND recovery_token='test-recovery'").Scan(&accounts); err != nil || accounts != 1 {
+		t.Fatalf("account after repeat migrate: count=%d, err=%v", accounts, err)
 	}
 	cmd := process(t, ctx, "--config", config)
 	if err = cmd.Start(); err != nil {

@@ -1,8 +1,10 @@
+// 快照差量生成与应用
+
 package snapshot
 
 import "errors"
 
-// createDelta is used only when the baseline and current state have the same length.
+// 生成快照差量
 func createDelta(base, current []byte) []byte {
 	delta := make([]byte, 0, len(current))
 	for i := 0; i < len(current); {
@@ -20,6 +22,7 @@ func createDelta(base, current []byte) []byte {
 	return delta
 }
 
+// 应用快照差量
 func applyDelta(base, delta []byte) ([]byte, error) {
 	var length int
 	for i := 0; i < len(delta); i++ {

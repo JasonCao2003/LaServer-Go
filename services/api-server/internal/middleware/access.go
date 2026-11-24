@@ -1,3 +1,5 @@
+// 访问控制与来源校验中间件
+
 package middleware
 
 import (
@@ -10,21 +12,26 @@ type statusWriter struct {
 	status int
 }
 
+// 记录状态码并写出响应头
 func (w *statusWriter) WriteHeader(code int) {
 	if w.status == 0 {
 		w.status = code
 		w.ResponseWriter.WriteHeader(code)
 	}
 }
+
+// 记录字节数并写出响应体
 func (w *statusWriter) Write(b []byte) (int, error) {
 	if w.status == 0 {
 		w.WriteHeader(http.StatusOK)
 	}
 	return w.ResponseWriter.Write(b)
 }
+
+// 返回底层响应对象
 func (w *statusWriter) Unwrap() http.ResponseWriter { return w.ResponseWriter }
 
-// Access records only request metadata. Credentials and request/response bodies stay private.
+// 记录访问日志的中间件
 func Access(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		tracked := &statusWriter{ResponseWriter: w}

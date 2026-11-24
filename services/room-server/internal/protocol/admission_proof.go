@@ -1,3 +1,5 @@
+// 进房准入凭证解析
+
 package protocol
 
 import "fmt"
@@ -9,6 +11,7 @@ type AdmissionProof struct {
 	Signature [32]byte
 }
 
+// 解析进房准入凭证
 func DecodeAdmissionProof(frame []byte) (AdmissionProof, error) {
 	join, err := DecodeJoinGameFingerprint(frame)
 	if err != nil {

@@ -1,3 +1,5 @@
+// 战利品箱兑换
+
 package service
 
 import (
@@ -8,6 +10,7 @@ import (
 var commonBoxMagic = []string{"energy", "glow", "glow_rainbow", "grow", "shrink", "huge", "tiny", "gravity", "fireworks", "dnd", "bonfire", "beachball", "rainbow", "pinwheel", "table", "seesaw", "swing", "candle_trick", "crab_rock_trick", "currency_trick", "ground_trail_rainbow", "butterfly_pastel", "bloom_sakura", "resize_potion"}
 var rareBoxMagic = []string{"glow_tgc", "hairtint_rainbow", "trail_rainbow", "message_boat", "message_crane", "message_gondola", "message_lantern", "message_lotus", "message_rose", "dark_dragon_firework", "firework_crab", "firework_jelly", "firework_manta", "sharedspace_candle", "outfit_prop_twinribbonposter", "height_small_3x_handhold", "potion_growth_huge", "potion_growth_tiny", "potion_growth_keychain", "teleport_forest_elder", "teleport_prairie_elder", "teleport_sanctuary_island"}
 
+// 解析箱子魔法 ID
 func (a *Service) boxMagicID(name, ua string) int64 {
 	pool := commonBoxMagic
 	if strings.Contains(strings.ToLower(name), "rare") {
@@ -28,9 +31,13 @@ func (a *Service) boxMagicID(name, ua string) int64 {
 	}
 	return ids[int(spiritUnlockID(name))%len(ids)]
 }
+
+// 构造兑换失败响应
 func redeemBoxError(message string) Object {
 	return Object{"result": "error", "error": message, "currency": Object{}, "get_consumables": []Object{}, "get_lootboxes": []Object{}}
 }
+
+// 兑换战利品箱
 func (a *Service) RedeemBox(r Request, m Object) (Object, error) {
 	uid := text(m, "user")
 	if uid == "" {

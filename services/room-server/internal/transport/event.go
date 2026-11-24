@@ -1,3 +1,5 @@
+// 传输层事件结构定义
+
 package transport
 
 type EventKind uint8

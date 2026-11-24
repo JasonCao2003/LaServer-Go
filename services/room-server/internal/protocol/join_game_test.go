@@ -1,3 +1,5 @@
+// 加入游戏指纹解析测试
+
 package protocol
 
 import (

@@ -1,3 +1,5 @@
+// 进房玩家列表编码
+
 package protocol
 
 import (
@@ -22,7 +24,7 @@ const (
 	MaxRosterPlayers  = 255
 )
 
-// MinimumRoomFrameBytes covers the largest supported snapshot and a full room roster.
+// 计算进房帧最小字节数
 func MinimumRoomFrameBytes(maxPlayers int) int {
 	return max(GameSnapshotOverhead+snapshot.MaxDataBytes, serverHeader+1+maxPlayers*rosterRecordSize)
 }
@@ -35,7 +37,7 @@ type RosterPlayer struct {
 	LevelID uint32
 }
 
-// EncodeEnterGame encodes a roster using the format selected for the receiver.
+// 编码进房玩家列表
 func EncodeEnterGame(layout EnterGameLayout, players []RosterPlayer) ([]byte, error) {
 	var id byte
 	countOffset := serverHeader
@@ -65,6 +67,7 @@ func EncodeEnterGame(layout EnterGameLayout, players []RosterPlayer) ([]byte, er
 	return frame, nil
 }
 
+// 写入单个玩家记录
 func writeRosterPlayer(record []byte, player RosterPlayer) {
 	record[0] = player.NetID
 	copy(record[1:17], player.UUID[:])

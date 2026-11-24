@@ -1,10 +1,15 @@
+// 通用商店物品购买
+
 package service
 
 import "github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
 
+// 构造通用购买失败响应
 func genericFailure(message string) Object {
 	return Object{"generic_shop_purchase": "failed", "error": message, "generic_shop_item_tracking_info": []Object{}, "get_consumables": []Object{}, "currency": Object{}}
 }
+
+// 购买通用商店物品
 func (a *Service) PurchaseGenericShopItem(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, true)
 	if err != nil {

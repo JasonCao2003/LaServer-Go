@@ -1,3 +1,5 @@
+// 消耗品、增益定义与使用逻辑
+
 package service
 
 import (
@@ -24,6 +26,7 @@ import (
 var magicEventMinimum = map[string][3]int{"ShoutBuffEvent": {0, 11, 0}, "SocialMessageBoats": {0, 11, 0}, "TeleportBuffEvent": {0, 11, 0}, "BirthdayHatBuffEvent": {0, 19, 5}, "DropWingConsumableEvent": {0, 19, 5}, "RecordingCandleEvent": {0, 19, 5}, "SharedSpaceCandleEvent": {0, 19, 5}, "SkyFigurineConsumableEvent": {0, 19, 5}, "TimelineBuffEvent": {0, 19, 5}, "ArtBookBuffEvent": {0, 33, 7}, "SocialMessageStones": {0, 33, 7}}
 var magicEffectMinimum = map[string][3]int{"height_mult": {0, 10, 1}, "outfit_body": {0, 11, 0}, "outfit_hair": {0, 11, 0}, "outfit_mask": {0, 11, 0}, "outfit_neck": {0, 11, 0}, "outfit_prop": {0, 11, 0}, "outfit_wing": {0, 11, 0}, "relationship_allow": {0, 11, 0}, "outfit_horn": {0, 12, 2}, "relationship_flair": {0, 12, 3}, "trail_rainbow": {0, 13, 4}, "candle_trick": {0, 19, 5}, "cat_curse": {0, 19, 5}, "crab_rock_trick": {0, 19, 5}, "placeable": {0, 19, 5}, "repellant_krill": {0, 19, 5}, "dnd": {0, 22, 0}, "birthdayhat": {0, 33, 7}, "crab_curse": {0, 33, 7}, "currency_trick": {0, 33, 7}, "dragon_dance": {0, 33, 7}, "dye": {0, 33, 7}, "emitter_follow": {0, 33, 7}, "glow_rainbow": {0, 33, 7}}
 
+// 判断魔法定义是否版本可见
 func magicVersionAllowed(ua string, d Object, buff bool) bool {
 	major, minor, patch, known := clientVersion(ua)
 	if !known {
@@ -41,6 +44,7 @@ func magicVersionAllowed(ua string, d Object, buff bool) bool {
 	return true
 }
 
+// 按版本筛选魔法定义
 func (a *Service) versionMagicDefinitions(key, filename, ua string) []Object {
 	defs := a.magicDefinitions(key, filename)
 	buff := key == "get_buff_defs"
@@ -65,6 +69,8 @@ func (a *Service) versionMagicDefinitions(key, filename, ua string) []Object {
 	}
 	return out
 }
+
+// 判断增益 ID 是否可见
 func (a *Service) buffIDAllowed(ua string, id int64) bool {
 	for _, d := range a.magicDefinitions("get_buff_defs", "account__buff__get_buff_defs.json") {
 		if defInt(d["id"]) == id {
@@ -73,11 +79,14 @@ func (a *Service) buffIDAllowed(ua string, id int64) bool {
 	}
 	return true
 }
+
+// 判断是否为 UGC 魔法
 func isUGCMagic(d Object) bool {
 	name, event := text(d, "name"), text(d, "event")
 	return text(d, "subcategory") == "UGC" || event == "SocialMessageBoats" || event == "SocialMessageStones" || event == "RecordingCandleEvent" || event == "SharedSpaceCandleEvent" || name == "memory_candle" || name == "sharedspace_candle" || strings.HasPrefix(name, "message_") || strings.HasPrefix(name, "personality_message_")
 }
 
+// 读取魔法定义
 func (a *Service) magicDefinitions(key, filename string) []Object {
 	decode := func(raw []byte) []Object {
 		var envelope map[string][]Object
@@ -113,6 +122,7 @@ func (a *Service) magicDefinitions(key, filename string) []Object {
 	return []Object{}
 }
 
+// 读取定义整数
 func defInt(v any) int64 {
 	switch n := v.(type) {
 	case float64:
@@ -128,6 +138,8 @@ func defInt(v any) int64 {
 	}
 	return 0
 }
+
+// 读取定义秒数
 func defSeconds(v any) int64 {
 	var n float64
 	switch x := v.(type) {
@@ -144,15 +156,19 @@ func defSeconds(v any) int64 {
 	return int64(n * 60)
 }
 
+// 获取消耗品定义
 func (a *Service) ConsumableDefinitions(r Request, m Object) (Object, error) {
 	defs := a.versionMagicDefinitions("get_consumable_defs", "account__consumable__get_consumable_defs.json", r.UserAgent)
 	return Object{"get_consumable_defs": a.boundMagicDefinitions(r, m, "get_consumable_defs", defs, 86195)}, nil
 }
+
+// 获取增益定义
 func (a *Service) BuffDefinitions(r Request, m Object) (Object, error) {
 	defs := a.versionMagicDefinitions("get_buff_defs", "account__buff__get_buff_defs.json", r.UserAgent)
 	return Object{"get_buff_defs": a.boundMagicDefinitions(r, m, "get_buff_defs", defs, 86016)}, nil
 }
 
+// 绑定并筛选魔法定义
 func (a *Service) boundMagicDefinitions(r Request, m Object, key string, defs []Object, limit int) []Object {
 	major, minor, _, known := clientVersion(r.UserAgent)
 	if known && (major > 0 || minor >= 26) {
@@ -244,6 +260,7 @@ func (a *Service) boundMagicDefinitions(r Request, m Object, key string, defs []
 	return out
 }
 
+// 解析魔法接口用户
 func (a *Service) magicUser(r Request, m Object, strict bool) (string, error) {
 	uid := text(m, "user")
 	if uid == "" {
@@ -264,6 +281,7 @@ func (a *Service) magicUser(r Request, m Object, strict bool) (string, error) {
 	return uid, nil
 }
 
+// 读取消耗品列表
 func (a *Service) consumables(r Request, uid string, includeID int64) ([]Object, error) {
 	defs := a.versionMagicDefinitions("get_consumable_defs", "account__consumable__get_consumable_defs.json", r.UserAgent)
 	known := map[int64]Object{}
@@ -296,6 +314,8 @@ func (a *Service) consumables(r Request, uid string, includeID int64) ([]Object,
 	}
 	return out, rows.Err()
 }
+
+// 获取消耗品
 func (a *Service) GetConsumables(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, false)
 	if err != nil {
@@ -304,6 +324,8 @@ func (a *Service) GetConsumables(r Request, m Object) (Object, error) {
 	items, err := a.consumables(r, uid, 0)
 	return Object{"get_consumables": items}, err
 }
+
+// 获取消耗品（旧版）
 func (a *Service) GetConsumables1(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, true)
 	if err != nil {
@@ -313,6 +335,7 @@ func (a *Service) GetConsumables1(r Request, m Object) (Object, error) {
 	return Object{"get_consumables": items}, err
 }
 
+// 读取增益列表
 func (a *Service) buffs(r Request, uid string) (Object, error) {
 	rows, err := a.store.QueryContext(r.Context, repository.ReadBuffs, uid)
 	if err != nil {
@@ -342,6 +365,8 @@ func (a *Service) buffs(r Request, uid string) (Object, error) {
 	sum := sha256.Sum256(append(encoded, []byte(uid)...))
 	return Object{"get_buffs": out, "get_buffs_sign": hex.EncodeToString(sum[:])}, nil
 }
+
+// 获取增益
 func (a *Service) GetBuffs(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, false)
 	if err != nil {
@@ -349,6 +374,8 @@ func (a *Service) GetBuffs(r Request, m Object) (Object, error) {
 	}
 	return a.buffs(r, uid)
 }
+
+// 获取增益（旧版）
 func (a *Service) GetBuffs1(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, true)
 	if err != nil {
@@ -356,6 +383,8 @@ func (a *Service) GetBuffs1(r Request, m Object) (Object, error) {
 	}
 	return a.buffs(r, uid)
 }
+
+// 移除增益
 func (a *Service) RemoveBuff(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, true)
 	if err != nil {
@@ -380,6 +409,8 @@ func (a *Service) RemoveBuff(r Request, m Object) (Object, error) {
 	result["remove_buff"] = "success"
 	return result, nil
 }
+
+// 使用消耗品
 func (a *Service) ConsumeItem(r Request, m Object) (Object, error) {
 	uid, err := a.magicUser(r, m, true)
 	if err != nil {

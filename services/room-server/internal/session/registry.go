@@ -1,3 +1,5 @@
+// 连接会话与准入状态注册表
+
 package session
 
 import (
@@ -38,6 +40,7 @@ type Registry struct {
 	accounts    map[string]struct{}
 }
 
+// 创建会话注册表
 func NewRegistry(maxPeers, maxPlayers int, joinTimeout time.Duration) *Registry {
 	return &Registry{
 		maxPeers:    maxPeers,
@@ -48,6 +51,7 @@ func NewRegistry(maxPeers, maxPlayers int, joinTimeout time.Duration) *Registry 
 	}
 }
 
+// 登记新连接票据
 func (r *Registry) Connect(peer uint64, now time.Time) (Ticket, error) {
 	if _, exists := r.peers[peer]; exists {
 		return Ticket{}, ErrState
@@ -61,7 +65,7 @@ func (r *Registry) Connect(peer uint64, now time.Time) (Ticket, error) {
 	return ticket, nil
 }
 
-// StartJoin reserves the connection's sole in-flight verification attempt.
+// 标记票据进入加入流程
 func (r *Registry) StartJoin(ticket Ticket, now time.Time) error {
 	session := r.current(ticket)
 	if session == nil {
@@ -77,8 +81,7 @@ func (r *Registry) StartJoin(ticket Ticket, now time.Time) error {
 	return nil
 }
 
-// Admit commits an admission. The caller supplies the authoritative identity
-// after verification and calls this in the same turn as committing room entry.
+// 标记票据已准入
 func (r *Registry) Admit(ticket Ticket, verifiedAccount string, now time.Time) error {
 	session := r.current(ticket)
 	if session == nil {
@@ -105,6 +108,7 @@ func (r *Registry) Admit(ticket Ticket, verifiedAccount string, now time.Time) e
 	return nil
 }
 
+// 断开并移除连接票据
 func (r *Registry) Disconnect(ticket Ticket) {
 	session := r.current(ticket)
 	if session == nil {
@@ -116,7 +120,7 @@ func (r *Registry) Disconnect(ticket Ticket) {
 	delete(r.peers, ticket.Peer)
 }
 
-// Expire releases pending admissions and returns the tickets to disconnect.
+// 清理超时票据
 func (r *Registry) Expire(now time.Time) []Ticket {
 	var expired []Ticket
 	for peer, session := range r.peers {
@@ -128,11 +132,13 @@ func (r *Registry) Expire(now time.Time) []Ticket {
 	return expired
 }
 
+// 判断账号是否在线
 func (r *Registry) Online(account string) bool {
 	_, ok := r.accounts[account]
 	return ok
 }
 
+// 读取票据当前记录
 func (r *Registry) current(ticket Ticket) *entry {
 	session := r.peers[ticket.Peer]
 	if session == nil || session.ticket != ticket {
