@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT / "scripts/verify"))
 from gin_routes import gin_path, registered_routes
 
 LEGACY = ROOT.parent / "LaServer" / "services" / "game-api"
-TEST_DIR = ROOT / "services/api-server/internal/handler"
+TEST_DIR = ROOT / "services/api-server/tests/handler"
 OUTPUT = ROOT / "json/api/task1-route-inventory.json"
 RESOURCE_OUTPUT = ROOT / "json/api/task1-login-resources.json"
 RESOURCE_DOC = ROOT / "docs/api-login-resource-dependencies.md"

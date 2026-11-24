@@ -1,28 +1,31 @@
-// 玩家状态、库存、增益与邀请路由注册
-
+// inventory 业务 HTTP 路由。
 package handler
 
 import (
-	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/inventory"
 	"github.com/gin-gonic/gin"
 )
 
-// 注册玩家状态路由
-func registerPlayerState(r *gin.Engine, s *service.Service) {
-	// 获取关卡拾取
-	r.POST("/account/get_level_pickups", post(s.LevelPickups))
-	// 获取任务定义
-	r.POST("/account/quest/get_quest_defs", post(s.QuestDefinitions))
-	// 获取内购列表
-	r.POST("/account/iaplist", post(s.IAPList))
-	// 检查邀请
-	r.POST("/account/check_invite", post(s.CheckInvite))
-	// 删除邀请
-	r.POST("/account/delete_invite", post(s.DeleteInvite))
-	// 创建邀请
-	r.POST("/account/create_invite", post(s.CreateInvite))
-	// 接受邀请
-	r.POST("/account/accept_invite", post(s.AcceptInvite))
+// 注册 inventory 服务处理的路径与方法。
+func registerInventory(r *gin.Engine, s *inventory.Service) {
+	// 读取解锁列表
+	r.POST("/account/get_unlocks", post(s.Unlocks))
+	// 确认解锁
+	r.POST("/account/ack_unlock", post(s.AckUnlock))
+	// 读取锻造概率
+	r.POST("/account/get_forge_rates", post(s.ForgeRates))
+	// 获取装扮
+	r.POST("/account/get_outfit", post(s.Outfit))
+	// 获取问卷
+	r.POST("/account/get_questionnaires", post(s.Questionnaires))
+	// 读取成就统计
+	r.POST("/account/get_achievement_stats", post(s.AchievementStats))
+	// 获取成就统计跟踪
+	r.POST("/account/get_achievement_stats_tracking", post(s.AchievementStatsTracking))
+	// 获取活动货币定义
+	r.POST("/account/get_event_currency_defs", post(s.EventCurrencyDefinitions))
+	// 获取关系能力定义
+	r.POST("/account/get_relationship_abilities", post(s.RelationshipDefinitions))
 	// 获取消耗品定义
 	r.POST("/account/consumable/get_consumable_defs", post(s.ConsumableDefinitions))
 	// 获取消耗品（新版）
@@ -63,8 +66,4 @@ func registerPlayerState(r *gin.Engine, s *service.Service) {
 	r.POST("/service/status/api/v1/delete_unlock", post(s.DeleteStatusUnlock))
 	// 移除染料
 	r.POST("/service/inventory/api/v1/unlocks/remove_dye", post(s.RemoveDye))
-	// 确认奖励（占位）
-	r.POST("/account/redeem_reward", post(s.RedeemReward))
-	// 确认锻造概率重置（占位）
-	r.POST("/account/ack_forge_rate_reset", post(s.AckForgeRateReset))
 }

@@ -18,12 +18,6 @@ def registered_routes():
                 if not match:
                     raise ValueError(f"Unknown service callback for POST {path}: {callback}")
                 handlers[path] = match.group(1)
-        methods.setdefault(path, []).append(method)
-        if method == "POST":
-            match = re.fullmatch(r'post\(s\.(\w+)\)\)', callback)
-            if not match:
-                raise ValueError(f"Unknown service callback for POST {path}: {callback}")
-            handlers[path] = match.group(1)
     if not handlers or "/ugc/*subpath" not in methods or "/healthz" not in methods:
         raise ValueError("Incomplete Gin route inventory")
     return handlers, methods

@@ -1,14 +1,13 @@
-// 留言、动态、留影与社区路由注册
-
+// social 业务 HTTP 路由。
 package handler
 
 import (
-	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/social"
 	"github.com/gin-gonic/gin"
 )
 
-// 注册社区动态路由
-func registerCommunity(r *gin.Engine, s *service.Service) {
+// 注册 social 服务处理的路径与方法。
+func registerSocial(r *gin.Engine, s *social.Service) {
 	// 获取用户留言（兼容别名，同 /account/geonote/get_user_geonotes）
 	r.POST("/account/get_user_geonotes", post(s.GetUserGeonotes))
 	// 获取用户留言（兼容别名，同 /account/get_user_geonotes）

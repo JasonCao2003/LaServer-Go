@@ -10,8 +10,9 @@ LaServer 的 Go 重构项目，逐步迁移旧客户端游戏接口与 ENet/UDP 
 | --- | --- | --- |
 | `api-server` | 游戏 HTTP 接口、账号和存档等持久化业务；后续承载管理 API | 可独立运行；201 条静态路由已接入，API↔实时服务联调和客户端验收仍待完成 |
 | `room-server` | ENet/UDP、连接会话、房间与玩家实时同步 | Windows amd64 已有单客户端入房证据；Linux 已增加 cgo 原生适配并通过构建及 ABI 测试，真实联机待验收 |
+| `admin-panel` | 本机 Web 管理面板 | 独立启动，提供服务状态和好友管理 |
 
-两个服务位于同一仓库，各自维护 Go module、入口、配置和发布流程，不要求同时启动。服务之间不直接导入对方的 internal 包，也不共享数据库作为通信通道。
+三个服务位于同一仓库，各自维护 Go module、入口、配置和发布流程，不要求同时启动。服务之间不直接导入对方的 internal 包，也不共享数据库作为通信通道。
 
 - Go 最低版本：1.26.0；各服务按各自的 `go.mod` 构建。
 - API 路由：Gin；HTTP 服务与 TLS：标准库 `net/http`；日志：`log/slog`。
@@ -38,12 +39,13 @@ LaServer-Go/
 │   │   ├── config/             无凭据配置示例
 │   │   ├── go.mod
 │   │   └── go.sum
-│   └── room-server/
-│       ├── cmd/server/         Windows/Linux 启动入口
-│       ├── internal/           transport、protocol、session、room、config、app
-│       ├── config/             示例配置
-│       ├── README.md
-│       └── go.mod
+│   ├── room-server/
+│   │   ├── cmd/server/         Windows/Linux 启动入口
+│   │   ├── internal/           transport、protocol、session、room、config、app
+│   │   ├── config/             示例配置
+│   │   ├── README.md
+│   │   └── go.mod
+│   └── admin-panel/            独立管理面板
 ├── docs/                       设计、开发计划和兼容说明
 ├── json/                       实体映射及接口进度报告
 ├── scripts/                    生成与验证工具
@@ -102,6 +104,10 @@ Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-s
 
 完整字段、行为差异和验收范围见[接口开发说明](docs/api-development.md)与[路由清单](json/api/legacy-routes.json)。当前工作顺序与接手命令见[开发交接](docs/development-handoff.md)。
 
+## 启动管理面板
+
+管理面板独立构建和启动，默认使用本机回环地址。登录后可查看 API 与房间服务状态，并通过 API 查询和管理好友。配置面板密码及与 API 配对的管理令牌后，从 `services/admin-panel` 执行 `go run ./cmd/admin-panel -config config/admin-panel.json`。配置示例和联调方法见[管理面板说明](services/admin-panel/README.md)。
+
 ## 检查与测试
 
 在仓库根目录运行：
@@ -110,7 +116,7 @@ Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-s
 sh scripts/verify/api-server.sh
 ```
 
-脚本使用 PATH 中的 Go，在 API module 内执行测试、vet 和构建，日志集中写入根 `logs/`，默认构建缓存写入根 `tmp/`。检查脚本禁止自动下载依赖和工具链；缺少 API 依赖时先在该 module 内自行执行 `go mod download`。Linux 房间服务独立检查：`sh scripts/verify/room-server.sh`。
+脚本使用 PATH 中的 Go，在 API module 内执行测试、vet 和构建，日志集中写入根 `logs/`，默认构建缓存写入根 `tmp/`。检查脚本禁止自动下载依赖和工具链；缺少 API 依赖时先在该 module 内自行执行 `go mod download`。Linux 房间服务独立检查：`sh scripts/verify/room-server.sh`。管理面板独立检查：`sh scripts/verify/admin-panel.sh`。
 
 手动命令须进入服务目录，根目录没有统一 go.mod：
 
@@ -121,7 +127,7 @@ go vet ./...
 go build ./...
 ```
 
-`room-server` 是另一个 Go module，Windows 原生传输还需要桥接 DLL。两个服务各自运行 `go test ./...` 和 `go vet ./...`；原生传输与真实客户端结果需单独记录。当前已验证 0.3.11 单客户端入房和重连，双端同步、自然过图及 0.1.8 全链路仍待验收。证据见[客户端兼容记录](docs/client-compatibility.md)。
+`room-server` 是另一个 Go module，Windows 原生传输还需要桥接 DLL。各服务分别运行 `go test ./...` 和 `go vet ./...`；原生传输与真实客户端结果需单独记录。当前已验证 0.3.11 单客户端入房和重连，双端同步、自然过图及 0.1.8 全链路仍待验收。证据见[客户端兼容记录](docs/client-compatibility.md)。
 
 ## 文档与协作
 

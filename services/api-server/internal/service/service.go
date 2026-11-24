@@ -18,48 +18,35 @@ import (
 )
 
 type Object = core.Object
-type object = Object
 type Request = core.Request
 type Error = core.Error
 
 var LegacyPaths = core.LegacyPaths
 
-type (
-	accountService       = account.Service
-	commerceService      = commerce.Service
-	contentService       = content.Service
-	socialService        = social.Service
-	messagingService     = messaging.Service
-	relationshipsService = relationships.Service
-	questsService        = quests.Service
-	inventoryService     = inventory.Service
-	stageService         = stage.Service
-)
-
 type Service struct {
-	*accountService
-	*commerceService
-	*contentService
-	*socialService
-	*messagingService
-	*relationshipsService
-	*questsService
-	*inventoryService
-	*stageService
+	Account       *account.Service
+	Commerce      *commerce.Service
+	Content       *content.Service
+	Inventory     *inventory.Service
+	Messaging     *messaging.Service
+	Quests        *quests.Service
+	Relationships *relationships.Service
+	Social        *social.Service
+	Stage         *stage.Service
 }
 
 // 创建实例
 func New(store *repository.Store, cfg *config.Config) *Service {
 	base := core.NewBase(store, cfg)
 	return &Service{
-		accountService:       account.New(base),
-		commerceService:      commerce.New(base),
-		contentService:       content.New(base),
-		socialService:        social.New(base),
-		messagingService:     messaging.New(base),
-		relationshipsService: relationships.New(base),
-		questsService:        quests.New(base),
-		inventoryService:     inventory.New(base),
-		stageService:         stage.New(base),
+		Account:       account.New(base),
+		Commerce:      commerce.New(base),
+		Content:       content.New(base),
+		Social:        social.New(base),
+		Messaging:     messaging.New(base),
+		Relationships: relationships.New(base),
+		Quests:        quests.New(base),
+		Inventory:     inventory.New(base),
+		Stage:         stage.New(base),
 	}
 }

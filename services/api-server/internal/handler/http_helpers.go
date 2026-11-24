@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/social"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +16,7 @@ func health(c *gin.Context) {
 }
 
 // 提供 UGC 文件下载
-func serveUGC(s *service.Service) gin.HandlerFunc {
+func serveUGC(s *social.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		resp := s.ServeUGC(strings.TrimPrefix(c.Param("subpath"), "/"), c.GetHeader("Range"))
 		for key, value := range resp.Headers {

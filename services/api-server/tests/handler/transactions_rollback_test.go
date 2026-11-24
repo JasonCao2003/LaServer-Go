@@ -197,3 +197,30 @@ func TestTask4RedeemBoxFailureRollsBackWalletAndBox(t *testing.T) {
 		t.Fatal("redeemed empty box twice")
 	}
 }
+
+func TestWingConversionRollbackAndRetry(t *testing.T) {
+	api, db := newAPI(t, true)
+	owner := create(t, api)
+	req := map[string]any{"user": owner["user"], "session": owner["session"], "name": "baseline-wing"}
+	call(t, api, "/account/wing_buffs/collect", req, 200)
+	if _, err := db.Exec("CREATE TRIGGER reject_prestige BEFORE UPDATE OF prestige ON user_currency BEGIN SELECT RAISE(ABORT,'test rollback'); END"); err != nil {
+		t.Fatal(err)
+	}
+	failure := call(t, api, "/account/wing_buffs/convert", req, 500)
+	if failure["error"] != "Internal server error" {
+		t.Fatalf("unexpected conversion error: %v", failure)
+	}
+	var deposited, stamp int64
+	if err := db.QueryRow("SELECT deposited,last_conversion FROM user_wing_buff WHERE user_id=? AND name=?", owner["user"], req["name"]).Scan(&deposited, &stamp); err != nil || deposited != 0 || stamp != 0 {
+		t.Fatalf("after rollback: deposited=%d stamp=%d err=%v", deposited, stamp, err)
+	}
+	if _, err := db.Exec("DROP TRIGGER reject_prestige"); err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []float64{1, 0} {
+		got := call(t, api, "/account/wing_buffs/convert", req, 200)
+		if got["converted"] != want || got["currency"].(map[string]any)["prestige"] != float64(1) {
+			t.Fatalf("retry: converted=%v currency=%v", got["converted"], got["currency"])
+		}
+	}
+}

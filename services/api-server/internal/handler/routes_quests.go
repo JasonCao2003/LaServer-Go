@@ -1,14 +1,13 @@
-// 任务、赛季与奖励领取路由注册
-
+// quests 业务 HTTP 路由。
 package handler
 
 import (
-	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/quests"
 	"github.com/gin-gonic/gin"
 )
 
-// 注册任务赛季路由
-func registerQuests(r *gin.Engine, s *service.Service) {
+// 注册 quests 服务处理的路径与方法。
+func registerQuests(r *gin.Engine, s *quests.Service) {
 	// 设置成就统计
 	r.POST("/account/set_achievement_stats", post(s.SetAchievementStats))
 	// 返回空的每日任务

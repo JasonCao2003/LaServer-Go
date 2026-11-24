@@ -12,3 +12,6 @@ type Service struct {
 func New(base *core.Base) *Service {
 	return &Service{Base: base}
 }
+
+type Request = core.Request
+type Object = core.Object

@@ -1,14 +1,19 @@
-// 商城、购买与交易收据路由注册
-
+// commerce 业务 HTTP 路由。
 package handler
 
 import (
-	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/commerce"
 	"github.com/gin-gonic/gin"
 )
 
-// 注册商城交易路由
-func registerCommerce(r *gin.Engine, s *service.Service) {
+// 注册 commerce 服务处理的路径与方法。
+func registerCommerce(r *gin.Engine, s *commerce.Service) {
+	// 获取精灵商店
+	r.POST("/account/get_spirit_shops", post(s.SpiritShops))
+	// 确认奖励（占位）
+	r.POST("/account/redeem_reward", post(s.RedeemReward))
+	// 确认锻造概率重置（占位）
+	r.POST("/account/ack_forge_rate_reset", post(s.AckForgeRateReset))
 	// 更新商城信息（占位）
 	r.POST("/account/commerce/update", post(s.CommerceUpdate))
 	// 获取商品信息

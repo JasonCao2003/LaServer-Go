@@ -1,14 +1,13 @@
-// 消息、聊天与礼物路由注册
-
+// messaging 业务 HTTP 路由。
 package handler
 
 import (
-	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/messaging"
 	"github.com/gin-gonic/gin"
 )
 
-// 注册消息礼物路由
-func registerMessages(r *gin.Engine, s *service.Service) {
+// 注册 messaging 服务处理的路径与方法。
+func registerMessaging(r *gin.Engine, s *messaging.Service) {
 	// 获取待处理消息
 	r.POST("/account/get_pending_messages", post(s.GetPendingMessages))
 	// 发送聊天
@@ -41,6 +40,7 @@ func registerMessages(r *gin.Engine, s *service.Service) {
 	r.POST("/service/relationship/api/v1/free_gifts/get_pending", post(s.FreeGiftsGetPending))
 	// 发送免费礼物
 	r.POST("/service/relationship/api/v1/free_gifts/send", post(s.FreeGiftsSend))
+
 	r.OPTIONS("/service/relationship/api/v1/free_gifts/send", preflight("POST,OPTIONS", "Content-Type,Authorization,X-Requested-With", "3600"))
 	// 领取免费礼物
 	r.POST("/service/relationship/api/v1/free_gifts/claim", post(s.FreeGiftsClaim))

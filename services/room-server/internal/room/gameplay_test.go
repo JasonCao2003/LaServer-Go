@@ -216,3 +216,25 @@ func TestFailedElectionRecoversAuthorityForRemainingPlayers(t *testing.T) {
 	}
 	t.Fatalf("remaining player was not elected: %+v", f.host.sent)
 }
+
+func TestFailedSnapshotDeliveryKeepsPeersAndSourceAck(t *testing.T) {
+	f := newGameplayFixture(t)
+	failures := 0
+	f.host.failSend = func(peer uint64, _ []byte) bool {
+		if peer == 2 {
+			failures++
+			return true
+		}
+		return false
+	}
+	f.receive(1, []byte{14, 1, 3, 1, 0xff, 2, 0, 46, 0x43, 0, 0x2c})
+	f.wantFrames(t, sentFrame{1, []byte{14, 5, 0, 14, 1, 0, 2, 0}})
+	if failures != 1 || len(f.host.disconnected) != 0 {
+		t.Fatalf("failed send count=%d disconnects=%v", failures, f.host.disconnected)
+	}
+	f.host.failSend = nil
+	f.receive(2, []byte{14, 3, 14, 1, 0, 2, 0})
+	f.wantFrames(t)
+	f.receive(1, []byte{14, 10, 2, 1, 0xff, 0x34, 0x44, 1, 2})
+	f.wantFrames(t, sentFrame{2, []byte{14, 7, 0, 2, 1, 1, 0x34, 0x44, 1, 2}})
+}

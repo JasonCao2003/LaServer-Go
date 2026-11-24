@@ -13,12 +13,18 @@ type AdmissionProof struct {
 
 // 解析进房准入凭证
 func DecodeAdmissionProof(frame []byte) (AdmissionProof, error) {
+	_, proof, err := DecodeJoinAdmission(frame)
+	return proof, err
+}
+
+// DecodeJoinAdmission decodes the join fingerprint and proof from the same frame.
+func DecodeJoinAdmission(frame []byte) (JoinFingerprint, AdmissionProof, error) {
 	join, err := DecodeJoinGameFingerprint(frame)
 	if err != nil {
-		return AdmissionProof{}, err
+		return JoinFingerprint{}, AdmissionProof{}, err
 	}
 	if join.ServerVersion != 284 || join.ClientVersion != 542 {
-		return AdmissionProof{}, fmt.Errorf("unverified admission proof layout for %d/%d", join.ServerVersion, join.ClientVersion)
+		return JoinFingerprint{}, AdmissionProof{}, fmt.Errorf("unverified admission proof layout for %d/%d", join.ServerVersion, join.ClientVersion)
 	}
 
 	uuid := join.UUID
@@ -27,5 +33,5 @@ func DecodeAdmissionProof(frame []byte) (AdmissionProof, error) {
 	}
 	const signatureOffset = clientHeader + len(uuid)
 	copy(proof.Signature[:], frame[signatureOffset:signatureOffset+len(proof.Signature)])
-	return proof, nil
+	return join, proof, nil
 }

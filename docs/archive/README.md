@@ -15,6 +15,10 @@
 
 - [UDP 第一阶段验证记录](records/2026-11-23-udp-stage-1-results.md)
 - [两个 Go 服务的 Gin 迁移审查](records/2026-11-24-gin-review.md)
+- [第二轮：重构前的行为基线](records/2026-11-24-refactor-phase2-baseline.md)
+- [第三轮 API 重构](records/2026-11-24-phase3-api-refactor.md)
+- [第四轮 UDP 重构](records/2026-11-24-phase4-udp-refactor.md)
+- [第五轮整体验证](records/2026-11-24-phase5-verification.md)
 - [开发与修复记录](records/TodoList.md)
 - [API 启动资源验证（Task 3）](records/api-startup-resource-verification.md)
 - [API Task 4：旧数据与事务验收](records/api-task4-persistence.md)

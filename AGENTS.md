@@ -2,7 +2,7 @@
 
 ## 服务边界与目录
 
-- 同一仓库维护两个独立服务：`services/api-server/` 与 `services/room-server/`。每个服务使用独立 Go module、入口 `cmd/server/main.go`、配置、测试和构建流程；不在根目录建立统一服务 module，不要求同时启动、停止或部署。
+- 同一仓库维护 `services/api-server/`、`services/room-server/` 和 `services/admin-panel/`。各自拥有独立 Go module、启动入口、配置、测试和构建流程；不在根目录建立统一服务 module，不要求同时启动、停止或部署。
 - api-server 负责 HTTP、管理 API 和 SQLite 持久化业务；room-server 负责 ENet/UDP、连接、协议版本和房间内存状态。
 - 禁止直接导入另一个服务的 internal 包、共享内存状态或通过 replace 指令耦合实现。服务交互使用明确的网络协议，不把共享数据库作为服务间通信方式。
 - 暂不提取公共 module；确有稳定复用需求时先说明边界。依赖只添加到实际使用它的服务中。

@@ -4,6 +4,7 @@ package stage
 
 import (
 	"encoding/json"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/core"
 	"strings"
 
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
@@ -13,8 +14,8 @@ const nilUserID = "00000000-0000-0000-0000-000000000000"
 
 // 解析舞台 ID 与归属
 func stageIDFor(m Object) (string, string) {
-	stageID := strings.TrimSpace(text(m, "stage_id"))
-	levelID := strings.TrimSpace(text(m, "level_id"))
+	stageID := strings.TrimSpace(core.Text(m, "stage_id"))
+	levelID := strings.TrimSpace(core.Text(m, "level_id"))
 	if stageID == "" && levelID != "" {
 		stageID = levelID + "_CNDL"
 	}
@@ -27,36 +28,36 @@ func normalizeStageProp(raw any) (Object, bool) {
 	if !ok {
 		return nil, false
 	}
-	pos := text(prop, "pos")
+	pos := core.Text(prop, "pos")
 	if pos == "" {
-		pos = text(prop, "position")
+		pos = core.Text(prop, "position")
 	}
 	if pos == "" {
 		pos = "(0,0,0)"
 	}
-	ori := text(prop, "ori")
+	ori := core.Text(prop, "ori")
 	if ori == "" {
-		ori = text(prop, "rotation")
+		ori = core.Text(prop, "rotation")
 	}
 	if ori == "" {
-		ori = text(prop, "rot")
+		ori = core.Text(prop, "rot")
 	}
 	if ori == "" {
 		ori = "(0,0,0,1)"
 	}
-	scale := text(prop, "scale")
+	scale := core.Text(prop, "scale")
 	if scale == "" {
 		scale = "(1,1,1)"
 	}
-	name := text(prop, "name")
+	name := core.Text(prop, "name")
 	if name == "" {
-		name = text(prop, "prop_name")
+		name = core.Text(prop, "prop_name")
 	}
 	if name == "" {
-		name = text(prop, "prop")
+		name = core.Text(prop, "prop")
 	}
-	out := Object{"name": name, "pos": pos, "ori": ori, "scale": scale, "type": "unlock", "userDataBool": boolValue(prop["userDataBool"]), "version": number(prop, "version", 0)}
-	if value := text(prop, "type"); value != "" {
+	out := Object{"name": name, "pos": pos, "ori": ori, "scale": scale, "type": "unlock", "userDataBool": core.BoolValue(prop["userDataBool"]), "version": core.Number(prop, "version", 0)}
+	if value := core.Text(prop, "type"); value != "" {
 		out["type"] = value
 	}
 	for key, value := range prop {
@@ -123,8 +124,8 @@ func stagePropsFromRequest(m Object) ([]any, bool) {
 // 获取舞台
 func (a *Service) StageGet(r Request, m Object) (Object, error) {
 	stageID, levelID := stageIDFor(m)
-	caller := text(m, "user")
-	target := text(m, "user_id")
+	caller := core.Text(m, "user")
+	target := core.Text(m, "user_id")
 	if target == nilUserID {
 		target = ""
 	}
@@ -168,15 +169,15 @@ func (a *Service) StageSet(r Request, m Object) (Object, error) {
 	if err != nil {
 		return nil, err
 	}
-	if claimed := text(m, "user_id"); claimed != "" && claimed != nilUserID && claimed != owner {
-		return nil, fail(403, "Stage owner mismatch")
+	if claimed := core.Text(m, "user_id"); claimed != "" && claimed != nilUserID && claimed != owner {
+		return nil, core.Fail(403, "Stage owner mismatch")
 	}
 	propsList, ok := stagePropsFromRequest(m)
 	if !ok {
-		return nil, fail(400, "Missing stage props")
+		return nil, core.Fail(400, "Missing stage props")
 	}
 	if stageID == "" {
-		return nil, fail(400, "Missing stage_id")
+		return nil, core.Fail(400, "Missing stage_id")
 	}
 	props := normalizeStageProps(propsList)
 	encoded, err := json.Marshal(props)
@@ -187,7 +188,7 @@ func (a *Service) StageSet(r Request, m Object) (Object, error) {
 	if err != nil {
 		return nil, err
 	}
-	sequence := number(m, "sequence", 0)
+	sequence := core.Number(m, "sequence", 0)
 	if sequence <= 0 {
 		sequence = 1
 		if found && old.Sequence > 0 {
@@ -202,7 +203,7 @@ func (a *Service) StageSet(r Request, m Object) (Object, error) {
 	if storedUser == "" && found {
 		storedUser = old.UserID
 	}
-	state := repository.StageState{StageID: stageID, OwnerID: owner, Props: string(encoded), Sequence: sequence, LevelID: storedLevel, UserID: storedUser, UpdatedAt: now()}
+	state := repository.StageState{StageID: stageID, OwnerID: owner, Props: string(encoded), Sequence: sequence, LevelID: storedLevel, UserID: storedUser, UpdatedAt: core.Now()}
 	if err = a.Store.SaveStageState(r.Context, state); err != nil {
 		return nil, err
 	}
@@ -226,5 +227,5 @@ func (a *Service) UpdateApartmentStatus(_ Request, _ Object) (Object, error) {
 
 // 预约房间（占位）
 func (a *Service) Reserve(_ Request, _ Object) (Object, error) {
-	return Object{"status": true, "msg": "OK", "timestamp": now(), "hmac": strings.Repeat("0", 64), "bench_id": 5, "seat_id": 1, "room_ip": a.Cfg.RoomHost, "room_port": a.Cfg.RoomPort, "platform_filter": 0, "event_id": 8, "base_event_id": 8, "subevent_id": 0}, nil
+	return Object{"status": true, "msg": "OK", "timestamp": core.Now(), "hmac": strings.Repeat("0", 64), "bench_id": 5, "seat_id": 1, "room_ip": a.Cfg.RoomHost, "room_port": a.Cfg.RoomPort, "platform_filter": 0, "event_id": 8, "base_event_id": 8, "subevent_id": 0}, nil
 }

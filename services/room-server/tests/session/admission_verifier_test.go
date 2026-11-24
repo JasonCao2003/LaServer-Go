@@ -61,3 +61,34 @@ func TestVerifyAdmissionRejectsUnauthorized(t *testing.T) {
 		t.Fatalf("verification error = %v", err)
 	}
 }
+
+func TestAdmissionRejectsExpiredIdentity(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]any{"account_id": "account", "expires_at": time.Now().Add(-time.Minute).Unix()})
+	}))
+	defer server.Close()
+	v, err := session.NewAdmissionVerifier(server.URL, strings.Repeat("x", 32))
+	if err != nil {
+		t.Fatal(err)
+	}
+	got, err := v.Verify(context.Background(), "127.0.0.1:25565", protocol.AdmissionProof{AccountID: "account"})
+	if err == nil || got.AccountID != "" {
+		t.Fatal("expired identity accepted")
+	}
+}
+
+func TestAdmissionHonorsDeadline(t *testing.T) {
+	release := make(chan struct{})
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { <-release }))
+	defer server.Close()
+	defer close(release)
+	v, err := session.NewAdmissionVerifier(server.URL, strings.Repeat("x", 32))
+	if err != nil {
+		t.Fatal(err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
+	defer cancel()
+	if _, err := v.Verify(ctx, "127.0.0.1:25565", protocol.AdmissionProof{AccountID: "account"}); !errors.Is(err, context.DeadlineExceeded) {
+		t.Fatalf("deadline error=%v", err)
+	}
+}

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>服务概览 · LaServer 管理面板</title>
+</head>
+<body>
+  <main>
+    <h1>服务概览</h1>
+    <dl>{{range .Statuses}}<dt>{{.Name}}</dt><dd>{{.State}}</dd>{{end}}</dl>
+    <p><a href="/">刷新状态</a></p>
+    <p><a href="/friends">好友管理</a></p>
+    <form method="post" action="/logout">
+      <input type="hidden" name="csrf" value="{{.CSRF}}">
+      <button type="submit">退出登录</button>
+    </form>
+  </main>
+</body>
+</html>

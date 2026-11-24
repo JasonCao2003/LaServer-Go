@@ -1,14 +1,13 @@
-// 账号、鉴权与公共配置路由注册
-
+// account 业务 HTTP 路由。
 package handler
 
 import (
-	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/account"
 	"github.com/gin-gonic/gin"
 )
 
-// 注册账号与鉴权路由
-func registerAccounts(r *gin.Engine, s *service.Service) {
+// 注册 account 服务处理的路径与方法。
+func registerAccount(r *gin.Engine, s *account.Service) {
 	// 创建账号或资源（兼容别名，同 /account/auth/create）
 	r.POST("/account/create", post(s.Create))
 	// 创建账号或资源（兼容别名，同 /account/create）
@@ -23,10 +22,6 @@ func registerAccounts(r *gin.Engine, s *service.Service) {
 	r.POST("/account/sync_user_data", post(s.Userdata))
 	// 获取账号货币
 	r.POST("/account/get_currency", post(s.Currency))
-	// 读取解锁列表
-	r.POST("/account/get_unlocks", post(s.Unlocks))
-	// 确认解锁
-	r.POST("/account/ack_unlock", post(s.AckUnlock))
 	// 获取排行信息
 	r.POST("/account/get_rank", post(s.Rank))
 	// 查找可加入玩家
@@ -57,57 +52,6 @@ func registerAccounts(r *gin.Engine, s *service.Service) {
 	r.POST("/account/get_achievement_defs", post(s.AchievementDefinitions))
 	// 获取地图定义
 	r.POST("/account/get_map_defs", post(s.MapDefinitions))
-	// 读取好友列表
-	r.POST("/account/get_friends", post(s.Friends))
-	// 获取好友状态
-	r.POST("/account/get_friend_statues", post(s.FriendStatues))
-	r.OPTIONS("/account/get_friend_statues", preflight("GET,PUT,POST,DELETE,OPTIONS", "Content-Type,Authorization", ""))
-	// 获取在线好友
-	r.POST("/account/get_online_friends", post(s.OnlineFriends))
-	// 读取锻造概率
-	r.POST("/account/get_forge_rates", post(s.ForgeRates))
-	// 获取装扮
-	r.POST("/account/get_outfit", post(s.Outfit))
-	// 获取问卷
-	r.POST("/account/get_questionnaires", post(s.Questionnaires))
-	// 读取成就统计
-	r.POST("/account/get_achievement_stats", post(s.AchievementStats))
-	// 获取成就统计跟踪
-	r.POST("/account/get_achievement_stats_tracking", post(s.AchievementStatsTracking))
-	// 获取活动货币定义
-	r.POST("/account/get_event_currency_defs", post(s.EventCurrencyDefinitions))
-	// 获取关系能力定义
-	r.POST("/account/get_relationship_abilities", post(s.RelationshipDefinitions))
-	// 获取邀请列表
-	r.POST("/account/get_invites", post(s.Invites))
-	// 获取问卷分组
-	r.POST("/account/get_questionnaire_groups", post(s.QuestionnaireGroups))
-	// 获取通用商店
-	r.POST("/account/get_generic_shops", post(s.GenericShops))
-	// 获取货币定义
-	r.POST("/account/get_currency_defs", post(s.CurrencyDefinitions))
-	// 获取问卷列表
-	r.POST("/account/get_surveys", post(s.Surveys))
-	// 获取视频定义
-	r.POST("/account/get_video_defs", post(s.VideoDefinitions))
-	// 获取信任活动定义
-	r.POST("/account/trust/get_trust_activity_defs", post(s.TrustActivityDefinitions))
-	// 获取信任分组定义
-	r.POST("/account/trust/get_trust_group_defs", post(s.TrustGroupDefinitions))
-	// 获取违规状态
-	r.POST("/service/infraction/api/v1/get_infractions_status_decorated", post(s.InfractionStatus))
-	// 获取信任等级定义
-	r.POST("/account/trust/get_trust_tier_defs", post(s.TrustTierDefinitions))
-	// 获取辐光刷新定义
-	r.POST("/account/get_radiance_spawn_defs", post(s.RadianceSpawnDefinitions))
-	// 上传远程配置
-	r.POST("/account/remote_config/upload", post(s.RemoteConfigUpload))
-	// 记录通用商店购买跟踪
-	r.POST("/account/get_generic_shop_item_tracking_info", post(s.GenericShopTracking))
-	// 获取精灵商店
-	r.POST("/account/get_spirit_shops", post(s.SpiritShops))
-	// 获取活动日程
-	r.POST("/account/get_event_schedule", post(s.EventSchedule))
 	// 签发资源访问令牌
 	r.POST("/service/auth/api/v1/token", post(s.ResourceAuthToken))
 	// 执行星巡鉴权

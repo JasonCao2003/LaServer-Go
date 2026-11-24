@@ -4,8 +4,8 @@ package inventory
 
 import (
 	"bytes"
-	"database/sql"
 	"encoding/json"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/core"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -55,22 +55,15 @@ func stringifyNumber(v any) string {
 
 // 读取光翼数据
 func (a *Service) wingRows(r Request, uid string) ([]Object, error) {
-	rows, err := a.Store.QueryContext(r.Context, repository.ReadWingBuffs, uid)
+	rows, err := a.Store.WingBuffs(r.Context, uid)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
-	out := []Object{}
-	for rows.Next() {
-		var name string
-		var collected, deposited bool
-		var converted, depositID int64
-		if err = rows.Scan(&name, &collected, &deposited, &converted, &depositID); err != nil {
-			return nil, err
-		}
-		out = append(out, Object{"name": name, "collected": collected, "deposited": deposited, "last_conversion": converted, "deposit_id": depositID})
+	out := make([]Object, 0, len(rows))
+	for _, row := range rows {
+		out = append(out, Object{"name": row.Name, "collected": row.Collected, "deposited": row.Deposited, "last_conversion": row.LastConversion, "deposit_id": row.DepositID})
 	}
-	return out, rows.Err()
+	return out, nil
 }
 
 // 读取完整光翼数据
@@ -228,11 +221,8 @@ func (a *Service) ConvertWingBuffs(r Request, m Object) (Object, error) {
 		return nil, err
 	}
 	defer tx.Rollback()
-	if _, err = tx.ExecContext(r.Context, repository.EnsureWingCurrency, uid); err != nil {
-		return nil, err
-	}
-	var existing int64
-	if err = tx.QueryRowContext(r.Context, repository.CountWingBuffs, uid).Scan(&existing); err != nil {
+	existing, err := tx.PrepareWingConversion(r.Context, uid)
+	if err != nil {
 		return nil, err
 	}
 	if existing == 0 {
@@ -242,21 +232,17 @@ func (a *Service) ConvertWingBuffs(r Request, m Object) (Object, error) {
 				continue
 			}
 			id := depositMask(v["deposit_id"])
-			if _, err = tx.ExecContext(r.Context, repository.SeedWingBuff, uid, name, id); err != nil {
+			if err = tx.SeedWingForConversion(r.Context, uid, name, id); err != nil {
 				return nil, err
 			}
 		}
 	}
-	res, err := tx.ExecContext(r.Context, repository.ConvertWingBuffs, now(), uid)
-	if err != nil {
-		return nil, err
-	}
-	converted, err := res.RowsAffected()
+	converted, err := tx.MarkWingsConverted(r.Context, uid, now())
 	if err != nil {
 		return nil, err
 	}
 	if converted > 0 {
-		if _, err = tx.ExecContext(r.Context, repository.GrantPrestige, converted, uid); err != nil {
+		if err = tx.CreditWingPrestige(r.Context, uid, converted); err != nil {
 			return nil, err
 		}
 	}
@@ -267,17 +253,9 @@ func (a *Service) ConvertWingBuffs(r Request, m Object) (Object, error) {
 	if err != nil {
 		return nil, err
 	}
-	values := make([]sql.NullInt64, len(currencyFields))
-	dest := make([]any, len(values))
-	for i := range values {
-		dest[i] = &values[i]
-	}
-	if err = a.Store.QueryRowContext(r.Context, repository.ReadCurrency, uid).Scan(dest...); err != nil {
+	currency, err := core.CurrencySnapshotReader(r.Context, a.Store, uid)
+	if err != nil {
 		return nil, err
-	}
-	currency := Object{}
-	for i, k := range currencyFields {
-		currency[k] = values[i].Int64
 	}
 	return Object{"result": "ok", "wing_buffs": rows, "converted": converted, "currency": currency}, nil
 }

@@ -1,14 +1,21 @@
-// 好友、关系与关注路由注册
-
+// relationships 业务 HTTP 路由。
 package handler
 
 import (
-	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/relationships"
 	"github.com/gin-gonic/gin"
 )
 
-// 注册好友关系路由
-func registerRelationships(r *gin.Engine, s *service.Service) {
+// 注册 relationships 服务处理的路径与方法。
+func registerRelationships(r *gin.Engine, s *relationships.Service) {
+	// 读取好友列表
+	r.POST("/account/get_friends", post(s.Friends))
+	// 获取好友状态
+	r.POST("/account/get_friend_statues", post(s.FriendStatues))
+
+	r.OPTIONS("/account/get_friend_statues", preflight("GET,PUT,POST,DELETE,OPTIONS", "Content-Type,Authorization", ""))
+	// 获取在线好友
+	r.POST("/account/get_online_friends", post(s.OnlineFriends))
 	// 获取拉黑好友
 	r.POST("/account/get_blocked_friends", post(s.GetBlockedFriends))
 	// 设置好友名称
@@ -37,6 +44,7 @@ func registerRelationships(r *gin.Engine, s *service.Service) {
 	r.POST("/service/relationship/api/v1/get_follower_count", post(s.GetFollowerCount))
 	// 更新好友星座页面
 	r.POST("/service/relationship/api/v1/update_friend_constellation_pages", post(s.UpdateFriendConstellationPages))
+
 	r.OPTIONS("/service/relationship/api/v1/update_friend_constellation_pages", preflight("POST,OPTIONS", "Content-Type,Authorization,User-Agent,X-Requested-With", "86400"))
 	// 获取信任上限信息
 	r.POST("/service/trust/api/v1/get_capped", post(s.TrustGetCapped))
@@ -48,4 +56,16 @@ func registerRelationships(r *gin.Engine, s *service.Service) {
 	r.POST("/service/relationship/api/v1/set_follow_name", post(s.SetFollowName))
 	// 删除关注
 	r.POST("/service/relationship/api/v1/delete_follow", post(s.DeleteFollow))
+	// 列出管理员好友
+	r.POST("/admin/api/friends_list", post(s.AdminFriendsList))
+	// 列出管理员好友
+	r.GET("/admin/api/friends_list", adminQuery(s.AdminFriendsList))
+	// 设置管理员好友关系
+	r.POST("/admin/api/friends_set", post(s.AdminFriendsSet))
+	// 设置管理员好友关系
+	r.GET("/admin/api/friends_set", adminQuery(s.AdminFriendsSet))
+	// 清空管理员好友关系
+	r.POST("/admin/api/friends_clear", post(s.AdminFriendsClear))
+	// 清空管理员好友关系
+	r.GET("/admin/api/friends_clear", adminQuery(s.AdminFriendsClear))
 }

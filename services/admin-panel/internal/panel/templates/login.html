@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>登录 · LaServer 管理面板</title>
+</head>
+<body>
+  <main>
+    <h1>LaServer 管理面板</h1>
+    {{if .}}<p role="alert">{{.}}</p>{{end}}
+    <form method="post" action="/login">
+      <label for="password">管理员密码</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <button type="submit">登录</button>
+    </form>
+  </main>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>好友管理 · LaServer 管理面板</title>
+  <style>
+    main { overflow-wrap: anywhere; }
+    input { box-sizing: border-box; max-width: 100%; }
+    .friend-table { overflow-x: auto; }
+  </style>
+</head>
+<body>
+<main>
+  <p><a href="/">返回服务概览</a></p>
+  <h1>好友管理</h1>
+  <form method="get" action="/friends">
+    <label>用户 ID <input name="user" value="{{.User}}" maxlength="256" required></label>
+    <label>关键字 <input name="keyword" value="{{.Keyword}}" maxlength="256"></label>
+    <button type="submit">查询好友</button>
+  </form>
+  {{if .Message}}<p role="status">{{.Message}}</p>{{end}}
+  {{with .Result}}
+    {{if .Detail}}<p>{{.Detail}}</p>{{end}}
+    {{if .Error}}<p>{{.Error}}</p>{{end}}
+    {{if .RemovedCount}}<p>已移除 {{.RemovedCount}} 位好友</p>{{end}}
+    {{if .Failed}}<p>未移除的好友</p><ul>{{range .Failed}}<li>{{.}}</li>{{end}}</ul>{{end}}
+  {{end}}
+  {{if .RefreshURL}}<p><a href="{{.RefreshURL}}">重新查询好友列表</a></p>{{end}}
+  {{if .Result.Friends}}
+  <div class="friend-table" tabindex="0" role="region" aria-label="好友列表">
+  <table>
+    <caption>好友列表</caption>
+    <thead><tr><th>好友 ID</th><th>昵称</th><th>备注</th><th>当前状态</th><th>对方状态</th><th>双向</th></tr></thead>
+    <tbody>{{range .Result.Friends}}
+      <tr><td>{{.ID}}</td><td>{{.Nickname}}</td><td>{{.Remark}}</td><td>{{.Status}}</td><td>{{.ReverseStatus}}</td><td>{{if .TwoWay}}是{{else}}否{{end}}</td></tr>
+    {{end}}</tbody>
+  </table>
+  </div>
+  {{end}}
+  {{if .User}}
+  <h2>修改好友关系</h2>
+  <form method="post" action="/friends/set">
+    <input type="hidden" name="csrf" value="{{.CSRF}}">
+    <input type="hidden" name="user" value="{{.User}}">
+    <label>好友 ID <input name="friend" maxlength="256" required></label>
+    <label>操作 <select name="action"><option value="add">增加</option><option value="remove">移除</option><option value="restore">恢复</option></select></label>
+    <button type="submit">提交操作</button>
+  </form>
+  <h2>清空好友</h2>
+  <form method="post" action="/friends/clear">
+    <input type="hidden" name="csrf" value="{{.CSRF}}">
+    <input type="hidden" name="user" value="{{.User}}">
+    <label>再次输入用户 ID「{{.User}}」<input name="confirm" maxlength="256" required></label>
+    <button type="submit">确认清空好友</button>
+  </form>
+  {{end}}
+</main>
+</body>
+</html>
