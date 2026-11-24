@@ -150,8 +150,8 @@ def audit_resources(go: dict[str, str]) -> None:
         if not match:
             raise ValueError(f"resource_list missing in {relative}")
         flow_lists[flow] = ast.literal_eval(match.group(1))
-    go_source = (ROOT / "services/api-server/internal/service/legacy_contracts.go").read_text(encoding="utf-8")
-    for flow, name in {"create": "createResources", "login": "loginResources", "auth_create": "authCreateResources", "auth_login": "authLoginResources"}.items():
+    go_source = (ROOT / "services/api-server/internal/service/core/legacy_contracts.go").read_text(encoding="utf-8")
+    for flow, name in {"create": "CreateResources", "login": "LoginResources", "auth_create": "AuthCreateResources", "auth_login": "AuthLoginResources"}.items():
         match = re.search(r"var " + name + r" = \[\]string\{([^}]*)\}", go_source, re.S)
         if not match:
             raise ValueError(f"Go resource list missing: {name}")
@@ -170,7 +170,7 @@ def audit_resources(go: dict[str, str]) -> None:
                 response_keys.setdefault(key, []).append(path)
     service_dir = ROOT / "services/api-server/internal/service"
     functions = {}
-    for source in service_dir.glob("*.go"):
+    for source in service_dir.rglob("*.go"):
         content = source.read_text(encoding="utf-8")
         starts = list(re.finditer(r'^func ', content, re.M))
         for index, start in enumerate(starts):

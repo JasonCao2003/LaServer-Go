@@ -22,7 +22,7 @@ routes = [entry for entry in routes if not entry[0].startswith("/internal/")] + 
 routes.append(("/healthz", "Healthz"))
 
 functions: dict[str, str] = {}
-for source in SERVICE.glob("*.go"):
+for source in SERVICE.rglob("*.go"):
     content = source.read_text(encoding="utf-8")
     matches = list(re.finditer(r'^func \(a \*Service\) (\w+)\([^\n]*\) \([^\n]*\) \{', content, re.M))
     all_functions = [m.start() for m in re.finditer(r'^func ', content, re.M)]

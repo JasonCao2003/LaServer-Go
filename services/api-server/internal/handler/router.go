@@ -9,7 +9,9 @@ import (
 
 // 注册全部业务路由
 func registerRoutes(r *gin.Engine, s *service.Service) {
+	// 返回健康检查响应
 	r.GET("/healthz", health)
+	// 提供 UGC 文件下载
 	r.GET("/ugc/*subpath", serveUGC(s))
 	registerAccounts(r, s)
 	registerPlayerState(r, s)

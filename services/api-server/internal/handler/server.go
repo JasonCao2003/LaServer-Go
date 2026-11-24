@@ -57,3 +57,13 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 func (a *API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	a.router.ServeHTTP(w, r)
 }
+
+// 返回运行时配置
+func (a *API) RuntimeConfig() *Config {
+	return a.cfg
+}
+
+// 返回底层路由引擎
+func (a *API) Engine() *gin.Engine {
+	return a.router
+}

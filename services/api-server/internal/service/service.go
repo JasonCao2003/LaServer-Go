@@ -1,112 +1,65 @@
-// 服务核心类型、请求上下文与公共工具
+// 服务门面：按业务组合子服务
 
 package service
 
 import (
-	"context"
-	"encoding/json"
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/config"
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
-	"net/http"
-	"strconv"
-	"strings"
-	"sync"
-	"time"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/account"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/commerce"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/content"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/core"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/inventory"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/messaging"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/quests"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/relationships"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/social"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service/stage"
 )
 
-type Object = map[string]any
+type Object = core.Object
 type object = Object
-type Request struct {
-	Context                         context.Context
-	Path, UserAgent, RemoteIP, Host string
-	Secure                          bool
-	Header                          http.Header
-}
+type Request = core.Request
+type Error = core.Error
+
+var LegacyPaths = core.LegacyPaths
+
+type (
+	accountService       = account.Service
+	commerceService      = commerce.Service
+	contentService       = content.Service
+	socialService        = social.Service
+	messagingService     = messaging.Service
+	relationshipsService = relationships.Service
+	questsService        = quests.Service
+	inventoryService     = inventory.Service
+	stageService         = stage.Service
+)
+
 type Service struct {
-	store       *repository.Store
-	cfg         *config.Config
-	bus         *messageBus
-	hints       *recentHints
-	recordingMu sync.Mutex
+	*accountService
+	*commerceService
+	*contentService
+	*socialService
+	*messagingService
+	*relationshipsService
+	*questsService
+	*inventoryService
+	*stageService
 }
 
 // 创建实例
 func New(store *repository.Store, cfg *config.Config) *Service {
-	return &Service{store: store, cfg: cfg, bus: newMessageBus(), hints: newRecentHints()}
-}
-
-type Error struct {
-	Status int
-	Body   Object
-}
-
-// 返回错误文本
-func (e *Error) Error() string { return http.StatusText(e.Status) }
-
-// 构造服务错误响应
-func fail(status int, message string) error { return &Error{status, object{"error": message}} }
-
-// 读取字符串字段
-func text(m object, k string) string { s, _ := m[k].(string); return s }
-
-// 读取整数字段
-func number(m object, k string, def int64) int64 {
-	v := m[k]
-	var s string
-	switch x := v.(type) {
-	case int64:
-		return x
-	case int:
-		return int64(x)
-	case json.Number:
-		s = x.String()
-	case string:
-		s = x
-	default:
-		return def
+	base := core.NewBase(store, cfg)
+	return &Service{
+		accountService:       account.New(base),
+		commerceService:      commerce.New(base),
+		contentService:       content.New(base),
+		socialService:        social.New(base),
+		messagingService:     messaging.New(base),
+		relationshipsService: relationships.New(base),
+		questsService:        quests.New(base),
+		inventoryService:     inventory.New(base),
+		stageService:         stage.New(base),
 	}
-	n, e := strconv.ParseInt(s, 10, 64)
-	if e != nil {
-		return def
-	}
-	return n
-}
-
-// 读取整数指针
-func integer(p *int64) int64 {
-	if p == nil {
-		return 0
-	}
-	return *p
-}
-
-// 读取字符串指针
-func stringValue(p *string) string {
-	if p == nil {
-		return ""
-	}
-	return *p
-}
-
-// 返回请求来源 IP
-func remoteIP(r Request) string { return r.RemoteIP }
-
-// 判断是否为旧版客户端
-func legacyUA(r Request) bool { return legacyVersion(r.UserAgent) }
-
-// 返回当前时间戳
-func now() int64 { return time.Now().Unix() }
-
-// 校验必需字段
-func require(m object, keys ...string) error {
-	var missing []string
-	for _, k := range keys {
-		if _, ok := m[k]; !ok {
-			missing = append(missing, k)
-		}
-	}
-	if len(missing) > 0 {
-		return fail(400, "Missing required keys: "+strings.Join(missing, ", "))
-	}
-	return nil
 }
