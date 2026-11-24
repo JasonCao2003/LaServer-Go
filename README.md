@@ -2,21 +2,21 @@
 
 LaServer 的 Go 重构项目，逐步迁移旧客户端游戏接口与 ENet/UDP 联机逻辑，理清业务边界并简化部署。
 
-> 当前处于开发阶段，尚不能完整替代旧 LaServer。扫描清单中的 201 条路由已全部接入 Go handler；此前的 Go 测试、vet、Linux/Windows 构建和本机 51 项 API 冒烟测试已有记录。0.1.8／0.3.11 曾在隔离环境请求登录接口，完整客户端验收尚未完成。
+> 当前处于开发阶段，尚不能完整替代旧 LaServer。扫描清单中的 201 条静态 HTTP 路由已有 Go 入口，但实时协议、双端同步和客户端全链路仍未完成。新实例允许从空 SQLite 启动；旧账号数据迁移按需进行，不作为继续开发的前提。
 
 ## 服务与技术栈
 
 | 服务 | 职责 | 当前状态 |
 | --- | --- | --- |
-| `api-server` | 游戏 HTTP 接口、账号和存档等持久化业务；后续承载管理 API | 可独立运行，已实现首批接口 |
-| `room-server` | ENet/UDP、连接会话、房间与玩家实时同步 | 仅建立独立 Go module，暂无运行入口 |
+| `api-server` | 游戏 HTTP 接口、账号和存档等持久化业务；后续承载管理 API | 可独立运行；201 条静态路由已接入，API↔实时服务联调和客户端验收仍待完成 |
+| `room-server` | ENet/UDP、连接会话、房间与玩家实时同步 | Windows amd64 可运行；已验证单客户端认证入房及重连，双端同步、自然过图、更多协议族仍待开发或验收 |
 
 两个服务位于同一仓库，各自维护 Go module、入口、配置和发布流程，不要求同时启动。服务之间不直接导入对方的 internal 包，也不共享数据库作为通信通道。
 
-- Go 最低版本：1.26.0；当前验证工具链：Go 1.27.4。
+- Go 最低版本：1.26.0；各服务按各自的 `go.mod` 构建。
 - HTTP：标准库 `net/http`；日志：`log/slog`。
 - 数据库：SQLite，使用 `database/sql` 和 `modernc.org/sqlite v1.62.0`，不引入 Redis 或 MySQL。
-- 实时房间计划使用内存状态；ENet 库仍需兼容验证后确定。
+- 房间状态保存在 `room-server` 内存中；Windows 原生传输使用单独构建的 SkyENet 桥接库，Linux 运行尚未实现。
 
 ## 目录
 
@@ -25,6 +25,7 @@ LaServer-Go/
 ├── services/
 │   ├── api-server/
 │   │   ├── cmd/server/          API 启动入口
+│   │   ├── cmd/legacy-import/   旧库只读预检与显式导入
 │   │   ├── internal/
 │   │   │   ├── handler/         HTTP 接口
 │   │   │   ├── service/         业务逻辑
@@ -38,8 +39,11 @@ LaServer-Go/
 │   │   ├── go.mod
 │   │   └── go.sum
 │   └── room-server/
+│       ├── cmd/server/         Windows amd64 启动入口
+│       ├── internal/           transport、protocol、session、room、config、app
+│       ├── config/             示例配置
 │       ├── README.md
-│       └── go.mod              尚无实现或第三方依赖
+│       └── go.mod
 ├── docs/                       设计、开发计划和兼容说明
 ├── json/                       实体映射及接口进度报告
 ├── scripts/                    生成与验证工具
@@ -50,7 +54,7 @@ API 按 handler、service、repository、model、middleware、config、app 分�
 
 ## 启动 API
 
-需要 Go 1.26.0 或更新版本。以下在 Ubuntu/WSL 的仓库根目录执行；无需启动 room-server 或数据库容器。
+需要 Go 1.26.0 或更新版本。以下从仓库根目录进入 API module 执行；仅使用 HTTP 功能时无需启动 room-server 或数据库容器。
 
 ```sh
 cd services/api-server
@@ -61,7 +65,7 @@ go run ./cmd/server migrate --config config/api-server.json
 go run ./cmd/server --config config/api-server.json
 ```
 
-Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-server.json` 复制配置，其余 Go 命令相同；Windows 实机运行尚未验收。
+Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-server.json` 复制配置，其余 Go 命令相同。当前有 Windows 隔离实例和 MuMu 客户端的部分验证记录，生产部署仍未验收。
 
 默认监听 `127.0.0.1:8443`，未配置证书时使用 HTTP，健康检查为 `GET /healthz`。`tls_cert` 与 `tls_key` 成对设置后启用 HTTPS。路径相对于配置文件目录解析。
 
@@ -80,17 +84,23 @@ Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-s
 
 在当前与旧 LaServer 并列的工作区中，`game_config_dir` 可设为 `../../../../LaServer/services/game-api/config`；其他部署需自行提供经过确认的配置文件。本仓库不自动复制旧客户端资源或真实账号数据，缺少必需资源的对应接口返回 503。
 
-`migrate` 支持初始化空数据库并逐版升级本项目 schema v1–v17，拒绝无法识别的非空数据库；正常启动要求 schema v18，不自动改表。已是 v18 时重跑 migrate 不会重复建表。升级前备份开发库；旧 Python 实例数据库不能直接复制到新服务路径。
+`migrate` 可初始化空数据库，或把本项目 schema v1–v17 升级到 v18；拒绝无法识别的非空库。正常启动要求 v18，不自动改表。旧 Python 数据库不能直接当作 Go 数据库使用。
+
+**旧数据按需迁移。** 开发和新实例可直接使用新建 SQLite；如需保留指定旧账号或存档，先用 `go run ./cmd/legacy-import -mode preflight -source <旧 users.db>` 只读盘点，再在隔离目标验证。导入器要求全新目标路径；当前旧实例报告 `partial=true`，默认拒绝部分导入，显式 `-allow-partial` 也不能保证旧账号完整保留。详见 [Task 4 持久化报告](docs/api-task4-persistence.md)。
+
+## 启动实时房间服务
+
+当前运行入口仅支持 Windows amd64，需先按 [room-server 说明](services/room-server/README.md) 构建 SkyENet 桥接 DLL，并配置 API 的房间入场密钥及服务间凭据。房间进程可独立启动；客户端实际入房时需要 API 验证会话。示例配置只监听回环地址，向局域网设备测试时须按实际网络设置监听和公告地址。Linux 运行与多版本兼容仍待开发。
 
 ## 接口进度与边界
 
-已实现账号创建/登录、存档、货币、排名、房间发现、检查点、构建版本、设备能力、基础变量、公告、支持状态，以及收藏品、成就、角标、成就定义、地图定义。
+201 条静态 HTTP 路由已有 Go 入口，账号、存档、货币、任务、购买、礼物、社交内容和部分资源装配具有本地行为测试。路由接入不等于每个分支、真实 APK 或正式环境通过。
 
-游戏接口使用 POST，支持 text/plain 中的 JSON，请求体上限 2 MiB。清单内未迁移接口返回 501，未知路径返回 404；WebSocket、MQTT、自动全解锁与部分静态响应版本分流尚未完成。
+游戏接口主要使用 POST，支持 text/plain 中的 JSON，请求体上限 2 MiB。未知路径返回 404；尚未实现的能力可能返回 501。WebSocket、Socket.IO、MQTT over WebSocket、自动全解锁及 API↔房间在线状态/推送仍待完成。
 
 旧客户端的 ID／设备登录仅在显式 `login_mode: legacy_dev` 下开放；该模式不可监听通配或公网地址，并须另行限制局域网访问。默认 `credential` 模式要求 `auth/login` 提交在凭据模式签发的 `recovery_token`，成功后轮换令牌和会话。旧模式使用过的账号不能直接切到凭据模式登录。现有 APK 请求记录尚未证明 0.1.8／0.3.11 会提交此令牌，因此两版客户端联调需使用隔离开发模式。部署限制及四条登录路径的协议证据见[认证与兼容说明](docs/api-authentication.md)。
 
-完整字段、行为差异和验收范围见[接口开发说明](docs/api-development.md)与[路由清单](json/api/legacy-routes.json)。模型来源见[实体映射](docs/entities.md)。
+完整字段、行为差异和验收范围见[接口开发说明](docs/api-development.md)与[路由清单](json/api/legacy-routes.json)。当前工作顺序与接手命令见[开发交接](docs/development-handoff.md)。
 
 ## 检查与测试
 
@@ -100,7 +110,7 @@ Windows PowerShell 使用 `Copy-Item config/api-server.example.json config/api-s
 sh scripts/verify/api-server.sh
 ```
 
-脚本优先使用现有 `~/.local/opt/go1.27.4/bin`，也可使用 PATH 中的 Go；在 API module 内执行测试、vet、Linux 构建和无 CGO 的 Windows amd64 交叉构建，日志集中写入根 logs/。
+脚本优先使用现有 `~/.local/opt/go1.27.4/bin`，也可使用 PATH 中的 Go；在 API module 内执行测试、vet 和构建，日志集中写入根 `logs/`。
 
 手动命令须进入服务目录，根目录没有统一 go.mod：
 
@@ -111,7 +121,7 @@ go vet ./...
 go build ./...
 ```
 
-最近一轮已有 17 项测试通过，竞态检查与双平台编译通过；这些结果不代表真实客户端、Windows 实机、TLS 互通或真实数据迁移已经验收。room-server 尚无代码，暂不提供构建与启动命令。
+`room-server` 是另一个 Go module，Windows 原生传输还需要桥接 DLL。两个服务各自运行 `go test ./...` 和 `go vet ./...`；原生传输与真实客户端结果需单独记录。当前已验证 0.3.11 单客户端入房和重连，双端同步、自然过图及 0.1.8 全链路仍待验收。证据见[客户端兼容记录](docs/client-compatibility.md)。
 
 ## 文档与协作
 
@@ -119,6 +129,8 @@ go build ./...
 - [重构设计](docs/superpowers/specs/2026-11-11-go-rewrite-design.md)
 - [开发计划](docs/superpowers/plans/2026-11-11-go-rewrite.md)
 - [API 接口测试手册](docs/api-testing.md)
+- [开发交接](docs/development-handoff.md)
+- [实时服务说明](services/room-server/README.md)
 - [复刻待办与剩余接口](docs/TODO.md)
 - [开发与修复记录](docs/TodoList.md)
 

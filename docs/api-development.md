@@ -47,7 +47,7 @@ go run ./cmd/server --config config/api-server.json
 
 ## 资源配置与 schema v18
 
-第四批增加玩家任务、季节任务和领取状态、世界任务冷却及每日拾取记录。任务创建与统计上报通过 SQLite 保存进度，领奖标记与货币变更在一个事务中提交；只有当日下发且已完成的任务可以领奖，客户端直接提交完成状态会被拒绝。旧服务的每日任务池会在重启或跨日时随机刷新并写回配置；Go 当前只读取现有配置池，跨日自动刷新仍待对齐；任务及领取标记统一按太平洋日界，未来日期排期使用任务目录按日期确定性生成。旧存量任务及领取标记尚无导入工具，不能直接切换真实账号。
+第四批增加玩家任务、季节任务和领取状态、世界任务冷却及每日拾取记录。任务创建与统计上报通过 SQLite 保存进度，领奖标记与货币变更在一个事务中提交；只有当日下发且已完成的任务可以领奖，客户端直接提交完成状态会被拒绝。旧服务的每日任务池会在重启或跨日时随机刷新并写回配置；Go 当前只读取现有配置池，跨日自动刷新仍待对齐；任务及领取标记统一按太平洋日界，未来日期排期使用任务目录按日期确定性生成。Task 4 导入器可复制旧存量任务及领取标记中的兼容行；新实例可用空库继续开发，若要保留旧账号奖励状态，需另行核对孤儿行和缺失的每日标记。
 
 `game_config_dir` 是只读旧游戏配置目录，路径相对于本服务配置文件解析。例如当前并列工作区可设置为 `../../../../LaServer/services/game-api/config`，复用既有配置，不复制数据库或静态响应资源。收藏品需要 collectibles.json，地图定义需要 map.json，任务定义需要 quest.json，IAP 清单需要 iaplist.json；未配置、文件缺失或格式错误返回 503。第一批的兑换树优先读取配置目录同级 `resources/static_responses/account__get_spirit_shops.json`，缺失时读 `spirit_shops.json`；活动日程按客户端版本读 `event_schedule_low.json` 或 `event_schedule_high.json`。成就、成就定义和角标从 Go 开发库读取，不会自动导入旧数据库记录。
 
@@ -55,19 +55,21 @@ go run ./cmd/server --config config/api-server.json
 
 活动日程已按版本选择低/高资源，处理每日重置、当前赛季、活动关闭与烛火分组。自动烛火组采用按日期稳定选取，尚未核对旧 Python 随机序列的逐项一致性；客户端版本纠偏配置也待复核。兑换树按客户端版本裁成完整先祖子树并支持分页，配置缺失时明确报错。上述边界在客户端验收前均保留待验证状态。
 
-schema v12 增加第五批所需的好友关系表：外部好友、机缘匹配、星标定义与关联、服务器分配、在线状态、关注关系和船友关注（boat_follow）。`/account/find_previous_or_empty` 现在会把本次下发的房间写入 `server_assignment`，`join_friend_game` 按旧逻辑复制好友最近一次分配；room-server 尚未实现，返回的地址不代表 ENet 已可达。外部好友、机缘匹配与星标表初始为空，需导入旧数据或由后续写入路径补充；`/account/get_external_friends`、`/account/serendipity/get` 在空表上返回空列表是预期行为。`/account/star/get` 对 0.26.0 及以上版本返回内置静态星标定义，低版本读取数据库。`/service/trust/api/v1/get_capped` 保留旧固定响应，但不再像旧服务那样为任意 user id 自动建号。
+schema v12 增加第五批所需的好友关系表：外部好友、机缘匹配、星标定义与关联、服务器分配、在线状态、关注关系和船友关注（boat_follow）。`/account/find_previous_or_empty` 现在会把本次下发的房间写入 `server_assignment`，`join_friend_game` 按旧逻辑复制好友最近一次分配；room-server 已有单客户端认证入房记录，但 API 地址下发本身仍不证明 ENet 可达或好友在线。外部好友、机缘匹配与星标表初始为空，可由新实例业务写入，保留旧账号数据时再按需导入；`/account/get_external_friends`、`/account/serendipity/get` 在空表上返回空列表是预期行为。`/account/star/get` 对 0.26.0 及以上版本返回内置静态星标定义，低版本读取数据库。`/service/trust/api/v1/get_capped` 保留旧固定响应，但不再像旧服务那样为任意 user id 自动建号。
 
 schema v13 增加消息与赠礼表：`message` 保存邮件已读时间，`free_gift` 保存免费礼物及其 30 天有效期。邮件内容不写入数据库，按 `game_config_dir/mailbox.json` 读取；文件缺失或格式错误时返回空邮件列表。聊天消息只存在于 api-server 进程内队列（每人最多 1000 条，重启丢失），由 `/account/get_pending_messages` 轮询排空；WebSocket 未实现，因此没有实时推送。免费礼物支持扣费、幂等领取和领取后角标计数，重复领取不重复发放。旧 `/account/chat/send` 的调试斜杠命令（改身高、货币、光翼）尚未迁移，会按普通聊天处理；`give_candle` 和礼物接口也不再自动创建占位账号，目标必须已存在。
 
-schema v14 增加 `geonote` 表，地理笔记改由 SQLite 持久化；旧服务的 `instance/geonotes.json` 旁路文件尚未提供导入工具，切换真实实例前需单独迁移。读取按 `bug` 分区和 `level_id` 过滤，返回同关卡全部留言；`request_geonotes_for_n_friends` 按旧实现不查询好友关系。点赞、可见、举报和表情是留言级全局状态，不按查看者区分；删除和编辑校验作者，删除不存在的留言仍返回 `result: ok`。留言正文截断到 500 个字符，不设过期时间。
+schema v14 增加 `geonote` 表，地理笔记改由 SQLite 持久化；本轮所查旧实例没有 `instance/geonotes.json` 文件，若切换其他实例需另行盘点旁路数据。读取按 `bug` 分区和 `level_id` 过滤，返回同关卡全部留言；`request_geonotes_for_n_friends` 按旧实现不查询好友关系。点赞、可见、举报和表情是留言级全局状态，不按查看者区分；删除和编辑校验作者，删除不存在的留言仍返回 `result: ok`。留言正文截断到 500 个字符，不设过期时间。
 
-schema v15 增加社交动态表：`social_feed_post`、`social_feed_like`、`social_feed_extra`。动态附件数据从旧服务的 `instance/feed_extra/*.json` 旁路文件改为 SQLite，留影仍按旧布局写入 `instance_dir/recordings`（`<id>.json` 元数据 + v2 的 `<id>.ndjson` 分块），`GET /ugc/...` 支持字节 Range。旧 `feed_extra` JSON 与 recordings 文件尚未提供导入工具，切换真实实例前需单独迁移。账号层删除校验作者，服务层删除按旧实现不校验所有权；评论、举报和笔友接口保持旧服务的空响应，点赞计数仍是全局计数。
+schema v15 增加社交动态表：`social_feed_post`、`social_feed_like`、`social_feed_extra`。动态附件数据从旧服务的 `instance/feed_extra/*.json` 旁路文件改为 SQLite，留影仍按旧布局写入 `instance_dir/recordings`（`<id>.json` 元数据 + v2 的 `<id>.ndjson` 分块），`GET /ugc/...` 支持字节 Range。Task 4 导入器可转换旧 `feed_extra` JSON，并在显式指定新目录后复制 recordings；当前实例仍有大量无法导入的数据库行，不能仅凭旁路文件成功就切换。账号层删除校验作者，服务层删除按旧实现不校验所有权；评论、举报和笔友接口保持旧服务的空响应，点赞计数仍是全局计数。
 
-schema v16 增加 `stage_state` 表，按 `stage_id + owner_id` 保存共享空间摆放与 sequence；旧服务的 `instance/stage/*.json` 旁路文件尚未提供导入工具。`stage/get` 优先按目标 `user_id` 读取，`user_id` 为全零时回退到调用者；`stage/set` 以 `user` 为 owner，并把空 props 列表视为清空。预约接口返回配置中的 `room_host/room_port`，旧服务写死 `127.0.0.1:8443`；公寓好友发现、离开和状态更新保持旧服务的空列表/成功回执，不写持久化状态。
+schema v16 增加 `stage_state` 表，按 `stage_id + owner_id` 保存共享空间摆放与 sequence；本轮所查旧实例的 `instance/stage` 为空，其他实例若有旁路文件仍需单独迁移。`stage/get` 优先按目标 `user_id` 读取，`user_id` 为全零时回退到调用者；`stage/set` 以 `user` 为 owner，并把空 props 列表视为清空。预约接口返回配置中的 `room_host/room_port`，旧服务写死 `127.0.0.1:8443`；公寓好友发现、离开和状态更新保持旧服务的空列表/成功回执，不写持久化状态。
 
 schema v17 增加 `admin_audit` 表，记录管理好友修改的来源 IP、动作、目标账号和结果。`/admin/api/*` 默认只允许回环地址访问；配置 `admin_token` 后必须提供匹配的 `X-Admin-Token` 或请求体 `admin_token`。保留旧管理路径的 GET/POST：GET 从查询参数读取 `user`/`friend` 等字段，POST 读取 JSON。删除写入 `friendship.status='removed'` 墓碑并置 `local_soft_deleted`，添加/恢复强制双向 active；`pushed` 固定为 false，因为尚未实现 WebSocket 推送。
 
 schema v18 为 `user` 增加 `credential_mode_issued`。凭据模式创建和登录签发的会话、恢复令牌标为 1；旧模式创建或登录标为 0，即使旧登录没有轮换令牌也会降为 0。凭据模式拒绝标为 0 的会话与恢复令牌；旧账号需重新注册或通过未来的安全凭据重发流程迁移，不能直接切换。开发库升级前保留备份并显式执行 migrate；本轮没有对任何真实实例执行升级。迁移完成后应使用 v18 代码；v17 及更早二进制不识别新 schema，不能直接作为回退程序。
+
+Task 4 增加 `cmd/legacy-import`：只读预检旧 instance/legacy 库、按外键顺序复制兼容行到全新目标库、报告跳过行及旁路文件，默认拒绝部分导入。当前旧实例隔离导入为部分结果，不能作为旧账号完整恢复的依据；新实例可从空库继续开发。行数、关键值检查和单进程聊天限制见 [持久化报告](api-task4-persistence.md)。
 
 ## 已知协议差异与边界
 
@@ -116,4 +118,4 @@ schema v18 为 `user` 增加 `credential_mode_issued`。凭据模式创建和登
 
 ## 后续迁移
 
-依赖启动资源完整性继续实现装扮、基础定义、解锁、好友与邀请，然后完成购买/奖励事务、任务和社交内容接口。十批共 159 条路由已全部接入，路由复扫与 Go 测试已完成；下一步是真实客户端验收，并继续处理 TODO 中 room-server、数据导入、管理页面与部署切换等未完成项。完整迁移未完成，不把 501 路由计为成功接口。
+十批共 159 条新增路由已接入，Task 1–4 的代码与隔离验证进展见[下一阶段计划](superpowers/plans/2026-11-13-api-server-next-stage.md)。接下来实现 API 与房间服务的在线状态和推送合同、旧实时 WebSocket/Socket.IO/MQTT 入口，再按 0.1.8／0.3.11 的实际请求完成客户端及部署验收。旧数据按需迁移，不作为这些开发工作的前置条件；路由存在或返回 200 不等于客户端通过。

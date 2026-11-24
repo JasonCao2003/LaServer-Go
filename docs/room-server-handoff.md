@@ -1,5 +1,7 @@
 # Go UDP 房间服务开发交接
 
+> 历史快照：本文记录 2026-11-23 开发前的交接基线，文中“只有 go.mod”“尚无入房验证”等现状描述已过时。当前进度、下一步及启动方式见[开发交接](development-handoff.md)与[room-server README](../services/room-server/README.md)。
+
 更新日期：2026-11-23。本文供接手 `services/room-server` 的开发者使用。旧实现 `../LaServer/services/realtime-server` 只读参考；项目约束以仓库根目录 [AGENTS.md](../AGENTS.md) 和 [Go 重构设计](superpowers/specs/2026-11-11-go-rewrite-design.md) 为准。
 
 ## 目标、现状与边界
