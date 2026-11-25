@@ -21,6 +21,7 @@ type session struct {
 }
 
 type panelServer struct {
+	receiver receiverState
 	cfg      Config
 	pages    *template.Template
 	client   *http.Client
@@ -46,12 +47,16 @@ func (p *panelServer) loginPage(w http.ResponseWriter, _ *http.Request) {
 }
 
 func (p *panelServer) parsePost(w http.ResponseWriter, r *http.Request) bool {
+	return p.parseLimitedPost(w, r, 8192)
+}
+
+func (p *panelServer) parseLimitedPost(w http.ResponseWriter, r *http.Request, limit int64) bool {
 	origins := r.Header.Values("Origin")
 	if len(origins) != 1 || origins[0] != "http://"+p.cfg.Listen {
 		http.Error(w, "Forbidden", http.StatusForbidden)
 		return false
 	}
-	r.Body = http.MaxBytesReader(w, r.Body, 8192)
+	r.Body = http.MaxBytesReader(w, r.Body, limit)
 	if err := r.ParseForm(); err != nil {
 		http.Error(w, "Invalid form", http.StatusBadRequest)
 		return false
@@ -75,15 +80,22 @@ func (p *panelServer) login(w http.ResponseWriter, r *http.Request) {
 		p.render(w, "login.html", http.StatusUnauthorized, "密码不正确。")
 		return
 	}
+	if !p.issueSession(w, r) {
+		return
+	}
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+func (p *panelServer) issueSession(w http.ResponseWriter, r *http.Request) bool {
 	id, err := randomToken()
 	if err != nil {
 		http.Error(w, "Session unavailable", 500)
-		return
+		return false
 	}
 	csrf, err := randomToken()
 	if err != nil {
 		http.Error(w, "Session unavailable", 500)
-		return
+		return false
 	}
 	now := time.Now()
 	s := session{csrf: csrf, expires: now.Add(sessionTTL)}
@@ -100,12 +112,13 @@ func (p *panelServer) login(w http.ResponseWriter, r *http.Request) {
 	if len(p.sessions) >= maxSessions {
 		p.mu.Unlock()
 		http.Error(w, "Too many sessions", http.StatusServiceUnavailable)
-		return
+		return false
 	}
 	p.sessions[id] = s
 	p.mu.Unlock()
 	http.SetCookie(w, &http.Cookie{Name: cookieName, Value: id, Path: "/", HttpOnly: true, SameSite: http.SameSiteStrictMode, Expires: s.expires})
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	r.AddCookie(&http.Cookie{Name: cookieName, Value: id})
+	return true
 }
 
 func (p *panelServer) activeSession(r *http.Request) (string, session, bool) {

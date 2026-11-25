@@ -39,9 +39,10 @@ func (p *panelServer) overview(w http.ResponseWriter, r *http.Request) {
 		<-done
 	}
 	p.render(w, "overview.html", http.StatusOK, struct {
-		CSRF     string
-		Statuses []probeStatus
-	}{s.csrf, results})
+		CSRF          string
+		PasswordLogin bool
+		Statuses      []probeStatus
+	}{s.csrf, p.cfg.password != "", results})
 }
 
 func (p *panelServer) probe(ctx context.Context, origin *url.URL, path string, success int) string {

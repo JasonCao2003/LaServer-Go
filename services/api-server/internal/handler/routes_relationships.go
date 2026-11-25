@@ -57,6 +57,9 @@ func registerRelationships(r *gin.Engine, s *relationships.Service) {
 	// 删除关注
 	r.POST("/service/relationship/api/v1/delete_follow", post(s.DeleteFollow))
 	// 列出管理员好友
+	r.POST("/admin/api/accounts_list", post(s.AdminAccountsList))
+	r.POST("/admin/api/catalog", post(s.AdminCatalog))
+	r.POST("/admin/api/accounts_change", post(s.AdminAccountsChange))
 	r.POST("/admin/api/friends_list", post(s.AdminFriendsList))
 	// 列出管理员好友
 	r.GET("/admin/api/friends_list", adminQuery(s.AdminFriendsList))

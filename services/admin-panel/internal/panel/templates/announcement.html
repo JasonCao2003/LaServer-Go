@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>公告 · LaServer 管理面板</title>{{template "theme"}}</head>
+<body>{{template "navigation"}}<main>
+<nav><a href="/">服务概览</a></nav>
+<h1>公告</h1>
+{{if .Message}}<p role="alert">{{.Message}}</p>{{end}}
+{{if .Ready}}
+<form method="post" action="/announcement">
+<input type="hidden" name="csrf" value="{{.CSRF}}">
+<p><label>标题 <input name="title" required maxlength="256" value="{{.Title}}"></label></p>
+<p><label>正文<br><textarea name="body" rows="8" cols="60">{{.Body}}</textarea></label></p>
+<p><label>发布版本 <input name="version" type="number" min="1" required value="{{.Version}}"></label></p>
+<p><label>按钮（每行填写网址及可选图标，用 | 分隔）<br><textarea name="buttons" rows="6" cols="60">{{.Buttons}}</textarea></label></p>
+<button type="submit">发布公告</button>
+</form>
+{{end}}
+</main></body></html>

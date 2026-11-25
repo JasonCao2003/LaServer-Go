@@ -30,6 +30,7 @@ func NewAPI(s *service.Service, cfg *Config) *API {
 		c.Header("Content-Type", "application/json; charset=utf-8")
 		c.Header("Cache-Control", "no-store")
 	})
+	registerIPBans(r, cfg)
 	registerRoutes(r, s)
 
 	legacy := make(map[string]bool, len(service.LegacyPaths))

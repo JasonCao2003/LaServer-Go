@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{.Label}} · LaServer</title>{{template "theme"}}
+</head>
+<body>
+{{template "navigation"}}<main>
+  <h1>{{.Label}}</h1>
+  <p>目标账号 {{len .Users}} 个</p>
+  {{if .Results}}
+  <ul>{{range .Results}}<li>{{.User}} · {{.Status}}</li>{{end}}</ul>
+  {{else}}
+  <ul>{{range .Users}}<li>{{.}}</li>{{end}}</ul>
+  <form method="post" action="/accounts/batch">
+    <input type="hidden" name="csrf" value="{{.CSRF}}">
+    <input type="hidden" name="mode" value="apply">
+    <input type="hidden" name="action" value="{{.Action}}">
+    <input type="hidden" name="seconds" value="{{.Seconds}}">
+    {{range .Users}}<input type="hidden" name="user" value="{{.}}">{{end}}
+    <button type="submit">确认执行</button>
+  </form>
+  {{end}}
+  <p><a href="/accounts">返回账号管理</a></p>
+</main>
+</body>
+</html>

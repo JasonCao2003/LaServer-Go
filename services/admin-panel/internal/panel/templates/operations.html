@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{.Title}} · 游戏运营</title>{{template "theme"}}</head>
+<body>{{template "navigation"}}<main>
+<nav><a href="/">服务概览</a>{{range .Sections}} · <a href="/operations?section={{.Key}}">{{.Title}}</a>{{end}}</nav>
+<h1>{{.Title}}</h1>
+{{if .Message}}<p role="alert">{{.Message}}</p>{{end}}
+{{if .OK}}
+<form method="post" action="/operations?section={{.Key}}">
+<input type="hidden" name="csrf" value="{{.CSRF}}">
+<input type="hidden" name="revision" value="{{.Revision}}">
+<label>配置（JSON 对象）<br><textarea name="value" rows="22" cols="80" required>{{.Value}}</textarea></label>
+<p><button>保存配置</button> <a href="/operations?section={{.Key}}">重新载入</a></p>
+</form>{{end}}
+</main></body></html>

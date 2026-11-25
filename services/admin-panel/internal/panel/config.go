@@ -8,6 +8,7 @@ import (
 	"net/netip"
 	"net/url"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 )
@@ -17,6 +18,7 @@ type Config struct {
 	APIURL, RoomURL    *url.URL
 	UpstreamTimeout    time.Duration
 	password, apiToken string
+	updateDir          string
 }
 
 func LoadConfig(path string) (Config, error) {
@@ -55,13 +57,10 @@ func LoadConfig(path string) (Config, error) {
 		return Config{}, fmt.Errorf("room_url: %w", err)
 	}
 	password, token := os.Getenv("LASERVER_PANEL_PASSWORD"), os.Getenv("LASERVER_PANEL_API_TOKEN")
-	if strings.TrimSpace(password) == "" {
-		return Config{}, errors.New("LASERVER_PANEL_PASSWORD is required")
-	}
 	if strings.TrimSpace(token) == "" || strings.ContainsAny(token, "\r\n") {
 		return Config{}, errors.New("LASERVER_PANEL_API_TOKEN must be a nonempty single line")
 	}
-	return Config{Listen: addr.String(), APIURL: api, RoomURL: room, UpstreamTimeout: time.Duration(input.TimeoutMS) * time.Millisecond, password: password, apiToken: token}, nil
+	return Config{updateDir: filepath.Join(filepath.Dir(path), "update-inbox"), Listen: addr.String(), APIURL: api, RoomURL: room, UpstreamTimeout: time.Duration(input.TimeoutMS) * time.Millisecond, password: password, apiToken: token}, nil
 }
 
 func listenAddress(value string) (netip.AddrPort, error) {

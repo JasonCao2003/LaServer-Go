@@ -22,7 +22,7 @@ func TestLoadConfig(t *testing.T) {
 		{"path", "", "https://api.example.org/admin", "", false},
 		{"query", "", "https://api.example.org?x=1", "", false},
 		{"fragment", "", "https://api.example.org#admin", "", false},
-		{"no password", "", "http://127.0.0.1", "LASERVER_PANEL_PASSWORD", false},
+		{"no password", "", "http://127.0.0.1", "LASERVER_PANEL_PASSWORD", true},
 		{"no token", "", "http://127.0.0.1", "LASERVER_PANEL_API_TOKEN", false},
 	} {
 		t.Run(tc.name, func(t *testing.T) {

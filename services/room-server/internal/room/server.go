@@ -67,7 +67,7 @@ type Server struct {
 func NewServer(host Host, cfg config.Config, roomURI string, verifier Verifier) *Server {
 	timeout := time.Duration(cfg.JoinTimeoutMS) * time.Millisecond
 	return &Server{
-		host:        host,
+		host:        observedHost{host},
 		verifier:    verifier,
 		roomURI:     roomURI,
 		joinTimeout: timeout,

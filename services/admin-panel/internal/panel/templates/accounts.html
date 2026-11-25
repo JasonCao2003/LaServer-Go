@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>账号管理 · LaServer</title>{{template "theme"}}
+</head>
+<body>
+  {{template "navigation"}}<main>
+    <nav><a href="/">服务概览</a> · <a href="/friends">好友管理</a></nav>
+    <h1>账号管理</h1>
+    <form method="get" action="/accounts">
+      <label>搜索 <input name="keyword" value="{{.Keyword}}" maxlength="256" placeholder="用户 ID、备注、设备、平台"></label>
+      <button>搜索</button>
+      <a href="/accounts?keyword={{.Keyword | urlquery}}&amp;page={{.Page}}">刷新</a>
+    </form>
+    {{if .Message}}<p role="alert">{{.Message}}</p>{{end}}
+    {{if .OK}}
+    <p>总数 {{.Total}} · 封禁 {{.Banned}} · 搜索匹配 {{.Matched}} · 匹配中未授权 {{.Unauthorized}} · 在线统计暂不可用</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>选择</th><th>用户 ID</th><th>设备名</th><th>平台</th><th>版本</th><th>在线状态</th><th>封号状态</th><th>截止时间</th><th>注册时间</th><th>操作</th></tr></thead>
+        <tbody>{{range .Accounts}}
+          <tr><td><input type="checkbox" form="account-batch" name="user" value="{{.ID}}" aria-label="选择 {{.ID}}"></td><td>{{.ID}}</td><td>{{or .Device "—"}}</td><td>{{or .Platform "—"}}</td><td>{{or .Version "—"}}</td><td>未知</td><td>{{if .Banned}}封禁{{else}}正常{{end}}{{if not .Authorized}} · 未授权{{end}}</td><td>{{.Deadline}}</td><td>{{.Registration}}</td><td><a href="/friends?user={{.ID | urlquery}}">查看好友</a>
+            <form method="post" action="/accounts/change">
+              <input type="hidden" name="csrf" value="{{$.CSRF}}">
+              <input type="hidden" name="user" value="{{.ID}}">
+              {{if .Authorized}}<button name="action" value="revoke">取消授权</button>{{else}}<button name="action" value="authorize">授权</button>{{end}}
+              {{if .Banned}}<button name="action" value="unban">解封</button>{{else}}
+              <label>封号时长 <select name="seconds"><option value="3600">1 小时</option><option value="86400">1 天</option><option value="604800">7 天</option><option value="0">永久</option></select></label>
+              <button name="action" value="ban">封号</button>
+              {{end}}
+            </form></td></tr>
+        {{else}}
+          <tr><td colspan="10">没有匹配的账号。</td></tr>
+        {{end}}</tbody>
+      </table>
+    </div>
+    {{if .Accounts}}
+    <form id="account-batch" method="post" action="/accounts/batch">
+      <input type="hidden" name="csrf" value="{{.CSRF}}">
+      <input type="hidden" name="mode" value="preview">
+      <label>批量操作 <select name="action">
+        <option value="authorize">授权</option><option value="revoke">取消授权</option><option value="ban">封号</option>
+      </select></label>
+      <label>批量封号时长 <select name="seconds">
+        <option value="3600">1 小时</option><option value="86400">1 天</option><option value="604800">7 天</option><option value="0">永久</option>
+      </select></label>
+      <button type="submit">预览所选账号</button>
+    </form>
+    {{end}}
+    <p>{{if .Previous}}<a href="/accounts?keyword={{.Keyword | urlquery}}&amp;page={{.Previous}}">上一页</a> · {{end}}第 {{.Page}} 页{{if .Next}} · <a href="/accounts?keyword={{.Keyword | urlquery}}&amp;page={{.Next}}">下一页</a>{{end}}</p>
+    {{end}}
+  </main>
+</body>
+</html>

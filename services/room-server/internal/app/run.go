@@ -6,8 +6,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/JasonCao2003/LaServer-Go/services/room-server/internal/traffic"
 	"net"
 	"net/http"
+	"os"
 	"sync/atomic"
 	"time"
 
@@ -100,6 +102,7 @@ func healthHandler(ready func() bool) http.Handler {
 	alive := func(w http.ResponseWriter, _ *http.Request) {
 		w.WriteHeader(http.StatusNoContent)
 	}
+	mux.HandleFunc("GET /admin/traffic", traffic.Handler(os.Getenv("LASERVER_PANEL_API_TOKEN")))
 	mux.HandleFunc("GET /healthz", alive)
 	mux.HandleFunc("GET /readyz", func(w http.ResponseWriter, r *http.Request) {
 		if !ready() {

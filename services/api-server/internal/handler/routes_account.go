@@ -40,6 +40,8 @@ func registerAccount(r *gin.Engine, s *account.Service) {
 	r.POST("/account/get_vars", post(s.Variables))
 	// 获取公告信息
 	r.POST("/account/get_motd", post(s.Motd))
+	r.POST("/admin/api/motd", post(s.AdminMotd))
+	r.POST("/admin/api/operations", post(s.AdminOperations))
 	// 查询客服回复
 	r.POST("/account/support/has_reply", post(s.Support))
 	// 获取收集品列表

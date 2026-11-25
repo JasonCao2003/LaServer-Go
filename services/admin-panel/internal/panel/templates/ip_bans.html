@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IP 封禁 · LaServer 管理面板</title>{{template "theme"}}
+</head>
+<body>
+{{template "navigation"}}<main>
+  <nav><a href="/">服务概览</a></nav>
+  <h1>IP 封禁</h1>
+  <p><a href="/ip-bans">刷新规则</a></p>
+  {{if .Message}}<p role="alert">{{.Message}}</p>{{end}}
+  {{if .Ready}}
+  <form method="post" action="/ip-bans">
+    <input type="hidden" name="csrf" value="{{.CSRF}}">
+    <label>IP 地址或 CIDR 网段 <input name="entry" required maxlength="80" placeholder="192.0.2.10 或 2001:db8::/32"></label>
+    <button name="action" value="add">添加</button>
+  </form>
+  <h2>现有规则（{{len .Entries}}）</h2>
+  {{if .Entries}}
+  <table>
+    <thead><tr><th scope="col">地址或网段</th><th scope="col">操作</th></tr></thead>
+    <tbody>{{range .Entries}}
+      <tr>
+        <td>{{.}}</td>
+        <td><form method="post" action="/ip-bans">
+          <input type="hidden" name="csrf" value="{{$.CSRF}}">
+          <input type="hidden" name="entry" value="{{.}}">
+          <button name="action" value="remove" aria-label="移除 {{.}}">移除</button>
+        </form></td>
+      </tr>
+    {{end}}</tbody>
+  </table>
+  {{else}}<p>目前没有 IP 封禁规则。</p>{{end}}
+  {{end}}
+</main>
+</body>
+</html>

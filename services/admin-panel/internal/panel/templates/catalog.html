@@ -1,0 +1,14 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{.Title}}</title>{{template "theme"}}</head><body>{{template "navigation"}}<main>
+<nav><a href="/">服务概览</a></nav><h1>{{.Title}}</h1>
+<form method="get"><label>{{if eq .Kind "ugc"}}内容 ID、文字或地图{{else}}用户 ID{{end}} <input name="keyword" value="{{.Keyword}}"></label><button>查询</button></form>
+{{if eq .Kind "ugc"}}<p>显示最多 100 条数据库记录及 100 条留影文件记录。 <a href="?keyword={{.Keyword | urlquery}}&amp;format=json">导出 JSON</a> · <a href="?keyword={{.Keyword | urlquery}}&amp;format=csv">导出 CSV</a></p>{{end}}
+<table><thead><tr><th>ID</th><th>类型</th>{{if eq .Kind "ugc"}}<th>内容</th><th>地图</th>{{else if eq .Kind "magic"}}<th>数量</th><th>冷却截止时间戳</th>{{else}}<th>物品 ID</th><th>槽位</th>{{end}}</tr></thead>
+<tbody>{{range .Rows}}<tr><td>{{.ID}}</td><td>{{.Name}}</td><td>{{.Value}}</td><td>{{.Detail}}</td></tr>{{else}}<tr><td colspan="4">没有匹配的记录。</td></tr>{{end}}</tbody></table>
+{{if or .Keyword (eq .Kind "ugc")}}
+<form method="post" action="/{{.Kind}}?keyword={{.Keyword | urlquery}}"><input type="hidden" name="csrf" value="{{.CSRF}}">
+{{if eq .Kind "ugc"}}<label>记录来源 <select name="kind"><option value="geonote">地图留言（纸船）</option><option value="feed">社交内容</option></select></label>
+<label>记录 ID <input name="id" required></label><label>内容 <textarea name="value" maxlength="4096"></textarea></label>
+{{else if eq .Kind "magic"}}<label>操作 <select name="kind"><option value="magic">设置数量</option><option value="magic_delete">删除指定魔法</option></select></label><label>魔法 ID <input name="id" type="number" required></label><label>目标数量 <input name="value" type="number" min="0" value="0" required></label>
+{{else}}<label>装扮槽位 <select name="kind"><option value="wing">斗篷</option><option value="hair">发型</option><option value="hat">帽子</option><option value="prop">背饰</option><option value="neck">颈饰</option><option value="horn">头饰</option><option value="feet">鞋子</option><option value="face">面部</option><option value="body">服装</option><option value="mask">面具</option><option value="arms">手臂</option></select></label><label>物品 ID <input name="value" type="number" min="0" required></label>{{end}}
+<button>保存</button></form>{{end}}
+{{if eq .Kind "other"}}<nav><a href="/accounts">账号管理</a> · <a href="/friends">好友关系</a> · <a href="/traffic/udp">房间通信</a></nav>{{end}}</main></body></html>

@@ -125,37 +125,9 @@ func (p *panelServer) loadFriendResult(ctx context.Context, data *friendsPage, o
 }
 
 func (p *panelServer) callFriends(ctx context.Context, op string, payload map[string]string) (friendResult, error) {
-	if p.cfg.APIURL == nil || p.cfg.apiToken == "" {
-		return friendResult{}, fmt.Errorf("missing API configuration")
-	}
-	target := *p.cfg.APIURL
-	target.Path = "/admin/api/friends_" + op
-	body, err := json.Marshal(payload)
+	raw, err := p.callAdmin(ctx, "/admin/api/friends_"+op, payload)
 	if err != nil {
 		return friendResult{}, err
-	}
-	// A non-rewindable body prevents transport retries after a connection failure.
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, target.String(), io.NopCloser(bytes.NewReader(body)))
-	if err != nil {
-		return friendResult{}, err
-	}
-	req.ContentLength = int64(len(body))
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("X-Admin-Token", p.cfg.apiToken)
-	resp, err := p.client.Do(req)
-	if err != nil {
-		return friendResult{}, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return friendResult{}, fmt.Errorf("API status %d", resp.StatusCode)
-	}
-	raw, err := io.ReadAll(io.LimitReader(resp.Body, maxFriendResponse+1))
-	if err != nil {
-		return friendResult{}, err
-	}
-	if len(raw) > maxFriendResponse {
-		return friendResult{}, fmt.Errorf("API response too large")
 	}
 	var result friendResult
 	if err := json.Unmarshal(raw, &result); err != nil {
@@ -165,4 +137,40 @@ func (p *panelServer) callFriends(ctx context.Context, op string, payload map[st
 		return friendResult{}, fmt.Errorf("API response missing result")
 	}
 	return result, nil
+}
+
+func (p *panelServer) callAdmin(ctx context.Context, path string, payload map[string]string) ([]byte, error) {
+	if p.cfg.APIURL == nil || p.cfg.apiToken == "" {
+		return nil, fmt.Errorf("missing API configuration")
+	}
+	target := *p.cfg.APIURL
+	target.Path = path
+	body, err := json.Marshal(payload)
+	if err != nil {
+		return nil, err
+	}
+	// A non-rewindable body prevents transport retries after a connection failure.
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, target.String(), io.NopCloser(bytes.NewReader(body)))
+	if err != nil {
+		return nil, err
+	}
+	req.ContentLength = int64(len(body))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-Admin-Token", p.cfg.apiToken)
+	resp, err := p.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("API status %d", resp.StatusCode)
+	}
+	raw, err := io.ReadAll(io.LimitReader(resp.Body, maxFriendResponse+1))
+	if err != nil {
+		return nil, err
+	}
+	if len(raw) > maxFriendResponse {
+		return nil, fmt.Errorf("API response too large")
+	}
+	return raw, nil
 }

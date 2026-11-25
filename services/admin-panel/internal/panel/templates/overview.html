@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>服务概览 · LaServer 管理面板</title>
+  <title>服务概览 · LaServer 管理面板</title>{{template "theme"}}
 </head>
 <body>
-  <main>
-    <h1>服务概览</h1>
-    <dl>{{range .Statuses}}<dt>{{.Name}}</dt><dd>{{.State}}</dd>{{end}}</dl>
-    <p><a href="/">刷新状态</a></p>
-    <p><a href="/friends">好友管理</a></p>
-    <form method="post" action="/logout">
+  {{template "navigation"}}<main>
+    <header><h1>服务概览</h1><a href="/">刷新状态</a></header>
+    <section class="probes">{{range .Statuses}}<article><h2>{{.Name}}</h2><strong class="{{if or (eq .State "在线") (eq .State "已就绪")}}ready{{end}}">{{.State}}</strong></article>{{end}}</section>
+    <h2>运营管理</h2><div class="launch"><a href="/accounts">账号管理</a><a href="/operations">游戏运营</a><a href="/ugc">纸船／留影／空间</a></div>
+    <h2>通信记录</h2><div class="launch"><a href="/traffic/http">HTTP 请求响应</a><a href="/traffic/udp">UDP 收发记录</a></div>
+    {{if .PasswordLogin}}    <form method="post" action="/logout">
       <input type="hidden" name="csrf" value="{{.CSRF}}">
       <button type="submit">退出登录</button>
-    </form>
+    </form>{{end}}
   </main>
 </body>
 </html>

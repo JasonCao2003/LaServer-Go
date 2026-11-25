@@ -17,10 +17,14 @@ func (a *Base) LegacyObject(name string) (object, error) {
 	if name != filepath.Base(name) {
 		return nil, errors.New("invalid configuration name")
 	}
-	if a.Cfg.GameConfigDir == "" {
-		return nil, nil
+	var raw []byte
+	var err error = os.ErrNotExist
+	if name == "game_control.json" && a.Cfg.InstanceDir != "" {
+		raw, err = os.ReadFile(filepath.Join(a.Cfg.InstanceDir, name))
 	}
-	raw, err := os.ReadFile(filepath.Join(a.Cfg.GameConfigDir, name))
+	if errors.Is(err, os.ErrNotExist) && a.Cfg.GameConfigDir != "" {
+		raw, err = os.ReadFile(filepath.Join(a.Cfg.GameConfigDir, name))
+	}
 	if errors.Is(err, os.ErrNotExist) {
 		return nil, nil
 	}

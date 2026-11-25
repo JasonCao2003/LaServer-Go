@@ -11,6 +11,7 @@ import (
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/handler"
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/repository"
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/service"
+	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/traffic"
 
 	"github.com/JasonCao2003/LaServer-Go/services/api-server/internal/middleware"
 	"net/http"
@@ -61,7 +62,10 @@ func Run(args []string) error {
 	api := handler.NewAPI(service.New(repository.New(db), &cfg), &cfg)
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
-	server := &http.Server{Addr: cfg.Listen, Handler: middleware.Access(api), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 30 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 1 << 20}
+	routes := http.NewServeMux()
+	routes.HandleFunc("GET /admin/traffic", traffic.Handler(cfg.AdminToken))
+	routes.Handle("/", middleware.Access(api))
+	server := &http.Server{Addr: cfg.Listen, Handler: routes, ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 30 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 1 << 20}
 	done := make(chan error, 1)
 	go func() {
 		if cfg.TLSCert != "" {

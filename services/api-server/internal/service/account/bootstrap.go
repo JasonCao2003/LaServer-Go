@@ -67,7 +67,10 @@ func (a *Service) Variables(_ Request, _ object) (object, error) {
 func (a *Service) Motd(_ Request, _ object) (object, error) {
 	stamp := now()
 	defaults := object{"motd": "欢迎来到 LaServer", "motd_title": "LaServer", "motd_timestamp": stamp, "motd_version": 0, "motd_buttons": []any{}, "motd_season_start": stamp, "motd_season_end": stamp + 30*86400}
-	data, err := a.LegacyObject("motd_config.json")
+	data, err := a.localMotd()
+	if err == nil && data == nil {
+		data, err = a.LegacyObject("motd_config.json")
+	}
 	if err != nil {
 		return nil, err
 	}

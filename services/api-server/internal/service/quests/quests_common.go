@@ -5,7 +5,7 @@ package quests
 import (
 	"context"
 	"database/sql"
-	"encoding/json"
+
 	"os"
 	"path/filepath"
 	"time"
@@ -40,17 +40,7 @@ func (a *Service) EmptyEventCurrency(_ Request, _ Object) (Object, error) {
 
 // 读取游戏控制配置
 func (a *Service) gameControl() Object {
-	if a.Cfg.GameConfigDir == "" {
-		return Object{}
-	}
-	b, err := os.ReadFile(filepath.Join(a.Cfg.GameConfigDir, "game_control.json"))
-	if err != nil {
-		return Object{}
-	}
-	var out Object
-	if json.Unmarshal(b, &out) != nil || out == nil {
-		return Object{}
-	}
+	out, _ := a.LegacyObject("game_control.json")
 	return out
 }
 

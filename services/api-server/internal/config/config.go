@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"net/netip"
 	"os"
 	"path/filepath"
 )
@@ -72,6 +73,7 @@ func Load(path string) (Config, error) {
 }
 
 type Config struct {
+	IPBanTrustedProxies    []string         `json:"ip_ban_trusted_proxies"`
 	Listen                 string           `json:"listen"`
 	Database               string           `json:"database"`
 	LoginMode              string           `json:"login_mode"`
@@ -108,6 +110,12 @@ func currencyField(k string) bool {
 
 // 校验运行时配置
 func ValidateRuntime(cfg Config) error {
+	for _, raw := range cfg.IPBanTrustedProxies {
+		prefix, err := netip.ParsePrefix(raw)
+		if err != nil || prefix.Bits() == 0 || prefix.Addr().Is4In6() {
+			return fmt.Errorf("invalid IP ban trusted proxy prefix %q", raw)
+		}
+	}
 	switch cfg.LoginMode {
 	case "", "credential":
 		if cfg.RecreateMissingAccount {

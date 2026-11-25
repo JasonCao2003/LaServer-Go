@@ -3,15 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>好友管理 · LaServer 管理面板</title>
-  <style>
-    main { overflow-wrap: anywhere; }
-    input { box-sizing: border-box; max-width: 100%; }
-    .friend-table { overflow-x: auto; }
-  </style>
+  <title>好友管理 · LaServer 管理面板</title>{{template "theme"}}
+
 </head>
 <body>
-<main>
+{{template "navigation"}}<main>
   <p><a href="/">返回服务概览</a></p>
   <h1>好友管理</h1>
   <form method="get" action="/friends">
